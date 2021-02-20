@@ -1,34 +1,58 @@
 ﻿using System.Collections.Generic;
-using NaughtyAttributes;
 using UnityEngine;
+using NaughtyAttributes;
 
 namespace FFStudio
 {
-    [CreateAssetMenu(fileName = "GameEvent", menuName = "FF/Event/GameEvent")]
-    public class GameEvent : ScriptableObject
-    {
+	[ CreateAssetMenu( fileName = "GameEvent", menuName = "FF/Event/GameEvent" ) ]
+	public class GameEvent : ScriptableObject
+	{
+#region Fields
+		public bool canRaiseOtherEvents;
+		[ ShowIf( "canRaiseOtherEvents" ) ] public List< GameEvent > eventsThatWillAlsoBeRaised;
+		
+        private readonly List< EventListener > eventListeners = new List< EventListener >();
+#endregion
 
-        private readonly List<EventListener> eventListeners =
-            new List<EventListener>();
+#region API
+		[ Button ]
+		public void Raise()
+		{
+			for( int i = eventListeners.Count - 1; i >= 0; i-- )
+				eventListeners[ i ].OnEventRaised();
+		}
 
-        [Button]
-        public void Raise()
-        {
+		[ ShowIf( "canRaiseOtherEvents" ), Button( "Raise Both Self & Others" ) ]
+		public void Raise_BothSelfAndOthers()
+		{
+			Raise();
 
-            for (int i = eventListeners.Count - 1; i >= 0; i--)
-                eventListeners[i].OnEventRaised();
-        }
+			if( canRaiseOtherEvents && eventsThatWillAlsoBeRaised != null )
+				for( var i = 0; i < eventsThatWillAlsoBeRaised.Count; i++ )
+					eventsThatWillAlsoBeRaised[ i ].Raise();
+		}
 
-        public void RegisterListener(EventListener listener)
-        {
-            if (!eventListeners.Contains(listener))
-                eventListeners.Add(listener);
-        }
+		[ ShowIf( "canRaiseOtherEvents" ), Button( "Raise Both Self & Others [Recursive]" ) ]
+		public void Raise_BothSelfAndOthers_Recursive()
+		{
+			Raise();
 
-        public void UnregisterListener(EventListener listener)
-        {
-            if (eventListeners.Contains(listener))
-                eventListeners.Remove(listener);
-        }
-    }
+			if( canRaiseOtherEvents && eventsThatWillAlsoBeRaised != null )
+				for( var i = 0; i < eventsThatWillAlsoBeRaised.Count; i++ )
+					eventsThatWillAlsoBeRaised[ i ].Raise_BothSelfAndOthers_Recursive();
+		}
+
+		public void RegisterListener( EventListener listener )
+		{
+			if( !eventListeners.Contains( listener ) )
+				eventListeners.Add( listener );
+		}
+
+		public void UnregisterListener( EventListener listener )
+		{
+			if( eventListeners.Contains( listener ) )
+				eventListeners.Remove( listener );
+		}
+#endregion
+	}
 }
