@@ -28,14 +28,11 @@ namespace FFStudio
         {
             Outside, Inside, Free
         }
-        [ ReadOnly ]
-        public Status status;
+        [ ReadOnly ] public Status status;
 
 		private bool InPlayMode => Application.isPlaying;
 		private bool Inside  => status == Status.Inside;
 		private bool Outside => status == Status.Outside;
-
-
 #endregion
 
 #region Unity API
@@ -73,13 +70,12 @@ namespace FFStudio
             if( zoomCalculator == null )
                 zoomCalculator = gameObject.AddComponent< CameraZoomCalculator >();
 		}
-
 #if UNITY_EDITOR
         private void OnDrawGizmosSelected()
         {
             Camera mainCamera = Camera.main;
-            VisualizeCameraGizmo( outsideTransform, Color.red,   mainCamera );
-            VisualizeCameraGizmo( inCabinTransform_MaximumResolution, Color.green, mainCamera );
+            FFGizmos.DrawCamera( outsideTransform, Color.red,   mainCamera );
+            FFGizmos.DrawCamera( inCabinTransform_MaximumResolution, Color.green, mainCamera );
         }
 #endif
 #endregion
@@ -110,21 +106,7 @@ namespace FFStudio
             transform.DORotate( outsideTransform.rotation.eulerAngles, duration )
                      .OnComplete( () => status = Status.Outside );
         }
-
 #if UNITY_EDITOR
-        private void VisualizeCameraGizmo( Transform transform, Color color, Camera mainCamera  )
-        {
-            if( transform == null || mainCamera == null )
-                return;
-
-            Gizmos.color = color;
-            Gizmos.matrix = Matrix4x4.TRS( transform.position, transform.rotation, new Vector3( mainCamera.aspect, 1.0f, 1.0f ) );
-            Gizmos.DrawFrustum( Vector3.zero, mainCamera.fieldOfView, 1.0f, mainCamera.nearClipPlane, 1.0f );
-            Gizmos.DrawWireCube( Vector3.zero, new Vector3( mainCamera.nearClipPlane * 2, 
-                                                            mainCamera.nearClipPlane * 2,
-                                                            mainCamera.nearClipPlane * 2 ) );
-        }
-
         [ Button() ]
         private void ResetCameraTransform()
         {
@@ -157,7 +139,6 @@ namespace FFStudio
             transform.rotation = outsideTransform.rotation;
             status = Status.Outside;
         }
-
 #if UNITY_EDITOR
         [ Button( "A S S I G N   Current View To In-Cabin Transform (Min Resolution)" ) ]
         private void AssignThisViewToInCabinTransform_MinimumResolution()
