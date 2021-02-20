@@ -148,8 +148,10 @@ namespace FFStudio
 				    		                 "Yes", "Cancel" ) == false )
 				return;
 
-			inCabinTransform_MinimumResolution.position = transform.position;
-            inCabinTransform_MinimumResolution.rotation = transform.rotation;
+			Camera sceneViewCam = SceneView.lastActiveSceneView.camera;
+
+			inCabinTransform_MinimumResolution.position = sceneViewCam.transform.position;
+            inCabinTransform_MinimumResolution.rotation = sceneViewCam.transform.rotation;
         }
 
         [ Button( "A S S I G N   Current View To In-Cabin Transform (Max Resolution)" ) ]
@@ -159,6 +161,8 @@ namespace FFStudio
                                              "Assigning current view into in-cabin transform (MAXIMUM resolution).\nAre you sure?",
 											 "Yes", "Cancel!" ) == false )
 				return;
+
+			Camera sceneViewCam = SceneView.lastActiveSceneView.camera;
 
             inCabinTransform_MaximumResolution.position = transform.position;
             inCabinTransform_MaximumResolution.rotation = transform.rotation;
@@ -172,7 +176,9 @@ namespace FFStudio
 											 "Yes", "Cancel!" ) == false )
 				return;
 
-            outsideTransform.position = transform.position;
+			Camera sceneViewCam = SceneView.lastActiveSceneView.camera;
+
+			outsideTransform.position = transform.position;
             outsideTransform.rotation = transform.rotation;
         }
 #endif
