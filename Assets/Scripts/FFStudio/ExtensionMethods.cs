@@ -10,11 +10,11 @@ namespace FFStudio
 		{
 			switch( ( int )angle )
 			{
-				case 0   : return Vector2.up;
-				case 90  : return Vector2.right;
-				case 180 : return Vector2.down;
-				case 270 : return Vector2.left;
-                default  : return Vector2.zero;
+				case 0: return Vector2.up;
+				case 90: return Vector2.right;
+				case 180: return Vector2.down;
+				case 270: return Vector2.left;
+				default: return Vector2.zero;
 			}
 		}
 
@@ -55,7 +55,7 @@ namespace FFStudio
 			return sameColor;
 		}
 
-		public static T ReturnLastItem< T >( this List< T > list )
+		public static T ReturnLastItem<T>( this List<T> list )
 		{
 			var lastIndex = list.Count - 1;
 
@@ -75,19 +75,92 @@ namespace FFStudio
 			return first + Random.Range( 0, 1f ) * ( second - first );
 		}
 
-		public static void Push< T >( this RunTimeStack< T > set, T item )
+		public static void Push<T>( this RunTimeStack<T> set, T item )
 		{
 			set.stack.Push( item );
 		}
 
-		public static T Pop< T >( this RunTimeStack< T > set )
+		public static T Pop<T>( this RunTimeStack<T> set )
 		{
 			return set.stack.Pop();
 		}
-        
+
+		public static void LookAtOverTime( this Transform baseTransform, Vector3 targetPosition, float speed )
+		{
+			var _directionVector = targetPosition - baseTransform.position;
+			var _step = speed * Time.deltaTime;
+
+			Vector3 _newDirection = Vector3.RotateTowards( baseTransform.forward, _directionVector, _step, 0.0f );
+
+			baseTransform.rotation = Quaternion.LookRotation( _newDirection );
+		}
+
+		public static void LookAtOverTimeAxis( this Transform baseTransform, Vector3 targetPosition, Vector3 axis, float speed )
+		{
+
+			var _directionVector = targetPosition - baseTransform.position;
+			var _step = speed * Time.deltaTime;
+
+			Vector3 _newDirection = Vector3.RotateTowards( baseTransform.forward, _directionVector, _step, 0.0f );
+
+			var eulerAngles = baseTransform.eulerAngles;
+
+			var newRotationEuler = Quaternion.LookRotation( _newDirection ).eulerAngles;
+
+			newRotationEuler.x = eulerAngles.x + ( newRotationEuler.x - eulerAngles.x ) * axis.x;
+			newRotationEuler.y = eulerAngles.y + ( newRotationEuler.y - eulerAngles.y ) * axis.y;
+			newRotationEuler.z = eulerAngles.z + ( newRotationEuler.z - eulerAngles.z ) * axis.z;
+
+			// baseTransform.rotation = Quaternion.LookRotation( _newDirection );
+			baseTransform.rotation = Quaternion.Euler( newRotationEuler );
+		}
+
+		public static void LookAtDirectionOverTime( this Transform baseTransform, Vector3 direction, float speed )
+		{
+			Vector3 _newDirection = Vector3.RotateTowards( baseTransform.forward, direction, speed * Time.deltaTime, 0.0f );
+
+			baseTransform.rotation = Quaternion.LookRotation( _newDirection );
+		}
+
 		public static void EmptyMethod()
 		{
 
+		}
+
+		public static Vector2 Clamp( this Vector2 value, Vector2 min, Vector2 max )
+		{
+			value.x = Mathf.Clamp( value.x, min.x, max.x );
+			value.y = Mathf.Clamp( value.y, min.y, max.y );
+			return value;
+		}
+
+		public static Vector3 Clamp( this Vector3 value, Vector3 min, Vector3 max )
+		{
+			value.x = Mathf.Clamp( value.x, min.x, max.x );
+			value.y = Mathf.Clamp( value.y, min.y, max.y );
+			value.z = Mathf.Clamp( value.z, min.z, max.z );
+			return value;
+		}
+
+		public static Vector3 ClampXY( this Vector3 value, Vector2 min, Vector2 max )
+		{
+			value.x = Mathf.Clamp( value.x, min.x, max.x );
+			value.y = Mathf.Clamp( value.y, min.y, max.y );
+			return value;
+		}
+
+		public static Vector3 ClampXZ( this Vector3 value, Vector2 min, Vector2 max )
+		{
+			value.x = Mathf.Clamp( value.x, min.x, max.x );
+			value.z = Mathf.Clamp( value.z, min.y, max.y );
+			return value;
+		}
+
+		public static Vector3 ClampYZ( this Vector3 value, Vector2 min, Vector2 max )
+		{
+			value.y = Mathf.Clamp( value.y, min.x, max.x );
+			value.z = Mathf.Clamp( value.z, min.y, max.y );
+			return value;
 		}
 	}
 }

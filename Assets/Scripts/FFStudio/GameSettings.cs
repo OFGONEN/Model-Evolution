@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace FFStudio
 {
-    public class GameSettings : ScriptableObject
+	public class GameSettings : ScriptableObject
     {
         public int maxLevelCount;
         public float uiEntityTweenDuration;
