@@ -4,9 +4,8 @@ using FFStudio;
 namespace FFStudio
 {
 	[CreateAssetMenu( fileName = "SharedBoolCleanUp", menuName = "FF/Data/Shared/BoolCleanUp" )]
-	public class SharedBoolCleanUp : ScriptableObject
+	public class SharedBoolCleanUp : SharedBool
 	{
-		public bool sharedValue;
 		public bool defaultValue;
 		public EventListenerDelegateResponse cleanUpListener;
 

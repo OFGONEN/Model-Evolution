@@ -2,26 +2,18 @@
 
 namespace FFStudio
 {
-	[CreateAssetMenu( fileName = "SharedVector2Property", menuName = "FF/Data/Shared/Vector2Property" )]
-	public class SharedVector2Property : ScriptableObject
+	[CreateAssetMenu( fileName = "SharedVector2Property", menuName = "FF/Data/Shared/Property/Vector2Property" )]
+	public class SharedVector2Property : SharedVector2
 	{
-		public Vector2GameEvent changeEvent;
-		private Vector2 sharedValue;
-		public Vector2 Value
-		{
-			get
-			{
-				return sharedValue;
-			}
-			set
-			{
-				if( sharedValue != value )
-				{
-					sharedValue = value;
+		public event ChangeEvent changeEvent;
 
-					changeEvent.eventValue = value;
-					changeEvent.Raise();
-				}
+		public void SetValue(Vector2 value)
+		{
+			if( sharedValue != value )
+			{
+				sharedValue = value;
+
+				changeEvent?.Invoke();
 			}
 		}
 	}

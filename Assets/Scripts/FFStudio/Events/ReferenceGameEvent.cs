@@ -3,7 +3,7 @@
 namespace FFStudio
 {
     [CreateAssetMenu(fileName = "ReferanceGameEvent", menuName = "FF/Event/ReferanceGameEvent")]
-    public class ReferanceGameEvent : GameEvent
+    public class ReferenceGameEvent : GameEvent
     {
         public object eventValue;
     }

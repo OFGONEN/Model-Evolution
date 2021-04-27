@@ -3,9 +3,8 @@
 namespace FFStudio
 {
 	[CreateAssetMenu( fileName = "SharedVector2CleanUp", menuName = "FF/Data/Shared/Vector2CleanUp" )]
-	public class SharedVector2CleanUp : ScriptableObject
+	public class SharedVector2CleanUp : SharedVector2
 	{
-		public Vector2 sharedValue;
 		public Vector2 defaultValue;
 		public EventListenerDelegateResponse cleanUpListener;
 

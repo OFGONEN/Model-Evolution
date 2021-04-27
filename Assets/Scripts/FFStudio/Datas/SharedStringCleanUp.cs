@@ -3,10 +3,9 @@
 namespace FFStudio
 {
 	[CreateAssetMenu( fileName = "SharedStringCleanUp", menuName = "FF/Data/Shared/StringCleanUp" )]
-	public class SharedStringCleanUp : ScriptableObject
+	public class SharedStringCleanUp : SharedString
 	{
-		public string sharedValue;
-		public string defaultValue;
+		public string defaultValue = string.Empty;
 		public EventListenerDelegateResponse cleanUpListener;
 
 		private void OnEnable()

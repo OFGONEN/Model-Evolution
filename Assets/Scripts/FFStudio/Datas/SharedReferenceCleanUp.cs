@@ -3,9 +3,9 @@
 namespace FFStudio
 {
 	[CreateAssetMenu( fileName = "SharedReferanceCleanUp", menuName = "FF/Data/Shared/ReferanceCleanUp" )]
-	public class SharedReferanceCleanUp : ScriptableObject
+	public class SharedReferenceCleanUp : SharedReference
 	{
-		public object sharedValue;
+		public object defaultValue = null;
 		public EventListenerDelegateResponse cleanUpListener;
 
 		private void OnEnable()
@@ -19,7 +19,7 @@ namespace FFStudio
 		}
 		void CleanUp()
 		{
-			sharedValue = null;
+			sharedValue = defaultValue;
 		}
 	}
 }

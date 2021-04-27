@@ -2,26 +2,18 @@
 
 namespace FFStudio
 {
-	[CreateAssetMenu( fileName = "SharedStringProperty", menuName = "FF/Data/Shared/StringProperty" )]
-	public class SharedStringProperty : ScriptableObject
+	[CreateAssetMenu( fileName = "SharedStringProperty", menuName = "FF/Data/Shared/Property/StringProperty" )]
+	public class SharedStringProperty : SharedString
 	{
-		public StringGameEvent changeEvent;
-		private string sharedValue;
-		public string Value
-		{
-			get
-			{
-				return sharedValue;
-			}
-			set
-			{
-				if( !string.Equals( sharedValue, value, System.StringComparison.Ordinal ) )
-				{
-					sharedValue = value;
+		public event ChangeEvent changeEvent;
 
-					changeEvent.eventValue = value;
-					changeEvent.Raise();
-				}
+		public void SetValue(string value)
+		{
+			if( !string.Equals( sharedValue, value, System.StringComparison.Ordinal ) )
+			{
+				sharedValue = value;
+
+				changeEvent?.Invoke();
 			}
 		}
 	}

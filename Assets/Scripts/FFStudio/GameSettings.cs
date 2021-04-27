@@ -7,9 +7,9 @@ namespace FFStudio
 	public class GameSettings : ScriptableObject
     {
         public int maxLevelCount;
-        public float uiEntityTweenDuration;
-        public float uiFloatingEntityTweenDuration;
-        [Tooltip("Percentage of the screen to register a swipe")]
-        public int swipeThreshold;
+        [Tooltip("Duration of the movement for ui element")] public float uiEntityMoveTweenDuration;
+		[Tooltip("Duration of the scaling for ui element")] public float uiEntityScaleTweenDuration;
+		[Tooltip("Duration of the movement for floating ui element")] public float uiFloatingEntityTweenDuration;
+        [Tooltip("Percentage of the screen to register a swipe")] public int swipeThreshold;
     }
 }

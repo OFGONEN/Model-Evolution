@@ -2,26 +2,18 @@
 
 namespace FFStudio
 {
-	[CreateAssetMenu( fileName = "SharedIntProperty", menuName = "FF/Data/Shared/IntProperty" )]
-	public class SharedIntProperty : ScriptableObject
+	[CreateAssetMenu( fileName = "SharedIntProperty", menuName = "FF/Data/Shared/Property/IntProperty" )]
+	public class SharedIntProperty : SharedInt
 	{
-		public IntGameEvent changeEvent;
-		private int sharedValue;
-		public int Value
-		{
-			get
-			{
-				return sharedValue;
-			}
-			set
-			{
-				if( sharedValue != value )
-				{
-					sharedValue = value;
+		public event ChangeEvent changeEvent;
 
-					changeEvent.eventValue = value;
-					changeEvent.Raise();
-				}
+		public void SetValue(int value)
+		{
+			if( sharedValue != value )
+			{
+				sharedValue = value;
+
+				changeEvent?.Invoke();
 			}
 		}
 	}

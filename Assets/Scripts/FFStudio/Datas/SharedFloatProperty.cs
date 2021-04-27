@@ -2,26 +2,18 @@
 
 namespace FFStudio
 {
-	[CreateAssetMenu( fileName = "SharedFloatProperty", menuName = "FF/Data/Shared/FloatProperty" )]
-	public class SharedFloatProperty : ScriptableObject
+	[CreateAssetMenu( fileName = "SharedFloatProperty", menuName = "FF/Data/Shared/Property/FloatProperty" )]
+	public class SharedFloatProperty : SharedFloat
 	{
-		public FloatGameEvent changeEvent;
-		private float sharedValue;
-		public float Value
-		{
-			get
-			{
-				return sharedValue;
-			}
-			set
-			{
-				if( !Mathf.Approximately( sharedValue, value ) )
-				{
-					sharedValue = value;
+		public event ChangeEvent changeEvent;
 
-					changeEvent.eventValue = value;
-					changeEvent.Raise();
-				}
+		public void SetValue(float value)
+		{
+			if( !Mathf.Approximately( sharedValue, value ) )
+			{
+				sharedValue = value;
+
+				changeEvent?.Invoke();
 			}
 		}
 	}

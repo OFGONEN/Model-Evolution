@@ -3,9 +3,8 @@
 namespace FFStudio
 {
 	[CreateAssetMenu( fileName = "SharedFloatCleanUp", menuName = "FF/Data/Shared/FloatCleanUp" )]
-	public class SharedFloatCleanUp : ScriptableObject
+	public class SharedFloatCleanUp : SharedFloat
 	{
-		public float sharedValue;
 		public float defaultValue;
 		public EventListenerDelegateResponse cleanUpListener;
 

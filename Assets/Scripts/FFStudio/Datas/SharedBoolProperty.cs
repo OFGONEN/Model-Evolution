@@ -2,27 +2,18 @@
 
 namespace FFStudio
 {
-	[CreateAssetMenu( fileName = "SharedBoolProperty", menuName = "FF/Data/Shared/BoolProperty" )]
-	public class SharedBoolProperty : ScriptableObject
+	[CreateAssetMenu( fileName = "SharedBoolProperty", menuName = "FF/Data/Shared/Property/BoolProperty" )]
+	public class SharedBoolProperty : SharedBool
 	{
-		public BoolGameEvent changeEvent;
-		private bool sharedValue;
-		public bool Value
+		public event ChangeEvent changeEvet;
+
+		public void SetValue(bool value)
 		{
-			get
-			{
-				return sharedValue;
-			}
-			set
-			{
 				if( sharedValue != value )
 				{
 					sharedValue = value;
-
-					changeEvent.eventValue = value;
-					changeEvent.Raise();
+					changeEvet?.Invoke();
 				}
-			}
 		}
 	}
 }
