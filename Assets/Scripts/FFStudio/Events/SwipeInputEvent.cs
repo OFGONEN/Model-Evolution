@@ -2,7 +2,7 @@
 
 namespace FFStudio
 {
-    [CreateAssetMenu(fileName = "SwipeInputEvent", menuName = "FF/Event/SwipeInputEvent")]
+    [CreateAssetMenu(fileName = "SwipeInputEvent", menuName = "FF/Event/Input/SwipeInputEvent")]
     public class SwipeInputEvent : Vector2GameEvent
     {
         public float angleThreshold;

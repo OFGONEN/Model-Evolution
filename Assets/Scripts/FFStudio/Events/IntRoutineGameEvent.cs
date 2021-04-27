@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace FFStudio
 {
-    [CreateAssetMenu(fileName = "IntRoutineEvent", menuName = "FF/Event/IntRoutineEvent")]
+    [CreateAssetMenu(fileName = "IntRoutineEvent", menuName = "FF/Event/Routine/IntRoutineEvent")]
     public class IntRoutineGameEvent : RoutineGameEvent
     {
         [HideInInspector]

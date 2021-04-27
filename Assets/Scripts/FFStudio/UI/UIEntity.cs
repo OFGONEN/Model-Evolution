@@ -6,7 +6,6 @@ namespace FFStudio
 	public class UIEntity : MonoBehaviour
 	{
 		#region Fields
-		public GameSettings gameSettings;
 		public RectTransform uiTransform;
 		public RectTransform destinationTransform;
 		[HideInInspector] public Vector3 startPosition;
@@ -26,22 +25,22 @@ namespace FFStudio
 
 		public virtual Tween GoTargetPosition()
 		{
-			return uiTransform.DOMove( destinationTransform.position, gameSettings.uiEntityMoveTweenDuration );
+			return uiTransform.DOMove( destinationTransform.position, GameSettings.instance.uiEntityMoveTweenDuration );
 		}
 
 		public virtual Tween GoStartPosition()
 		{
-			return uiTransform.DOMove( startPosition, gameSettings.uiEntityMoveTweenDuration );
+			return uiTransform.DOMove( startPosition, GameSettings.instance.uiEntityMoveTweenDuration );
 		}
 
 		public virtual Tween GoPopOut()
 		{
-			return uiTransform.DOScale( startScale, gameSettings.uiEntityScaleTweenDuration );
+			return uiTransform.DOScale( startScale, GameSettings.instance.uiEntityScaleTweenDuration );
 		}
 
 		public virtual Tween GoPopIn()
 		{
-			return uiTransform.DOScale( Vector3.zero, gameSettings.uiEntityScaleTweenDuration );
+			return uiTransform.DOScale( Vector3.zero, GameSettings.instance.uiEntityScaleTweenDuration );
 		}
 		#endregion
 	}

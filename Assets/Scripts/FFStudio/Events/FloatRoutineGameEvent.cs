@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace FFStudio
 {
-    [CreateAssetMenu(fileName = "FloatRoutineEvent", menuName = "FF/Event/FloatRoutineEvent")]
+    [CreateAssetMenu(fileName = "FloatRoutineEvent", menuName = "FF/Event/Routine/FloatRoutineEvent")]
     public class FloatRoutineGameEvent : RoutineGameEvent
     {
         [HideInInspector]

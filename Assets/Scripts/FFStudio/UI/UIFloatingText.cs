@@ -18,7 +18,7 @@ public class UIFloatingText : UIText
 	}
 	public override Tween GoTargetPosition()
 	{
-		textRenderer.DOFade( 0, gameSettings.uiFloatingEntityTweenDuration ).SetEase( Ease.InExpo );
-		return uiTransform.DOMove( destinationTransform.position, gameSettings.uiFloatingEntityTweenDuration );
+		textRenderer.DOFade( 0, GameSettings.instance.uiFloatingEntityTweenDuration ).SetEase( Ease.InExpo );
+		return uiTransform.DOMove( destinationTransform.position, GameSettings.instance.uiFloatingEntityTweenDuration );
 	}
 }

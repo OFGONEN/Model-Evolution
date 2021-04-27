@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: GameSettings
   m_EditorClassIdentifier: 
   maxLevelCount: 0
-  uiEntityTweenDuration: 0
+  uiEntityMoveTweenDuration: 0.5
+  uiEntityScaleTweenDuration: 0.5
   uiFloatingEntityTweenDuration: 0
   swipeThreshold: 0

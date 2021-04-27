@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: CurrentLevel
   m_EditorClassIdentifier: 
   currentLevel: 0
-  gameSettings: {fileID: 0}
+  currentConsecutiveLevel: 0
+  gameSettings: {fileID: 11400000, guid: cb01c53e69daa264aabc92b71c149469, type: 2}
   levelData: {fileID: 0}

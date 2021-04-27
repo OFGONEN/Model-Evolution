@@ -9,7 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ea3c0b9fd00fd441b6cebc5941ee13b, type: 3}
-  m_Name: LevelData_1
+  m_Script: {fileID: 11500000, guid: 9c27bbdad55e412449b473783f44f27c, type: 3}
+  m_Name: SwipeInputEvent
   m_EditorClassIdentifier: 
-  sceneIndex: 1
+  canRaiseOtherEvents: 0
+  eventsThatWillAlsoBeRaised: []
+  eventValue: {x: 0, y: 0}
+  angleThreshold: 0
+  inputValue: {x: 0, y: 0}

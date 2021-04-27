@@ -10,11 +10,10 @@ namespace FFStudio
 		[Header( "Fired Events" )]
 		public SwipeInputEvent swipeInputEvent;
 		public IntGameEvent tapInputEvent;
-		public GameSettings gameSettings;
 		int swipeThreshold;
 		private void Awake()
 		{
-			swipeThreshold = Screen.width * gameSettings.swipeThreshold / 100;
+			swipeThreshold = Screen.width * GameSettings.instance.swipeThreshold / 100;
 		}
 		public void Swiped( Vector2 delta )
 		{
