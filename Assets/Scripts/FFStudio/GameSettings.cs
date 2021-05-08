@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using NaughtyAttributes;
 using UnityEngine;
 
 namespace FFStudio
@@ -8,10 +9,11 @@ namespace FFStudio
     {
         #region Fields
         public int maxLevelCount;
-        [Tooltip("Duration of the movement for ui element")] public float uiEntityMoveTweenDuration;
-		[Tooltip("Duration of the scaling for ui element")] public float uiEntityScaleTweenDuration;
-		[Tooltip("Duration of the movement for floating ui element")] public float uiFloatingEntityTweenDuration;
-        [Tooltip("Percentage of the screen to register a swipe")] public int swipeThreshold;
+        [Foldout("UI Settings"), Tooltip("Duration of the movement for ui element")] public float ui_Entity_Move_TweenDuration;
+        [Foldout("UI Settings"), Tooltip("Duration of the fading for ui element")] public float ui_Entity_Fade_TweenDuration;
+		[Foldout("UI Settings"), Tooltip("Duration of the scaling for ui element")] public float ui_Entity_Scale_TweenDuration;
+		[Foldout("UI Settings"), Tooltip("Duration of the movement for floating ui element")] public float ui_Entity_FloatingMove_TweenDuration;
+        [Foldout("UI Settings"), Tooltip("Percentage of the screen to register a swipe")] public int swipeThreshold;
 
 
         private static GameSettings instance;

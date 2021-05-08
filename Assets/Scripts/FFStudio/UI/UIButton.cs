@@ -8,12 +8,12 @@ public class UIButton : UIEntity
 	public override Tween GoTargetPosition()
 	{
 		uiButton.interactable = false;
-		return uiTransform.DOMove( destinationTransform.position, GameSettings.Instance.uiEntityMoveTweenDuration ).OnComplete( MakeButtonInteractable );
+		return uiTransform.DOMove( destinationTransform.position, GameSettings.Instance.ui_Entity_Fade_TweenDuration ).OnComplete( MakeButtonInteractable );
 	}
 	public override Tween GoStartPosition()
 	{
 		uiButton.interactable = false;
-		return uiTransform.DOMove( startPosition, GameSettings.Instance.uiEntityMoveTweenDuration ).OnComplete( MakeButtonInteractable );
+		return uiTransform.DOMove( startPosition, GameSettings.Instance.ui_Entity_Fade_TweenDuration ).OnComplete( MakeButtonInteractable );
 	}
 	void MakeButtonInteractable()
 	{

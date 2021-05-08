@@ -58,7 +58,7 @@ public class UIPin : UIEntity
 	#region Implementation
 	Tween GoSizeDelta()
 	{
-		return uiTransform.DOSizeDelta( destinationTransform.sizeDelta, GameSettings.Instance.uiEntityMoveTweenDuration );
+		return uiTransform.DOSizeDelta( destinationTransform.sizeDelta, GameSettings.Instance.ui_Entity_Fade_TweenDuration );
 	}
 
 	protected void PinMove()
