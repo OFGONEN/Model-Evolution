@@ -47,13 +47,13 @@ namespace FFStudio
 		#region API
 		public void ResetScene()
 		{
-			var operation = SceneManager.UnloadSceneAsync( CurrentLevelData.instance.levelData.sceneIndex ); // Unload current scene
+			var operation = SceneManager.UnloadSceneAsync( CurrentLevelData.Instance.levelData.sceneIndex ); // Unload current scene
 
 			cleanUpEvent.Raise();
 
 			// When unloading done load the same scene again
 			operation.completed += ( AsyncOperation operation ) =>
-			SceneManager.LoadScene( CurrentLevelData.instance.levelData.sceneIndex, LoadSceneMode.Additive );
+			SceneManager.LoadScene( CurrentLevelData.Instance.levelData.sceneIndex, LoadSceneMode.Additive );
 
 		}
 		#endregion
@@ -70,25 +70,25 @@ namespace FFStudio
 		}
 		private void LoadLevel()
 		{
-			CurrentLevelData.instance.currentLevel = PlayerPrefs.GetInt( "Level", 1 );
-			CurrentLevelData.instance.currentConsecutiveLevel = PlayerPrefs.GetInt( "Consecutive Level", 1 );
+			CurrentLevelData.Instance.currentLevel = PlayerPrefs.GetInt( "Level", 1 );
+			CurrentLevelData.Instance.currentConsecutiveLevel = PlayerPrefs.GetInt( "Consecutive Level", 1 );
 
-			CurrentLevelData.instance.LoadCurrentLevelData();
+			CurrentLevelData.Instance.LoadCurrentLevelData();
 
 			cleanUpEvent.Raise();
-			SceneManager.LoadScene( CurrentLevelData.instance.levelData.sceneIndex, LoadSceneMode.Additive );
+			SceneManager.LoadScene( CurrentLevelData.Instance.levelData.sceneIndex, LoadSceneMode.Additive );
 
 			levelLoaded.Raise();
 		}
 		private void LoadNewLevel()
 		{
-			CurrentLevelData.instance.currentLevel++;
-			CurrentLevelData.instance.currentConsecutiveLevel++;
-			PlayerPrefs.SetInt( "Level", CurrentLevelData.instance.currentLevel );
-			PlayerPrefs.SetInt( "Consecutive Level", CurrentLevelData.instance.currentConsecutiveLevel );
+			CurrentLevelData.Instance.currentLevel++;
+			CurrentLevelData.Instance.currentConsecutiveLevel++;
+			PlayerPrefs.SetInt( "Level", CurrentLevelData.Instance.currentLevel );
+			PlayerPrefs.SetInt( "Consecutive Level", CurrentLevelData.Instance.currentConsecutiveLevel );
 
 
-			var _operation = SceneManager.UnloadSceneAsync( CurrentLevelData.instance.levelData.sceneIndex );
+			var _operation = SceneManager.UnloadSceneAsync( CurrentLevelData.Instance.levelData.sceneIndex );
 			_operation.completed += ( AsyncOperation operation ) => LoadLevel();
 		}
 		#endregion

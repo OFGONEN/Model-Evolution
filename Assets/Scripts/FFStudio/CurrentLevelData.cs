@@ -7,40 +7,51 @@ namespace FFStudio
     public class CurrentLevelData : ScriptableObject
     {
 		#region Fields
-		public static CurrentLevelData instance;
-
 		public int currentLevel;
 		public int currentConsecutiveLevel;
 		public LevelData levelData;
-		#endregion
 
-		#region UnityAPI
-		private void Awake()
-		{
-			if(instance == null)
-			{
-				instance = this;
-				FFLogger.Log( "CurrentLevelData instance is set" );
-			}
-			else if (instance != this)
-			{
-				Destroy( this );
-                FFLogger.Log( "New CurrentLevelData Detected and Destroyed!" );
-			}
-		}
-			
+        private static CurrentLevelData instance;
+
+        private delegate CurrentLevelData ReturnCurrentLevel();
+        private static ReturnCurrentLevel returnInstance = LoadInstance;
+
+        public static CurrentLevelData Instance
+        {
+            get
+            {
+                return returnInstance();
+            }
+        }
 		#endregion
 
 		#region API
 		public void LoadCurrentLevelData()
 		{
-			if( currentLevel > GameSettings.instance.maxLevelCount )
+			if( currentLevel > GameSettings.Instance.maxLevelCount )
 			{
-				currentLevel = Random.Range( 1, GameSettings.instance.maxLevelCount );
+				currentLevel = Random.Range( 1, GameSettings.Instance.maxLevelCount );
 			}
 
 			levelData = Resources.Load<LevelData>( "LevelData_" + currentLevel );
 		}
-		#endregion
+        #endregion
+
+        #region Implementation
+        static CurrentLevelData LoadInstance()
+        {
+            if (instance == null)
+                instance = Resources.Load<CurrentLevelData>("level_current");
+
+            returnInstance = ReturnInstance;
+
+            return instance;
+        }
+
+        static CurrentLevelData ReturnInstance()
+        {
+            return instance;
+        }
+        #endregion
     }
 }

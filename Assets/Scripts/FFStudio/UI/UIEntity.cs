@@ -25,22 +25,22 @@ namespace FFStudio
 
 		public virtual Tween GoTargetPosition()
 		{
-			return uiTransform.DOMove( destinationTransform.position, GameSettings.instance.uiEntityMoveTweenDuration );
+			return uiTransform.DOMove( destinationTransform.position, GameSettings.Instance.uiEntityMoveTweenDuration );
 		}
 
 		public virtual Tween GoStartPosition()
 		{
-			return uiTransform.DOMove( startPosition, GameSettings.instance.uiEntityMoveTweenDuration );
+			return uiTransform.DOMove( startPosition, GameSettings.Instance.uiEntityMoveTweenDuration );
 		}
 
 		public virtual Tween GoPopOut()
 		{
-			return uiTransform.DOScale( startScale, GameSettings.instance.uiEntityScaleTweenDuration );
+			return uiTransform.DOScale( startScale, GameSettings.Instance.uiEntityScaleTweenDuration );
 		}
 
 		public virtual Tween GoPopIn()
 		{
-			return uiTransform.DOScale( Vector3.zero, GameSettings.instance.uiEntityScaleTweenDuration );
+			return uiTransform.DOScale( Vector3.zero, GameSettings.Instance.uiEntityScaleTweenDuration );
 		}
 		#endregion
 	}
