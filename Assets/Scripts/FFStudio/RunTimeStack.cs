@@ -6,12 +6,20 @@ namespace FFStudio
 {
 	public abstract class RunTimeStack<T> : ScriptableObject
 	{
+		#region Fields
 		public int stackSize;
-		public Stack< T > stack;
+		private Stack< T > stack;
 
-		private void Awake()
+        public Stack< T > Stack
 		{
-			stack = new Stack< T >( stackSize );
+			get
+			{
+				if( stack == null )
+                    return stack = new Stack<T>(stackSize);
+                else
+                    return stack;
+            }
 		}
+		#endregion
 	}
 }

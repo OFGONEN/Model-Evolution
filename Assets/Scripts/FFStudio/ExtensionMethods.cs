@@ -75,16 +75,6 @@ namespace FFStudio
 			return first + Random.Range( 0, 1f ) * ( second - first );
 		}
 
-		public static void Push<T>( this RunTimeStack<T> set, T item )
-		{
-			set.stack.Push( item );
-		}
-
-		public static T Pop<T>( this RunTimeStack<T> set )
-		{
-			return set.stack.Pop();
-		}
-
 		public static void LookAtOverTime( this Transform baseTransform, Vector3 targetPosition, float speed )
 		{
 			var _directionVector = targetPosition - baseTransform.position;

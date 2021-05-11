@@ -14,7 +14,7 @@ public class UIFloatingText : UIText
 	}
 	private void OnDisable()
 	{
-		floatingTextStack.Push( this );
+		floatingTextStack.Stack.Push( this );
 	}
 	public override Tween GoTargetPosition()
 	{
