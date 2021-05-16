@@ -17,16 +17,13 @@ namespace FFStudio
         public EventListenerDelegateResponse levelFailResponse;
         public EventListenerDelegateResponse tapInputListener;
 
-        [Header("Shared Variables")]
-        public SharedFloatProperty levelLoadingProgressProperty;
-        public SharedFloatProperty levelProgressProperty;
-
         [Header("UI Elements")]
+        public UILoadingBar levelLoadingBar;
+		public UIText levelLoadingText;
+		public UILoadingBar levelProgressBar;
+        public UIText levelCountText;
         public UIText informationText;
         public Image loadingScreenImage;
-        public UIImage levelLoadingProgressImage;
-        public UIText levelCountText;
-        public UIImage levelProgressImage;
         public Image foreGroundImage;
         public RectTransform tutorialObjects;
 
@@ -43,9 +40,6 @@ namespace FFStudio
 
         private void OnEnable()
         {
-            levelLoadingProgressProperty.changeEvent += LevelLoadingProgressResponse;
-            levelProgressProperty.changeEvent += LevelProgressResponse;
-
             levelLoadedResponse.OnEnable();
             levelFailResponse.OnEnable();
             levelCompleteResponse.OnEnable();
@@ -54,9 +48,6 @@ namespace FFStudio
 
         private void OnDisable()
         {
-            levelLoadingProgressProperty.changeEvent -= LevelLoadingProgressResponse;
-            levelProgressProperty.changeEvent -= LevelProgressResponse;
-
             levelLoadedResponse.OnDisable();
             levelFailResponse.OnDisable();
             levelCompleteResponse.OnDisable();
@@ -76,21 +67,12 @@ namespace FFStudio
 
         #region Implementation
 
-        void LevelLoadingProgressResponse()
-        {
-            levelLoadingProgressImage.imageRenderer.fillAmount = levelLoadingProgressProperty.sharedValue;
-        }
-
-        void LevelProgressResponse()
-        {
-            levelProgressImage.imageRenderer.fillAmount = levelProgressProperty.sharedValue;
-        }
-
         void LevelLoadedResponse()
         {
             var sequance = DOTween.Sequence();
 
-            sequance.Append(levelLoadingProgressImage.GoPopIn());
+            sequance.Append(levelLoadingBar.GoPopIn());
+            sequance.Append(levelLoadingText.GoPopIn());
             sequance.Append(loadingScreenImage.DOFade(0, GameSettings.Instance.ui_Entity_Fade_TweenDuration)); 
             sequance.AppendCallback(() => tapInputListener.response = StartLevel);
 
@@ -99,6 +81,7 @@ namespace FFStudio
             levelLoadedResponse.response = NewLevelLoaded;
         }
 
+        [Button]
         void LevelCompleteResponse()
         {
             var sequence = DOTween.Sequence();
