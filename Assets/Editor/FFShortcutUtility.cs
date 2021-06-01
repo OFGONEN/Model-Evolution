@@ -65,5 +65,29 @@ namespace FFEditor
             AssetDatabase.SaveAssets();
 			Debug.Log( "AssetDatabase Saved" );
 		}
+
+        [MenuItem("FFStudios/Select Level Data &1")]
+		static void SelectLevelData()
+		{
+			var levelData = Resources.Load( "LevelData_1" );
+
+			Selection.SetActiveObjectWithContext( levelData, levelData );
+		}
+
+        [MenuItem("FFStudios/Select Game Settings &2")]
+		static void SelectGameSettings()
+		{
+			var gameSettings = Resources.Load( "game_settings" );
+
+			Selection.SetActiveObjectWithContext( gameSettings, gameSettings );
+		}
+
+        [MenuItem("FFStudios/Select App Scene &3")]
+		static void SelectAppScene()
+		{
+			var gameSettings = AssetDatabase.LoadAssetAtPath( "Assets/Scenes/app.unity", typeof(SceneAsset) );
+
+			Selection.SetActiveObjectWithContext( gameSettings, gameSettings );
+		}
 	}
 }
