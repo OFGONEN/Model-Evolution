@@ -44,6 +44,21 @@ namespace FFEditor
             }
         }
 
+		[MenuItem( "FFStudios/Update LevelDatas" )]
+		public static void LevelDatas()
+		{
+			var maxLevelCount = GameSettings.Instance.maxLevelCount;
+
+			for( var i = 1; i <= maxLevelCount; i++ )
+			{
+				var levelData = Resources.Load<LevelData>( "LevelData_" + i );
+				levelData.sceneIndex = i + 1;
+				EditorUtility.SetDirty( levelData );
+			}
+
+			AssetDatabase.SaveAssets();
+		}
+
         [MenuItem("FFStudios/Sort Folder _F7")]
         static void SortFolder()
         {

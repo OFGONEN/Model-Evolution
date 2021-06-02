@@ -68,3 +68,6 @@ UserSettings/QuickSearch.settings
 UserSettings/Search.settings
 
 desktop.ini
+
+Assets/Editor/PlayModeUtilitySettings.asset
+Assets/Editor/PlayModeUtilitySettings.asset.meta
