@@ -5,33 +5,41 @@ using UnityEngine;
 using FFStudio;
 using DG.Tweening;
 using System.IO;
+using UnityEditor.Build;
+using UnityEngine.SceneManagement;
+using UnityEditor.Build.Reporting;
 
 namespace FFEditor
 {
     [InitializeOnLoad]
     public static class FFUtility
     {
-        static FFUtility()
+		static GameSettings gameSettings;
+		static FFUtility()
         {
             EditorApplication.playModeStateChanged += PlayModeChange;
 
             //Create GameSettings 
-            var path_GameSettings = Path.Combine(Application.dataPath, "Resources", "game_settings.asset");
-            if (!File.Exists(path_GameSettings))
+            var path_GameSettings = "Assets/Resources/game_settings.asset";
+			gameSettings = AssetDatabase.LoadAssetAtPath( path_GameSettings, typeof( GameSettings ) ) as GameSettings;
+
+			if ( gameSettings == null )
             {
-                var gameSettings = ScriptableObject.CreateInstance<GameSettings>();
+                gameSettings = ScriptableObject.CreateInstance<GameSettings>();
 
                 AssetDatabase.CreateAsset(gameSettings, "Assets/Resources/game_settings.asset");
                 Debug.Log("GameSettings Created");
             }
 
-            //Create CurrentLevel
-            var path_CurrentLevel = Path.Combine(Application.dataPath, "Resources", "level_current.asset");
-            if (!File.Exists(path_CurrentLevel))
-            {
-                var gameSettings = ScriptableObject.CreateInstance<CurrentLevelData>();
+			//Create CurrentLevel
+            var path_CurrentLevel = "Assets/Resources/level_current.asset";
+			var currentLevel = AssetDatabase.LoadAssetAtPath( path_CurrentLevel, typeof( CurrentLevelData ) ) as CurrentLevelData;
 
-                AssetDatabase.CreateAsset(gameSettings, "Assets/Resources/level_current.asset");
+			if ( currentLevel == null )
+            {
+                currentLevel = ScriptableObject.CreateInstance< CurrentLevelData >();
+
+                AssetDatabase.CreateAsset(currentLevel, "Assets/Resources/level_current.asset");
                 Debug.Log("CurrentLevel Created");
             }
         }
@@ -290,14 +298,38 @@ namespace FFEditor
         {
             switch (change)
             {
-                case PlayModeStateChange.ExitingPlayMode:
-                    // DOTween.KillAll();
-                    break;
-                case PlayModeStateChange.ExitingEditMode:
-                    break;
+                case PlayModeStateChange.EnteredPlayMode:
+					SetMaxLevelForGameSettings();
+					break;
                 default:
                     return;
             }
         }
+
+        [MenuItem("FFStudios/Set Max Level Count for Game Settings")]
+        public static void SetMaxLevelForGameSettings()
+        {
+			string[] guids = AssetDatabase.FindAssets( "LevelData_ t:levelData", new[] { "Assets/Resources" } );
+
+			gameSettings.maxLevelCount = guids.Length;
+
+			EditorUtility.SetDirty( gameSettings );
+			AssetDatabase.SaveAssets();
+
+            Debug.Log( "Game Settings max level count: " + gameSettings.maxLevelCount );
+		}
     }
+}
+
+namespace FFEditor
+{
+	public class FFUtilityBuildProcessor : IProcessSceneWithReport
+	{
+		public int callbackOrder { get { return 0; } }
+
+		public void OnProcessScene( Scene scene, BuildReport report )
+		{
+			FFUtility.SetMaxLevelForGameSettings();
+		}
+	}
 }
