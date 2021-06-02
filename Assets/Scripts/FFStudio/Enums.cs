@@ -5,4 +5,11 @@ namespace FFStudio
         Equlize,
         PreserveAspect
     }
+
+    public enum JoyStickMethod
+    {
+        Vector2,
+        Vector3Y,
+        Vector3Z
+    }
 }

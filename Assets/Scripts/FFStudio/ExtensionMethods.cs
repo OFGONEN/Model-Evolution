@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -151,6 +151,29 @@ namespace FFStudio
 			value.y = Mathf.Clamp( value.y, min.x, max.x );
 			value.z = Mathf.Clamp( value.z, min.y, max.y );
 			return value;
+		}
+
+		public static Vector3 SetX( this Vector3 theVector, float newX )
+		{
+			theVector.x = newX;
+			return theVector;
+		}
+
+		public static Vector3 SetY( this Vector3 theVector, float newY )
+		{
+			theVector.y = newY;
+			return theVector;
+		}
+
+		public static Vector3 SetZ( this Vector3 theVector, float newZ )
+		{
+			theVector.z = newZ;
+			return theVector;
+		}
+
+		public static float ComponentSum( this Vector3 theVector )
+		{
+			return theVector.x + theVector.y + theVector.z;
 		}
 	}
 }

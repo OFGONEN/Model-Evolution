@@ -9,14 +9,9 @@ namespace FFStudio
     public abstract class RuntimeSet<TKey, TValue> : ScriptableObject
     {
 		public int setSize;
-		public List<TValue> itemList;
-		public Dictionary<TKey, TValue> itemDictionary;
+		public List<TValue> itemList = new List<TValue>();
+		public Dictionary<TKey, TValue> itemDictionary = new Dictionary<TKey, TValue>();
 
-		private void Awake()
-		{
-            itemList = new List< TValue >( setSize );
-		    itemDictionary = new Dictionary< TKey, TValue >( setSize );
-		}
         public void AddList(TValue value)
         {
             if (!itemList.Contains(value))
