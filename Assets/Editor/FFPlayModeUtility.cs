@@ -13,10 +13,16 @@ namespace FFEditor
     [InitializeOnLoad]
 	public static class FFPlayModeUtility
 	{
-		public static FFPlayModeUtilitySettings playModeUtilitySettings;
+		static FFPlayModeUtilitySettings playModeUtilitySettings;
+		static bool inited = false;
+
 		static FFPlayModeUtility()
         {
-            EditorApplication.playModeStateChanged += PlayModeChange;
+            if (!inited)
+            {
+                EditorApplication.playModeStateChanged += PlayModeChange;
+				inited = true;
+			}
 
 			//Create Play Mode Settings 
 			var path_playModeUtilitySettings = "Assets/Editor/PlayModeUtilitySettings.asset";

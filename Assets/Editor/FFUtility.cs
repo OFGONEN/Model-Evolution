@@ -15,9 +15,15 @@ namespace FFEditor
     public static class FFUtility
     {
 		static GameSettings gameSettings;
+		static bool inited;
+
 		static FFUtility()
         {
-            EditorApplication.playModeStateChanged += PlayModeChange;
+            if (!inited)
+            {
+                EditorApplication.playModeStateChanged += PlayModeChange;
+				inited = true;
+			}
 
             //Create GameSettings 
             var path_GameSettings = "Assets/Resources/game_settings.asset";
