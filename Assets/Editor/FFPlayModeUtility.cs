@@ -45,10 +45,12 @@ namespace FFEditor
             {
                 case PlayModeStateChange.EnteredPlayMode:
                     if( playModeUtilitySettings.useDefaultScene )
+                    {
 					    var loadedScene = SceneManager.GetActiveScene();
 
 						if ( loadedScene.buildIndex != playModeUtilitySettings.defaultSceneIndex )
 					        SceneManager.LoadScene( playModeUtilitySettings.defaultSceneIndex, LoadSceneMode.Single );
+                    }
 
 					break;
                 default:
