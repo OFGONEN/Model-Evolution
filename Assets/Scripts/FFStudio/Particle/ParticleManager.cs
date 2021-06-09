@@ -7,15 +7,15 @@ namespace FFStudio
 {
 	public class ParticleManager : MonoBehaviour
 	{
-		#region Fields
+#region Fields
 		[Header( "Event Listeners" )]
 		public EventListenerDelegateResponse spawnParticleListener;
 
-		[SerializeField] private ParticleEffect[] particleEffects;
-		private Dictionary<string, ParticleEffect> particleEffectDictionary;
-		#endregion
+		[SerializeField] private ParticleEffectPool[] particleEffectPools;
+		private Dictionary<string, ParticleEffectPool> particleEffectDictionary;
+#endregion
 
-		#region UnityAPI
+#region UnityAPI
 
 		private void OnEnable()
 		{
@@ -31,33 +31,33 @@ namespace FFStudio
 		{
 			spawnParticleListener.response = SpawnParticle;
 
-			particleEffectDictionary = new Dictionary<string, ParticleEffect>( particleEffects.Length );
+			particleEffectDictionary = new Dictionary<string, ParticleEffectPool>( particleEffectPools.Length );
 
-			for( int i = 0; i < particleEffects.Length; i++ )
+			for( int i = 0; i < particleEffectPools.Length; i++ )
 			{
-				particleEffectDictionary.Add( particleEffects[ i ].alias, particleEffects[ i ] );
+				particleEffectPools[ i].InitPool( transform, false );
+				particleEffectDictionary.Add( particleEffectPools[ i ].poolEntity.alias, particleEffectPools[ i ] );
 			}
-
-
 		}
-		#endregion
+#endregion
 
-		#region Implementation
+#region Implementation
 
 		void SpawnParticle()
 		{
 			var spawnEvent = spawnParticleListener.gameEvent as ParticleSpawnEvent;
 
-			ParticleEffect effect;
+			ParticleEffectPool pool;
 
-			if( !particleEffectDictionary.TryGetValue( spawnEvent.particleAlias, out effect ) )
+			if( !particleEffectDictionary.TryGetValue( spawnEvent.particleAlias, out pool ) )
 			{
 				FFLogger.Log( "Particle:" + spawnEvent.particleAlias + " is missing!" );
 				return;
 			}
 
+			var effect = pool.GiveEntity( transform, false );
 			effect.PlayParticle( spawnEvent );
 		}
-		#endregion
+#endregion
 	}
 }
