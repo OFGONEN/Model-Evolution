@@ -175,6 +175,23 @@ namespace FFStudio
 		{
 			return theVector.x + theVector.y + theVector.z;
 		}
+
+		public static TransformData GetTransformData( this Transform transform ) // Global values
+		{
+			TransformData data;
+			data.position = transform.position;
+			data.rotation = transform.eulerAngles;
+			data.scale    = transform.localScale;
+
+			return data;
+		}
+
+		public static void SetTransformData( this Transform transform, TransformData data ) // Global values
+		{
+			transform.position    = data.position;
+			transform.eulerAngles = data.position;
+			transform.localScale  = data.scale;
+		}
 	}
 }
 

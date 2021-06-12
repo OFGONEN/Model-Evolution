@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
+using FFStudio;
 
 namespace FFEditor
 {
 	public static class FFShortcutUtility
 	{
-		static Transform currentTransform;
+		static TransformData currentTransformData;
 
 		[MenuItem("FFShortcut/TakeScreenShot #F12")]
         public static void TakeScreenShot()
@@ -92,21 +93,17 @@ namespace FFEditor
 			Selection.SetActiveObjectWithContext( gameSettings, gameSettings );
 		}
 		
-		[MenuItem("FFStudios/Copy Transform &c")]
+		[MenuItem("FFStudios/Copy Global Transform &c")]
 		static void CopyTransform()
 		{
-			currentTransform = Selection.activeGameObject.transform;
+			currentTransformData = Selection.activeGameObject.transform.GetTransformData();
 		}
 
-        [MenuItem("FFStudios/Paste Transform &v")]
+        [MenuItem("FFStudios/Paste Global Transform &v")]
 		static void PasteTransform()
 		{
 			var gameObject = Selection.activeGameObject.transform;
-
-			var target             = gameObject.transform;
-				target.position    = currentTransform.position;
-				target.eulerAngles = currentTransform.eulerAngles;
-				target.localScale  = currentTransform.localScale;
+			gameObject.SetTransformData( currentTransformData );
 		}
 	}
 }
