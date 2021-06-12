@@ -61,7 +61,7 @@ namespace FFStudio
             levelCompleteResponse.response = LevelCompleteResponse;
             tapInputListener.response = ExtensionMethods.EmptyMethod;
 
-            informationText.textRenderer.text = "Tap to Foo";
+            informationText.textRenderer.text = "Tap to Start";
         }
         #endregion
 
@@ -88,7 +88,7 @@ namespace FFStudio
 
             Tween tween = null;
 
-            informationText.textRenderer.text = "Completed \n\n Tap to Contiune";
+            informationText.textRenderer.text = "Completed \n\n Tap to Continue";
 
             sequence.Append(tween); //TODO: UIElements tween
             sequence.Append(foreGroundImage.DOFade(0.5f, GameSettings.Instance.ui_Entity_Fade_TweenDuration));
@@ -107,7 +107,7 @@ namespace FFStudio
 
             Tween tween = null;
 
-            informationText.textRenderer.text = "Level Failed \n\n Tap to Contiune";
+            informationText.textRenderer.text = "Level Failed \n\n Tap to Continue";
 
             sequence.Append(tween); //TODO: UIElements tween
             sequence.Append(foreGroundImage.DOFade(0.5f, GameSettings.Instance.ui_Entity_Fade_TweenDuration));
