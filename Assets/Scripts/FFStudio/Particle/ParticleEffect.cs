@@ -1,23 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
+/* Created by and for usage of FF Studios (2021). */
+
 using UnityEngine;
 
 namespace FFStudio
 {
 	public class ParticleEffect : MonoBehaviour
 	{
-		#region Fields
-		[Header( "Fired Events" )]
+#region Fields
+		[ Header( "Fired Events" ) ]
 		public StringGameEvent particleStoppedEvent;
 		public string alias;
 		private ParticleSystem particles;
-		#endregion
+#endregion
 
-		#region UnityAPI
+#region UnityAPI
 
 		private void Awake()
 		{
-			particles = GetComponent<ParticleSystem>();
+			particles = GetComponent< ParticleSystem >();
 
 			var mainParticle = particles.main;
 
@@ -35,9 +35,9 @@ namespace FFStudio
 			gameObject.SetActive( false );
 			particleStoppedEvent.Raise();
 		}
-		#endregion
+#endregion
 
-		#region API
+#region API
 		public void PlayParticle( ParticleSpawnEvent particleEvent )
 		{
 			gameObject.SetActive( true );
@@ -49,7 +49,7 @@ namespace FFStudio
 
 			FFLogger.Log( "Playing: " + alias + " active:" + gameObject.activeInHierarchy );
 		}
-		#endregion
+#endregion
 
 	}
 }

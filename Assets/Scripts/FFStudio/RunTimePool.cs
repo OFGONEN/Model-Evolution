@@ -1,6 +1,5 @@
 /* Created by and for usage of FF Studios (2021). */
 
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,7 +8,7 @@ namespace FFStudio
 	public abstract class RunTimePool< T > : RunTimeStack< T > where T: Component
 	{
 #region Fields
-        public T poolEntity; // GameObject
+        public T poolEntity; // GameObject.
 #endregion
 
 #region Unity API

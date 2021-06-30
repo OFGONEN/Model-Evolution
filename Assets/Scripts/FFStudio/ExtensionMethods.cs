@@ -1,4 +1,5 @@
-using System.Collections;
+/* Created by and for usage of FF Studios (2021). */
+
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,10 +11,11 @@ namespace FFStudio
 		{
 			switch( ( int )angle )
 			{
-				case 0: return Vector2.up;
-				case 90: return Vector2.right;
+				case   0: return Vector2.up;
+				case  90: return Vector2.right;
 				case 180: return Vector2.down;
 				case 270: return Vector2.left;
+				
 				default: return Vector2.zero;
 			}
 		}
@@ -37,7 +39,8 @@ namespace FFStudio
 			{
 				hasColor |= colors[ i ].CompareColor( color );
 
-				if( hasColor && index == -1 ) index = i;
+				if( hasColor && index == -1 )
+					index = i;
 			}
 
 			return hasColor;
@@ -77,44 +80,44 @@ namespace FFStudio
 
 		public static void LookAtOverTime( this Transform baseTransform, Vector3 targetPosition, float speed )
 		{
-			var _directionVector = targetPosition - baseTransform.position;
-			var _step = speed * Time.deltaTime;
+			var directionVector = targetPosition - baseTransform.position;
+			var step = speed * Time.deltaTime;
 
-			Vector3 _newDirection = Vector3.RotateTowards( baseTransform.forward, _directionVector, _step, 0.0f );
+			Vector3 newDirection = Vector3.RotateTowards( baseTransform.forward, directionVector, step, 0.0f );
 
-			baseTransform.rotation = Quaternion.LookRotation( _newDirection );
+			baseTransform.rotation = Quaternion.LookRotation( newDirection );
 		}
 
 		public static void LookAtOverTimeAxis( this Transform baseTransform, Vector3 targetPosition, Vector3 axis, float speed )
 		{
 
 			var _directionVector = targetPosition - baseTransform.position;
-			var _step = speed * Time.deltaTime;
+			var step = speed * Time.deltaTime;
 
-			Vector3 _newDirection = Vector3.RotateTowards( baseTransform.forward, _directionVector, _step, 0.0f );
+			Vector3 newDirection = Vector3.RotateTowards( baseTransform.forward, _directionVector, step, 0.0f );
 
 			var eulerAngles = baseTransform.eulerAngles;
 
-			var newRotationEuler = Quaternion.LookRotation( _newDirection ).eulerAngles;
+			var newRotationEuler = Quaternion.LookRotation( newDirection ).eulerAngles;
 
 			newRotationEuler.x = eulerAngles.x + ( newRotationEuler.x - eulerAngles.x ) * axis.x;
 			newRotationEuler.y = eulerAngles.y + ( newRotationEuler.y - eulerAngles.y ) * axis.y;
 			newRotationEuler.z = eulerAngles.z + ( newRotationEuler.z - eulerAngles.z ) * axis.z;
 
-			// baseTransform.rotation = Quaternion.LookRotation( _newDirection );
+			// baseTransform.rotation = Quaternion.LookRotation( newDirection );
 			baseTransform.rotation = Quaternion.Euler( newRotationEuler );
 		}
 
 		public static void LookAtDirectionOverTime( this Transform baseTransform, Vector3 direction, float speed )
 		{
-			Vector3 _newDirection = Vector3.RotateTowards( baseTransform.forward, direction, speed * Time.deltaTime, 0.0f );
+			Vector3 newDirection = Vector3.RotateTowards( baseTransform.forward, direction, speed * Time.deltaTime, 0.0f );
 
-			baseTransform.rotation = Quaternion.LookRotation( _newDirection );
+			baseTransform.rotation = Quaternion.LookRotation( newDirection );
 		}
 
 		public static void EmptyMethod()
 		{
-
+			/* Intentionally empty, by definition. */
 		}
 
 		public static Vector2 Clamp( this Vector2 value, Vector2 min, Vector2 max )

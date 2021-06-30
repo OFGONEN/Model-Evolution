@@ -1,29 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
+/* Created by and for usage of FF Studios (2021). */
+
 using UnityEngine;
-using DG.Tweening;
 
 namespace FFStudio
 {
     public class LevelManager : MonoBehaviour
     {
-        #region Fields
-        [Header("Event Listeners")]
+#region Fields
+        [ Header("Event Listeners" ) ]
         public EventListenerDelegateResponse levelLoadedListener;
         public EventListenerDelegateResponse levelRevealedListener;
         public EventListenerDelegateResponse levelStartedListener;
 
-        [Header("Fired Events")]
+        [ Header("Fired Events" ) ]
         public GameEvent levelFailedEvent;
         public GameEvent levelCompleted;
 
-        [Header("Level Releated")]
+        [ Header("Level Releated" ) ]
         public SharedFloatProperty levelProgress;
+#endregion
 
-        #endregion
-
-        #region UnityAPI
-
+#region UnityAPI
         private void OnEnable()
         {
             levelLoadedListener  .OnEnable();
@@ -40,15 +37,13 @@ namespace FFStudio
 
         private void Awake()
         {
-
             levelLoadedListener.response   = LevelLoadedResponse;
             levelRevealedListener.response = LevelRevealedResponse;
             levelStartedListener.response  = LevelStartedResponse;
         }
+#endregion
 
-        #endregion
-
-        #region Implementation
+#region Implementation
         void LevelLoadedResponse()
         {
             levelProgress.SetValue(0);
@@ -56,14 +51,11 @@ namespace FFStudio
 
         void LevelRevealedResponse()
         {
-
         }
 
         void LevelStartedResponse()
         {
-
         }
-
-        #endregion
+#endregion
     }
 }

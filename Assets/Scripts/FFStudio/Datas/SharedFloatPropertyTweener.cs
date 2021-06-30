@@ -1,25 +1,28 @@
+/* Created by and for usage of FF Studios (2021). */
+
 using UnityEngine;
-using NaughtyAttributes;
 using DG.Tweening;
 
 namespace FFStudio
 {
-	[CreateAssetMenu( fileName = "SharedFloatPropertyTweener", menuName = "FF/Data/Shared/Tweener/FloatPropertyTweener" )]
+	[ CreateAssetMenu( fileName = "SharedFloatPropertyTweener", menuName = "FF/Data/Shared/Tweener/FloatPropertyTweener" ) ]
 	public class SharedFloatPropertyTweener : SharedFloat
 	{
-		#region Fields
-		[Header( "Event Listeners" )]
+#region Fields
+		[ Header( "Event Listeners" ) ]
 		public EventListenerDelegateResponse cleanUpListener;
 
 		public event ChangeEvent changeEvent;
 
-		[Tooltip("Duration for reaching a new value")] public float changeDuration;
+		[ Tooltip("Duration for reaching a new value") ]
+		public float changeDuration;
+		
 		public Ease changeEase;
 
 		private Tween valueChangeTween;
-		#endregion
+#endregion
 
-		#region UnityAPI
+#region UnityAPI
 		private void OnEnable()
 		{
 			cleanUpListener.OnEnable();
@@ -30,10 +33,10 @@ namespace FFStudio
 		{
 			cleanUpListener.OnDisable();
 		}
-		#endregion
+#endregion
 
-		#region API
-		public void SetValue(float value)
+#region API
+		public void SetValue( float value )
 		{
 			if( !Mathf.Approximately( sharedValue, value ) )
 			{
@@ -41,9 +44,9 @@ namespace FFStudio
 					valueChangeTween.Kill();
 
 				valueChangeTween = DOTween.To( () => sharedValue, x => sharedValue = x, value, changeDuration )
-				.SetEase( changeEase )
-				.OnUpdate( OnChangeUpdate )
-				.OnComplete( () => valueChangeTween = null );
+					.SetEase( changeEase )
+					.OnUpdate( OnChangeUpdate )
+					.OnComplete( () => valueChangeTween = null );
 			}
 		}
 
@@ -52,13 +55,13 @@ namespace FFStudio
 			if( valueChangeTween != null )
 				valueChangeTween.Kill();
 		}
-		#endregion
+#endregion
 
-		#region Implementation
+#region Implementation
 		void OnChangeUpdate()
 		{
 			changeEvent?.Invoke();
 		}
-		#endregion
+#endregion
 	}
 }

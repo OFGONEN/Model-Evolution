@@ -1,9 +1,10 @@
-﻿using UnityEngine;
-using FFStudio;
+﻿/* Created by and for usage of FF Studios (2021). */
+
+using UnityEngine;
 
 namespace FFStudio
 {
-	[CreateAssetMenu( fileName = "SharedBoolCleanUp", menuName = "FF/Data/Shared/BoolCleanUp" )]
+	[ CreateAssetMenu( fileName = "SharedBoolCleanUp", menuName = "FF/Data/Shared/BoolCleanUp" ) ]
 	public class SharedBoolCleanUp : SharedBool
 	{
 		public bool defaultValue;
@@ -14,11 +15,13 @@ namespace FFStudio
 			cleanUpListener.OnEnable();
 			cleanUpListener.response = CleanUp;
 		}
+		
 		private void OnDisable()
 		{
 			cleanUpListener.OnDisable();
 		}
-		void CleanUp()
+
+		private void CleanUp()
 		{
 			sharedValue = defaultValue;
 		}

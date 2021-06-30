@@ -1,21 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
+/* Created by and for usage of FF Studios (2021). */
+
 using UnityEngine;
-using UnityEditor;
 
 namespace FFStudio
 {
 	public class ColliderListener_EventRaiser : MonoBehaviour
 	{
-		#region Fields
+#region Fields
 		public event TriggerEnter triggerEnter;
-		#endregion
+#endregion
 
-		#region UnityAPI
+#region UnityAPI
 		private void OnTriggerEnter( Collider other )
 		{
 			triggerEnter?.Invoke( other );
 		}
-		#endregion
+#endregion
 	}
 }

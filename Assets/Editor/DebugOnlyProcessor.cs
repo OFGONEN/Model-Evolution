@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿/* Created by and for usage of FF Studios (2021). */
+
 using UnityEditor.Build;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -26,31 +27,29 @@ public class DebugOnlyProcessor : IProcessSceneWithReport
             get { return 0; }
         }
 
-        /// <summary>
-        /// Called when a scene is being processed
-        /// </summary>
-        /// <param name="scene">Scene being processed</param>
+		/// <summary>
+		/// Called when a scene is being processed
+		/// </summary>
+		/// <param name="scene">Scene being processed</param>
 #if UNITY_2018_1_OR_NEWER
-    /// <param name="report">Build Report</param>
-    public void OnProcessScene(Scene scene, UnityEditor.Build.Reporting.BuildReport report)
+		/// <param name="report">Build Report</param>
+		public void OnProcessScene( Scene scene, UnityEditor.Build.Reporting.BuildReport report )
 #else
-        public void OnProcessScene(Scene scene)
+        public void OnProcessScene( Scene scene )
 #endif
-        {
-            //Check if the "Development Build" checkbox is checked, if it is then return
-            if (Debug.isDebugBuild) return;
+		{
+			//Check if the "Development Build" checkbox is checked, if it is then return
+			if( Debug.isDebugBuild ) return;
 
-            var sceneRootObjects = scene.GetRootGameObjects();
+			var sceneRootObjects = scene.GetRootGameObjects();
 
-            foreach (var rootObject in sceneRootObjects)
-            {
-                var children = rootObject.GetComponentsInChildren<Transform>(true);
+			foreach( var rootObject in sceneRootObjects )
+			{
+				var children = rootObject.GetComponentsInChildren< Transform >( true );
 
-                foreach (var child in children)
-                {
-                    if (child.CompareTag(debugOnlyTag)) Object.DestroyImmediate(child.gameObject);
-                }
-            }
+				foreach( var child in children )
+					if( child.CompareTag( debugOnlyTag ) ) Object.DestroyImmediate( child.gameObject );
+			}
         }
     }
 }

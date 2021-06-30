@@ -1,5 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
+/* Created by and for usage of FF Studios (2021). */
+
 using System.IO;
 using UnityEditor;
 using UnityEngine;
@@ -9,36 +9,36 @@ namespace FFEditor
 {
 	public static class FFShortcutUtility
 	{
-		static TransformData currentTransformData;
+		static private TransformData currentTransformData;
 
-		[MenuItem("FFShortcut/TakeScreenShot #F12")]
-        public static void TakeScreenShot()
-        {
+		[ MenuItem( "FFShortcut/TakeScreenShot #F12" ) ]
+		public static void TakeScreenShot()
+		{
 			int counter = 0;
-			var path = Path.Combine( Application.dataPath, "../" , "ScreenShot_" + counter + ".png" );
+			var path = Path.Combine( Application.dataPath, "../", "ScreenShot_" + counter + ".png" );
 
-			while (File.Exists(path)) // If file is not exits new screen shot will be a new file
-            {
+			while( File.Exists( path ) ) // If file is not exits new screen shot will be a new file
+			{
 				counter++;
 				path = Path.Combine( Application.dataPath, "../", "ScreenShot_" + counter + ".png" ); // ScreenShot_1.png
 			}
 
-            ScreenCapture.CaptureScreenshot("ScreenShot_" + counter + ".png");
+			ScreenCapture.CaptureScreenshot( "ScreenShot_" + counter + ".png" );
 			AssetDatabase.SaveAssets();
 
 			Debug.Log( "ScreenShot Taken: " + "ScreenShot_" + counter + ".png" );
 		}
 
-        [MenuItem("FFShortcut/Delete PlayerPrefs _F9")]
-        static void ResetPlayerPrefs()
-        {
-            PlayerPrefs.DeleteAll();
-			Debug.Log("PlayerPrefs Deleted");
-        }
+		[ MenuItem( "FFShortcut/Delete PlayerPrefs _F9" ) ]
+		static private void ResetPlayerPrefs()
+		{
+			PlayerPrefs.DeleteAll();
+			Debug.Log( "PlayerPrefs Deleted" );
+		}
 
-        [MenuItem("FFShortcut/Previous Level _F10")]
-        static void PreviousLevel()
-        {
+		[ MenuItem( "FFShortcut/Previous Level _F10" ) ]
+		static private void PreviousLevel()
+		{
 			var currentLevel = PlayerPrefs.GetInt( "Level" );
 
 			currentLevel = Mathf.Max( currentLevel - 1, 1 );
@@ -49,9 +49,9 @@ namespace FFEditor
 			Debug.Log( "Level Set:" + currentLevel );
 		}
 
-        [MenuItem("FFShortcut/Next Level _F11")]
-        static void NextLevel()
-        {
+		[ MenuItem( "FFShortcut/Next Level _F11" ) ]
+		static private void NextLevel()
+		{
 			var nextLevel = PlayerPrefs.GetInt( "Level" ) + 1;
 
 			PlayerPrefs.SetInt( "Level", nextLevel );
@@ -59,48 +59,47 @@ namespace FFEditor
 
 			Debug.Log( "Level Set:" + nextLevel );
 
-        }
+		}
 
-
-        [MenuItem("FFStudios/Save All Assets _F12")]
-        static void SaveAllAssets()
-        {
-            AssetDatabase.SaveAssets();
+		[ MenuItem( "FFStudios/Save All Assets _F12" ) ]
+		static private void SaveAllAssets()
+		{
+			AssetDatabase.SaveAssets();
 			Debug.Log( "AssetDatabase Saved" );
 		}
 
-        [MenuItem("FFStudios/Select Level Data &1")]
-		static void SelectLevelData()
+		[ MenuItem( "FFStudios/Select Level Data &1" ) ]
+		static private void SelectLevelData()
 		{
 			var levelData = Resources.Load( "LevelData_1" );
 
 			Selection.SetActiveObjectWithContext( levelData, levelData );
 		}
 
-        [MenuItem("FFStudios/Select Game Settings &2")]
-		static void SelectGameSettings()
+		[ MenuItem( "FFStudios/Select Game Settings &2" ) ]
+		static private void SelectGameSettings()
 		{
 			var gameSettings = Resources.Load( "game_settings" );
 
 			Selection.SetActiveObjectWithContext( gameSettings, gameSettings );
 		}
 
-        [MenuItem("FFStudios/Select App Scene &3")]
-		static void SelectAppScene()
+		[ MenuItem( "FFStudios/Select App Scene &3" ) ]
+		static private void SelectAppScene()
 		{
-			var gameSettings = AssetDatabase.LoadAssetAtPath( "Assets/Scenes/app.unity", typeof(SceneAsset) );
+			var gameSettings = AssetDatabase.LoadAssetAtPath( "Assets/Scenes/app.unity", typeof( SceneAsset ) );
 
 			Selection.SetActiveObjectWithContext( gameSettings, gameSettings );
 		}
-		
-		[MenuItem("FFStudios/Copy Global Transform &c")]
-		static void CopyTransform()
+
+		[ MenuItem( "FFStudios/Copy Global Transform &c" ) ]
+		static private void CopyTransform()
 		{
 			currentTransformData = Selection.activeGameObject.transform.GetTransformData();
 		}
 
-        [MenuItem("FFStudios/Paste Global Transform &v")]
-		static void PasteTransform()
+		[ MenuItem( "FFStudios/Paste Global Transform &v" ) ]
+		static private void PasteTransform()
 		{
 			var gameObject = Selection.activeGameObject.transform;
 			gameObject.SetTransformData( currentTransformData );

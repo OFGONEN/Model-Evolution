@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
+﻿/* Copied from another package. Modified by and for usage of FF Studios (2021). */
 
 /*
  * 30.06.2021.
@@ -7,6 +6,9 @@ using UnityEngine.UI;
  * Refactored and reformatted.
  * Also put in FFStudio namespace.
  */
+
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace FFStudio
 {

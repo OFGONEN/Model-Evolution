@@ -1,42 +1,41 @@
-﻿using UnityEditor;
-using UnityEngine;
+﻿/* Created by and for usage of FF Studios (2021). */
+
+using UnityEditor;
 using System.IO;
+
 namespace FFEditor
 {
     public class SOAssetProcess : UnityEditor.AssetModificationProcessor
     {
         static AssetDeleteResult OnWillDeleteAsset(string path, RemoveAssetOptions options)
         {
-            var _fileName = Path.GetFileNameWithoutExtension(path);
+            var fileName = Path.GetFileNameWithoutExtension(path);
 
-            var _soLibrary = SOUtility.soLibrary;
-            var _trackedSO = _soLibrary.trackedSO;
+            var soLibrary = SOUtility.soLibrary;
+            var trackedScriptableObject = soLibrary.trackedScriptableObject;
 
-            for (int i = 0; i < _trackedSO.Count; i++)
-            {
-                var _sObject = _trackedSO[i];
+			for( int i = 0; i < trackedScriptableObject.Count; i++ )
+			{
+				var scriptableObject = trackedScriptableObject[ i ];
 
-                if (_fileName == _sObject.name)
-                {
-                    var _assetName = "Default_" + _sObject.name + ".asset";
-                    var _deletePath = Path.Combine("Assets/Editor/DefaultScriptableObjects", _assetName);
+				if( fileName == scriptableObject.name )
+				{
+					var assetName = "Default_" + scriptableObject.name + ".asset";
+					var deletePath = Path.Combine( "Assets/Editor/DefaultScriptableObjects", assetName );
 
+					trackedScriptableObject.RemoveAt( i );
+					soLibrary.trackedScriptableObjectCount = trackedScriptableObject.Count;
 
-                    _trackedSO.RemoveAt(i);
-                    _soLibrary.trackedSOCount = _trackedSO.Count;
+					EditorUtility.SetDirty( soLibrary );
 
-                    EditorUtility.SetDirty(_soLibrary);
+					AssetDatabase.DeleteAsset( deletePath );
+					AssetDatabase.SaveAssets();
 
-                    AssetDatabase.DeleteAsset(_deletePath);
-                    AssetDatabase.SaveAssets();
+					break;
+				}
+			}
 
-                    break;
-                }
-            }
-
-            return AssetDeleteResult.DidNotDelete;
+			return AssetDeleteResult.DidNotDelete;
         }
-
     }
-
 }

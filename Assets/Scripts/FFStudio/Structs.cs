@@ -5,13 +5,11 @@ using UnityEngine;
 
 namespace FFStudio
 {
-	// Write structs here
-
-	[Serializable]
+	[ Serializable ]
 	public struct TransformData
 	{
 		public Vector3 position;
-		public Vector3 rotation; // euler angles
-		public Vector3 scale; // local scale
+		public Vector3 rotation; // Euler angles.
+		public Vector3 scale; // Local scale.
 	}
 }

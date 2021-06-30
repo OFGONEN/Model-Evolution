@@ -1,7 +1,5 @@
 /* Created by and for usage of FF Studios (2021). */
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace FFStudio
@@ -9,10 +7,10 @@ namespace FFStudio
 	public class ParallaxEffect : MonoBehaviour
 	{
 #region Fields
-		public SharedReferenceProperty targetReference; // Players rigidbody
+		public SharedReferenceProperty targetReference;
 		public Vector3 parallaxRatio;
 
-		// Private Fields
+		/* Private Fields */
 		private Transform targetTransform;
 		private Vector3 startPosition;
 		private Vector3 target_StartPosition;

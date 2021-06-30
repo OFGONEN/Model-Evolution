@@ -1,8 +1,10 @@
-﻿using UnityEngine;
+﻿/* Created by and for usage of FF Studios (2021). */
+
+using UnityEngine;
 
 namespace FFStudio
 {
-	[CreateAssetMenu( fileName = "SharedFloatCleanUp", menuName = "FF/Data/Shared/FloatCleanUp" )]
+	[ CreateAssetMenu( fileName = "SharedFloatCleanUp", menuName = "FF/Data/Shared/FloatCleanUp" ) ]
 	public class SharedFloatCleanUp : SharedFloat
 	{
 		public float defaultValue;
@@ -13,11 +15,13 @@ namespace FFStudio
 			cleanUpListener.OnEnable();
 			cleanUpListener.response = CleanUp;
 		}
+		
 		private void OnDisable()
 		{
 			cleanUpListener.OnDisable();
 		}
-		void CleanUp()
+
+		private void CleanUp()
 		{
 			sharedValue = defaultValue;
 		}

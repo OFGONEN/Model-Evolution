@@ -1,5 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
+/* Created by and for usage of FF Studios (2021). */
+
 using UnityEngine;
 
 public enum ElephantEvent
@@ -11,7 +11,7 @@ public enum ElephantEvent
 
 namespace FFStudio
 {
-    [CreateAssetMenu(fileName = "ElephantEvent", menuName = "FF/Event/ElephantEvent")]
+    [ CreateAssetMenu( fileName = "ElephantEvent", menuName = "FF/Event/ElephantEvent" ) ]
     public class ElephantLevelEvent : GameEvent
     {
         public ElephantEvent elephantEventType;

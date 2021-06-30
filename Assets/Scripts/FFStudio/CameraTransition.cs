@@ -1,3 +1,5 @@
+/* Created by and for usage of FF Studios (2021). */
+
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -7,7 +9,7 @@ using NaughtyAttributes;
 
 namespace FFStudio
 {
-    public class CameraController : MonoBehaviour
+    public class CameraTransition : MonoBehaviour
     {
 #region Fields
         [ Header( "Event Listeners" ) ]
@@ -18,8 +20,8 @@ namespace FFStudio
 
         [ Header( "Transition" ) ]
         public Transform outsideTransform;
-        public Transform inCabinTransform_MinimumResolution;
-        public Transform inCabinTransform_MaximumResolution;
+        public Transform insideTransform_MinimumResolution;
+        public Transform insideTransform_MaximumResolution;
 
         [ InfoBox( "You might want to move this duration field into GameSettings.cs" ) ]
         public float duration = 1.0f;
@@ -60,12 +62,10 @@ namespace FFStudio
         {
             if( outsideTransform == null )
                 ( outsideTransform = new GameObject().transform ).name = "Camera-Outside-Position";
-            if( inCabinTransform_MinimumResolution == null )
-                ( inCabinTransform_MinimumResolution = new GameObject().transform ).name =  
-                                                            "Camera-In-Cabin-Position-Min-Resolution";
-            if( inCabinTransform_MaximumResolution == null )
-				( inCabinTransform_MaximumResolution = new GameObject().transform ).name =
-															"Camera-In-Cabin-Position-Max-Resolution";
+            if( insideTransform_MinimumResolution == null )
+                ( insideTransform_MinimumResolution = new GameObject().transform ).name = "Camera-Inside-Min-Resolution";
+            if( insideTransform_MaximumResolution == null )
+				( insideTransform_MaximumResolution = new GameObject().transform ).name = "Camera-Inside-Max-Resolution";
 
             if( zoomCalculator == null )
                 zoomCalculator = gameObject.AddComponent< CameraZoomCalculator >();
@@ -75,7 +75,7 @@ namespace FFStudio
         {
             Camera mainCamera = Camera.main;
             FFGizmos.DrawCamera( outsideTransform, Color.red,   mainCamera );
-            FFGizmos.DrawCamera( inCabinTransform_MaximumResolution, Color.green, mainCamera );
+            FFGizmos.DrawCamera( insideTransform_MaximumResolution, Color.green, mainCamera );
         }
 #endif
 #endregion
@@ -84,17 +84,17 @@ namespace FFStudio
         private void OnLevelStart()
         {
             if( status != Status.Inside )
-                TransitionIntoCabin();
+                TransitionIntoInside();
         }
 
         [ Button( "Transition (Tween)" ) ]
         [ ShowIf( EConditionOperator.And, "InPlayMode", "Outside" ) ]
-        private void TransitionIntoCabin()
+        private void TransitionIntoInside()
         {
-            var inCabinPosition = zoomCalculator.Calculate( inCabinTransform_MinimumResolution.position,
-                                                            inCabinTransform_MaximumResolution.position );
-            transform.DOMove( inCabinPosition, duration );
-            transform.DORotate( inCabinTransform_MaximumResolution.rotation.eulerAngles, duration )
+            var insidePosition = zoomCalculator.Calculate( insideTransform_MinimumResolution.position,
+                                                           insideTransform_MaximumResolution.position );
+            transform.DOMove( insidePosition, duration );
+            transform.DORotate( insideTransform_MaximumResolution.rotation.eulerAngles, duration )
                      .OnComplete( () => status = Status.Inside );
         }
 
@@ -115,19 +115,19 @@ namespace FFStudio
             status = Status.Free;
         }
 
-        [ Button( "Show Cabin View (Min Resolution)" ) ]
-        private void ShowCabinView_MinimumResolution()
+        [ Button( "Show Inside View (Min Resolution)" ) ]
+        private void ShowInsideView_MinimumResolution()
         {
-            transform.position = inCabinTransform_MinimumResolution.position;
-            transform.rotation = inCabinTransform_MinimumResolution.rotation;
+            transform.position = insideTransform_MinimumResolution.position;
+            transform.rotation = insideTransform_MinimumResolution.rotation;
             status = Status.Inside;
         }
 
-        [ Button( "Show Cabin View ( Max Resolution)" ) ]
-        private void ShowCabinView_MaximumResolution()
+        [ Button( "Show Inside View ( Max Resolution)" ) ]
+        private void ShowInsideView_MaximumResolution()
         {
-            transform.position = inCabinTransform_MaximumResolution.position;
-            transform.rotation = inCabinTransform_MaximumResolution.rotation;
+            transform.position = insideTransform_MaximumResolution.position;
+            transform.rotation = insideTransform_MaximumResolution.rotation;
             status = Status.Inside;
         }
 
@@ -140,32 +140,32 @@ namespace FFStudio
             status = Status.Outside;
         }
 #if UNITY_EDITOR
-        [ Button( "A S S I G N   Current View To In-Cabin Transform (Min Resolution)" ) ]
-        private void AssignThisViewToInCabinTransform_MinimumResolution()
+        [ Button( "A S S I G N   Current View To Inside Transform (Min Resolution)" ) ]
+        private void AssignThisViewToInsideTransform_MinimumResolution()
         {
 			if( EditorUtility.DisplayDialog( /* Title: */ "Assigning Current View to a Transform",
-                                             "Assigning current view into in-cabin transform (MINIMUM resolution).\nAre you sure?",
+                                             "Assigning current view into Inside transform (MINIMUM resolution).\nAre you sure?",
 				    		                 "Yes", "Cancel" ) == false )
 				return;
 
 			Camera sceneViewCam = SceneView.lastActiveSceneView.camera;
 
-			inCabinTransform_MinimumResolution.position = sceneViewCam.transform.position;
-            inCabinTransform_MinimumResolution.rotation = sceneViewCam.transform.rotation;
+			insideTransform_MinimumResolution.position = sceneViewCam.transform.position;
+            insideTransform_MinimumResolution.rotation = sceneViewCam.transform.rotation;
         }
 
-        [ Button( "A S S I G N   Current View To In-Cabin Transform (Max Resolution)" ) ]
-        private void AssignThisViewToInCabinTransform_MaximumResolution()
+        [ Button( "A S S I G N   Current View To Inside Transform (Max Resolution)" ) ]
+        private void AssignThisViewToInsideTransform_MaximumResolution()
         {
             if( EditorUtility.DisplayDialog( /* Title: */ "Assigning Current View to a Transform",
-                                             "Assigning current view into in-cabin transform (MAXIMUM resolution).\nAre you sure?",
+                                             "Assigning current view into Inside transform (MAXIMUM resolution).\nAre you sure?",
 											 "Yes", "Cancel!" ) == false )
 				return;
 
 			Camera sceneViewCam = SceneView.lastActiveSceneView.camera;
 
-            inCabinTransform_MaximumResolution.position = transform.position;
-            inCabinTransform_MaximumResolution.rotation = transform.rotation;
+            insideTransform_MaximumResolution.position = transform.position;
+            insideTransform_MaximumResolution.rotation = transform.rotation;
         }
 
         [ Button( "A S S I G N   Current View To Outside Transform" ) ]

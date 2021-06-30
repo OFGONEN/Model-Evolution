@@ -1,8 +1,10 @@
-﻿using UnityEngine;
+﻿/* Created by and for usage of FF Studios (2021). */
+
+using UnityEngine;
 
 namespace FFStudio
 {
-	[CreateAssetMenu( fileName = "SharedFloat", menuName = "FF/Data/Shared/Float" )]
+	[ CreateAssetMenu( fileName = "SharedFloat", menuName = "FF/Data/Shared/Float" ) ]
 	public class SharedFloat : ScriptableObject
 	{
 		public float sharedValue;

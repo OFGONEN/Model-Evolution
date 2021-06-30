@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿/* Created by and for usage of FF Studios (2021). */
+
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,60 +9,60 @@ namespace FFStudio
     {
         public SoundEvent[] soundEvents;
 
-        List<EventListenerDelegateResponse> soundEventListeners;
-        Dictionary<int, AudioSource> audioSources;
+        List< EventListenerDelegateResponse > soundEventListeners;
+        Dictionary< int, AudioSource > audioSources;
+        
+#region Unity API
         private void Awake()
-        {
-            soundEventListeners = new List<EventListenerDelegateResponse>(soundEvents.Length);
-            audioSources = new Dictionary<int, AudioSource>(soundEvents.Length);
+		{
+			soundEventListeners = new List< EventListenerDelegateResponse >( soundEvents.Length );
+			audioSources = new Dictionary< int, AudioSource >( soundEvents.Length );
 
-            for (int i = 0; i < soundEvents.Length; i++)
-            {
-                var _audioComponent = gameObject.AddComponent<AudioSource>();
-                _audioComponent.playOnAwake = false;
-                _audioComponent.loop = false;
+			for( int i = 0; i < soundEvents.Length; i++ )
+			{
+				var audioComponent = gameObject.AddComponent<AudioSource>();
+				audioComponent.playOnAwake = false;
+				audioComponent.loop = false;
 
-                var _audioEvent = soundEvents[i];
+				var audioEvent = soundEvents[ i ];
 
-                _audioComponent.clip = _audioEvent.audioClip;
-                audioSources.Add(_audioEvent.GetInstanceID(), _audioComponent);
+				audioComponent.clip = audioEvent.audioClip;
+				audioSources.Add( audioEvent.GetInstanceID(), audioComponent );
 
-                var _listener = new EventListenerDelegateResponse();
-                _listener.gameEvent = _audioEvent;
-                soundEventListeners.Add(_listener);
+				var listener = new EventListenerDelegateResponse();
+				listener.gameEvent = audioEvent;
+				soundEventListeners.Add( listener );
+			}
+		}
 
-            }
+		private void OnEnable()
+		{
+			for( int i = 0; i < soundEvents.Length; i++ )
+				soundEventListeners[ i ].OnEnable();
+		}
+
+		private void OnDisable()
+		{
+			for( int i = 0; i < soundEvents.Length; i++ )
+				soundEventListeners[ i ].OnDisable();
+		}
+
+		private void Start()
+		{
+			foreach( var soundEventListener in soundEventListeners )
+				soundEventListener.response = ( () => PlaySound( soundEventListener.gameEvent.GetInstanceID() ) );
         }
-        private void OnEnable()
-        {
-            for (int i = 0; i < soundEvents.Length; i++)
-            {
-                soundEventListeners[i].OnEnable();
-            }
-        }
-        private void OnDisable()
-        {
-            for (int i = 0; i < soundEvents.Length; i++)
-            {
-                soundEventListeners[i].OnDisable();
-            }
-        }
-        private void Start()
-        {
-            foreach (var soundEventListener in soundEventListeners)
-            {
-                soundEventListener.response = (() => PlaySound(soundEventListener.gameEvent.GetInstanceID()));
-            }
-        }
-        void PlaySound(int instanceId)
-        {
-            AudioSource _source;
-            audioSources.TryGetValue(instanceId, out _source);
+#endregion
 
-            if (_source != null && !_source.isPlaying)
-            {
-                _source.Play();
-            }
+#region Implementation
+        private void PlaySound( int instanceId )
+        {
+            AudioSource source;
+			audioSources.TryGetValue( instanceId, out source );
+
+			if( source != null && !source.isPlaying )
+				source.Play();
         }
     }
+#endregion
 }

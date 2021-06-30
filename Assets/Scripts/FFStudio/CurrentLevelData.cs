@@ -1,12 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿/* Created by and for usage of FF Studios (2021). */
+
 using UnityEngine;
 
 namespace FFStudio
 {
     public class CurrentLevelData : ScriptableObject
     {
-		#region Fields
+#region Fields
 		public int currentLevel;
 		public int currentConsecutiveLevel;
 		public LevelData levelData;
@@ -23,27 +23,25 @@ namespace FFStudio
                 return returnInstance();
             }
         }
-		#endregion
+#endregion
 
-		#region API
+#region API
 		public void LoadCurrentLevelData()
 		{
 			if( currentLevel > GameSettings.Instance.maxLevelCount )
-			{
 				currentLevel = Random.Range( 1, GameSettings.Instance.maxLevelCount );
-			}
 
 			levelData = Resources.Load<LevelData>( "LevelData_" + currentLevel );
 		}
-        #endregion
+#endregion
 
-        #region Implementation
+#region Implementation
         static CurrentLevelData LoadInstance()
-        {
-            if (instance == null)
-                instance = Resources.Load<CurrentLevelData>("level_current");
+		{
+			if( instance == null )
+				instance = Resources.Load<CurrentLevelData>( "level_current" );
 
-            returnInstance = ReturnInstance;
+			returnInstance = ReturnInstance;
 
             return instance;
         }
@@ -52,6 +50,6 @@ namespace FFStudio
         {
             return instance;
         }
-        #endregion
+#endregion
     }
 }

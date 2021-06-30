@@ -1,8 +1,10 @@
-﻿using UnityEngine;
+﻿/* Created by and for usage of FF Studios (2021). */
+
+using UnityEngine;
 
 namespace FFStudio
 {
-	[CreateAssetMenu( fileName = "SharedStringCleanUp", menuName = "FF/Data/Shared/StringCleanUp" )]
+	[ CreateAssetMenu( fileName = "SharedStringCleanUp", menuName = "FF/Data/Shared/StringCleanUp" ) ]
 	public class SharedStringCleanUp : SharedString
 	{
 		public string defaultValue = string.Empty;
@@ -13,11 +15,13 @@ namespace FFStudio
 			cleanUpListener.OnEnable();
 			cleanUpListener.response = CleanUp;
 		}
+		
 		private void OnDisable()
 		{
 			cleanUpListener.OnDisable();
 		}
-		void CleanUp()
+		
+		private void CleanUp()
 		{
 			sharedValue = defaultValue;
 		}

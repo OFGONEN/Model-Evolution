@@ -11,7 +11,7 @@ namespace FFStudio
 #region Fields
         public enum RotationMode { Local, World }
 
-        [ Label( "Delta Angle (°)" )]
+        [ Label( "Delta Angle (°)" ) ]
         public float deltaAngle;
         [ Label( "Angular Speed (°/s)" ), Min( 0 ) ]
         public float angularSpeedInDegrees;
@@ -42,8 +42,7 @@ namespace FFStudio
         [ field: SerializeField, ReadOnly ]
         public bool IsPlaying { get; private set; }
         
-/* Private Fields */
-
+    /* Private Fields */
         private Tween tween;
         private float Duration => Mathf.Abs( deltaAngle / angularSpeedInDegrees );
 

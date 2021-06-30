@@ -1,53 +1,53 @@
-﻿using System.Collections;
+﻿/* Created by and for usage of FF Studios (2021). */
+
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
 namespace FFEditor
 {
-    [CreateAssetMenu]
+    [ CreateAssetMenu ]
     public class SOLibrary : ScriptableObject
     {
-        public List<ScriptableObject> trackedSO = null;
+        public List< ScriptableObject > trackedScriptableObject = null;
 
-        public int trackedSOCount = 0;
+        public int trackedScriptableObjectCount = 0;
 
+		private void Awake()
+		{
+			if( trackedScriptableObject == null )
+				trackedScriptableObject = new List< ScriptableObject >( 8 );
 
-        private void Awake()
-        {
-            if (trackedSO == null)
-                trackedSO = new List<ScriptableObject>(8);
+			trackedScriptableObjectCount = trackedScriptableObject.Count;
+		}
 
-            trackedSOCount = trackedSO.Count;
-        }
+		public void TrackScriptableObject( ScriptableObject sObject )
+		{
+			if( !trackedScriptableObject.Contains( sObject ) )
+				trackedScriptableObject.Add( sObject );
 
-        public void TrackSO(ScriptableObject sObject)
-        {
-            if (!trackedSO.Contains(sObject))
-                trackedSO.Add(sObject);
+			trackedScriptableObjectCount = trackedScriptableObject.Count;
+		}
 
-            trackedSOCount = trackedSO.Count;
-        }
+		public void UntrackScriptableObject( ScriptableObject sObject )
+		{
+			trackedScriptableObject.Remove( sObject );
 
-        public void UnTrackSO(ScriptableObject sObject)
-        {
-            var _removed = trackedSO.Remove(sObject);
+			trackedScriptableObjectCount = trackedScriptableObject.Count;
+		}
 
-            trackedSOCount = trackedSO.Count;
-        }
+		private void OnValidate()
+		{
+			if( trackedScriptableObject == null || trackedScriptableObject.Count == 0 || trackedScriptableObject.Count == trackedScriptableObjectCount )
+				return;
 
-        private void OnValidate()
-        {
-            if (trackedSO == null || trackedSO.Count == 0 || trackedSO.Count == trackedSOCount) return;
+			Debug.LogError( "Do not add items to SOLibrary manually" );
 
-            Debug.LogError("Do not add items to SOLibrary manually");
+			trackedScriptableObject.RemoveRange( trackedScriptableObjectCount, trackedScriptableObject.Count - trackedScriptableObjectCount );
+			trackedScriptableObjectCount = trackedScriptableObject.Count;
 
-            trackedSO.RemoveRange(trackedSOCount, trackedSO.Count - trackedSOCount);
-            trackedSOCount = trackedSO.Count;
-
-            EditorUtility.SetDirty(this);
-            AssetDatabase.SaveAssets();
-        }
+			EditorUtility.SetDirty( this );
+			AssetDatabase.SaveAssets();
+		}
     }
-
 }

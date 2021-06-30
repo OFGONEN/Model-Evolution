@@ -1,8 +1,10 @@
-﻿using UnityEngine;
+﻿/* Created by and for usage of FF Studios (2021). */
+
+using UnityEngine;
 
 namespace FFStudio
 {
-	[CreateAssetMenu( fileName = "SharedStringProperty", menuName = "FF/Data/Shared/Property/StringProperty" )]
+	[ CreateAssetMenu( fileName = "SharedStringProperty", menuName = "FF/Data/Shared/Property/StringProperty" ) ]
 	public class SharedStringProperty : SharedString
 	{
 		public event ChangeEvent changeEvent;

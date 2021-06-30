@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿/* Created by and for usage of FF Studios (2021). */
+
+using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
 
@@ -9,7 +11,8 @@ namespace FFStudio
 	{
 #region Fields
 		public bool canRaiseOtherEvents;
-		[ ShowIf( "canRaiseOtherEvents" ) ] public List< GameEvent > eventsThatWillAlsoBeRaised;
+		[ ShowIf( "canRaiseOtherEvents" ) ]
+		public List< GameEvent > eventsThatWillAlsoBeRaised;
 		
         private readonly List< EventListener > eventListeners = new List< EventListener >();
 #endregion

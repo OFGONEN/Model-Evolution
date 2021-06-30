@@ -1,7 +1,5 @@
 /* Created by and for usage of FF Studios (2021). */
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,29 +7,30 @@ namespace FFStudio
 {
 	public class AppManager : MonoBehaviour
 	{
-		#region Fields
-		[Header( "Event Listeners" )]
+#region Fields
+		[ Header( "Event Listeners" ) ]
 		public EventListenerDelegateResponse loadNewLevelListener;
 		public EventListenerDelegateResponse resetLevelListener;
 
-		[Header( "Fired Events" )]
+		[ Header( "Fired Events" ) ]
 		public GameEvent levelLoaded;
 		public GameEvent cleanUpEvent;
+#endregion
 
-		#endregion
-
-		#region Unity API
+#region Unity API
 		private void OnEnable()
 		{
 			loadNewLevelListener.OnEnable();
 			resetLevelListener.OnEnable();
 		}
+		
 		private void OnDisable()
 		{
 			loadNewLevelListener.OnDisable();
 			resetLevelListener.OnDisable();
 
 		}
+		
 		private void Awake()
 		{
 			loadNewLevelListener.response = LoadNewLevel;
@@ -42,23 +41,23 @@ namespace FFStudio
 		{
 			LoadLevel();
 		}
-		#endregion
+#endregion
 
-		#region API
+#region API
 		public void ResetScene()
 		{
-			var operation = SceneManager.UnloadSceneAsync( CurrentLevelData.Instance.levelData.sceneIndex ); // Unload current scene
+			// Unload current scene.
+			var operation = SceneManager.UnloadSceneAsync( CurrentLevelData.Instance.levelData.sceneIndex );
 
 			cleanUpEvent.Raise();
 
-			// When unloading done load the same scene again
+			// When unloading is completed, load the same scene again.
 			operation.completed += ( AsyncOperation operation ) =>
-			SceneManager.LoadScene( CurrentLevelData.Instance.levelData.sceneIndex, LoadSceneMode.Additive );
-
+				SceneManager.LoadScene( CurrentLevelData.Instance.levelData.sceneIndex, LoadSceneMode.Additive );
 		}
-		#endregion
+#endregion
 
-		#region Implementation
+#region Implementation
 		/// <summary>
 		/// Same as ResetScene method but raises level loaded event
 		/// </summary>
@@ -68,9 +67,10 @@ namespace FFStudio
 
 			levelLoaded.Raise();
 		}
+		
 		private void LoadLevel()
 		{
-			CurrentLevelData.Instance.currentLevel = PlayerPrefs.GetInt( "Level", 1 );
+			CurrentLevelData.Instance.currentLevel            = PlayerPrefs.GetInt( "Level", 1 );
 			CurrentLevelData.Instance.currentConsecutiveLevel = PlayerPrefs.GetInt( "Consecutive Level", 1 );
 
 			CurrentLevelData.Instance.LoadCurrentLevelData();
@@ -80,6 +80,7 @@ namespace FFStudio
 
 			levelLoaded.Raise();
 		}
+		
 		private void LoadNewLevel()
 		{
 			CurrentLevelData.Instance.currentLevel++;
@@ -87,10 +88,9 @@ namespace FFStudio
 			PlayerPrefs.SetInt( "Level", CurrentLevelData.Instance.currentLevel );
 			PlayerPrefs.SetInt( "Consecutive Level", CurrentLevelData.Instance.currentConsecutiveLevel );
 
-
-			var _operation = SceneManager.UnloadSceneAsync( CurrentLevelData.Instance.levelData.sceneIndex );
-			_operation.completed += ( AsyncOperation operation ) => LoadLevel();
+			var operation = SceneManager.UnloadSceneAsync( CurrentLevelData.Instance.levelData.sceneIndex );
+			operation.completed += ( AsyncOperation operation ) => LoadLevel();
 		}
-		#endregion
+#endregion
 	}
 }

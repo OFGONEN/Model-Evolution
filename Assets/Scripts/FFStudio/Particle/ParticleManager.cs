@@ -1,18 +1,19 @@
-using System.Collections;
+/* Created by and for usage of FF Studios (2021). */
+
 using System.Collections.Generic;
 using UnityEngine;
-using NaughtyAttributes;
 
 namespace FFStudio
 {
 	public class ParticleManager : MonoBehaviour
 	{
 #region Fields
-		[Header( "Event Listeners" )]
+		[ Header( "Event Listeners" ) ]
 		public EventListenerDelegateResponse spawnParticleListener;
 
-		[SerializeField] private ParticleEffectPool[] particleEffectPools;
-		private Dictionary<string, ParticleEffectPool> particleEffectDictionary;
+		[ SerializeField ]
+		private ParticleEffectPool[] particleEffectPools;
+		private Dictionary< string, ParticleEffectPool > particleEffectDictionary;
 #endregion
 
 #region UnityAPI
@@ -31,7 +32,7 @@ namespace FFStudio
 		{
 			spawnParticleListener.response = SpawnParticle;
 
-			particleEffectDictionary = new Dictionary<string, ParticleEffectPool>( particleEffectPools.Length );
+			particleEffectDictionary = new Dictionary< string, ParticleEffectPool >( particleEffectPools.Length );
 
 			for( int i = 0; i < particleEffectPools.Length; i++ )
 			{
@@ -42,7 +43,6 @@ namespace FFStudio
 #endregion
 
 #region Implementation
-
 		void SpawnParticle()
 		{
 			var spawnEvent = spawnParticleListener.gameEvent as ParticleSpawnEvent;
