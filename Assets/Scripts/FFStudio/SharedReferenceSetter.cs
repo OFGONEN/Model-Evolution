@@ -7,19 +7,19 @@ namespace FFStudio
 	public class SharedReferenceSetter : MonoBehaviour
 	{
 #region Fields
-		public SharedReferenceProperty sharedReferanceProperty;
-		public Component referanceComponent;
+		public SharedReferenceProperty sharedReferenceProperty;
+		public Component referenceComponent;
 #endregion
 
 #region UnityAPI
 		private void OnEnable()
 		{
-			sharedReferanceProperty.SetValue( referanceComponent );
+			sharedReferenceProperty.SetValue( referenceComponent );
 		}
 
 		private void OnDisable()
 		{
-			sharedReferanceProperty.SetValue( null );
+			sharedReferenceProperty.SetValue( null );
 		}
 #endregion
 	}
