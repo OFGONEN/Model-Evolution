@@ -11,7 +11,7 @@ namespace FFStudio
 #region Fields
         public enum RotationMode { Local, World }
 
-        [ Label( "Delta Angle (°)" ) ]
+        [ Label( "Delta Angle (°)" )]
         public float deltaAngle;
         [ Label( "Angular Speed (°/s)" ), Min( 0 ) ]
         public float angularSpeedInDegrees;
@@ -42,7 +42,8 @@ namespace FFStudio
         [ field: SerializeField, ReadOnly ]
         public bool IsPlaying { get; private set; }
         
-    /* Private Fields */
+/* Private Fields */
+
         private Tween tween;
         private float Duration => Mathf.Abs( deltaAngle / angularSpeedInDegrees );
 
@@ -139,12 +140,19 @@ namespace FFStudio
             tween.SetRelative()
                  .SetEase( easing )
                  .SetLoops( loop ? -1 : 0, loopType )
-                 .OnComplete( () => IsPlaying = false )
-                 .OnComplete( KillTween );
-                
-            for( var i = 0; i < fireTheseOnComplete.Length; i++ )
-                tween.OnComplete( fireTheseOnComplete[ i ].Raise );
+                 .OnComplete( TweenComplete );
         }
+
+        private void TweenComplete()
+        {
+			IsPlaying = false;
+
+			KillTween();
+
+            for( var i = 0; i < fireTheseOnComplete.Length; i++ )
+				fireTheseOnComplete[ i ].Raise();
+
+		}
 
         private void KillTween()
         {
