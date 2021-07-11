@@ -4,6 +4,7 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 using FFStudio;
+using System.Reflection;
 
 namespace FFEditor
 {
@@ -61,14 +62,14 @@ namespace FFEditor
 
 		}
 
-		[ MenuItem( "FFStudios/Save All Assets _F12" ) ]
+		[ MenuItem( "FFShortcut/Save All Assets _F12" ) ]
 		static private void SaveAllAssets()
 		{
 			AssetDatabase.SaveAssets();
 			Debug.Log( "AssetDatabase Saved" );
 		}
 
-		[ MenuItem( "FFStudios/Select Level Data &1" ) ]
+		[ MenuItem( "FFShortcut/Select Level Data &1" ) ]
 		static private void SelectLevelData()
 		{
 			var levelData = Resources.Load( "LevelData_1" );
@@ -76,7 +77,7 @@ namespace FFEditor
 			Selection.SetActiveObjectWithContext( levelData, levelData );
 		}
 
-		[ MenuItem( "FFStudios/Select Game Settings &2" ) ]
+		[ MenuItem( "FFShortcut/Select Game Settings &2" ) ]
 		static private void SelectGameSettings()
 		{
 			var gameSettings = Resources.Load( "game_settings" );
@@ -84,7 +85,7 @@ namespace FFEditor
 			Selection.SetActiveObjectWithContext( gameSettings, gameSettings );
 		}
 
-		[ MenuItem( "FFStudios/Select App Scene &3" ) ]
+		[ MenuItem( "FFShortcut/Select App Scene &3" ) ]
 		static private void SelectAppScene()
 		{
 			var gameSettings = AssetDatabase.LoadAssetAtPath( "Assets/Scenes/app.unity", typeof( SceneAsset ) );
@@ -92,17 +93,26 @@ namespace FFEditor
 			Selection.SetActiveObjectWithContext( gameSettings, gameSettings );
 		}
 
-		[ MenuItem( "FFStudios/Copy Global Transform &c" ) ]
+		[ MenuItem( "FFShortcut/Copy Global Transform &c" ) ]
 		static private void CopyTransform()
 		{
 			currentTransformData = Selection.activeGameObject.transform.GetTransformData();
 		}
 
-		[ MenuItem( "FFStudios/Paste Global Transform &v" ) ]
+		[ MenuItem( "FFShortcut/Paste Global Transform &v" ) ]
 		static private void PasteTransform()
 		{
 			var gameObject = Selection.activeGameObject.transform;
 			gameObject.SetTransformData( currentTransformData );
+		}
+
+		[ MenuItem( "FFShortcut/Clear Console %#x" ) ]
+		private static void ClearLog()
+		{
+			var assembly = Assembly.GetAssembly( typeof( UnityEditor.Editor ) );
+			var type = assembly.GetType( "UnityEditor.LogEntries" );
+			var method = type.GetMethod( "Clear" );
+			method.Invoke( new object(), null );
 		}
 	}
 }
