@@ -342,14 +342,14 @@ namespace FFEditor
 		[ MenuItem( "FFStudios/Set Max Level Count for Game Settings" ) ]
 		public static void SetMaxLevelForGameSettings()
 		{
-			string[] guids = AssetDatabase.FindAssets( "LevelData_ t:levelData", new[] { "Assets/Resources" } );
+			string[] guids = AssetDatabase.FindAssets( "level_data_ t:levelData", new[] { "Assets/Resources" } );
 
 			gameSettings.maxLevelCount = guids.Length;
 
 			EditorUtility.SetDirty( gameSettings );
 			AssetDatabase.SaveAssets();
 
-			//Debug.Log( "Game Settings max level count: " + gameSettings.maxLevelCount );
+			Debug.Log( "Game Settings max level count: " + gameSettings.maxLevelCount );
 		}
 	}
 }
