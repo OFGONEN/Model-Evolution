@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace FFStudio
 {
-	[ CreateAssetMenu( fileName = "SharedReferanceProperty", menuName = "FF/Data/Shared/Property/ReferanceProperty" ) ]
+	[ CreateAssetMenu( fileName = "SharedReferenceProperty", menuName = "FF/Data/Shared/Property/ReferenceProperty" ) ]
 	public class SharedReferenceProperty : SharedReference
 	{
 		public event ChangeEvent changeEvent;
