@@ -72,7 +72,7 @@ namespace FFEditor
 		[ MenuItem( "FFShortcut/Select Level Data &1" ) ]
 		static private void SelectLevelData()
 		{
-			var levelData = Resources.Load( "LevelData_1" );
+			var levelData = Resources.Load( "level_data_1" );
 
 			Selection.SetActiveObjectWithContext( levelData, levelData );
 		}

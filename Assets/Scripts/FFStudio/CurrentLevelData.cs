@@ -31,7 +31,7 @@ namespace FFStudio
 			if( currentLevel > GameSettings.Instance.maxLevelCount )
 				currentLevel = Random.Range( 1, GameSettings.Instance.maxLevelCount );
 
-			levelData = Resources.Load<LevelData>( "LevelData_" + currentLevel );
+			levelData = Resources.Load<LevelData>( "level_data_" + currentLevel );
 		}
 #endregion
 
