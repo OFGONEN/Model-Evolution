@@ -174,6 +174,7 @@ namespace FFStudio
 #endregion
 
 #region EditorOnly
+#if UNITY_EDITOR
 		private void OnDrawGizmos()
 		{
 			Vector3 startPos;
@@ -192,6 +193,7 @@ namespace FFStudio
 			Handles.color = Color.blue;
 			Handles.DrawSolidDisc( transform.position, Vector3.forward, 0.125f );
 		}
+#endif
 #endregion
 	}
 }
