@@ -9,31 +9,31 @@ namespace FFStudio
 	public class AppManager : MonoBehaviour
 	{
 #region Fields
-		[Header( "Event Listeners" )]
+		[ Header( "Event Listeners" ) ]
 		public EventListenerDelegateResponse loadNewLevelListener;
 		public EventListenerDelegateResponse resetLevelListener;
 
-		[Header( "Fired Events" )]
+		[ Header( "Fired Events" ) ]
 		public GameEvent levelLoaded;
 		public GameEvent cleanUpEvent;
 
-		[Header( "Fired Events" )]
+		[ Header( "Fired Events" ) ]
 		public SharedFloatProperty levelProgress;
-
 #endregion
 
 #region Unity API
 		private void OnEnable()
 		{
 			loadNewLevelListener.OnEnable();
-			resetLevelListener  .OnEnable();
+			resetLevelListener.OnEnable();
 		}
+		
 		private void OnDisable()
 		{
 			loadNewLevelListener.OnDisable();
-			resetLevelListener  .OnDisable();
-
+			resetLevelListener.OnDisable();
 		}
+		
 		private void Awake()
 		{
 			loadNewLevelListener.response = LoadNewLevel;
@@ -47,26 +47,15 @@ namespace FFStudio
 #endregion
 
 #region API
-		public void ResetScene()
-		{
-			var operation = SceneManager.UnloadSceneAsync( CurrentLevelData.Instance.levelData.sceneIndex ); // Unload current scene
-
-			cleanUpEvent.Raise();
-
-			// When unloading done load the same scene again
-			operation.completed += ( AsyncOperation operation ) =>
-			SceneManager.LoadScene( CurrentLevelData.Instance.levelData.sceneIndex, LoadSceneMode.Additive );
-
-		}
 #endregion
 
 #region Implementation
 		private void ResetLevel()
 		{
-			ResetScene();
-
-			levelLoaded.Raise();
+			var operation = SceneManager.UnloadSceneAsync( CurrentLevelData.Instance.levelData.sceneIndex );
+			operation.completed += ( AsyncOperation operation ) => StartCoroutine( LoadLevel() );
 		}
+		
 		private IEnumerator LoadLevel()
 		{
 			CurrentLevelData.Instance.currentLevel = PlayerPrefs.GetInt( "Level", 1 );
@@ -89,6 +78,7 @@ namespace FFStudio
 
 			levelLoaded.Raise();
 		}
+		
 		private void LoadNewLevel()
 		{
 			CurrentLevelData.Instance.currentLevel++;
@@ -96,8 +86,8 @@ namespace FFStudio
 			PlayerPrefs.SetInt( "Level", CurrentLevelData.Instance.currentLevel );
 			PlayerPrefs.SetInt( "Consecutive Level", CurrentLevelData.Instance.currentConsecutiveLevel );
 
-			var _operation = SceneManager.UnloadSceneAsync( CurrentLevelData.Instance.levelData.sceneIndex );
-			_operation.completed += ( AsyncOperation operation ) => StartCoroutine( LoadLevel() );
+			var operation = SceneManager.UnloadSceneAsync( CurrentLevelData.Instance.levelData.sceneIndex );
+			operation.completed += ( AsyncOperation operation ) => StartCoroutine( LoadLevel() );
 		}
 #endregion
 	}
