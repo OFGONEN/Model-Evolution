@@ -7,14 +7,14 @@ namespace FFStudio
 	[ CreateAssetMenu( fileName = "SharedBoolProperty", menuName = "FF/Data/Shared/Property/BoolProperty" ) ]
 	public class SharedBoolProperty : SharedBool
 	{
-		public event ChangeEvent changeEvet;
+		public event ChangeEvent changeEvent;
 
 		public void SetValue( bool value )
 		{
 			if( sharedValue != value )
 			{
 				sharedValue = value;
-				changeEvet?.Invoke();
+				changeEvent?.Invoke();
 			}
 		}
 	}

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace FFStudio
 {
-	[ CreateAssetMenu( fileName = "SharedReferance", menuName = "FF/Data/Shared/Referance" ) ]
+	[ CreateAssetMenu( fileName = "SharedReference", menuName = "FF/Data/Shared/Reference" ) ]
 	public class SharedReference : ScriptableObject
 	{
 		public object sharedValue;

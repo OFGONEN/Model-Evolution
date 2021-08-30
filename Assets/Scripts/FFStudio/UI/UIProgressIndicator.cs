@@ -1,24 +1,25 @@
 /* Created by and for usage of FF Studios (2021). */
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace FFStudio
 {
 	public abstract class UIProgressIndicator : UIEntity
 	{
-#region Fields
+#region Fields (Inspector Interface)
 		public SharedFloatProperty indicatorProgress;
 
 		public float offsetPercentage;
+#endregion
 
-		// Private Fields
-		private RectTransform indicatingParent;
-
+#region Fields (Protected)
 		protected Vector3[] indicatingParentWorldPos = new Vector3[ 4 ];
 		protected Vector3 indicator_BasePosition;
 		protected Vector3 indicator_EndPosition;
+#endregion
+
+#region Fields (Private)
+		private RectTransform indicatingParent;
 #endregion
 
 #region Unity API

@@ -1,5 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
+/* Created by and for usage of FF Studios (2021). */
+
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
@@ -9,15 +9,14 @@ namespace FFStudio
 {
     public class UIManager : MonoBehaviour
     {
-        #region Fields
-
-        [Header("Event Listeners")]
+#region Fields
+        [ Header( "Event Listeners" ) ]
         public EventListenerDelegateResponse levelLoadedResponse;
         public EventListenerDelegateResponse levelCompleteResponse;
         public EventListenerDelegateResponse levelFailResponse;
         public EventListenerDelegateResponse tapInputListener;
 
-        [Header("UI Elements")]
+        [ Header( "UI Elements" ) ]
         public UILoadingBar levelLoadingBar;
 		public UIText levelLoadingText;
 		public UILoadingBar levelProgressBar;
@@ -27,17 +26,14 @@ namespace FFStudio
         public Image foreGroundImage;
         public RectTransform tutorialObjects;
 
-        [Header("Fired Events")]
+        [ Header( "Fired Events" ) ]
         public GameEvent levelRevealedEvent;
         public GameEvent loadNewLevelEvent;
         public GameEvent resetLevelEvent;
         public ElephantLevelEvent elephantLevelEvent;
+#endregion
 
-
-        #endregion
-
-        #region UnityAPI
-
+#region Unity API
         private void OnEnable()
         {
             levelLoadedResponse.OnEnable();
@@ -56,33 +52,31 @@ namespace FFStudio
 
         private void Awake()
         {
-            levelLoadedResponse.response = LevelLoadedResponse;
-            levelFailResponse.response = LevelFailResponse;
+            levelLoadedResponse.response   = LevelLoadedResponse;
+            levelFailResponse.response     = LevelFailResponse;
             levelCompleteResponse.response = LevelCompleteResponse;
-            tapInputListener.response = ExtensionMethods.EmptyMethod;
+            tapInputListener.response      = ExtensionMethods.EmptyMethod;
 
             informationText.textRenderer.text = "Tap to Start";
         }
-        #endregion
+#endregion
 
-        #region Implementation
-
-        void LevelLoadedResponse()
+#region Implementation
+        private void LevelLoadedResponse()
         {
-            var sequance = DOTween.Sequence();
+			var sequence = DOTween.Sequence()
+								.Append( levelLoadingBar.Disappear() )
+								.Append( levelLoadingText.Disappear() )
+								.Append( loadingScreenImage.DOFade( 0, GameSettings.Instance.ui_Entity_Fade_TweenDuration ) )
+								.AppendCallback( () => tapInputListener.response = StartLevel );
 
-            sequance.Append(levelLoadingBar.GoPopIn());
-            sequance.Append(levelLoadingText.GoPopIn());
-            sequance.Append(loadingScreenImage.DOFade(0, GameSettings.Instance.ui_Entity_Fade_TweenDuration)); 
-            sequance.AppendCallback(() => tapInputListener.response = StartLevel);
-
-            levelCountText.textRenderer.text = "Level " + CurrentLevelData.Instance.currentLevel_Shown;
+			levelCountText.textRenderer.text = "Level " + CurrentLevelData.Instance.currentLevel_Shown;
 
             levelLoadedResponse.response = NewLevelLoaded;
         }
 
-        [Button]
-        void LevelCompleteResponse()
+        [ Button ]
+        private void LevelCompleteResponse()
         {
             var sequence = DOTween.Sequence();
 
@@ -90,18 +84,18 @@ namespace FFStudio
 
             informationText.textRenderer.text = "Completed \n\n Tap to Continue";
 
-            sequence.Append(tween); //TODO: UIElements tween
-            sequence.Append(foreGroundImage.DOFade(0.5f, GameSettings.Instance.ui_Entity_Fade_TweenDuration));
-            sequence.Append(informationText.GoPopOut());
-            sequence.AppendCallback(() => tapInputListener.response = LoadNewLevel);
+			sequence.Append( tween ) // TODO: UIElements tween.
+					.Append( foreGroundImage.DOFade( 0.5f, GameSettings.Instance.ui_Entity_Fade_TweenDuration ) )
+					.Append( informationText.Appear() )
+					.AppendCallback( () => tapInputListener.response = LoadNewLevel );
 
-            elephantLevelEvent.level = CurrentLevelData.Instance.currentLevel_Shown;
+            elephantLevelEvent.level             = CurrentLevelData.Instance.currentLevel_Shown;
             elephantLevelEvent.elephantEventType = ElephantEvent.LevelCompleted;
             elephantLevelEvent.Raise();
         }
 
-        [Button]
-        void LevelFailResponse()
+        [ Button ]
+        private void LevelFailResponse()
         {
             var sequence = DOTween.Sequence();
 
@@ -109,75 +103,73 @@ namespace FFStudio
 
             informationText.textRenderer.text = "Level Failed \n\n Tap to Continue";
 
-            sequence.Append(tween); //TODO: UIElements tween
-            sequence.Append(foreGroundImage.DOFade(0.5f, GameSettings.Instance.ui_Entity_Fade_TweenDuration));
-            sequence.Append(informationText.GoPopOut());
-            sequence.AppendCallback(() => tapInputListener.response = Resetlevel);
+			sequence.Append( tween ) // TODO: UIElements tween.
+					.Append( foreGroundImage.DOFade( 0.5f, GameSettings.Instance.ui_Entity_Fade_TweenDuration ) )
+					.Append( informationText.Appear() )
+					.AppendCallback( () => tapInputListener.response = Resetlevel );
 
-            elephantLevelEvent.level = CurrentLevelData.Instance.currentLevel_Shown;
+            elephantLevelEvent.level             = CurrentLevelData.Instance.currentLevel_Shown;
             elephantLevelEvent.elephantEventType = ElephantEvent.LevelFailed;
             elephantLevelEvent.Raise();
         }
 
-        void NewLevelLoaded()
+        private void NewLevelLoaded()
         {
-            levelCountText.textRenderer.text = "Level " + CurrentLevelData.Instance.currentLevel_Shown;
+			levelCountText.textRenderer.text = "Level " + CurrentLevelData.Instance.currentLevel_Shown;
 
-            var sequence = DOTween.Sequence();
+			var sequence = DOTween.Sequence();
 
-            Tween tween = null;
+			Tween tween = null;
 
-            sequence.Append(foreGroundImage.DOFade(0, GameSettings.Instance.ui_Entity_Fade_TweenDuration));
-            sequence.Append(tween); //TODO: UIElements tween
-            sequence.AppendCallback(levelRevealedEvent.Raise);
+			sequence.Append( foreGroundImage.DOFade( 0, GameSettings.Instance.ui_Entity_Fade_TweenDuration ) )
+					.Append( tween ) // TODO: UIElements tween.
+					.AppendCallback( levelRevealedEvent.Raise );
 
-            elephantLevelEvent.level = CurrentLevelData.Instance.currentLevel_Shown;
+            elephantLevelEvent.level             = CurrentLevelData.Instance.currentLevel_Shown;
             elephantLevelEvent.elephantEventType = ElephantEvent.LevelStarted;
             elephantLevelEvent.Raise();
         }
 
-        void StartLevel()
-        {
-            foreGroundImage.DOFade(0, GameSettings.Instance.ui_Entity_Fade_TweenDuration);
-            informationText.GoPopIn().OnComplete(levelRevealedEvent.Raise);
-            tutorialObjects.gameObject.SetActive(false);
+		private void StartLevel()
+		{
+			foreGroundImage.DOFade( 0, GameSettings.Instance.ui_Entity_Fade_TweenDuration );
+			informationText.Disappear().OnComplete( levelRevealedEvent.Raise );
+			tutorialObjects.gameObject.SetActive( false );
 
-            tapInputListener.response = ExtensionMethods.EmptyMethod;
+			tapInputListener.response = ExtensionMethods.EmptyMethod;
 
-            elephantLevelEvent.level = CurrentLevelData.Instance.currentLevel_Shown;
-            elephantLevelEvent.elephantEventType = ElephantEvent.LevelStarted;
-            elephantLevelEvent.Raise();
-        }
+			elephantLevelEvent.level             = CurrentLevelData.Instance.currentLevel_Shown;
+			elephantLevelEvent.elephantEventType = ElephantEvent.LevelStarted;
+			elephantLevelEvent.Raise();
+		}
 
-        void LoadNewLevel()
-        {
-            FFLogger.Log("Load New Level");
-            tapInputListener.response = ExtensionMethods.EmptyMethod;
+		private void LoadNewLevel()
+		{
+			FFLogger.Log( "Load New Level" );
+			tapInputListener.response = ExtensionMethods.EmptyMethod;
 
-            var sequence = DOTween.Sequence();
+			var sequence = DOTween.Sequence();
 
-            sequence.Append(foreGroundImage.DOFade(1f, GameSettings.Instance.ui_Entity_Fade_TweenDuration));
-            sequence.Join(informationText.GoPopIn());
-            sequence.AppendCallback(loadNewLevelEvent.Raise);
-        }
+			sequence.Append( foreGroundImage.DOFade( 1f, GameSettings.Instance.ui_Entity_Fade_TweenDuration ) )
+			        .Join( informationText.Disappear() )
+			        .AppendCallback( loadNewLevelEvent.Raise );
+		}
 
-        void Resetlevel()
-        {
-            FFLogger.Log("Reset Level");
-            tapInputListener.response = ExtensionMethods.EmptyMethod;
+		private void Resetlevel()
+		{
+			FFLogger.Log( "Reset Level" );
+			tapInputListener.response = ExtensionMethods.EmptyMethod;
 
-            var sequence = DOTween.Sequence();
+			var sequence = DOTween.Sequence();
 
-            sequence.Append(foreGroundImage.DOFade(1f, GameSettings.Instance.ui_Entity_Fade_TweenDuration));
-            sequence.Join(informationText.GoPopIn());
-            sequence.AppendCallback(resetLevelEvent.Raise);
+			sequence.Append( foreGroundImage.DOFade( 1f, GameSettings.Instance.ui_Entity_Fade_TweenDuration ) )
+			        .Join( informationText.Disappear() )
+			        .AppendCallback( resetLevelEvent.Raise );
 
-            elephantLevelEvent.level = CurrentLevelData.Instance.currentLevel_Shown;
-            elephantLevelEvent.elephantEventType = ElephantEvent.LevelStarted;
-            elephantLevelEvent.Raise();
-        }
-
-
-        #endregion
+			elephantLevelEvent.level             = CurrentLevelData.Instance.currentLevel_Shown;
+			elephantLevelEvent.elephantEventType = ElephantEvent.LevelStarted;
+			elephantLevelEvent.Raise();
+		}
+#endregion
     }
 }

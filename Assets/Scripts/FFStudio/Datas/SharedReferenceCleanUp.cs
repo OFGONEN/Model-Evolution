@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace FFStudio
 {
-	[ CreateAssetMenu( fileName = "SharedReferanceCleanUp", menuName = "FF/Data/Shared/ReferanceCleanUp" ) ]
+	[ CreateAssetMenu( fileName = "SharedReferenceCleanUp", menuName = "FF/Data/Shared/ReferenceCleanUp" ) ]
 	public class SharedReferenceCleanUp : SharedReference
 	{
 		public object defaultValue = null;

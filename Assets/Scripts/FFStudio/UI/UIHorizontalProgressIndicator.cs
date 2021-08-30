@@ -1,7 +1,5 @@
 /* Created by and for usage of FF Studios (2021). */
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace FFStudio
@@ -24,12 +22,13 @@ namespace FFStudio
 			    position.x           = Mathf.Lerp( indicator_BasePosition.x, indicator_EndPosition.x, indicatorProgress.sharedValue );
 			    uiTransform.position = position;
 		}
+		
 		protected override void GetIndicatorPositions()
         {
-            indicator_BasePosition = (indicatingParentWorldPos[ 0 ] + indicatingParentWorldPos[ 1 ]) / 2;
-            indicator_EndPosition  = (indicatingParentWorldPos[ 2 ] + indicatingParentWorldPos[ 3 ]) / 2;
+            indicator_BasePosition = ( indicatingParentWorldPos[ 0 ] + indicatingParentWorldPos[ 1 ] ) / 2;
+            indicator_EndPosition  = ( indicatingParentWorldPos[ 2 ] + indicatingParentWorldPos[ 3 ] ) / 2;
 
-			var width = indicator_EndPosition.x - indicator_BasePosition.x;
+			var width            = indicator_EndPosition.x - indicator_BasePosition.x;
 			var horizontalOffset = width * offsetPercentage;
 
 			indicator_BasePosition.x += horizontalOffset;

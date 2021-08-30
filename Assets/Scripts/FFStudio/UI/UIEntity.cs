@@ -1,3 +1,5 @@
+/* Created by and for usage of FF Studios (2021). */
+
 using UnityEngine;
 using DG.Tweening;
 
@@ -5,43 +7,41 @@ namespace FFStudio
 {
 	public class UIEntity : MonoBehaviour
 	{
-		#region Fields
+#region Fields
 		public RectTransform uiTransform;
 		public RectTransform destinationTransform;
-		[HideInInspector] public Vector3 startPosition;
-		[HideInInspector] public Vector3 startScale;
+		[ HideInInspector ] public Vector3 startPosition;
+		[ HideInInspector ] public Vector3 startScale;
+#endregion
 
-		#endregion
-
-		#region UnityAPI
+#region UnityAPI
 		public virtual void Start()
 		{
 			startPosition = uiTransform.position;
-			startScale = uiTransform.localScale;
+			startScale    = uiTransform.localScale;
 		}
-		#endregion
+#endregion
 
-		#region API
-
-		public virtual Tween GoTargetPosition()
+#region API
+		public virtual Tween GoToTargetPosition()
 		{
 			return uiTransform.DOMove( destinationTransform.position, GameSettings.Instance.ui_Entity_Fade_TweenDuration );
 		}
 
-		public virtual Tween GoStartPosition()
+		public virtual Tween GoToStartPosition()
 		{
 			return uiTransform.DOMove( startPosition, GameSettings.Instance.ui_Entity_Fade_TweenDuration );
 		}
 
-		public virtual Tween GoPopOut()
+		public virtual Tween Appear()
 		{
 			return uiTransform.DOScale( startScale, GameSettings.Instance.ui_Entity_Scale_TweenDuration );
 		}
 
-		public virtual Tween GoPopIn()
+		public virtual Tween Disappear()
 		{
 			return uiTransform.DOScale( Vector3.zero, GameSettings.Instance.ui_Entity_Scale_TweenDuration );
 		}
-		#endregion
+#endregion
 	}
 }

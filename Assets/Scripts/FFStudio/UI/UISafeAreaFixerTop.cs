@@ -1,18 +1,25 @@
-﻿using UnityEngine;
+﻿/* Created by and for usage of FF Studios (2021). */
+
+using UnityEngine;
 
 namespace FFStudio
 {
 	public class UISafeAreaFixerTop : MonoBehaviour
 	{
-		RectTransform uiRectTransform;
+#region Fields
+		private RectTransform uiRectTransform;
+#endregion
+
+#region Unity API
 		private void Awake()
 		{
-			uiRectTransform = GetComponent<RectTransform>();
+			uiRectTransform = GetComponent< RectTransform >();
 
-			var _postion = uiRectTransform.anchoredPosition;
-			_postion.y += Mathf.Sign( _postion.y ) * ( Screen.height - Screen.safeArea.height - Screen.safeArea.position.y );
+			var position = uiRectTransform.anchoredPosition;
+			position.y += Mathf.Sign( position.y ) * ( Screen.height - Screen.safeArea.height - Screen.safeArea.position.y );
 
-			uiRectTransform.anchoredPosition = _postion;
+			uiRectTransform.anchoredPosition = position;
 		}
+#endregion
 	}
 }

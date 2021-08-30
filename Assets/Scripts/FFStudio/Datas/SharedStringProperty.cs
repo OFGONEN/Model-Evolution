@@ -9,7 +9,7 @@ namespace FFStudio
 	{
 		public event ChangeEvent changeEvent;
 
-		public void SetValue(string value)
+		public void SetValue( string value )
 		{
 			if( !string.Equals( sharedValue, value, System.StringComparison.Ordinal ) )
 			{

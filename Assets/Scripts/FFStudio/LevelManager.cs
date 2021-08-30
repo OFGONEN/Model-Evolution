@@ -7,32 +7,32 @@ namespace FFStudio
     public class LevelManager : MonoBehaviour
     {
 #region Fields
-        [ Header("Event Listeners" ) ]
+        [ Header( "Event Listeners" ) ]
         public EventListenerDelegateResponse levelLoadedListener;
         public EventListenerDelegateResponse levelRevealedListener;
         public EventListenerDelegateResponse levelStartedListener;
 
-        [ Header("Fired Events" ) ]
+        [ Header( "Fired Events" ) ]
         public GameEvent levelFailedEvent;
         public GameEvent levelCompleted;
 
-        [ Header("Level Releated" ) ]
+        [ Header( "Level Releated" ) ]
         public SharedFloatProperty levelProgress;
 #endregion
 
 #region UnityAPI
         private void OnEnable()
         {
-            levelLoadedListener  .OnEnable();
+            levelLoadedListener.OnEnable();
             levelRevealedListener.OnEnable();
-            levelStartedListener .OnEnable();
+            levelStartedListener.OnEnable();
         }
 
         private void OnDisable()
         {
-            levelLoadedListener  .OnDisable();
+            levelLoadedListener.OnDisable();
             levelRevealedListener.OnDisable();
-            levelStartedListener .OnDisable();
+            levelStartedListener.OnDisable();
         }
 
         private void Awake()
@@ -44,16 +44,16 @@ namespace FFStudio
 #endregion
 
 #region Implementation
-        void LevelLoadedResponse()
+        private void LevelLoadedResponse()
         {
-            levelProgress.SetValue(0);
+            levelProgress.SetValue( 0 );
         }
 
-        void LevelRevealedResponse()
+        private void LevelRevealedResponse()
         {
         }
 
-        void LevelStartedResponse()
+        private void LevelStartedResponse()
         {
         }
 #endregion

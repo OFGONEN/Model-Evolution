@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace FFStudio
 {
-    [ CreateAssetMenu( fileName = "ReferanceGameEvent", menuName = "FF/Event/ReferanceGameEvent" ) ]
+    [ CreateAssetMenu( fileName = "ReferenceGameEvent", menuName = "FF/Event/ReferenceGameEvent" ) ]
     public class ReferenceGameEvent : GameEvent
     {
         public object eventValue;

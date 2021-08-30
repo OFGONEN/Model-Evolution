@@ -1,18 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
+/* Created by and for usage of FF Studios (2021). */
+
 using FFStudio;
 using UnityEngine;
 
 public class UIPinResetable : UIPin
 {
-	#region Fields
-	[Header( "Event Listeners" )]
+#region Fields
+	[ Header( "Event Listeners" ) ]
 	public EventListenerDelegateResponse resetPinListener;
+	
 	public bool changeSpriteOnReset;
+#endregion
 
-	#endregion
-
-	#region UnityAPI
+#region Unity API
 	protected override void OnEnable()
 	{
 		base.OnEnable();
@@ -28,23 +28,23 @@ public class UIPinResetable : UIPin
 	protected override void Awake()
 	{
 		base.Awake();
-		resetPinListener.response = PinReset;
+		resetPinListener.response = PinResetResponse;
 	}
-	#endregion
+#endregion
 
-	#region Implementation
-	void PinReset()
+#region Implementation
+	private void PinResetResponse()
 	{
 		var resetEvent = resetPinListener.gameEvent;
 
 		if( changeSpriteOnReset )
 			imageRenderer.sprite = ( resetEvent as ReferenceGameEvent ).eventValue as Sprite;
 
-		uiTransform.position = startPosition;
+		uiTransform.position   = startPosition;
 		uiTransform.localScale = Vector3.zero;
-		uiTransform.sizeDelta = startSizeDelta;
+		uiTransform.sizeDelta  = startSizeDelta;
 
-		GoPopOut().onComplete = PinMove;
+		Appear().onComplete = PinMoveResponse;
 	}
-	#endregion
+#endregion
 }
