@@ -58,8 +58,8 @@ namespace FFStudio
 		
 		private IEnumerator LoadLevel()
 		{
-			CurrentLevelData.Instance.currentLevel = PlayerPrefs.GetInt( "Level", 1 );
-			CurrentLevelData.Instance.currentConsecutiveLevel = PlayerPrefs.GetInt( "Consecutive Level", 1 );
+			CurrentLevelData.Instance.currentLevel_Real = PlayerPrefs.GetInt( "Level", 1 );
+			CurrentLevelData.Instance.currentLevel_Shown = PlayerPrefs.GetInt( "Consecutive Level", 1 );
 
 			CurrentLevelData.Instance.LoadCurrentLevelData();
 
@@ -81,10 +81,10 @@ namespace FFStudio
 		
 		private void LoadNewLevel()
 		{
-			CurrentLevelData.Instance.currentLevel++;
-			CurrentLevelData.Instance.currentConsecutiveLevel++;
-			PlayerPrefs.SetInt( "Level", CurrentLevelData.Instance.currentLevel );
-			PlayerPrefs.SetInt( "Consecutive Level", CurrentLevelData.Instance.currentConsecutiveLevel );
+			CurrentLevelData.Instance.currentLevel_Real++;
+			CurrentLevelData.Instance.currentLevel_Shown++;
+			PlayerPrefs.SetInt( "Level", CurrentLevelData.Instance.currentLevel_Real );
+			PlayerPrefs.SetInt( "Consecutive Level", CurrentLevelData.Instance.currentLevel_Shown );
 
 			var operation = SceneManager.UnloadSceneAsync( CurrentLevelData.Instance.levelData.sceneIndex );
 			operation.completed += ( AsyncOperation operation ) => StartCoroutine( LoadLevel() );

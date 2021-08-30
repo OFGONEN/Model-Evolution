@@ -76,7 +76,7 @@ namespace FFStudio
             sequance.Append(loadingScreenImage.DOFade(0, GameSettings.Instance.ui_Entity_Fade_TweenDuration)); 
             sequance.AppendCallback(() => tapInputListener.response = StartLevel);
 
-            levelCountText.textRenderer.text = "Level " + CurrentLevelData.Instance.currentConsecutiveLevel;
+            levelCountText.textRenderer.text = "Level " + CurrentLevelData.Instance.currentLevel_Shown;
 
             levelLoadedResponse.response = NewLevelLoaded;
         }
@@ -95,7 +95,7 @@ namespace FFStudio
             sequence.Append(informationText.GoPopOut());
             sequence.AppendCallback(() => tapInputListener.response = LoadNewLevel);
 
-            elephantLevelEvent.level = CurrentLevelData.Instance.currentConsecutiveLevel;
+            elephantLevelEvent.level = CurrentLevelData.Instance.currentLevel_Shown;
             elephantLevelEvent.elephantEventType = ElephantEvent.LevelCompleted;
             elephantLevelEvent.Raise();
         }
@@ -114,14 +114,14 @@ namespace FFStudio
             sequence.Append(informationText.GoPopOut());
             sequence.AppendCallback(() => tapInputListener.response = Resetlevel);
 
-            elephantLevelEvent.level = CurrentLevelData.Instance.currentConsecutiveLevel;
+            elephantLevelEvent.level = CurrentLevelData.Instance.currentLevel_Shown;
             elephantLevelEvent.elephantEventType = ElephantEvent.LevelFailed;
             elephantLevelEvent.Raise();
         }
 
         void NewLevelLoaded()
         {
-            levelCountText.textRenderer.text = "Level " + CurrentLevelData.Instance.currentConsecutiveLevel;
+            levelCountText.textRenderer.text = "Level " + CurrentLevelData.Instance.currentLevel_Shown;
 
             var sequence = DOTween.Sequence();
 
@@ -131,7 +131,7 @@ namespace FFStudio
             sequence.Append(tween); //TODO: UIElements tween
             sequence.AppendCallback(levelRevealedEvent.Raise);
 
-            elephantLevelEvent.level = CurrentLevelData.Instance.currentConsecutiveLevel;
+            elephantLevelEvent.level = CurrentLevelData.Instance.currentLevel_Shown;
             elephantLevelEvent.elephantEventType = ElephantEvent.LevelStarted;
             elephantLevelEvent.Raise();
         }
@@ -144,7 +144,7 @@ namespace FFStudio
 
             tapInputListener.response = ExtensionMethods.EmptyMethod;
 
-            elephantLevelEvent.level = CurrentLevelData.Instance.currentConsecutiveLevel;
+            elephantLevelEvent.level = CurrentLevelData.Instance.currentLevel_Shown;
             elephantLevelEvent.elephantEventType = ElephantEvent.LevelStarted;
             elephantLevelEvent.Raise();
         }
@@ -172,7 +172,7 @@ namespace FFStudio
             sequence.Join(informationText.GoPopIn());
             sequence.AppendCallback(resetLevelEvent.Raise);
 
-            elephantLevelEvent.level = CurrentLevelData.Instance.currentConsecutiveLevel;
+            elephantLevelEvent.level = CurrentLevelData.Instance.currentLevel_Shown;
             elephantLevelEvent.elephantEventType = ElephantEvent.LevelStarted;
             elephantLevelEvent.Raise();
         }

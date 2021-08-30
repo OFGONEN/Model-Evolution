@@ -7,8 +7,8 @@ namespace FFStudio
     public class CurrentLevelData : ScriptableObject
     {
 #region Fields
-		public int currentLevel;
-		public int currentConsecutiveLevel;
+		public int currentLevel_Real;
+		public int currentLevel_Shown;
 		public LevelData levelData;
 
         private static CurrentLevelData instance;
@@ -28,10 +28,10 @@ namespace FFStudio
 #region API
 		public void LoadCurrentLevelData()
 		{
-			if( currentLevel > GameSettings.Instance.maxLevelCount )
-				currentLevel = Random.Range( 1, GameSettings.Instance.maxLevelCount );
+			if( currentLevel_Real > GameSettings.Instance.maxLevelCount )
+				currentLevel_Real = Random.Range( 1, GameSettings.Instance.maxLevelCount );
 
-			levelData = Resources.Load<LevelData>( "level_data_" + currentLevel );
+			levelData = Resources.Load<LevelData>( "level_data_" + currentLevel_Real );
 		}
 #endregion
 
