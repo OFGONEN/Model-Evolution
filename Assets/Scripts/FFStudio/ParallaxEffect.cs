@@ -9,6 +9,7 @@ namespace FFStudio
 #region Fields
 		public SharedReferenceProperty targetReference;
 		public Vector3 parallaxRatio;
+		public float parallaxSpeed;
 
 		/* Private Fields */
 		private Transform targetTransform;
@@ -30,7 +31,7 @@ private void Update()
 			var diff = targetTransform.position - target_StartPosition;
 			diff.Scale( parallaxRatio );
 
-			transform.position = startPosition + diff;
+			transform.position = Vector3.MoveTowards( transform.position, startPosition + diff, Time.deltaTime * parallaxSpeed );
 		}
 #endregion
 

@@ -8,6 +8,7 @@ namespace FFStudio
 	{
 #region Fields
 		public SharedReferenceProperty targetReference;
+		public float parallaxSpeed;
 		public Vector3 parallaxRatio_X_Axis;
 		public Vector3 parallaxRatio_Y_Axis;
 		public Vector3 parallaxRatio_Z_Axis;
@@ -37,7 +38,7 @@ namespace FFStudio
 			final.y += Vector3.Scale( diff, parallaxRatio_Y_Axis ).ComponentSum();
 			final.z += Vector3.Scale( diff, parallaxRatio_Z_Axis ).ComponentSum();
 
-			transform.position = final;
+			transform.position = Vector3.MoveTowards( transform.position, final, Time.deltaTime * parallaxSpeed);
 		}
 #endregion
 
