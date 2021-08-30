@@ -165,7 +165,7 @@ GameObject:
   - component: {fileID: 1045181636}
   - component: {fileID: 1045181635}
   m_Layer: 0
-  m_Name: EventSystem
+  m_Name: event_system
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -258,7 +258,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 124199665187945362, guid: 797da1a9d36c74949965f5c3a417702f, type: 3}
       propertyPath: m_Name
-      value: canvas_UIManager
+      value: canvas_UI_manager
       objectReference: {fileID: 0}
     - target: {fileID: 124199665187945366, guid: 797da1a9d36c74949965f5c3a417702f, type: 3}
       propertyPath: m_Pivot.x
@@ -469,7 +469,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4364745634903858522, guid: ceed65b0ed263c842930cd7fefac090a, type: 3}
       propertyPath: m_Name
-      value: manager_assetHolder
+      value: manager_asset_holder
       objectReference: {fileID: 0}
     - target: {fileID: 4364745634903858525, guid: ceed65b0ed263c842930cd7fefac090a, type: 3}
       propertyPath: m_RootOrder

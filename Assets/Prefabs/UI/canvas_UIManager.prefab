@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 124199663173045016}
   - component: {fileID: 124199663173045015}
   m_Layer: 5
-  m_Name: Image_loadingScreen
+  m_Name: image_loading_screen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -85,7 +85,7 @@ GameObject:
   m_Component:
   - component: {fileID: 124199663488762607}
   m_Layer: 5
-  m_Name: Parent_gamePlay
+  m_Name: parent_gamePlay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 124199663512924951}
   - component: {fileID: 124199663512924950}
   m_Layer: 5
-  m_Name: Text_information
+  m_Name: text_information
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -266,18 +266,6 @@ MonoBehaviour:
   startPosition: {x: 0, y: 0, z: 0}
   startScale: {x: 0, y: 0, z: 0}
   textRenderer: {fileID: 124199663512924951}
---- !u!114 &124199663899937131
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 573053808394766302}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c82201d0dd9fd940bd9b72e795eab67, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &124199664086749819
 GameObject:
   m_ObjectHideFlags: 0
@@ -292,7 +280,7 @@ GameObject:
   - component: {fileID: 124199664086749821}
   - component: {fileID: 124199664086749792}
   m_Layer: 5
-  m_Name: Text_levelCount
+  m_Name: text_level_count
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -455,7 +443,7 @@ GameObject:
   - component: {fileID: 124199664216971408}
   - component: {fileID: 124199664216971439}
   m_Layer: 5
-  m_Name: Image_foreGround
+  m_Name: image_foreground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -528,7 +516,7 @@ GameObject:
   m_Component:
   - component: {fileID: 124199664260450679}
   m_Layer: 5
-  m_Name: Parent_tutorial
+  m_Name: parent_tutorial
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -563,7 +551,7 @@ GameObject:
   m_Component:
   - component: {fileID: 124199664381383645}
   m_Layer: 5
-  m_Name: Parent_levelLoading
+  m_Name: parent_level_loading
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -604,7 +592,7 @@ GameObject:
   - component: {fileID: 124199664755808477}
   - component: {fileID: 124199664755808479}
   m_Layer: 5
-  m_Name: Text_loading
+  m_Name: text_loading
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -753,7 +741,7 @@ GameObject:
   m_Component:
   - component: {fileID: 124199664845690298}
   m_Layer: 5
-  m_Name: Parent_levelFinish
+  m_Name: parent_level_finish
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -916,6 +904,18 @@ MonoBehaviour:
   loadNewLevelEvent: {fileID: 11400000, guid: f21048912f45f4f4ba5088a96779eb2f, type: 2}
   resetLevelEvent: {fileID: 11400000, guid: 0a3e52cd505ecfc4ba9ef153d4f3ba93, type: 2}
   elephantLevelEvent: {fileID: 11400000, guid: 33ccf5f609258ea46b63b78483df10f5, type: 2}
+--- !u!114 &124199663899937131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 573053808394766302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c82201d0dd9fd940bd9b72e795eab67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &124199663899937128
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -923,6 +923,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 124199663488762607}
     m_Modifications:
+    - target: {fileID: 453416092164099047, guid: 1caa7843707589a4496bb5c848924651, type: 3}
+      propertyPath: m_Name
+      value: image_filled
+      objectReference: {fileID: 0}
     - target: {fileID: 453416092374961833, guid: 1caa7843707589a4496bb5c848924651, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1013,10 +1017,20 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 43438d720c16f2e4aa5a19d520e1e15f, type: 2}
     - target: {fileID: 453416092374961846, guid: 1caa7843707589a4496bb5c848924651, type: 3}
       propertyPath: m_Name
-      value: UILoadingBar_levelProgress
+      value: ui_loading_bar_level_progress
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1caa7843707589a4496bb5c848924651, type: 3}
+--- !u!224 &573053808394766273 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 453416092374961833, guid: 1caa7843707589a4496bb5c848924651, type: 3}
+  m_PrefabInstance: {fileID: 124199663899937128}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &573053808394766302 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 453416092374961846, guid: 1caa7843707589a4496bb5c848924651, type: 3}
+  m_PrefabInstance: {fileID: 124199663899937128}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &573053808394766274 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 453416092374961834, guid: 1caa7843707589a4496bb5c848924651, type: 3}
@@ -1028,16 +1042,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 083342fa19ab1374eba88a2f04982ff4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!224 &573053808394766273 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 453416092374961833, guid: 1caa7843707589a4496bb5c848924651, type: 3}
-  m_PrefabInstance: {fileID: 124199663899937128}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &573053808394766302 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 453416092374961846, guid: 1caa7843707589a4496bb5c848924651, type: 3}
-  m_PrefabInstance: {fileID: 124199663899937128}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &573053808902548713
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1135,7 +1139,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: efed110f1e415924a95492a771f1a6ee, type: 2}
     - target: {fileID: 453416092374961846, guid: 1caa7843707589a4496bb5c848924651, type: 3}
       propertyPath: m_Name
-      value: UILoadingBar_levelLoadingBar
+      value: ui_loading_bar_level_loading
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1caa7843707589a4496bb5c848924651, type: 3}
