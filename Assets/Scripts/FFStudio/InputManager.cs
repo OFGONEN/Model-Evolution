@@ -10,6 +10,7 @@ namespace FFStudio
 #region Fields
 		[ Header( "Fired Events" ) ]
 		public SwipeInputEvent swipeInputEvent;
+		public ScreenPressEvent screenPressEvent;
 		public IntGameEvent tapInputEvent;
 
 		[ Header( "Shared Variables" ) ]
