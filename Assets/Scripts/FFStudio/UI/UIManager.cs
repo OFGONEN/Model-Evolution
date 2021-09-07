@@ -84,8 +84,8 @@ namespace FFStudio
 
             informationText.textRenderer.text = "Completed \n\n Tap to Continue";
 
-			sequence.Append( tween ) // TODO: UIElements tween.
-					.Append( foreGroundImage.DOFade( 0.5f, GameSettings.Instance.ui_Entity_Fade_TweenDuration ) )
+			sequence.Append( foreGroundImage.DOFade( 0.5f, GameSettings.Instance.ui_Entity_Fade_TweenDuration ) )
+                    // .Append( tween ) // TODO: UIElements tween.
 					.Append( informationText.Appear() )
 					.AppendCallback( () => tapInputListener.response = LoadNewLevel );
 
@@ -103,8 +103,8 @@ namespace FFStudio
 
             informationText.textRenderer.text = "Level Failed \n\n Tap to Continue";
 
-			sequence.Append( tween ) // TODO: UIElements tween.
-					.Append( foreGroundImage.DOFade( 0.5f, GameSettings.Instance.ui_Entity_Fade_TweenDuration ) )
+			sequence.Append( foreGroundImage.DOFade( 0.5f, GameSettings.Instance.ui_Entity_Fade_TweenDuration ) )
+                    // .Append( tween ) // TODO: UIElements tween.
 					.Append( informationText.Appear() )
 					.AppendCallback( () => tapInputListener.response = Resetlevel );
 
@@ -122,7 +122,7 @@ namespace FFStudio
 			Tween tween = null;
 
 			sequence.Append( foreGroundImage.DOFade( 0, GameSettings.Instance.ui_Entity_Fade_TweenDuration ) )
-					.Append( tween ) // TODO: UIElements tween.
+					// .Append( tween ) // TODO: UIElements tween.
 					.AppendCallback( levelRevealedEvent.Raise );
 
             elephantLevelEvent.level             = CurrentLevelData.Instance.currentLevel_Shown;
