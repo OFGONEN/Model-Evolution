@@ -26,16 +26,16 @@ namespace FFEditor
 			}
 
 			// Create GameSettings.
-			var path_GameSettings = "Assets/Resources/game_settings.asset";
-			gameSettings = AssetDatabase.LoadAssetAtPath( path_GameSettings, typeof( GameSettings ) ) as GameSettings;
+			// var path_GameSettings = "Assets/Resources/game_settings.asset";
+			// gameSettings = AssetDatabase.LoadAssetAtPath( path_GameSettings, typeof( GameSettings ) ) as GameSettings;
 
-			if( gameSettings == null )
-			{
-				gameSettings = ScriptableObject.CreateInstance<GameSettings>();
+			// if( gameSettings == null )
+			// {
+			// 	gameSettings = ScriptableObject.CreateInstance<GameSettings>();
 
-				AssetDatabase.CreateAsset( gameSettings, "Assets/Resources/game_settings.asset" );
-				Debug.Log( "GameSettings Created" );
-			}
+			// 	AssetDatabase.CreateAsset( gameSettings, "Assets/Resources/game_settings.asset" );
+			// 	Debug.Log( "GameSettings Created" );
+			// }
 
 			// Create CurrentLevel.
 			var path_CurrentLevel = "Assets/Resources/level_current.asset";
@@ -343,6 +343,12 @@ namespace FFEditor
 		public static void SetMaxLevelForGameSettings()
 		{
 			string[] guids = AssetDatabase.FindAssets( "level_data_ t:levelData", new[] { "Assets/Resources" } );
+
+			if( gameSettings == null )
+			{
+				var path_GameSettings = "Assets/Resources/game_settings.asset";
+				gameSettings = AssetDatabase.LoadAssetAtPath( path_GameSettings, typeof( GameSettings ) ) as GameSettings;
+			}
 
 			gameSettings.maxLevelCount = guids.Length;
 
