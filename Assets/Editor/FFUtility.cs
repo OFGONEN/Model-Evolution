@@ -25,32 +25,11 @@ namespace FFEditor
 				initialized = true;
 			}
 
-			// Create GameSettings.
-			// var path_GameSettings = "Assets/Resources/game_settings.asset";
-			// gameSettings = AssetDatabase.LoadAssetAtPath( path_GameSettings, typeof( GameSettings ) ) as GameSettings;
-
-			// if( gameSettings == null )
-			// {
-			// 	gameSettings = ScriptableObject.CreateInstance<GameSettings>();
-
-			// 	AssetDatabase.CreateAsset( gameSettings, "Assets/Resources/game_settings.asset" );
-			// 	Debug.Log( "GameSettings Created" );
-			// }
-
-			// Create CurrentLevel.
-			var path_CurrentLevel = "Assets/Resources/level_current.asset";
-			var currentLevel = AssetDatabase.LoadAssetAtPath( path_CurrentLevel, typeof( CurrentLevelData ) ) as CurrentLevelData;
-
-			if( currentLevel == null )
-			{
-				currentLevel = ScriptableObject.CreateInstance<CurrentLevelData>();
-
-				AssetDatabase.CreateAsset( currentLevel, "Assets/Resources/level_current.asset" );
-				Debug.Log( "CurrentLevel Created" );
-			}
+			var path_GameSettings = "Assets/Resources/game_settings.asset";
+			gameSettings = AssetDatabase.LoadAssetAtPath( path_GameSettings, typeof( GameSettings ) ) as GameSettings;
 		}
 
-		[MenuItem( "FFStudios/Set LevelDatas" )]
+		[ MenuItem( "FFStudios/Set LevelDatas" ) ]
 		public static void SetLevelDatas()
 		{
 			var maxLevelCount = GameSettings.Instance.maxLevelCount;
@@ -83,25 +62,11 @@ namespace FFEditor
 		[ MenuItem( "FFStudios/Sort Folder _F7" ) ]
 		private static void SortFolder()
 		{
-			if( !AssetDatabase.IsValidFolder( "Assets/Materials" ) )
-				AssetDatabase.CreateFolder( "Assets", "Materials" );
-
-			if( !AssetDatabase.IsValidFolder( "Assets/Textures" ) )
-				AssetDatabase.CreateFolder( "Assets", "Textures" );
-
-			if( !AssetDatabase.IsValidFolder( "Assets/Shaders" ) )
-				AssetDatabase.CreateFolder( "Assets", "Shaders" );
-
-			if( !AssetDatabase.IsValidFolder( "Assets/Models" ) )
-				AssetDatabase.CreateFolder( "Assets", "Models" );
-
 			var undefinedTypes = new HashSet< string >();
 
 			var context = Selection.assetGUIDs;
 			var path = AssetDatabase.GUIDToAssetPath( context[ 0 ] );
 			var parentFolderName = Path.GetFileName( path );
-
-			Debug.Log( "Folder Path:" + path );
 
 			string[] guids = AssetDatabase.FindAssets( "t:Object", new[] { path } );
 
@@ -112,138 +77,138 @@ namespace FFEditor
 
 				if( fileName.ToLower().Contains( ".prefab" ) )
 				{
-					var newPath = $"Assets/Prefabs/{parentFolderName}/{fileName}";
+					var newPath = $"Assets/Prefab/{parentFolderName}/{fileName}";
 
-					if( !AssetDatabase.IsValidFolder( "Assets/Prefabs/" + parentFolderName ) )
+					if( !AssetDatabase.IsValidFolder( "Assets/Prefab/" + parentFolderName ) )
 					{
-						AssetDatabase.CreateFolder( "Assets/Prefabs", parentFolderName );
+						AssetDatabase.CreateFolder( "Assets/Prefab", parentFolderName );
 						AssetDatabase.Refresh();
 					}
 
 					if( AssetDatabase.ValidateMoveAsset( assetPath, newPath ) == string.Empty )
 						AssetDatabase.MoveAsset( assetPath, newPath );
 					else
-						TryToMove( assetPath, "Prefabs/" + parentFolderName, 1 );
+						TryToMove( assetPath, "Prefab/" + parentFolderName, 1 );
 				}
 				else if( fileName.ToLower().Contains( ".fbx" ) )
 				{
-					var newPath = $"Assets/Models/{parentFolderName}/{fileName}";
+					var newPath = $"Assets/Model/{parentFolderName}/{fileName}";
 
-					if( !AssetDatabase.IsValidFolder( "Assets/Models/" + parentFolderName ) )
+					if( !AssetDatabase.IsValidFolder( "Assets/Model/" + parentFolderName ) )
 					{
-						AssetDatabase.CreateFolder( "Assets/Models", parentFolderName );
+						AssetDatabase.CreateFolder( "Assets/Model", parentFolderName );
 						AssetDatabase.Refresh();
 					}
 
 					if( AssetDatabase.ValidateMoveAsset( assetPath, newPath ) == string.Empty )
 						AssetDatabase.MoveAsset( assetPath, newPath );
 					else
-						TryToMove( assetPath, "Models/" + parentFolderName, 1 );
+						TryToMove( assetPath, "Model/" + parentFolderName, 1 );
 				}
 				else if( fileName.ToLower().Contains( ".obj" ) )
 				{
-					var newPath = $"Assets/Models/{parentFolderName}/{fileName}";
+					var newPath = $"Assets/Model/{parentFolderName}/{fileName}";
 
-					if( !AssetDatabase.IsValidFolder( "Assets/Models/" + parentFolderName ) )
+					if( !AssetDatabase.IsValidFolder( "Assets/Model/" + parentFolderName ) )
 					{
-						AssetDatabase.CreateFolder( "Assets/Models", parentFolderName );
+						AssetDatabase.CreateFolder( "Assets/Model", parentFolderName );
 						AssetDatabase.Refresh();
 					}
 
 					if( AssetDatabase.ValidateMoveAsset( assetPath, newPath ) == string.Empty )
 						AssetDatabase.MoveAsset( assetPath, newPath );
 					else
-						TryToMove( assetPath, "Models/" + parentFolderName, 1 );
+						TryToMove( assetPath, "Model/" + parentFolderName, 1 );
 				}
 				else if( fileName.ToLower().Contains( ".mat" ) )
 				{
-					var newPath = $"Assets/Materials/{parentFolderName}/{fileName}";
+					var newPath = $"Assets/Material/{parentFolderName}/{fileName}";
 
-					if( !AssetDatabase.IsValidFolder( "Assets/Materials/" + parentFolderName ) )
+					if( !AssetDatabase.IsValidFolder( "Assets/Material/" + parentFolderName ) )
 					{
-						AssetDatabase.CreateFolder( "Assets/Materials", parentFolderName );
+						AssetDatabase.CreateFolder( "Assets/Material", parentFolderName );
 						AssetDatabase.Refresh();
 					}
 
 					if( AssetDatabase.ValidateMoveAsset( assetPath, newPath ) == string.Empty )
 						AssetDatabase.MoveAsset( assetPath, newPath );
 					else
-						TryToMove( assetPath, "Materials/" + parentFolderName, 1 );
+						TryToMove( assetPath, "Material/" + parentFolderName, 1 );
 				}
 				else if( fileName.ToLower().Contains( ".png" ) )
 				{
-					var newPath = $"Assets/Textures/{parentFolderName}/{fileName}";
+					var newPath = $"Assets/Texture/{parentFolderName}/{fileName}";
 
-					if( !AssetDatabase.IsValidFolder( "Assets/Textures/" + parentFolderName ) )
+					if( !AssetDatabase.IsValidFolder( "Assets/Texture/" + parentFolderName ) )
 					{
-						AssetDatabase.CreateFolder( "Assets/Textures", parentFolderName );
+						AssetDatabase.CreateFolder( "Assets/Texture", parentFolderName );
 						AssetDatabase.Refresh();
 					}
 
 					if( AssetDatabase.ValidateMoveAsset( assetPath, newPath ) == string.Empty )
 						AssetDatabase.MoveAsset( assetPath, newPath );
 					else
-						TryToMove( assetPath, "Textures/" + parentFolderName, 1 );
+						TryToMove( assetPath, "Texture/" + parentFolderName, 1 );
 				}
 				else if( fileName.ToLower().Contains( ".jpg" ) )
 				{
-					var newPath = $"Assets/Textures/{parentFolderName}/{fileName}";
+					var newPath = $"Assets/Texture/{parentFolderName}/{fileName}";
 
-					if( !AssetDatabase.IsValidFolder( "Assets/Textures/" + parentFolderName ) )
+					if( !AssetDatabase.IsValidFolder( "Assets/Texture/" + parentFolderName ) )
 					{
-						AssetDatabase.CreateFolder( "Assets/Textures", parentFolderName );
+						AssetDatabase.CreateFolder( "Assets/Texture", parentFolderName );
 						AssetDatabase.Refresh();
 					}
 
 					if( AssetDatabase.ValidateMoveAsset( assetPath, newPath ) == string.Empty )
 						AssetDatabase.MoveAsset( assetPath, newPath );
 					else
-						TryToMove( assetPath, "Textures/" + parentFolderName, 1 );
+						TryToMove( assetPath, "Texture/" + parentFolderName, 1 );
 				}
 				else if( fileName.ToLower().Contains( ".tga" ) )
 				{
-					var newPath = $"Assets/Textures/{parentFolderName}/{fileName}";
+					var newPath = $"Assets/Texture/{parentFolderName}/{fileName}";
 
-					if( !AssetDatabase.IsValidFolder( "Assets/Textures/" + parentFolderName ) )
+					if( !AssetDatabase.IsValidFolder( "Assets/Texture/" + parentFolderName ) )
 					{
-						AssetDatabase.CreateFolder( "Assets/Textures", parentFolderName );
+						AssetDatabase.CreateFolder( "Assets/Texture", parentFolderName );
 						AssetDatabase.Refresh();
 					}
 
 					if( AssetDatabase.ValidateMoveAsset( assetPath, newPath ) == string.Empty )
 						AssetDatabase.MoveAsset( assetPath, newPath );
 					else
-						TryToMove( assetPath, "Textures/" + parentFolderName, 1 );
+						TryToMove( assetPath, "Texture/" + parentFolderName, 1 );
 				}
 				else if( fileName.ToLower().Contains( ".shader" ) )
 				{
-					var newPath = $"Assets/Shaders/{parentFolderName}/{fileName}";
+					var newPath = $"Assets/Shader/{parentFolderName}/{fileName}";
 
-					if( !AssetDatabase.IsValidFolder( "Assets/Shaders/" + parentFolderName ) )
+					if( !AssetDatabase.IsValidFolder( "Assets/Shader/" + parentFolderName ) )
 					{
-						AssetDatabase.CreateFolder( "Assets/Shaders", parentFolderName );
+						AssetDatabase.CreateFolder( "Assets/Shader", parentFolderName );
 						AssetDatabase.Refresh();
 					}
 
 					if( AssetDatabase.ValidateMoveAsset( assetPath, newPath ) == string.Empty )
 						AssetDatabase.MoveAsset( assetPath, newPath );
 					else
-						TryToMove( assetPath, "Shaders/" + parentFolderName, 1 );
+						TryToMove( assetPath, "Shader/" + parentFolderName, 1 );
 				}
 				else if( fileName.ToLower().Contains( ".cginc" ) )
 				{
-					var newPath = $"Assets/Shaders/{parentFolderName}/{fileName}";
+					var newPath = $"Assets/Shader/{parentFolderName}/{fileName}";
 
-					if( !AssetDatabase.IsValidFolder( "Assets/Shaders/" + parentFolderName ) )
+					if( !AssetDatabase.IsValidFolder( "Assets/Shader/" + parentFolderName ) )
 					{
-						AssetDatabase.CreateFolder( "Assets/Shaders", parentFolderName );
+						AssetDatabase.CreateFolder( "Assets/Shader", parentFolderName );
 						AssetDatabase.Refresh();
 					}
 
 					if( AssetDatabase.ValidateMoveAsset( assetPath, newPath ) == string.Empty )
 						AssetDatabase.MoveAsset( assetPath, newPath );
 					else
-						TryToMove( assetPath, "Shaders/" + parentFolderName, 1 );
+						TryToMove( assetPath, "Shader/" + parentFolderName, 1 );
 				}
 				else if( fileName.ToLower().Contains( ".controller" ) )
 				{
