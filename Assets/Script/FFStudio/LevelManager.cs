@@ -1,6 +1,7 @@
 /* Created by and for usage of FF Studios (2021). */
 
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace FFStudio
 {
@@ -47,14 +48,24 @@ namespace FFStudio
         private void LevelLoadedResponse()
         {
             levelProgress.SetValue( 0 );
-        }
+
+			var levelData = CurrentLevelData.Instance.levelData;
+
+            // Set Active Scene
+			if( levelData.overrideAsActiveScene )
+				SceneManager.SetActiveScene( SceneManager.GetSceneAt( 1 ) );
+            else
+				SceneManager.SetActiveScene( SceneManager.GetSceneAt( 0 ) );
+		}
 
         private void LevelRevealedResponse()
         {
+
         }
 
         private void LevelStartedResponse()
         {
+
         }
 #endregion
     }
