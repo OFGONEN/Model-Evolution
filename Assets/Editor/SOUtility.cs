@@ -11,15 +11,14 @@ namespace FFEditor
     public static class SOUtility
     {
         private static SOLibrary soLibrary = null;
+		private static bool initialized = false;
 
 		public static SOLibrary SOLibrary
 		{
 			get
 			{
 				if( soLibrary == null )
-				{
 					soLibrary = AssetDatabase.LoadAssetAtPath( "Assets/Editor/TrackedSOLib.asset", typeof( SOLibrary ) ) as SOLibrary;
-				}
 
 				return soLibrary;
 			}
@@ -27,13 +26,10 @@ namespace FFEditor
 
         static SOUtility()
         {
-            EditorApplication.playModeStateChanged += PlayModeChange;
-
-			soLibrary = AssetDatabase.LoadAssetAtPath( "Assets/Editor/TrackedSOLib.asset", typeof( SOLibrary ) ) as SOLibrary;
-
-			if( soLibrary == null )
+			if( !initialized )
 			{
-				Debug.LogError( "ScriptableObject Library is not FOUND!" );
+				EditorApplication.playModeStateChanged += PlayModeChange;
+				initialized = true;
 			}
 		}
 
@@ -80,10 +76,10 @@ namespace FFEditor
 
 				AssetDatabase.CopyAsset( path, newPath );
 
-				soLibrary.TrackScriptableObject( scriptableObject );
+				SOLibrary.TrackScriptableObject( scriptableObject );
 			}
 
-			EditorUtility.SetDirty( soLibrary );
+			EditorUtility.SetDirty( SOLibrary );
 			AssetDatabase.SaveAssets();
 		}
 
@@ -115,17 +111,18 @@ namespace FFEditor
 
 				AssetDatabase.DeleteAsset( newPath );
 
-				soLibrary.UntrackScriptableObject( scriptableObject );
+				SOLibrary.UntrackScriptableObject( scriptableObject );
 			}
 
-			EditorUtility.SetDirty( soLibrary );
+			EditorUtility.SetDirty( SOLibrary );
 			AssetDatabase.SaveAssets();
 		}
 
 		[ MenuItem( "FFStudios/SO/Load All Default SO" ) ]
 		public static void LoadAllDefaultSO()
 		{
-			var trackedScriptableObjects = soLibrary.trackedScriptableObjects;
+			Debug.Log( "Load All Default SO" );
+			var trackedScriptableObjects = SOLibrary.trackedScriptableObjects;
 
 			for( int i = 0; i < trackedScriptableObjects.Count; i++ )
 				LoadDefaultSO( trackedScriptableObjects[ i ] );
@@ -134,7 +131,8 @@ namespace FFEditor
 		[ MenuItem( "FFStudios/SO/Create All Default SO" ) ]
 		public static void CreateAllDefaultSO()
 		{
-			var trackedScriptableObjects = soLibrary.trackedScriptableObjects;
+			Debug.Log( "Create All Default SO" );
+			var trackedScriptableObjects = SOLibrary.trackedScriptableObjects;
 
 			for( int i = 0; i < trackedScriptableObjects.Count; i++ )
 				CreateDefaultSO( trackedScriptableObjects[ i ] );
@@ -157,8 +155,6 @@ namespace FFEditor
         
 		private static void LoadDefaultSO( ScriptableObject sObject )
 		{
-			ClearLog();
-
 			var assetName = "Default_" + sObject.name + ".asset";
 			var newPath   = Path.Combine( "Assets/Editor/Tracked_Scriptable_Objects", assetName );
 
@@ -179,14 +175,6 @@ namespace FFEditor
 
 			EditorUtility.SetDirty( sObject );
 			AssetDatabase.SaveAssets();
-		}
-
-		private static void ClearLog()
-		{
-			var assembly = Assembly.GetAssembly( typeof( UnityEditor.Editor ) );
-			var type     = assembly.GetType( "UnityEditor.LogEntries" );
-			var method   = type.GetMethod( "Clear" );
-			method.Invoke( new object(), null );
 		}
 	}
 }

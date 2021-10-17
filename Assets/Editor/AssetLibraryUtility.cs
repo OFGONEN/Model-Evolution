@@ -21,16 +21,6 @@ namespace FFEditor
 			}
 		}
 
-        static AssetLibraryUtility()
-		{
-			assetLibrary = AssetDatabase.LoadAssetAtPath( "Assets/Editor/AssetLibrary.asset", typeof( AssetLibrary ) ) as AssetLibrary;
-
-			if( assetLibrary == null )
-			{
-				Debug.LogError( "AssetLibrary is not FOUND!" );
-			}
-		}
-        
 		[ MenuItem( "FFStudios/Asset/Track Asset" ) ]
 		public static void TrackAsset()
 		{
