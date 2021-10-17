@@ -69,15 +69,7 @@ namespace FFEditor
 			Debug.Log( "AssetDatabase Saved" );
 		}
 
-		[ MenuItem( "FFShortcut/Select Level Data &1" ) ]
-		static private void SelectLevelData()
-		{
-			var levelData = Resources.Load( "level_data_1" );
-
-			Selection.SetActiveObjectWithContext( levelData, levelData );
-		}
-
-		[ MenuItem( "FFShortcut/Select Game Settings &2" ) ]
+		[ MenuItem( "FFShortcut/Select Game Settings &1" ) ]
 		static private void SelectGameSettings()
 		{
 			var gameSettings = Resources.Load( "game_settings" );
@@ -85,12 +77,28 @@ namespace FFEditor
 			Selection.SetActiveObjectWithContext( gameSettings, gameSettings );
 		}
 
+		[ MenuItem( "FFShortcut/Select Level Data &2" ) ]
+		static private void SelectLevelData()
+		{
+			var levelData = Resources.Load( "level_data_1" );
+
+			Selection.SetActiveObjectWithContext( levelData, levelData );
+		}
+
 		[ MenuItem( "FFShortcut/Select App Scene &3" ) ]
 		static private void SelectAppScene()
 		{
-			var gameSettings = AssetDatabase.LoadAssetAtPath( "Assets/Scenes/app.unity", typeof( SceneAsset ) );
+			var appScene = AssetDatabase.LoadAssetAtPath( "Assets/Scenes/app.unity", typeof( SceneAsset ) );
 
-			Selection.SetActiveObjectWithContext( gameSettings, gameSettings );
+			Selection.SetActiveObjectWithContext( appScene, appScene );
+		}
+
+		[ MenuItem( "FFShortcut/Select Play Mode Settings &4" ) ]
+		static private void SelectPlayModeSettings()
+		{
+			var playModeSettings = AssetDatabase.LoadAssetAtPath( "Assets/Editor/PlayModeUtilitySettings.asset", typeof( ScriptableObject ) );
+
+			Selection.SetActiveObjectWithContext( playModeSettings, playModeSettings );
 		}
 
 		[ MenuItem( "FFShortcut/Copy Global Transform &c" ) ]

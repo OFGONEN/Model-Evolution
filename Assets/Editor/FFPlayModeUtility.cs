@@ -20,18 +20,14 @@ namespace FFEditor
 				initialized = true;
 			}
 
-			//Create Play Mode Settings 
+			//Find PlayModeUtilitySettings file 
 			var path_playModeUtilitySettings = "Assets/Editor/PlayModeUtilitySettings.asset";
-
-			playModeUtilitySettings = AssetDatabase.LoadAssetAtPath( path_playModeUtilitySettings, 
+			    playModeUtilitySettings      = AssetDatabase.LoadAssetAtPath( path_playModeUtilitySettings, 
                                                                      typeof( FFPlayModeUtilitySettings ) ) as FFPlayModeUtilitySettings;
 
 			if( playModeUtilitySettings == null )
 			{
-				playModeUtilitySettings = ScriptableObject.CreateInstance<FFPlayModeUtilitySettings>();
-
-				AssetDatabase.CreateAsset( playModeUtilitySettings, path_playModeUtilitySettings );
-				Debug.Log( "PlayModeUtility Settings Created" );
+				Debug.LogError( "PlayModeUtilitySettings is not found" );
 			}
 		}
 
@@ -52,18 +48,6 @@ namespace FFEditor
 				default:
 					return;
 			}
-		}
-
-
-		[ MenuItem( "FFStudios/Create Play Mode Utility Settings" ) ]
-		static void CreatePlayModeUtilitySettings()
-		{
-			var path_playModeUtilitySettings = "Assets/Editor/PlayModeUtilitySettings.asset";
-
-			playModeUtilitySettings = ScriptableObject.CreateInstance< FFPlayModeUtilitySettings >();
-
-			AssetDatabase.CreateAsset( playModeUtilitySettings, path_playModeUtilitySettings );
-			Debug.Log( "PlayModeUtility Settings Created" );
 		}
 	}
 }

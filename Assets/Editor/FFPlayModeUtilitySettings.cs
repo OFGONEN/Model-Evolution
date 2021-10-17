@@ -5,6 +5,7 @@ using NaughtyAttributes;
 
 namespace FFEditor
 {
+	[ CreateAssetMenu( fileName = "PlayModeUtilitySettings", menuName = "FFEditor/PlayModeUtilitySettings" ) ]
 	public class FFPlayModeUtilitySettings : ScriptableObject
 	{
 #region Fields
