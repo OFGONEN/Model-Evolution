@@ -10,6 +10,9 @@ namespace FFStudio
 		[ Header( "Fired Events" ) ]
 		public StringGameEvent particleStoppedEvent;
 		public string alias;
+		[ HideInInspector ] public Transform parent;
+
+		// Private Fields \\
 		private ParticleSystem particles;
 #endregion
 
@@ -19,19 +22,17 @@ namespace FFStudio
 		{
 			particles = GetComponent< ParticleSystem >();
 
-			var mainParticle = particles.main;
-
-			mainParticle.stopAction = ParticleSystemStopAction.Callback;
-			mainParticle.playOnAwake = false;
+			var mainParticle             = particles.main;
+			    mainParticle.stopAction  = ParticleSystemStopAction.Callback;
+			    mainParticle.playOnAwake = false;
 			// mainParticle.loop = false;
 
 			particleStoppedEvent.eventValue = alias;
-
-			gameObject.SetActive( false );
 		}
 
 		private void OnParticleSystemStopped()
 		{
+			transform.SetParent( parent );
 			gameObject.SetActive( false );
 			particleStoppedEvent.Raise();
 		}
@@ -42,12 +43,11 @@ namespace FFStudio
 		{
 			gameObject.SetActive( true );
 
-			if( particleEvent.changePosition )
-				transform.position = particleEvent.spawnPoint;
+			if( particleEvent.particleParent != null )
+				transform.SetParent( particleEvent.particleParent );
 
+			transform.position = particleEvent.spawnPoint;
 			particles.Play();
-
-			FFLogger.Log( "Playing: " + alias + " active:" + gameObject.activeInHierarchy );
 		}
 #endregion
 

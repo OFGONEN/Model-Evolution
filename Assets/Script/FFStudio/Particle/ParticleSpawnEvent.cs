@@ -8,8 +8,16 @@ namespace FFStudio
 	public class ParticleSpawnEvent : GameEvent
 	{
 		public string particleAlias;
-		[ HideInInspector ]
-		public bool changePosition = true;
 		public Vector3 spawnPoint;
+		[ HideInInspector ] public Transform particleParent;
+
+		public void Raise( string alias, Vector3 position, Transform parent = null )
+		{
+			particleAlias  = alias;
+			spawnPoint     = position;
+			particleParent = parent;
+
+			Raise();
+		}
 	}
 }

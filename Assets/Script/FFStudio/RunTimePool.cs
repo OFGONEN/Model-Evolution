@@ -2,10 +2,11 @@
 
 using System.Collections.Generic;
 using UnityEngine;
+using FFStudio;
 
 namespace FFStudio
 {
-	public abstract class RunTimePool< T > : RunTimeStack< T > where T: Component
+	public abstract class RunTimePool< T > : RunTimeStack< T > where T: ParticleEffect
 	{
 #region Fields
         public T poolEntity; // GameObject.
@@ -24,6 +25,7 @@ namespace FFStudio
 				var entity = GameObject.Instantiate( poolEntity );
 				entity.transform.SetParent( parent );
 				entity.gameObject.SetActive( active );
+				entity.parent = parent;
 				stack.Push( entity );
 			}
 		}
