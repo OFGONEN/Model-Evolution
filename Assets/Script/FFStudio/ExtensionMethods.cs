@@ -1,5 +1,6 @@
 /* Created by and for usage of FF Studios (2021). */
 
+using System.Reflection;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -194,6 +195,29 @@ namespace FFStudio
 			transform.position    = data.position;
 			transform.eulerAngles = data.rotation;
 			transform.localScale  = data.scale;
+		}
+
+		public static void SetFieldValue( this object source, string fieldName, string value )
+		{
+				var fieldInfo = source.GetType().GetField( fieldName );
+
+				if( fieldInfo == null )
+					return;
+
+				var fieldType = fieldInfo.FieldType;
+
+                if( fieldType == typeof( int ) )
+                {
+				    fieldInfo.SetValue( source, int.Parse( value ) );
+                }
+                else if( fieldType == typeof( float ) )
+                {
+				    fieldInfo.SetValue( source, float.Parse( value ) );
+                }
+                else if( fieldType == typeof( string ) )
+                {
+				    fieldInfo.SetValue( source, value );
+                }
 		}
 	}
 }
