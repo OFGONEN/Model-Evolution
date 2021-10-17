@@ -6,18 +6,18 @@ using UnityEngine;
 
 namespace FFEditor
 {
+	[ CreateAssetMenu( fileName = "AssetLibrary", menuName = "FFEditor/AssetLibrary" ) ]
     public class AssetLibrary : ScriptableObject
     {
         public List< GameObject > trackedAssets = null;
-
-        public int trackedAssetCount = 0;
+        [ HideInInspector ] public int trackedAssetsCount = 0;
 
 		private void Awake()
 		{
 			if( trackedAssets == null )
 				trackedAssets = new List< GameObject >( 8 );
 
-			trackedAssetCount = trackedAssets.Count;
+			trackedAssetsCount = trackedAssets.Count;
 		}
 
 		public void TrackAsset( GameObject gameObject )
@@ -29,7 +29,7 @@ namespace FFEditor
 			}
 
 			trackedAssets.Add( gameObject );
-			trackedAssetCount = trackedAssets.Count;
+			trackedAssetsCount = trackedAssets.Count;
 		}
 
 		public void UnTrackAsset( GameObject gameObject )
@@ -41,20 +41,20 @@ namespace FFEditor
 			}
 
 			trackedAssets.Remove( gameObject );
-			trackedAssetCount = trackedAssets.Count;
+			trackedAssetsCount = trackedAssets.Count;
 
 			Debug.LogWarning( "PreFab: " + gameObject + " is untracked" );
 		}
 
 		private void OnValidate()
 		{
-			if( trackedAssets == null || trackedAssets.Count == 0 || trackedAssets.Count == trackedAssetCount )
+			if( trackedAssets == null || trackedAssets.Count == 0 || trackedAssets.Count == trackedAssetsCount )
                 return;
 
 			Debug.LogError( "Do not add items to SOLibrary manually" );
 
-			trackedAssets.RemoveRange( trackedAssetCount, trackedAssets.Count - trackedAssetCount );
-			trackedAssetCount = trackedAssets.Count;
+			trackedAssets.RemoveRange( trackedAssetsCount, trackedAssets.Count - trackedAssetsCount );
+			trackedAssetsCount = trackedAssets.Count;
 
 			EditorUtility.SetDirty( this );
 			AssetDatabase.SaveAssets();

@@ -8,72 +8,71 @@ namespace FFEditor
     [ InitializeOnLoad ]
     public static class AssetLibraryUtility
     {
-        public static AssetLibrary assetLibrary;
+        private static AssetLibrary assetLibrary;
+
+        private static AssetLibrary AssetLibrary
+		{
+			get
+			{
+				if( assetLibrary == null )
+					assetLibrary = AssetDatabase.LoadAssetAtPath( "Assets/Editor/AssetLibrary.asset", typeof( AssetLibrary ) ) as AssetLibrary;
+
+				return assetLibrary;
+			}
+		}
 
         static AssetLibraryUtility()
 		{
-			assetLibrary = AssetDatabase.LoadAssetAtPath( "Assets/Editor/EditorAssetLibrary.asset", typeof( AssetLibrary ) ) as AssetLibrary;
+			assetLibrary = AssetDatabase.LoadAssetAtPath( "Assets/Editor/AssetLibrary.asset", typeof( AssetLibrary ) ) as AssetLibrary;
 
 			if( assetLibrary == null )
 			{
-				assetLibrary = ScriptableObject.CreateInstance< AssetLibrary >();
-				AssetDatabase.CreateAsset( assetLibrary, "Assets/Editor/EditorAssetLibrary.asset" );
+				Debug.LogError( "AssetLibrary is not FOUND!" );
 			}
 		}
         
 		[ MenuItem( "FFStudios/Asset/Track Asset" ) ]
 		public static void TrackAsset()
 		{
-			var activeGameObject = Selection.activeGameObject;
+			var activeGameObjects = Selection.gameObjects;
+			var guids   		  = Selection.assetGUIDs;
 
-			if( activeGameObject == null )
+			if( activeGameObjects == null || guids.Length != activeGameObjects.Length )
 			{
-				Debug.LogError( "Select a PreFab to track" );
+				Debug.LogError( "Select a PreFab to track\nDO NOT SELECT FROM SCENE" );
 				EditorApplication.Beep();
 				return;
 			}
 
-			if( !activeGameObject.name.Contains( "_" ) )
+			for( int i = 0; i < activeGameObjects.Length; i++ )
 			{
-				Debug.LogError( "PreFab name convention should be PreFab_1 to track" );
-				EditorApplication.Beep();
-				return;
-			}
-			else
-			{
-				var index = activeGameObject.name.IndexOf( '_' );
-
-				if( activeGameObject.name.Length == index + 1 || activeGameObject.name[ index + 1 ] != '1' )
-				{
-					Debug.LogError( "Always track the first variant of a Prefab." +
-					"After '_' character there should be '1'" );
-					EditorApplication.Beep();
-
-					return;
-				}
+				Debug.Log( "Path: " + AssetDatabase.GUIDToAssetPath( Selection.assetGUIDs[ i ] ) );
+				AssetLibrary.TrackAsset( activeGameObjects[ i ] );
 			}
 
-			assetLibrary.TrackAsset( activeGameObject );
-
-			EditorUtility.SetDirty( assetLibrary );
+			EditorUtility.SetDirty( AssetLibrary );
 			AssetDatabase.SaveAssets();
 		}
 
 		[ MenuItem( "FFStudios/Asset/UnTrack Asset" ) ]
 		public static void UnTrackAsset()
 		{
-			var activeGameObject = Selection.activeGameObject;
+			var activeGameObjects = Selection.gameObjects;
+			var guids   		  = Selection.assetGUIDs;
 
-			if( activeGameObject == null )
+			if( activeGameObjects == null || guids.Length != activeGameObjects.Length )
 			{
-				Debug.LogError( "Select a PreFab to track" );
+				Debug.LogError( "Select a PreFab to Untrack\nDO NOT SELECT FROM SCENE" );
 				EditorApplication.Beep();
 				return;
 			}
 
-			assetLibrary.UnTrackAsset( activeGameObject );
+			for( int i = 0; i < activeGameObjects.Length; i++ )
+			{
+				AssetLibrary.UnTrackAsset( activeGameObjects[ i ] );
+			}
 
-			EditorUtility.SetDirty( assetLibrary );
+			EditorUtility.SetDirty( AssetLibrary );
 			AssetDatabase.SaveAssets();
 		}
 	}

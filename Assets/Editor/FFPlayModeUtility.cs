@@ -12,6 +12,22 @@ namespace FFEditor
 		static private FFPlayModeUtilitySettings playModeUtilitySettings;
 		static private bool initialized = false;
 
+		private static FFPlayModeUtilitySettings PlayModeUtilitySettings
+		{
+			get
+			{
+				if( playModeUtilitySettings == null )
+				{
+					//Find PlayModeUtilitySettings file 
+					var path_playModeUtilitySettings = "Assets/Editor/PlayModeUtilitySettings.asset";
+					    playModeUtilitySettings      = AssetDatabase.LoadAssetAtPath( path_playModeUtilitySettings,
+																	 typeof( FFPlayModeUtilitySettings ) ) as FFPlayModeUtilitySettings;
+				}
+
+				return playModeUtilitySettings;
+			}
+		}
+
 		static FFPlayModeUtility()
 		{
 			if( !initialized )
@@ -36,12 +52,12 @@ namespace FFEditor
 			switch( change )
 			{
 				case PlayModeStateChange.EnteredPlayMode:
-					if( playModeUtilitySettings.useDefaultScene )
+					if( PlayModeUtilitySettings.useDefaultScene )
 					{
 						var loadedScene = SceneManager.GetActiveScene();
 
-						if( loadedScene.buildIndex != playModeUtilitySettings.defaultSceneIndex )
-							SceneManager.LoadScene( playModeUtilitySettings.defaultSceneIndex, LoadSceneMode.Single );
+						if( loadedScene.buildIndex != PlayModeUtilitySettings.defaultSceneIndex )
+							SceneManager.LoadScene( PlayModeUtilitySettings.defaultSceneIndex, LoadSceneMode.Single );
 					}
 					break;
 

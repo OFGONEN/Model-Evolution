@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2a696cd4c8953a34ea486c85b80073a1, type: 3}
-  m_Name: EditorAssetLibrary
+  m_Name: AssetLibrary
   m_EditorClassIdentifier: 
   trackedAssets: []
-  trackedAssetCount: 0
+  trackedAssetsCount: 0

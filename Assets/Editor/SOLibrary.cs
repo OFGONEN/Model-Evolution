@@ -11,7 +11,7 @@ namespace FFEditor
     {
         public List< ScriptableObject > trackedScriptableObjects = null;
 
-        public int trackedScriptablesObjectCount = 0;
+        [ HideInInspector ] public int trackedScriptablesObjectCount = 0;
 
 		private void Awake()
 		{
