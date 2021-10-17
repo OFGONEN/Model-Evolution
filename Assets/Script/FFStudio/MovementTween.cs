@@ -69,7 +69,10 @@ namespace FFStudio
 
 		private void Awake()
 		{
-			startPosition = transform.position;
+			if( movementMode == MovementMode.Local )
+				startPosition = transform.localPosition;
+			else
+				startPosition = transform.position;
 		}
 		
         private void Start()
@@ -177,21 +180,24 @@ namespace FFStudio
 #if UNITY_EDITOR
 		private void OnDrawGizmos()
 		{
-			Vector3 startPos;
+			Vector3 startPos = startPosition;
 
 			Handles.color = Color.green;
 
-			if(Application.isPlaying)
-				startPos = startPosition;
+			if( Application.isPlaying )
+			{
+				if( movementMode == MovementMode.Local && transform.parent != null )
+					startPos = transform.parent.TransformPoint( startPosition );
+			}
 			else
 				startPos = transform.position;
 
-			Handles.DrawSolidDisc( startPos, Vector3.forward, 0.25f );
-			Handles.DrawSolidDisc( startPos + deltaPosition, Vector3.forward, 0.25f );
+			Handles.DrawSolidDisc( startPos, Vector3.up, 0.25f );
+			Handles.DrawSolidDisc( startPos + deltaPosition, Vector3.up, 0.25f );
 			Handles.DrawDottedLine( startPos, startPos + deltaPosition, 10 );
 
 			Handles.color = Color.blue;
-			Handles.DrawSolidDisc( transform.position, Vector3.forward, 0.125f );
+			Handles.DrawSolidDisc( transform.position, Vector3.up, 0.125f );
 		}
 #endif
 #endregion
