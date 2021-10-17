@@ -10,22 +10,30 @@ namespace FFEditor
     [ InitializeOnLoad, System.Serializable ]
     public static class SOUtility
     {
-        public static SOLibrary soLibrary = null;
+        private static SOLibrary soLibrary = null;
+
+		public static SOLibrary SOLibrary
+		{
+			get
+			{
+				if( soLibrary == null )
+				{
+					soLibrary = AssetDatabase.LoadAssetAtPath( "Assets/Editor/TrackedSOLib.asset", typeof( SOLibrary ) ) as SOLibrary;
+				}
+
+				return soLibrary;
+			}
+		}
 
         static SOUtility()
         {
-            CreateFolders();
-
             EditorApplication.playModeStateChanged += PlayModeChange;
 
 			soLibrary = AssetDatabase.LoadAssetAtPath( "Assets/Editor/TrackedSOLib.asset", typeof( SOLibrary ) ) as SOLibrary;
 
 			if( soLibrary == null )
 			{
-				soLibrary = ScriptableObject.CreateInstance< SOLibrary >();
-				AssetDatabase.CreateAsset( soLibrary, "Assets/Editor/TrackedSOLib.asset" );
-
-				Debug.Log( "Scriptable Object Library is Created!" );
+				Debug.LogError( "ScriptableObject Library is not FOUND!" );
 			}
 		}
 
@@ -44,19 +52,11 @@ namespace FFEditor
 			}
 		}
 
-		private static void CreateFolders()
-		{
-			if( AssetDatabase.IsValidFolder( "Assets/Editor/DefaultScriptableObjects" ) )
-                return;
-
-			AssetDatabase.CreateFolder( "Assets/Editor", "DefaultScriptableObjects" );
-		}
-
 		[ MenuItem( "FFStudios/SO/Track SO" ) ]
 		public static void TrackSO()
 		{
 			var objects = Selection.objects;
-			var guids = Selection.assetGUIDs;
+			var guids   = Selection.assetGUIDs;
 
 			if( guids.Length != objects.Length )
 			{
@@ -67,16 +67,16 @@ namespace FFEditor
 
 			for( int i = 0; i < objects.Length; i++ )
 			{
-				var _object = objects[ i ];
+				var _object          = objects[ i ];
 				var scriptableObject = _object as ScriptableObject;
 
+				// If selected object is not a ScriptableObject then continue
 				if( scriptableObject == null )
                     continue;
 
-				var path = AssetDatabase.GUIDToAssetPath( Selection.assetGUIDs[ i ] );
-
+				var path      = AssetDatabase.GUIDToAssetPath( Selection.assetGUIDs[ i ] );
 				var assetName = "Default_" + Path.GetFileNameWithoutExtension( path ) + ".asset";
-				var newPath = Path.Combine( "Assets/Editor/DefaultScriptableObjects", assetName );
+				var newPath   = Path.Combine( "Assets/Editor/Tracked_Scriptable_Objects", assetName );
 
 				AssetDatabase.CopyAsset( path, newPath );
 
@@ -91,7 +91,7 @@ namespace FFEditor
 		public static void UnTrackSO()
 		{
 			var objects = Selection.objects;
-			var guids = Selection.assetGUIDs;
+			var guids   = Selection.assetGUIDs;
 
 			if( guids.Length != objects.Length )
 			{
@@ -102,16 +102,16 @@ namespace FFEditor
 
 			for( int i = 0; i < objects.Length; i++ )
 			{
-				var _object = objects[ i ];
+				var _object          = objects[ i ];
 				var scriptableObject = _object as ScriptableObject;
 
+				// If selected object is not a ScriptableObject then continue
 				if( scriptableObject == null )
 					continue;
 
-				var path = AssetDatabase.GUIDToAssetPath( Selection.assetGUIDs[ i ] );
-
+				var path      = AssetDatabase.GUIDToAssetPath( Selection.assetGUIDs[ i ] );
 				var assetName = "Default_" + Path.GetFileNameWithoutExtension( path ) + ".asset";
-				var newPath = Path.Combine( "Assets/Editor/DefaultScriptableObjects", assetName );
+				var newPath   = Path.Combine( "Assets/Editor/Tracked_Scriptable_Objects", assetName );
 
 				AssetDatabase.DeleteAsset( newPath );
 
@@ -125,31 +125,32 @@ namespace FFEditor
 		[ MenuItem( "FFStudios/SO/Load All Default SO" ) ]
 		public static void LoadAllDefaultSO()
 		{
-			var trackedScriptableObject = soLibrary.trackedScriptableObject;
+			var trackedScriptableObjects = soLibrary.trackedScriptableObjects;
 
-			for( int i = 0; i < trackedScriptableObject.Count; i++ )
-				LoadDefaultSO( trackedScriptableObject[ i ] );
+			for( int i = 0; i < trackedScriptableObjects.Count; i++ )
+				LoadDefaultSO( trackedScriptableObjects[ i ] );
 		}
 
 		[ MenuItem( "FFStudios/SO/Create All Default SO" ) ]
 		public static void CreateAllDefaultSO()
 		{
-			var trackedScriptableObject = soLibrary.trackedScriptableObject;
+			var trackedScriptableObjects = soLibrary.trackedScriptableObjects;
 
-			for( int i = 0; i < trackedScriptableObject.Count; i++ )
-				CreateDefaultSO( trackedScriptableObject[ i ] );
+			for( int i = 0; i < trackedScriptableObjects.Count; i++ )
+				CreateDefaultSO( trackedScriptableObjects[ i ] );
 		}
 
 		private static void CreateDefaultSO( ScriptableObject sObject )
 		{
 			var _assetName = "Default_" + sObject.name + ".asset";
-			var _newPath = Path.Combine( "Assets/Editor/DefaultScriptableObjects", _assetName );
+			var _newPath   = Path.Combine( "Assets/Editor/Tracked_Scriptable_Objects", _assetName );
 
 			string _sObjectGUID;
 			long _sObjectLocalID;
 			string _sObjectAssetPath;
 
 			AssetDatabase.TryGetGUIDAndLocalFileIdentifier( sObject, out _sObjectGUID, out _sObjectLocalID );
+			
 			_sObjectAssetPath = AssetDatabase.GUIDToAssetPath( _sObjectGUID );
 			AssetDatabase.CopyAsset( _sObjectAssetPath, _newPath );
 		}
@@ -159,9 +160,9 @@ namespace FFEditor
 			ClearLog();
 
 			var assetName = "Default_" + sObject.name + ".asset";
-			var newPath = Path.Combine( "Assets/Editor/DefaultScriptableObjects", assetName );
+			var newPath   = Path.Combine( "Assets/Editor/Tracked_Scriptable_Objects", assetName );
 
-			var defaultScriptableObject = AssetDatabase.LoadAssetAtPath<ScriptableObject>( newPath );
+			var defaultScriptableObject = AssetDatabase.LoadAssetAtPath< ScriptableObject >( newPath );
 
 			if( defaultScriptableObject == null )
 			{
@@ -171,13 +172,12 @@ namespace FFEditor
 			}
 
 			var defaultScriptableObjectFields = defaultScriptableObject.GetType().GetFields();
-			var scriptableObjectFields = sObject.GetType().GetFields();
+			var scriptableObjectFields        = sObject.GetType().GetFields();
 
 			for( int x = 0; x < defaultScriptableObjectFields.Length; x++ )
 				scriptableObjectFields[ x ].SetValue( sObject, defaultScriptableObjectFields[ x ].GetValue( defaultScriptableObject ) );
 
 			EditorUtility.SetDirty( sObject );
-
 			AssetDatabase.SaveAssets();
 		}
 

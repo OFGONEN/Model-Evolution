@@ -7,24 +7,28 @@ namespace FFEditor
 {
     public class SOAssetProcess : UnityEditor.AssetModificationProcessor
     {
-        static AssetDeleteResult OnWillDeleteAsset(string path, RemoveAssetOptions options)
+		// Removes a tracked scriptable object from track list if it is being deleted 
+        static AssetDeleteResult OnWillDeleteAsset( string path, RemoveAssetOptions options )
         {
-            var fileName = Path.GetFileNameWithoutExtension(path);
+			// Deleted file name
+            var fileName = Path.GetFileNameWithoutExtension( path );
 
-            var soLibrary = SOUtility.soLibrary;
-            var trackedScriptableObject = soLibrary.trackedScriptableObject;
+            var soLibrary                = SOUtility.SOLibrary;
+            var trackedScriptableObjects = soLibrary.trackedScriptableObjects;
 
-			for( int i = 0; i < trackedScriptableObject.Count; i++ )
+			for( int i = 0; i < trackedScriptableObjects.Count; i++ )
 			{
-				var scriptableObject = trackedScriptableObject[ i ];
+				var scriptableObject = trackedScriptableObjects[ i ];
 
+				// If deleted scriptable object is found
 				if( fileName == scriptableObject.name )
 				{
-					var assetName = "Default_" + scriptableObject.name + ".asset";
-					var deletePath = Path.Combine( "Assets/Editor/DefaultScriptableObjects", assetName );
+					var assetName  = "Default_" + scriptableObject.name + ".asset";
+					var deletePath = Path.Combine( "Assets/Editor/Tracked_Scriptable_Objects", assetName );
 
-					trackedScriptableObject.RemoveAt( i );
-					soLibrary.trackedScriptableObjectCount = trackedScriptableObject.Count;
+					// Remove from track list
+					trackedScriptableObjects.RemoveAt( i );
+					soLibrary.trackedScriptablesObjectCount = trackedScriptableObjects.Count; // Update tracked scriptable objects count
 
 					EditorUtility.SetDirty( soLibrary );
 

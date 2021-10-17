@@ -6,45 +6,46 @@ using UnityEditor;
 
 namespace FFEditor
 {
-    [ CreateAssetMenu ]
+	[ CreateAssetMenu( fileName = "TrackedSOLibrary", menuName = "FFEditor/TrackedSOLibrary" ) ]
     public class SOLibrary : ScriptableObject
     {
-        public List< ScriptableObject > trackedScriptableObject = null;
+        public List< ScriptableObject > trackedScriptableObjects = null;
 
-        public int trackedScriptableObjectCount = 0;
+        public int trackedScriptablesObjectCount = 0;
 
 		private void Awake()
 		{
-			if( trackedScriptableObject == null )
-				trackedScriptableObject = new List< ScriptableObject >( 8 );
+			if( trackedScriptableObjects == null )
+				trackedScriptableObjects = new List< ScriptableObject >( 8 );
 
-			trackedScriptableObjectCount = trackedScriptableObject.Count;
+			trackedScriptablesObjectCount = trackedScriptableObjects.Count;
 		}
 
 		public void TrackScriptableObject( ScriptableObject sObject )
 		{
-			if( !trackedScriptableObject.Contains( sObject ) )
-				trackedScriptableObject.Add( sObject );
+			if( !trackedScriptableObjects.Contains( sObject ) )
+				trackedScriptableObjects.Add( sObject );
 
-			trackedScriptableObjectCount = trackedScriptableObject.Count;
+			trackedScriptablesObjectCount = trackedScriptableObjects.Count;
 		}
 
 		public void UntrackScriptableObject( ScriptableObject sObject )
 		{
-			trackedScriptableObject.Remove( sObject );
+			trackedScriptableObjects.Remove( sObject );
 
-			trackedScriptableObjectCount = trackedScriptableObject.Count;
+			trackedScriptablesObjectCount = trackedScriptableObjects.Count;
 		}
 
+		// Removes manually added scriptable objects
 		private void OnValidate()
 		{
-			if( trackedScriptableObject == null || trackedScriptableObject.Count == 0 || trackedScriptableObject.Count == trackedScriptableObjectCount )
+			if( trackedScriptableObjects == null || trackedScriptableObjects.Count == 0 || trackedScriptableObjects.Count == trackedScriptablesObjectCount )
 				return;
 
 			Debug.LogError( "Do not add items to SOLibrary manually" );
 
-			trackedScriptableObject.RemoveRange( trackedScriptableObjectCount, trackedScriptableObject.Count - trackedScriptableObjectCount );
-			trackedScriptableObjectCount = trackedScriptableObject.Count;
+			trackedScriptableObjects.RemoveRange( trackedScriptablesObjectCount, trackedScriptableObjects.Count - trackedScriptablesObjectCount );
+			trackedScriptablesObjectCount = trackedScriptableObjects.Count;
 
 			EditorUtility.SetDirty( this );
 			AssetDatabase.SaveAssets();
