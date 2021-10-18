@@ -17,6 +17,9 @@ namespace FFStudio
 #endregion
         
 #region Fields
+        [ BoxGroup( "Remote Config" ) ] public bool useRemoveConfig_GameSettings;
+        [ BoxGroup( "Remote Config" ) ] public bool useRemoveConfig_Components;
+
         public int maxLevelCount;
         [ Foldout( "UI Settings" ), Tooltip( "Duration of the movement for ui element"          ) ] public float ui_Entity_Move_TweenDuration;
         [ Foldout( "UI Settings" ), Tooltip( "Duration of the fading for ui element"            ) ] public float ui_Entity_Fade_TweenDuration;
