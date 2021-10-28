@@ -1,8 +1,8 @@
 /* Created by and for usage of FF Studios (2021). */
 
-using System.Reflection;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 namespace FFStudio
 {
@@ -218,6 +218,28 @@ namespace FFStudio
                 {
 				    fieldInfo.SetValue( source, value );
                 }
+		}
+
+		public static DG.Tweening.Sequence KillProper( this DG.Tweening.Sequence sequence )
+		{
+			if( sequence != null )
+			{
+				sequence.Kill();
+				sequence = null;
+			}
+
+			return sequence;
+		}
+
+		public static DG.Tweening.Tween KillProper( this DG.Tweening.Tween tween )
+		{
+			if( tween != null )
+			{
+				tween.Kill();
+				tween = null;
+			}
+
+			return tween;
 		}
 	}
 }
