@@ -48,7 +48,7 @@ MonoBehaviour:
   swipeInputEvent: {fileID: 11400000, guid: 098e32fbac85f404ba69e3d0dffc1fb1, type: 2}
   screenPressEvent: {fileID: 11400000, guid: b7d2ab9da272b334fb2a66ca5bcc6fc8, type: 2}
   tapInputEvent: {fileID: 11400000, guid: 182cfa2632cfdba49bfaf3471d114d23, type: 2}
-  mainCamera_ReferenceProperty: {fileID: 11400000, guid: 488e798dd6f140e4a84fa7485b885dd3, type: 2}
+  mainCamera_ReferenceNotifier: {fileID: 11400000, guid: 488e798dd6f140e4a84fa7485b885dd3, type: 2}
 --- !u!114 &961601380926824722
 MonoBehaviour:
   m_ObjectHideFlags: 0

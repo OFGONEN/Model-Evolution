@@ -14,7 +14,7 @@ namespace FFStudio
 		public IntGameEvent tapInputEvent;
 
 		[ Header( "Shared Variables" ) ]
-		public SharedReferenceProperty mainCamera_ReferenceProperty;
+		public SharedReferenceNotifier mainCamera_ReferenceNotifier;
 
 		// Privat fields
 		private int swipeThreshold;
@@ -28,12 +28,12 @@ namespace FFStudio
 #region Unity API
 		private void OnEnable()
 		{
-			mainCamera_ReferenceProperty.changeEvent += OnCameraReferenceChange;
+			mainCamera_ReferenceNotifier.changeEvent += OnCameraReferenceChange;
 		}
 
 		private void OnDisable()
 		{
-			mainCamera_ReferenceProperty.changeEvent -= OnCameraReferenceChange;
+			mainCamera_ReferenceNotifier.changeEvent -= OnCameraReferenceChange;
 		}
 
 		private void Awake()
@@ -62,7 +62,7 @@ namespace FFStudio
 #region Implementation
 		private void OnCameraReferenceChange()
 		{
-			var value = mainCamera_ReferenceProperty.sharedValue;
+			var value = mainCamera_ReferenceNotifier.SharedValue;
 
 			if( value == null )
 			{

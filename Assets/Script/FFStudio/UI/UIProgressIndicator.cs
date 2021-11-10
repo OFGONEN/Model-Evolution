@@ -7,7 +7,7 @@ namespace FFStudio
 	public abstract class UIProgressIndicator : UIEntity
 	{
 #region Fields (Inspector Interface)
-		public SharedFloatProperty indicatorProgress;
+		public SharedFloatNotifier indicatorProgress;
 
 		public float offsetPercentage;
 #endregion

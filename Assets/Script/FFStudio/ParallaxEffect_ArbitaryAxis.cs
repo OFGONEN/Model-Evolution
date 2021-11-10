@@ -7,7 +7,7 @@ namespace FFStudio
 	public class ParallaxEffect_ArbitaryAxis : MonoBehaviour
 	{
 #region Fields
-		public SharedReferenceProperty targetReference;
+		public SharedReferenceNotifier targetReference;
 		public float parallaxSpeed;
 		public Vector3 parallaxRatio_X_Axis;
 		public Vector3 parallaxRatio_Y_Axis;
@@ -22,7 +22,7 @@ namespace FFStudio
 #region Unity API
 		private void Start()
 		{
-			targetTransform = ( targetReference.sharedValue as Rigidbody ).transform;
+			targetTransform = ( targetReference.SharedValue as Rigidbody ).transform;
 
 			startPosition = transform.position;
 			target_StartPosition = targetTransform.position;

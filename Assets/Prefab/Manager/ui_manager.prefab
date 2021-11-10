@@ -1166,9 +1166,13 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 453416092374961834, guid: 1caa7843707589a4496bb5c848924651, type: 3}
-      propertyPath: progressProperty
+      propertyPath: progressNotifier
       value: 
       objectReference: {fileID: 11400000, guid: 43438d720c16f2e4aa5a19d520e1e15f, type: 2}
+    - target: {fileID: 453416092374961834, guid: 1caa7843707589a4496bb5c848924651, type: 3}
+      propertyPath: progressProperty
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 453416092374961846, guid: 1caa7843707589a4496bb5c848924651, type: 3}
       propertyPath: m_Name
       value: ui_loading_bar_level_progress
@@ -1288,9 +1292,13 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 453416092374961834, guid: 1caa7843707589a4496bb5c848924651, type: 3}
-      propertyPath: progressProperty
+      propertyPath: progressNotifier
       value: 
       objectReference: {fileID: 11400000, guid: efed110f1e415924a95492a771f1a6ee, type: 2}
+    - target: {fileID: 453416092374961834, guid: 1caa7843707589a4496bb5c848924651, type: 3}
+      propertyPath: progressProperty
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 453416092374961846, guid: 1caa7843707589a4496bb5c848924651, type: 3}
       propertyPath: m_Name
       value: ui_loading_bar_level_loading

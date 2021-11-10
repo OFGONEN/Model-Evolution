@@ -9,7 +9,7 @@ public class UILoadingBar_Tiled : UIEntity
 {
 #region Fields
     [ Header( "Shared Variables" ) ]
-    public SharedFloatProperty progressProperty;
+    public SharedFloatNotifier progressNotifier;
 
 	[ HorizontalLine ]
 	[ Header( "UI Elements" ) ]
@@ -22,12 +22,12 @@ public class UILoadingBar_Tiled : UIEntity
 #region Unity API
     private void OnEnable()
     {
-		progressProperty.changeEvent += OnValueChange_Inverse;
+		progressNotifier.changeEvent += OnValueChange_Inverse;
 	}
 
     private void OnDisable()
     {
-		progressProperty.changeEvent -= OnValueChange_Inverse;
+		progressNotifier.changeEvent -= OnValueChange_Inverse;
     }
 
 	private void Awake()
@@ -42,7 +42,7 @@ public class UILoadingBar_Tiled : UIEntity
 #region Implementation
     private void OnValueChange_Inverse()
     {
-		fillingImage.fillAmount = Mathf.FloorToInt( ( 1.0f - progressProperty.sharedValue ) / stepSize ) * stepSize;
+		fillingImage.fillAmount = Mathf.FloorToInt( ( 1.0f - progressNotifier.SharedValue ) / stepSize ) * stepSize;
 	}
 #endregion
 }

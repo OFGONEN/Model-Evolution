@@ -18,7 +18,7 @@ namespace FFStudio
 		public GameEvent cleanUpEvent;
 
 		[ Header( "Fired Events" ) ]
-		public SharedFloatProperty levelProgress;
+		public SharedFloatNotifier levelProgress;
 #endregion
 
 #region Unity API
@@ -67,13 +67,13 @@ namespace FFStudio
 			// SceneManager.LoadScene( CurrentLevelData.Instance.levelData.sceneIndex, LoadSceneMode.Additive );
 			var operation = SceneManager.LoadSceneAsync( CurrentLevelData.Instance.levelData.sceneIndex, LoadSceneMode.Additive );
 
-			levelProgress.SetValue( 0 );
+			levelProgress.SharedValue = 0;
 
 			while( !operation.isDone )
 			{
 				yield return null;
 
-				levelProgress.SetValue( operation.progress );
+				levelProgress.SharedValue = operation.progress;
 			}
 
 			levelLoaded.Raise();

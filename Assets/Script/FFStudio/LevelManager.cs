@@ -18,7 +18,7 @@ namespace FFStudio
         public GameEvent levelCompleted;
 
         [ Header( "Level Releated" ) ]
-        public SharedFloatProperty levelProgress;
+        public SharedFloatNotifier levelProgress;
 #endregion
 
 #region UnityAPI
@@ -47,7 +47,7 @@ namespace FFStudio
 #region Implementation
         private void LevelLoadedResponse()
         {
-            levelProgress.SetValue( 0 );
+			levelProgress.SharedValue = 0;
 
 			var levelData = CurrentLevelData.Instance.levelData;
 

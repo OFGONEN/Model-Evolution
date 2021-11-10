@@ -9,7 +9,7 @@ public class UILoadingBar : UIEntity
 {
 #region Fields
     [ Header( "Shared Variables" ) ]
-    public SharedFloatProperty progressProperty;
+    public SharedFloatNotifier progressNotifier;
 
 	[ HorizontalLine ]
 	[ Header( "UI Elements" ) ]
@@ -19,12 +19,12 @@ public class UILoadingBar : UIEntity
 #region Unity API
     private void OnEnable()
     {
-		progressProperty.changeEvent += OnValueChange;
+		progressNotifier.changeEvent += OnValueChange;
 	}
 
     private void OnDisable()
     {
-		progressProperty.changeEvent -= OnValueChange;
+		progressNotifier.changeEvent -= OnValueChange;
     }
 
 	private void Awake()
@@ -39,7 +39,7 @@ public class UILoadingBar : UIEntity
 #region Implementation
     private void OnValueChange()
     {
-		fillingImage.fillAmount = progressProperty.sharedValue;
+		fillingImage.fillAmount = progressNotifier.SharedValue;
 	}
 #endregion
 }

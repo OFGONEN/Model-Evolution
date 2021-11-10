@@ -9,6 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67516f72723bfae41865045eb7e4224d, type: 3}
+  m_Script: {fileID: 11500000, guid: 0675320d48f328543b3c42d4b9994b9b, type: 3}
   m_Name: camera_main_reference
   m_EditorClassIdentifier: 

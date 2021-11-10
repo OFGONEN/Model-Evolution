@@ -19,7 +19,7 @@ namespace FFStudio
         protected override void OnProgressChange()
         {
 			var position             = indicator_BasePosition;
-			    position.y           = Mathf.Lerp( indicator_BasePosition.y, indicator_EndPosition.y, indicatorProgress.sharedValue );
+			    position.y           = Mathf.Lerp( indicator_BasePosition.y, indicator_EndPosition.y, indicatorProgress.SharedValue );
 			    uiTransform.position = position;
 		}
 		
