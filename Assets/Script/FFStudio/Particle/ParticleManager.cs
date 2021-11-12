@@ -36,14 +36,14 @@ namespace FFStudio
 
 			for( int i = 0; i < particleEffectPools.Length; i++ )
 			{
-				particleEffectPools[ i].InitPool( transform, false );
+				particleEffectPools[ i ].InitPool( transform, false, ParticleEffectStopped );
 				particleEffectDictionary.Add( particleEffectPools[ i ].poolEntity.alias, particleEffectPools[ i ] );
 			}
 		}
 #endregion
 
 #region Implementation
-		void SpawnParticle()
+		private void SpawnParticle()
 		{
 			var spawnEvent = spawnParticleListener.gameEvent as ParticleSpawnEvent;
 
@@ -55,8 +55,21 @@ namespace FFStudio
 				return;
 			}
 
-			var effect = pool.GiveEntity( transform, false );
+			var effect = pool.GiveEntity();
 			effect.PlayParticle( spawnEvent );
+		}
+
+		private void ParticleEffectStopped( ParticleEffect particleEffect )
+		{
+			ParticleEffectPool pool;
+
+			if( !particleEffectDictionary.TryGetValue( particleEffect.alias, out pool ) )
+			{
+				FFLogger.Log( "Particle:" + particleEffect.alias + " is missing!", particleEffect.gameObject );
+				return;
+			}
+
+			pool.ReturnEntity( particleEffect );
 		}
 #endregion
 	}

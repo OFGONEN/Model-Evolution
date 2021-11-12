@@ -6,7 +6,7 @@ using FFStudio;
 
 namespace FFStudio
 {
-	public abstract class RunTimePool< T > : RunTimeStack< T > where T: ParticleEffect
+	public abstract class RunTimePool< T > : RunTimeStack< T >
 	{
 #region Fields
         public T poolEntity; // GameObject.
@@ -16,38 +16,13 @@ namespace FFStudio
 #endregion
 
 #region API
-		public void InitPool( Transform parent, bool active )
-		{
-			stack = new Stack< T >( stackSize );
-
-			for( var i = 0; i < stackSize; i++ )
-			{
-				var entity = GameObject.Instantiate( poolEntity );
-				entity.transform.SetParent( parent );
-				entity.gameObject.SetActive( active );
-				entity.parent = parent;
-				stack.Push( entity );
-			}
-		}
-
-		public T GiveEntity( Transform parent, bool active )
-		{
-			T entity;
-
-			if( stack.Count > 0 )
-				entity = stack.Pop();
-			else 
-			{
-				entity = GameObject.Instantiate( poolEntity );
-				entity.transform.SetParent( parent );
-			}
-
-			entity.gameObject.SetActive( active );
-			return entity;
-		}
+		public abstract void InitPool();
+		public abstract T GiveEntity();
+		public abstract void ReturnEntity( T entity );
 #endregion
 
 #region Implementation
+		protected abstract void InitEntity();
 #endregion
 	}
 }

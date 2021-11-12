@@ -9,4 +9,5 @@ namespace FFStudio
     public delegate void TriggerEnter(Collider other);
 	public delegate void UnityMessage();
 	public delegate void LeanFingerDelegate( LeanFinger finger );
+	public delegate void ParticleEffectStopped( ParticleEffect effect );
 }
