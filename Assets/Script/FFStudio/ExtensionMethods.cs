@@ -8,6 +8,10 @@ namespace FFStudio
 {
 	public static class ExtensionMethods
 	{
+		//Static Variables
+		private static List< Transform > baseModelBones = new List< Transform >( 96 );
+		private static List< Transform > targetModelBones = new List< Transform >( 96 );
+
 		public static Vector2 ReturnV2FromUnSignedAngle( this float angle )
 		{
 			switch( ( int )angle )
@@ -195,6 +199,41 @@ namespace FFStudio
 			transform.position    = data.position;
 			transform.eulerAngles = data.rotation;
 			transform.localScale  = data.scale;
+		}
+
+		// Takes root boes as parameters that are child of a humanoid model 
+		public static void ReplaceHumanoidModel( this Transform baseBone, Transform targetBone )
+		{
+			baseModelBones.Clear();
+			targetModelBones.Clear();
+
+			baseBone.GetComponentsInChildren< Transform >( true, baseModelBones );
+			targetBone.GetComponentsInChildren< Transform >( true, targetModelBones );
+
+			targetBone.parent.position = baseBone.parent.position;
+
+			for( var bone = 0; bone < baseModelBones.Count; bone++ )
+			{
+				targetModelBones[ bone ].position = baseModelBones[ bone ].position;
+				targetModelBones[ bone ].rotation = baseModelBones[ bone ].rotation;
+			}
+		}
+
+		public static void UpdateSkinnedMeshRenderer( this GameObject gameObject, SkinnedMeshRenderer currentRender, SkinnedMeshRenderer newRenderer )
+		{
+			currentRender.sharedMesh = newRenderer.sharedMesh;
+
+			baseModelBones.Clear();
+			targetModelBones.Clear();
+
+			gameObject.GetComponentsInChildren<Transform>( true, baseModelBones );
+
+			for( int boneOrder = 0; boneOrder < newRenderer.bones.Length; boneOrder++ )
+			{
+				targetModelBones.Add( targetModelBones.Find( c => c.name == newRenderer.bones[ boneOrder ].name ) );
+			}
+
+			currentRender.bones = targetModelBones.ToArray();
 		}
 
 		public static void SetFieldValue( this object source, string fieldName, string value )
