@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace FFStudio
 {
-	public class ColliderListener_GameEventRaiser : MonoBehaviour
+	public class TriggerListener_GameEventRaiser : MonoBehaviour
 	{
 #region Fields
 		public ReferenceGameEvent gameEvent;
