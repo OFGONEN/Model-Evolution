@@ -121,7 +121,6 @@ namespace FFEditor
 		[ MenuItem( "FFStudios/SO/Load All Default SO" ) ]
 		public static void LoadAllDefaultSO()
 		{
-			Debug.Log( "Load All Default SO" );
 			var trackedScriptableObjects = SOLibrary.trackedScriptableObjects;
 
 			for( int i = 0; i < trackedScriptableObjects.Count; i++ )
@@ -131,7 +130,6 @@ namespace FFEditor
 		[ MenuItem( "FFStudios/SO/Create All Default SO" ) ]
 		public static void CreateAllDefaultSO()
 		{
-			Debug.Log( "Create All Default SO" );
 			var trackedScriptableObjects = SOLibrary.trackedScriptableObjects;
 
 			for( int i = 0; i < trackedScriptableObjects.Count; i++ )

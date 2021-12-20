@@ -7,7 +7,7 @@ namespace FFStudio
 	public class TriggerListener_EventRaiser : MonoBehaviour
 	{
 #region Fields
-		public event TriggerEnter triggerEnter;
+		public event TriggerMessage triggerEnter;
 #endregion
 
 #region UnityAPI

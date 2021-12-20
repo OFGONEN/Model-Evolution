@@ -2,6 +2,7 @@
 
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using DG.Tweening;
 
 namespace FFStudio
@@ -91,6 +92,33 @@ namespace FFStudio
 			Vector3 newDirection = Vector3.RotateTowards( baseTransform.forward, directionVector, step, 0.0f );
 
 			baseTransform.rotation = Quaternion.LookRotation( newDirection );
+		}
+
+		public static void LookAtAxis( this Transform baseTransform, Vector3 targetPosition, Vector3 axis )
+		{
+			var newDirection = targetPosition - baseTransform.position;
+			var eulerAngles = baseTransform.eulerAngles;
+			var newRotationEuler = Quaternion.LookRotation( newDirection ).eulerAngles;
+
+			newRotationEuler.x = eulerAngles.x + ( newRotationEuler.x - eulerAngles.x ) * axis.x;
+			newRotationEuler.y = eulerAngles.y + ( newRotationEuler.y - eulerAngles.y ) * axis.y;
+			newRotationEuler.z = eulerAngles.z + ( newRotationEuler.z - eulerAngles.z ) * axis.z;
+
+			baseTransform.rotation = Quaternion.Euler( newRotationEuler );
+		}
+
+		public static void LookAtAxis( this Transform baseTransform, Vector3 targetPosition, Vector3 axis, float directionCofactor )
+		{
+			var newDirection = targetPosition - baseTransform.position;
+			var eulerAngles = baseTransform.eulerAngles;
+			var newRotationEuler = Quaternion.LookRotation( newDirection * directionCofactor ).eulerAngles;
+
+			newRotationEuler.x = eulerAngles.x + ( newRotationEuler.x - eulerAngles.x ) * axis.x;
+			newRotationEuler.y = eulerAngles.y + ( newRotationEuler.y - eulerAngles.y ) * axis.y;
+			newRotationEuler.z = eulerAngles.z + ( newRotationEuler.z - eulerAngles.z ) * axis.z;
+
+			// baseTransform.rotation = Quaternion.LookRotation( newDirection );
+			baseTransform.rotation = Quaternion.Euler( newRotationEuler );
 		}
 
 		public static void LookAtOverTimeAxis( this Transform baseTransform, Vector3 targetPosition, Vector3 axis, float speed )
@@ -279,6 +307,34 @@ namespace FFStudio
 			}
 
 			return tween;
+		}
+
+		public static Color SetAlpha( this Color color, float alpha )
+		{
+			Color newColor = color;
+			newColor.a = alpha;
+
+			return newColor;
+		}
+
+		public static void SetAlpha( this Image image, float alpha )
+		{
+			Color newColor = image.color;
+			newColor.a = alpha;
+
+			image.color = newColor;
+		}
+
+		public static float RoundTo( this float number, float step )
+		{
+			int quotient = Mathf.FloorToInt( number / step );
+			var reminder = number % step;
+			float rounded = quotient * step;
+
+			if( reminder >= step / 2f )
+				rounded += step;
+
+			return rounded;
 		}
 	}
 }
