@@ -43,8 +43,8 @@ namespace FFStudio
 				activeEntities.RemoveAt( 0 );
 				activeEntities.Add( entity );
 			}
-            else 
-				entity = GameObject.Instantiate( poolEntity );
+            else
+				entity = InitEntity();
 
 			return entity;
         }

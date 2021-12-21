@@ -22,7 +22,7 @@ namespace FFStudio
 #endregion
 
 #region Implementation
-		protected abstract void InitEntity();
+		protected abstract T InitEntity();
 #endregion
 	}
 }

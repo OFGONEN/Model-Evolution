@@ -6,9 +6,12 @@ using UnityEngine;
 
 namespace FFStudio
 {
-	public class CollisionListener : MonoBehaviour
+	public class CollisionListener : ColliderListener
 	{
 #region Fields
+		private event CollisionMessage collisionEvet;
+		
+		protected Collision collider_collision;
 #endregion
 
 #region Properties
@@ -18,9 +21,17 @@ namespace FFStudio
 #endregion
 
 #region API
+		public override void ClearEventList()
+		{
+			collisionEvet = null;
+		}
 #endregion
 
 #region Implementation
+        protected override void InvokeEvent()
+		{
+			collisionEvet?.Invoke( collider_collision );
+		}
 #endregion
 
 #region Editor Only

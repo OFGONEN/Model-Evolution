@@ -23,7 +23,10 @@ namespace FFStudio
             stack = new Stack< T >( stackSize );
 
             for( var i = 0; i < stackSize; i++ )
-				InitEntity();
+			{
+				var entity = InitEntity();
+				stack.Push( entity );
+			}
         }
 
 		public override T GiveEntity()
@@ -33,7 +36,7 @@ namespace FFStudio
 			if( stack.Count > 0 )
 				entity = stack.Pop();
 			else
-				entity = GameObject.Instantiate( poolEntity );
+				entity = InitEntity();
 
 			return entity;
 		}
@@ -45,11 +48,11 @@ namespace FFStudio
 #endregion
 
 #region Implementation
-		protected override void InitEntity()
+		protected override T InitEntity()
         {
             var entity = GameObject.Instantiate( poolEntity );
-            stack.Push( entity );
-        }
+			return entity;
+		}
 #endregion
 	}
 }

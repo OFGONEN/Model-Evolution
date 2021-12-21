@@ -6,32 +6,26 @@ using UnityEngine;
 
 namespace FFStudio
 {
-	public class TriggerListener : ColliderListener
+	public class TriggerListener_Enter : TriggerListener
 	{
 #region Fields
-		private event TriggerMessage triggerEvent;
-
-		protected Collider collider_trigger;
 #endregion
 
 #region Properties
 #endregion
 
 #region Unity API
+        private void OnTriggerEnter( Collider other )
+        {
+			collider_trigger = other;
+			InvokeEvent();
+		}
 #endregion
 
 #region API
-		public override void ClearEventList()
-		{
-			triggerEvent = null;
-		}
 #endregion
 
 #region Implementation
-        protected override void InvokeEvent()
-		{
-			triggerEvent?.Invoke( collider_trigger );
-		}
 #endregion
 
 #region Editor Only
