@@ -30,6 +30,9 @@ namespace FFStudio
 		{
 			attachedCollider.enabled = active;
 		}
+
+		public abstract void Subscribe();
+		public abstract void UnSubscribe();
 #endregion
 
 #region Implementation

@@ -9,8 +9,10 @@ namespace FFStudio
 	public class TriggerListener : ColliderListener
 	{
 #region Fields
-		private event TriggerMessage triggerEvent;
+		public TriggerMessage delegateToPass;
 
+		// Private \\
+		private event TriggerMessage triggerEvent;
 		protected Collider collider_trigger;
 #endregion
 
@@ -24,6 +26,17 @@ namespace FFStudio
 		public override void ClearEventList()
 		{
 			triggerEvent = null;
+		}
+
+		public override void Subscribe()
+		{
+			//TODO(Fauder) Ifdef foo suan triggerEvent iicnde var mi ?
+			triggerEvent += delegateToPass;
+		}
+
+		public override void UnSubscribe()
+		{
+			triggerEvent -= delegateToPass;
 		}
 #endregion
 
