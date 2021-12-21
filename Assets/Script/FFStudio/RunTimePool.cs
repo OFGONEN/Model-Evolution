@@ -17,7 +17,7 @@ namespace FFStudio
 
 #region API
 		public abstract void InitPool();
-		public abstract T GiveEntity();
+		public abstract T GetEntity();
 		public abstract void ReturnEntity( T entity );
 #endregion
 

@@ -28,7 +28,7 @@ namespace FFStudio
             activeEntities = new List< T >( stackSize );
 		}
 
-		public override T GiveEntity()
+		public override T GetEntity()
         {
             T entity;
 

@@ -55,7 +55,7 @@ namespace FFStudio
 				return;
 			}
 
-			var effect = pool.GiveEntity();
+			var effect = pool.GetEntity();
 			effect.PlayParticle( spawnEvent );
 		}
 

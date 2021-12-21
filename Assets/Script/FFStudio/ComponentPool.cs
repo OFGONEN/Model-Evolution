@@ -29,7 +29,7 @@ namespace FFStudio
 			}
         }
 
-		public override T GiveEntity()
+		public override T GetEntity()
 		{
 			T entity;
 
