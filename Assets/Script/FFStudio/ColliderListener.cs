@@ -1,19 +1,21 @@
 /* Created by and for usage of FF Studios (2021). */
 
 using UnityEngine;
+using NaughtyAttributes;
 
 namespace FFStudio
 {
-	public abstract class ColliderListener : MonoBehaviour
+	public abstract class ColliderListener< DelegateType, CallbackArgumentType > : MonoBehaviour
 	{
-#region Fields
-		// Private
-		[ SerializeField ] private Component attachedComponent;
-		private Collider attachedCollider;
+#region Fields (Inspector Interface)
+		[ BoxGroup( "Setup" ), SerializeField ] private Component attachedComponent;
 
-		// Public Properties
 		public Component AttachedComponent => attachedComponent;
 		public Collider AttachedCollider => attachedCollider;
+#endregion
+
+#region  Fields (Private)
+		private Collider attachedCollider;
 #endregion
 
 #region UnityAPI
@@ -31,12 +33,12 @@ namespace FFStudio
 			attachedCollider.enabled = active;
 		}
 
-		public abstract void Subscribe();
-		public abstract void UnSubscribe();
+		public abstract void Subscribe( DelegateType method );
+		public abstract void Unsubscribe( DelegateType method );
 #endregion
 
 #region Implementation
-        protected abstract void InvokeEvent();
+        protected abstract void InvokeEvent( CallbackArgumentType physicsCallbackArgument );
 #endregion
 	}
 }

@@ -6,14 +6,10 @@ using UnityEngine;
 
 namespace FFStudio
 {
-	public class TriggerListener : ColliderListener
+	public class TriggerListener : ColliderListener< TriggerMessage, Collider >
 	{
-#region Fields
-		public TriggerMessage delegateToPass;
-
-		// Private \\
+#region Fields (Private)
 		private event TriggerMessage triggerEvent;
-		protected Collider collider_trigger;
 #endregion
 
 #region Properties
@@ -28,22 +24,22 @@ namespace FFStudio
 			triggerEvent = null;
 		}
 
-		public override void Subscribe()
+		public override void Subscribe( TriggerMessage method )
 		{
-			//TODO(Fauder) Ifdef foo suan triggerEvent iicnde var mi ?
-			triggerEvent += delegateToPass;
+			// TODO: (fauder) SafeEvent.
+			triggerEvent += method;
 		}
 
-		public override void UnSubscribe()
+		public override void Unsubscribe( TriggerMessage method )
 		{
-			triggerEvent -= delegateToPass;
+			triggerEvent -= method;
 		}
 #endregion
 
 #region Implementation
-        protected override void InvokeEvent()
+        protected override void InvokeEvent( Collider other )
 		{
-			triggerEvent?.Invoke( collider_trigger );
+			triggerEvent?.Invoke( other );
 		}
 #endregion
 

@@ -6,14 +6,10 @@ using UnityEngine;
 
 namespace FFStudio
 {
-	public class CollisionListener : ColliderListener
+	public class CollisionListener : ColliderListener< CollisionMessage, Collision >
 	{
-#region Fields
-		public CollisionMessage delegateToPass;
-
-		// Private \\
-		private event CollisionMessage collisionEvet;
-		protected Collision collider_collision;
+#region Fields (Private)
+		private event CollisionMessage collisionEvent;
 #endregion
 
 #region Properties
@@ -25,25 +21,25 @@ namespace FFStudio
 #region API
 		public override void ClearEventList()
 		{
-			collisionEvet = null;
+			collisionEvent = null;
 		}
 
-		public override void Subscribe()
+		public override void Subscribe( CollisionMessage method )
 		{
-			//TODO(Fauder) Ifdef foo suan triggerEvent iicnde var mi ?
-			collisionEvet += delegateToPass;
+			// TODO: (Fauder) SafeEvent.
+			collisionEvent += method;
 		}
 
-		public override void UnSubscribe()
+		public override void Unsubscribe( CollisionMessage method )
 		{
-			collisionEvet -= delegateToPass;
+			collisionEvent -= method;
 		}
 #endregion
 
 #region Implementation
-        protected override void InvokeEvent()
+        protected override void InvokeEvent( Collision collision )
 		{
-			collisionEvet?.Invoke( collider_collision );
+			collisionEvent?.Invoke( collision );
 		}
 #endregion
 
