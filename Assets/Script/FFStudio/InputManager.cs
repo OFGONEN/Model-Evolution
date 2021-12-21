@@ -28,12 +28,12 @@ namespace FFStudio
 #region Unity API
 		private void OnEnable()
 		{
-			mainCamera_ReferenceNotifier.changeEvent += OnCameraReferenceChange;
+			mainCamera_ReferenceNotifier.Subscribe( OnCameraReferenceChange );
 		}
 
 		private void OnDisable()
 		{
-			mainCamera_ReferenceNotifier.changeEvent -= OnCameraReferenceChange;
+			mainCamera_ReferenceNotifier.Unsubscribe( OnCameraReferenceChange );
 		}
 
 		private void Awake()

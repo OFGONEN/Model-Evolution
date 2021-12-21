@@ -25,12 +25,12 @@ namespace FFStudio
 #region Unity API
         private void OnEnable()
         {
-			indicatorProgress.changeEvent += OnProgressChange;
+			indicatorProgress.Subscribe( OnProgressChange );
 		}
 
         private void OnDisable()
         {
-			indicatorProgress.changeEvent -= OnProgressChange;
+			indicatorProgress.Unsubscribe( OnProgressChange );
         }
 
         public override void Start()

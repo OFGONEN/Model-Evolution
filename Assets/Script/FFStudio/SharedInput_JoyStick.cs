@@ -17,7 +17,7 @@ public class SharedInput_JoyStick : SharedVector2Notifier
     private bool input_enabled;
 
     // Events \\
-    public event UnityMessage input_toggle; 
+    public SafeEvent input_toggle; 
 #endregion
 
 #region Properties

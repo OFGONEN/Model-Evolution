@@ -1,7 +1,5 @@
 /* Created by and for usage of FF Studios (2021). */
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using FFStudio;
 using NaughtyAttributes;
@@ -21,13 +19,13 @@ public class UI_Input_Joystick : UIEntity
 #region Unity API
     private void OnEnable()
     {
-		input_JoyStick.input_toggle += InputToggle;
+		input_JoyStick.input_toggle.Subscribe( InputToggle );
 	}
 
     private void OnDisable()
     {
-		input_JoyStick.input_toggle -= InputToggle;
-    }
+		input_JoyStick.input_toggle.Unsubscribe( InputToggle );
+	}
 
 	private void Awake()
 	{
@@ -46,15 +44,15 @@ public class UI_Input_Joystick : UIEntity
 
 		if( enabled )
 		{
-			input_JoyStick.changeEvent += InputChange;
+			input_JoyStick.Subscribe( InputChange );
 
 			var position             = input_JoyStick.Input_Screen_Position;
 			    position.y           = uiTransform.position.y;
 			    uiTransform.position = position;
 		}
         else
-			input_JoyStick.changeEvent -= InputChange;
-    }
+			input_JoyStick.Unsubscribe( InputChange );
+	}
 
     private void InputChange()
     {

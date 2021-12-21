@@ -19,17 +19,17 @@ public class UILoadingBar : UIEntity
 #region Unity API
     private void OnEnable()
     {
-		progressNotifier.changeEvent += OnValueChange;
+		progressNotifier.Subscribe( OnValueChange );
 	}
 
     private void OnDisable()
     {
-		progressNotifier.changeEvent -= OnValueChange;
-    }
+		progressNotifier.Unsubscribe( OnValueChange );
+	}
 
 	private void Awake()
 	{
-		OnValueChange(); // Set filling amount to value at the start 
+		OnValueChange(); // Set filling amount to value at the start.
 	}
 #endregion
 

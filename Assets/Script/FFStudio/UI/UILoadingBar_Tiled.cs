@@ -22,12 +22,12 @@ public class UILoadingBar_Tiled : UIEntity
 #region Unity API
     private void OnEnable()
     {
-		progressNotifier.changeEvent += OnValueChange_Inverse;
+		progressNotifier.Subscribe( OnValueChange_Inverse );
 	}
 
     private void OnDisable()
     {
-		progressNotifier.changeEvent -= OnValueChange_Inverse;
+		progressNotifier.Unsubscribe( OnValueChange_Inverse );
     }
 
 	private void Awake()

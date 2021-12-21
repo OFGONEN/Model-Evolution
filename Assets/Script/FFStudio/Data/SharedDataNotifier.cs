@@ -8,10 +8,11 @@ namespace FFStudio
     public abstract class SharedDataNotifier< SharedDataType > : ScriptableObject
     {
 #region Fields (Public)
-        public event ChangeEvent changeEvent;
 #endregion
 
 #region Fields (Private)
+        private ChangeEvent changeEvent;
+
         [ SerializeField ]
         private SharedDataType sharedValue;
 #endregion
@@ -32,8 +33,59 @@ namespace FFStudio
         }
 #endregion
 
+#region Unity API
+
+#endregion
+
 #region API
-        public void SetValue_DontNotify( SharedDataType value )
+        public void Subscribe( ChangeEvent methodToSubscribe )
+        {
+#if UNITY_EDITOR
+			if( changeEvent != null )
+            {
+				var subscribedMethods = changeEvent.GetInvocationList();
+				var nameOfMethodToSubscribe = methodToSubscribe.Method.Name;
+				for( int i = 0; i < subscribedMethods.Length; i++ )
+				{
+					var subscribedMethod = subscribedMethods[ i ];
+					if( subscribedMethod.Method.Name == nameOfMethodToSubscribe && subscribedMethod.Target == methodToSubscribe.Target )
+					{
+						FFLogger.LogWarning( name + ": Method \"" + nameOfMethodToSubscribe + "\" is being assigned twice. Previous target was " + 
+											 subscribedMethod.Target, this );
+						changeEvent -= methodToSubscribe;
+					}
+				}
+            }
+#endif
+			changeEvent += methodToSubscribe;
+		}
+
+		public void Unsubscribe( ChangeEvent methodToUnsubscribe )
+		{
+#if UNITY_EDITOR
+			if( changeEvent != null )
+            {
+				bool foundMethod = false;
+				var subscribedMethods = changeEvent.GetInvocationList();
+				var nameOfMethodToUnsubscribe = methodToUnsubscribe.Method.Name;
+				for( int i = 0; i < subscribedMethods.Length; i++ )
+				{
+					var subscribedMethod = subscribedMethods[ i ];
+					if( subscribedMethod.Method.Name == nameOfMethodToUnsubscribe && subscribedMethod.Target == methodToUnsubscribe.Target )
+						foundMethod = true;
+				}
+
+				if( foundMethod == false )
+				{
+					FFLogger.LogWarning( name + ": Method \"" + nameOfMethodToUnsubscribe + "\" is not assigned, but is being removed.", this );
+					return; // Info: Prevent unsubscribing from null event. User should take care of not subscribing before release.
+				}
+			}
+#endif
+			changeEvent -= methodToUnsubscribe;
+		}
+
+		public void SetValue_DontNotify( SharedDataType value )
         {
             sharedValue = value;
         }
@@ -43,6 +95,25 @@ namespace FFStudio
 			sharedValue = value;
 			changeEvent?.Invoke();
 		}
-#endregion
-    }
+
+#if UNITY_EDITOR
+		public bool IsMethodSubscribed( ChangeEvent method )
+		{
+			if( changeEvent != null )
+			{
+				var subscribedMethods = changeEvent.GetInvocationList();
+				var nameOfmethod = method.Method.Name;
+				for( int i = 0; i < subscribedMethods.Length; i++ )
+				{
+					var subscribedMethod = subscribedMethods[ i ];
+					if( subscribedMethod.Method.Name == nameOfmethod && subscribedMethod.Target == method.Target )
+						return true;
+				}
+			}
+
+			return false;
+		}
+#endif
+		#endregion
+	}
 }
