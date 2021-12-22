@@ -45,15 +45,15 @@ namespace FFEditor
 		}
 
 		[ MenuItem( "FFStudios/Update LevelDatas" ) ]
-		public static void LevelDatas()
+		public static void UpdateLevelDatas()
 		{
 			var maxLevelCount = GameSettings.Instance.maxLevelCount;
 
 			for( var i = 1; i <= maxLevelCount; i++ )
 			{
 				var levelData = Resources.Load< LevelData >( "level_data_" + i );
-				levelData.sceneIndex = i + 1;
-				EditorUtility.SetDirty( levelData );
+                levelData.sceneIndex++;
+                EditorUtility.SetDirty( levelData );
 			}
 
 			AssetDatabase.SaveAssets();
