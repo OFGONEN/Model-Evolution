@@ -1,6 +1,7 @@
 /* Created by and for usage of FF Studios (2021). */
 
 using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
@@ -279,7 +280,7 @@ namespace FFStudio
                 }
                 else if( fieldType == typeof( float ) )
                 {
-				    fieldInfo.SetValue( source, float.Parse( value ) );
+				    fieldInfo.SetValue( source, float.Parse( value, CultureInfo.InvariantCulture ) );
                 }
                 else if( fieldType == typeof( string ) )
                 {
