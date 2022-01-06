@@ -1,47 +1,46 @@
 /* Created by and for usage of FF Studios (2021). */
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using FFStudio;
+using UnityEditor;
 using NaughtyAttributes;
 using DG.Tweening;
-using UnityEditor;
 
 namespace FFStudio
 {
 	public class MovementTween : MonoBehaviour
 	{
-#region Fields
-
 		public enum MovementMode { Local, World }
+		
+#region Fields (Inspector Interface)
 
+	[ Header( "Parameters" ) ]
+	
 		public Vector3 deltaPosition;
 		public float velocity;
 
-		public bool playOnStart;
-
-        [ ShowIf( "playOnStart" ) ]
-		public bool hasDelay;
-
-        [ ShowIf( "hasDelay" ) ]
-		public float delayAmount;
-
-		[ DisableIf( "IsPlaying" ) ]
-        public bool loop;
-
-        [ ShowIf( "loop" ) ]
-        public LoopType loopType = LoopType.Restart;
-
 		public MovementMode movementMode;
+
+	[ Header( "Start" ) ]
+	
+		public bool playOnStart;
+		public bool hasDelay;
+        [ ShowIf( "hasDelay" ) ] public float delayAmount;
+		
+	[ Header( "Tween" ) ]
+
+		[ DisableIf( "IsPlaying" ) ] public bool loop;
+        [ ShowIf( "loop" ) ] public LoopType loopType = LoopType.Restart;
+		
         public Ease easing = Ease.Linear;
+		
+	[ Header( "Event Flow" ) ]
+	
+        [ SerializeField ] private MultipleEventListenerDelegateResponse triggeringEvents;
+	
         public GameEvent[] fireTheseOnComplete;
-        
-        [ field: SerializeField, ReadOnly ]
-        public bool IsPlaying { get; private set; }
+#endregion
 
-		/* Private Fields */
-
+#region Fields (Private)
 		private Vector3 startPosition;
 		private Vector3 targetPosition;
 		private Tween tween;
@@ -52,23 +51,28 @@ namespace FFStudio
 				return Mathf.Abs( deltaPosition.magnitude / velocity );
 			}
 		}
+#endregion
 
+#region Properties (Public)
+        [ field: SerializeField, ReadOnly ]
+        public bool IsPlaying { get; private set; }
 #endregion
 
 #region Unity API
-
 		private void OnEnable()
 		{
-			Play();
+			triggeringEvents.OnEnable();
 		}
 		
 		private void OnDisable()
 		{
-			Pause();
+			triggeringEvents.OnDisable();
 		}
 
 		private void Awake()
 		{
+			triggeringEvents.response = EventResponse;
+
 			if( movementMode == MovementMode.Local )
 				startPosition = transform.localPosition;
 			else
@@ -97,7 +101,7 @@ namespace FFStudio
 #endregion
 
 #region API
-		[Button()]
+		[ Button() ]
 		public void Play()
 		{
 			if( tween == null )
@@ -108,7 +112,7 @@ namespace FFStudio
 			IsPlaying = true;
 		}
 
-		[Button(), EnableIf( "IsPlaying" )]
+		[ Button(), EnableIf( "IsPlaying" ) ]
 		public void Pause()
 		{
 			if( tween == null )
@@ -119,7 +123,7 @@ namespace FFStudio
 			IsPlaying = false;
 		}
 
-		[Button(), EnableIf( "IsPlaying" )]
+		[ Button(), EnableIf( "IsPlaying" ) ]
 		public void Stop()
 		{
 			if( tween == null )
@@ -130,7 +134,7 @@ namespace FFStudio
 			IsPlaying = false;
 		}
 
-		[Button(), EnableIf( "IsPlaying" )]
+		[ Button(), EnableIf( "IsPlaying" ) ]
 		public void Restart()
 		{
 			if( tween == null )
@@ -145,6 +149,11 @@ namespace FFStudio
 #endregion
 
 #region Implementation
+		private void EventResponse()
+		{
+			DOVirtual.DelayedCall( delayAmount, Play );
+		}
+
 		private void CreateAndStartTween()
 		{
 			if( movementMode == MovementMode.Local )

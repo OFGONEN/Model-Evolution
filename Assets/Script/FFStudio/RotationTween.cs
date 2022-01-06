@@ -8,43 +8,48 @@ namespace FFStudio
 {
     public class RotationTween : MonoBehaviour
     {
-#region Fields
         public enum RotationMode { Local, World }
-
+        
+#region Fields (Inspector Interface)
+    [ Header( "Parameters" ) ]
+        
         [ Label( "Delta Angle (°)" )]
         public float deltaAngle;
         [ Label( "Angular Speed (°/s)" ), Min( 0 ) ]
         public float angularSpeedInDegrees;
         
+        public RotationMode rotationMode;
+        
+        [ Dropdown( "GetVectorValues" ), Label( "Rotate Around" ) ]
+        public Vector3 rotationAxisMaskVector;
+        
+    [ Header( "Start" ) ]
+    
         public bool playOnStart;
 
-        [ ShowIf( "playOnStart" ) ]
 		public bool hasDelay;
 
         [ ShowIf( "hasDelay" ) ]
 		public float delayAmount;
+        
+    [ Header( "Tween" ) ]
 
 		[ DisableIf( "IsPlaying" ) ]
         public bool loop;
 
         [ ShowIf( "loop" ) ]
         public LoopType loopType = LoopType.Restart;
-
-        public RotationMode rotationMode;
-
-        [ Dropdown( "GetVectorValues" ), Label( "Rotate Around" ) ]
-        public Vector3 rotationAxisMaskVector;
-
+        
         public Ease easing = Ease.Linear;
-
+        
+    [ Header( "Event Flow" ) ]
+        [ SerializeField ] private MultipleEventListenerDelegateResponse triggeringEvents;
+        
         public GameEvent[] fireTheseOnComplete;
-        
-        [ field: SerializeField, ReadOnly ]
-        public bool IsPlaying { get; private set; }
-        
-/* Private Fields */
+#endregion
 
-        private Tween tween;
+#region Fields (Private)
+		private Tween tween;
         private float Duration => Mathf.Abs( deltaAngle / angularSpeedInDegrees );
 
         private DropdownList< Vector3 > GetVectorValues()
@@ -58,7 +63,27 @@ namespace FFStudio
         }
 #endregion
 
+#region Properties
+        [ field: SerializeField, ReadOnly ]
+        public bool IsPlaying { get; private set; }
+#endregion
+
 #region Unity API
+        private void OnEnable()
+        {
+            triggeringEvents.OnEnable();
+        }
+        
+        private void OnDisable()
+        {
+            triggeringEvents.OnDisable();
+        }
+        
+        private void Awake()
+        {
+            triggeringEvents.response = EventResponse;
+        }
+
         private void Start()
         {
             if( !enabled )
@@ -128,6 +153,11 @@ namespace FFStudio
 #endregion
 
 #region Implementation
+        private void EventResponse()
+		{
+			DOVirtual.DelayedCall( delayAmount, Play );
+		}
+
         private void CreateAndStartTween()
         {
 			/* Since we use SetRelative + RotateMode.FastBeyond360 combo, we need to specify a delta instead of end value. */

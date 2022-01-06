@@ -12,7 +12,7 @@ namespace FFStudio
         
         public override void OnEnable()
         {
-            for (int i = 0; i < gameEvents.Length; i++)
+			for( int i = 0; i < gameEvents.Length; i++ )
 				gameEvents[ i ].RegisterListener( this );
         }
         
