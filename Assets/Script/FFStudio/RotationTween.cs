@@ -21,7 +21,7 @@ namespace FFStudio
         public RotationMode rotationMode;
         
         [ Dropdown( "GetVectorValues" ), Label( "Rotate Around" ) ]
-        public Vector3 rotationAxisMaskVector;
+        public Vector3 rotationAxisMaskVector = Vector3.right;
         
     [ Header( "Start" ) ]
     
