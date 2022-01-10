@@ -469,7 +469,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4364745634903858522, guid: ceed65b0ed263c842930cd7fefac090a, type: 3}
       propertyPath: m_Name
-      value: manager_asset_holder
+      value: manager_asset
       objectReference: {fileID: 0}
     - target: {fileID: 4364745634903858525, guid: ceed65b0ed263c842930cd7fefac090a, type: 3}
       propertyPath: m_RootOrder
