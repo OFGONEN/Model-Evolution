@@ -7,17 +7,13 @@ namespace FFStudio
 	[ CreateAssetMenu( fileName = "ParticlePool", menuName = "FF/Data/Pool/ParticlePool" ) ]
 	public class ParticleEffectPool : ComponentPool< ParticleEffect >
 	{
-		private Transform initial_parent;
-		private bool initial_active;
 		private ParticleEffectStopped initial_delegate;
 #region API
 		public void InitPool( Transform parent, bool active, ParticleEffectStopped effectStoppedDelegate )
 		{
-			initial_parent = parent;
-			initial_active = active;
 			initial_delegate = effectStoppedDelegate;
 
-			InitPool();
+			InitPool( parent, active );
 		}
 #endregion
 
@@ -25,7 +21,7 @@ namespace FFStudio
 		protected override ParticleEffect InitEntity()
         {
 			var entity = base.InitEntity();
-			entity.InitIntoPool( initial_parent, initial_active, initial_delegate );
+			entity.InitIntoPool( this, initial_delegate );
 
 			return entity;
 		}

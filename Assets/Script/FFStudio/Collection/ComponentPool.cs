@@ -6,9 +6,13 @@ using UnityEngine;
 
 namespace FFStudio
 {
-	public abstract class ComponentPool< T > : RunTimePool< T > where T: Component
+	public abstract class ComponentPool< T > : RunTimeStack< T > where T: Component
 	{
-#region Fields
+		#region Fields
+		public T pool_entity;
+
+		private Transform pool_parent;
+		private bool pool_active;
 #endregion
 
 #region Properties
@@ -18,18 +22,21 @@ namespace FFStudio
 #endregion
 
 #region API
-		public override void InitPool()
-        {
-            stack = new Stack< T >( stackSize );
+		public void InitPool( Transform parent, bool active )
+		{
+			pool_parent = parent;
+			pool_active = active;
+
+			stack = new Stack< T >( stackSize );
 
             for( var i = 0; i < stackSize; i++ )
 			{
 				var entity = InitEntity();
 				stack.Push( entity );
 			}
-        }
+		}
 
-		public override T GetEntity()
+		public T GetEntity()
 		{
 			T entity;
 
@@ -41,16 +48,21 @@ namespace FFStudio
 			return entity;
 		}
 
-		public override void ReturnEntity( T entity )
+		public void ReturnEntity( T entity )
         {
+			entity.gameObject.SetActive( pool_active );
+			entity.transform.SetParent( pool_parent );
 			stack.Push( entity );
 		}
 #endregion
 
 #region Implementation
-		protected override T InitEntity()
+		protected virtual T InitEntity()
         {
-            var entity = GameObject.Instantiate( poolEntity );
+            var entity = GameObject.Instantiate( pool_entity );
+			entity.gameObject.SetActive( pool_active );
+			entity.transform.parent = pool_parent;
+
 			return entity;
 		}
 #endregion

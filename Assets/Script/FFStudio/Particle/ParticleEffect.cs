@@ -9,9 +9,9 @@ namespace FFStudio
 #region Fields
 		[ Header( "Fired Events" ) ]
 		public string alias;
-		[ HideInInspector ] public Transform parent;
 
 		// Private Fields \\
+		private ParticleEffectPool particle_pool;
 		private ParticleEffectStopped particleEffectStopped;
 		private ParticleSystem particles;
 #endregion
@@ -25,24 +25,19 @@ namespace FFStudio
 			var mainParticle             = particles.main;
 			    mainParticle.stopAction  = ParticleSystemStopAction.Callback;
 			    mainParticle.playOnAwake = false;
-			// mainParticle.loop = false;
 		}
 
 		private void OnParticleSystemStopped()
 		{
-			transform.SetParent( parent );
-			gameObject.SetActive( false );
 			particleEffectStopped( this );
+			particle_pool.ReturnEntity( this );
 		}
 #endregion
 
 #region API
-		public void InitIntoPool( Transform parent, bool active, ParticleEffectStopped effectStoppedDelegate )
+		public virtual void InitIntoPool( ParticleEffectPool pool, ParticleEffectStopped effectStoppedDelegate )
 		{
-			gameObject.SetActive( active );
-			transform.SetParent( parent );
-
-			this.parent = parent;
+			particle_pool         = pool;
 			particleEffectStopped = effectStoppedDelegate;
 		}
 

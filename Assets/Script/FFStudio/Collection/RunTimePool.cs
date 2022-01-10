@@ -9,7 +9,7 @@ namespace FFStudio
 	public abstract class RunTimePool< T > : RunTimeStack< T >
 	{
 #region Fields
-        public T poolEntity; // GameObject.
+        public T poolEntity;
 #endregion
 
 #region Unity API
