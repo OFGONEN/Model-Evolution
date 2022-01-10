@@ -37,7 +37,7 @@ namespace FFStudio
 			for( int i = 0; i < particleEffectPools.Length; i++ )
 			{
 				particleEffectPools[ i ].InitPool( transform, false, ParticleEffectStopped );
-				particleEffectDictionary.Add( particleEffectPools[ i ].poolEntity.alias, particleEffectPools[ i ] );
+				particleEffectDictionary.Add( particleEffectPools[ i ].pool_entity.alias, particleEffectPools[ i ] );
 			}
 		}
 #endregion
