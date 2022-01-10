@@ -21,9 +21,9 @@ namespace FFStudio
 #endregion
 
 #region API
-        public override void InitPool()
+        public override void InitPool( Transform parent, bool active )
         {
-			base.InitPool();
+			base.InitPool( parent, active );
 
             activeEntities = new List< T >( stackSize );
 		}

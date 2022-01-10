@@ -22,7 +22,7 @@ namespace FFStudio
 #endregion
 
 #region API
-		public void InitPool( Transform parent, bool active )
+		public virtual void InitPool( Transform parent, bool active )
 		{
 			pool_parent = parent;
 			pool_active = active;
@@ -36,7 +36,7 @@ namespace FFStudio
 			}
 		}
 
-		public T GetEntity()
+		public virtual T GetEntity()
 		{
 			T entity;
 
@@ -48,7 +48,7 @@ namespace FFStudio
 			return entity;
 		}
 
-		public void ReturnEntity( T entity )
+		public virtual void ReturnEntity( T entity )
         {
 			entity.gameObject.SetActive( pool_active );
 			entity.transform.SetParent( pool_parent );
