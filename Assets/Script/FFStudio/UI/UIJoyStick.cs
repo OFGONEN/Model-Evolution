@@ -42,9 +42,9 @@ public class UIJoyStick : UIEntity
 
 		if( joyStickMethod == JoyStickMethod.Vector2 )
 			update = UpdateJoyStick_V2;
-		else if( joyStickMethod == JoyStickMethod.Vector3Y )
+		else if( joyStickMethod == JoyStickMethod.Vector3_Y )
 			update = UpdateJoyStick_V3Y;
-		else if( joyStickMethod == JoyStickMethod.Vector3Z )
+		else if( joyStickMethod == JoyStickMethod.Vector3_Z )
 			update = UpdateJoyStick_V3Z;
 
 		screenTapListener.OnEnable();
@@ -99,7 +99,7 @@ public class UIJoyStick : UIEntity
 
     private bool IfJoyStickV3()
     {
-		return joyStickMethod == JoyStickMethod.Vector3Y || joyStickMethod == JoyStickMethod.Vector3Z;
+		return joyStickMethod == JoyStickMethod.Vector3_Y || joyStickMethod == JoyStickMethod.Vector3_Z;
 	}
 #endregion
 }

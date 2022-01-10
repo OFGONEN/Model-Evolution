@@ -4,14 +4,14 @@ namespace FFStudio
 {
     public enum SpriteSetMethod
     {
-        Equlize,
+        Equalize,
         PreserveAspect
     }
 
     public enum JoyStickMethod
     {
         Vector2,
-        Vector3Y,
-        Vector3Z
+        Vector3_Y,
+        Vector3_Z
     }
 }

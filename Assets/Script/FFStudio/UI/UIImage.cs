@@ -23,7 +23,7 @@ namespace FFStudio
 #region API
 		public void SetSprite( Sprite sprite, SpriteSetMethod method )
 		{
-			if( method == SpriteSetMethod.Equlize )
+			if( method == SpriteSetMethod.Equalize )
 				uiTransform.sizeDelta = new Vector2( sprite.textureRect.width, sprite.textureRect.height );
 			else if( method == SpriteSetMethod.PreserveAspect )
 			{
