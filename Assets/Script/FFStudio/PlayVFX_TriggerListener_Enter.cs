@@ -3,29 +3,32 @@
 using UnityEngine;
 using FFStudio;
 
-public class PlayVFX_TriggerListener_Enter : PlayVFX_Base
+namespace FFStudio
 {
+	public class PlayVFX_TriggerListener_Enter : PlayVFX_Base
+	{
 #region Fields (Inspector Interface)
-[ Header( "Event Listeners" ) ]
-	[ SerializeField ] private TriggerListener_Enter eventListener;
+	[ Header( "Event Listeners" ) ]
+		[ SerializeField ] private TriggerListener_Enter eventListener;
 #endregion
 
 #region Unity API    
-    protected override void OnEnable()
-    {
-		eventListener.Subscribe( OnCustomTriggerEnter );
-	}
-    
-    protected override void OnDisable()
-    {
-		eventListener.Unsubscribe( OnCustomTriggerEnter );
-	}
+		protected override void OnEnable()
+		{
+			eventListener.Subscribe( OnCustomTriggerEnter );
+		}
+		
+		protected override void OnDisable()
+		{
+			eventListener.Unsubscribe( OnCustomTriggerEnter );
+		}
 #endregion
 
 #region Implementation
-	private void OnCustomTriggerEnter( Collider other )
-	{
-		EventResponse();
-	}
+		private void OnCustomTriggerEnter( Collider other )
+		{
+			EventResponse();
+		}
 #endregion
+	}
 }
