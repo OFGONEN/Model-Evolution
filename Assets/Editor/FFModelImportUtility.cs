@@ -23,8 +23,6 @@ namespace FFEditor
 			var modelNameOnly = assetPath.Split( '/' ).Last();
 			var modelPrefix   = modelNameOnly.Split( '_' ).First();
 
-			FFStudio.FFLogger.Log( "FFModelImportUtility: PRE-processing model " + assetPath ); 
-
 			/* Model Tab. */
 			modelImporter.importBlendShapes = false;
 			modelImporter.importVisibility = false;
@@ -42,8 +40,6 @@ namespace FFEditor
 			/* Animation Tab. */
             modelImporter.importAnimation = modelPrefix == "char";
 
-			FFStudio.FFLogger.Log( ": test be baba." );
-
 			AssetDatabase.ImportAsset( assetPath );
 		}
 
@@ -54,8 +50,6 @@ namespace FFEditor
 			// Info: Only pre-process models for the FIRST time.
 			if( modelImporter.importSettingsMissing == false )
 				return;
-
-			FFStudio.FFLogger.Log( "FFModelImportUtility: POST-processing model " + assetPath );
 
 			RemapDefaultMaterial( gameObject.transform );
             
