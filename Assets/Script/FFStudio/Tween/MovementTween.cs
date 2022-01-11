@@ -2,7 +2,7 @@
 
 using UnityEngine;
 using UnityEditor;
-using NaughtyAttributes;
+using Sirenix.OdinInspector;
 using DG.Tweening;
 
 namespace FFStudio
@@ -13,31 +13,20 @@ namespace FFStudio
 		
 #region Fields (Inspector Interface)
 
-	[ Header( "Parameters" ) ]
-	
-		public Vector3 deltaPosition;
-		public float velocity;
+		[ TitleGroup( "Parameters" ) ] public Vector3 deltaPosition;
+		[ TitleGroup( "Parameters" ) ] public float velocity;
+		[ TitleGroup( "Parameters" ) ] public MovementMode movementMode;
 
-		public MovementMode movementMode;
-
-	[ Header( "Start" ) ]
-	
-		public bool playOnStart;
-		public bool hasDelay;
-        [ ShowIf( "hasDelay" ) ] public float delayAmount;
+		[ TitleGroup( "Start Options" ) ] public bool playOnStart;
+		[ TitleGroup( "Start Options" ) ] public bool hasDelay;
+        [ TitleGroup( "Start Options" ), ShowIf( "hasDelay" ) ] public float delayAmount;
 		
-	[ Header( "Tween" ) ]
-
-		[ DisableIf( "IsPlaying" ) ] public bool loop;
-        [ ShowIf( "loop" ) ] public LoopType loopType = LoopType.Restart;
+		[ TitleGroup( "Tween" ), DisableIf( "IsPlaying" ) ] public bool loop;
+        [ TitleGroup( "Tween" ), ShowIf( "loop" ) ] public LoopType loopType = LoopType.Restart;
+		[ TitleGroup( "Tween" ) ] public Ease easing = Ease.Linear;
 		
-        public Ease easing = Ease.Linear;
-		
-	[ Header( "Event Flow" ) ]
-	
-        [ SerializeField ] private MultipleEventListenerDelegateResponse triggeringEvents;
-	
-        public GameEvent[] fireTheseOnComplete;
+		[ TitleGroup( "Event Flow" ), SerializeField ] private MultipleEventListenerDelegateResponse triggeringEvents;
+		[ TitleGroup( "Event Flow" ) ] public GameEvent[] fireTheseOnComplete;
 #endregion
 
 #region Fields (Private)

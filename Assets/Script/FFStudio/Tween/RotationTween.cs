@@ -2,7 +2,8 @@
 
 using UnityEngine;
 using DG.Tweening;
-using NaughtyAttributes;
+using Sirenix.OdinInspector;
+using System.Collections;
 
 namespace FFStudio
 {
@@ -11,56 +12,34 @@ namespace FFStudio
         public enum RotationMode { Local, World }
         
 #region Fields (Inspector Interface)
-    [ Header( "Parameters" ) ]
+        [ TitleGroup( "Parameters" ), SuffixLabel( "Degrees (°)" ) ]                    public float deltaAngle;
+        [ TitleGroup( "Parameters" ), SuffixLabel( "Degrees/Second (°/s)" ), Min( 0 ) ] public float angularSpeedInDegrees;
+        [ TitleGroup( "Parameters" ) ]                                                  public RotationMode rotationMode;
+        [ TitleGroup( "Parameters" ), ValueDropdown( "VectorValues" ), LabelText( "Rotate Around" ) ]
+            public Vector3 rotationAxisMaskVector = Vector3.right;
         
-        [ Label( "Delta Angle (°)" )]
-        public float deltaAngle;
-        [ Label( "Angular Speed (°/s)" ), Min( 0 ) ]
-        public float angularSpeedInDegrees;
+        [ TitleGroup( "Start Options" ) ]                       public bool playOnStart;
+		[ TitleGroup( "Start Options" ) ]                       public bool hasDelay;
+        [ TitleGroup( "Start Options" ), ShowIf( "hasDelay" ) ] public float delayAmount;
         
-        public RotationMode rotationMode;
+        [ TitleGroup( "Tween" ), DisableIf( "IsPlaying" ) ] public bool loop;
+        [ TitleGroup( "Tween" ), ShowIf( "loop" ) ]         public LoopType loopType = LoopType.Restart;
+        [ TitleGroup( "Tween" ) ]                           public Ease easing = Ease.Linear;
         
-        [ Dropdown( "GetVectorValues" ), Label( "Rotate Around" ) ]
-        public Vector3 rotationAxisMaskVector = Vector3.right;
-        
-    [ Header( "Start" ) ]
-    
-        public bool playOnStart;
-
-		public bool hasDelay;
-
-        [ ShowIf( "hasDelay" ) ]
-		public float delayAmount;
-        
-    [ Header( "Tween" ) ]
-
-		[ DisableIf( "IsPlaying" ) ]
-        public bool loop;
-
-        [ ShowIf( "loop" ) ]
-        public LoopType loopType = LoopType.Restart;
-        
-        public Ease easing = Ease.Linear;
-        
-    [ Header( "Event Flow" ) ]
-        [ SerializeField ] private MultipleEventListenerDelegateResponse triggeringEvents;
-        
-        public GameEvent[] fireTheseOnComplete;
+        [ TitleGroup( "Event Flow" ), SerializeField ] private MultipleEventListenerDelegateResponse triggeringEvents;
+        [ TitleGroup( "Event Flow" ) ] public GameEvent[] fireTheseOnComplete;
 #endregion
 
 #region Fields (Private)
 		private Tween tween;
         private float Duration => Mathf.Abs( deltaAngle / angularSpeedInDegrees );
 
-        private DropdownList< Vector3 > GetVectorValues()
+        private IEnumerable VectorValues = new ValueDropdownList< Vector3 >()
         {
-            return new DropdownList< Vector3 >()
-            {
-                { "X",   Vector3.right      },
-                { "Y",   Vector3.up         },
-                { "Z",   Vector3.forward    }
-            };
-        }
+            { "X",   Vector3.right      },
+            { "Y",   Vector3.up         },
+            { "Z",   Vector3.forward    }
+        };
 #endregion
 
 #region Properties

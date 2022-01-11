@@ -2,7 +2,8 @@
 
 using UnityEngine;
 using DG.Tweening;
-using NaughtyAttributes;
+using Sirenix.OdinInspector;
+using System.Collections;
 
 namespace FFStudio
 {
@@ -11,51 +12,56 @@ namespace FFStudio
 #region Fields
         public enum RotationMode { Local, World }
 
-        [ Label( "Delta Angle (°)" )]
-        public float deltaAngle;
-        [ Label( "Angular Speed (°/s)" ), Min( 0 ) ]
-        public float angularSpeedInDegrees;
+        [ TitleGroup( "Parameters" ), SuffixLabel( "Degrees (°)", true ) ] public float deltaAngle;
+        [ TitleGroup( "Parameters" ), SuffixLabel( "Degrees/Seconds (°/s)", true ), Min( 0 ) ] public float angularSpeedInDegrees;
+        [ TitleGroup( "Parameters" ) ] public RotationMode rotationMode;
+        [ TitleGroup( "Parameters" ), ValueDropdown( "VectorValues" ), LabelText( "Rotate Pendulum Around" ) ] public Vector3 rotationAxisMaskVector_Blade = Vector3.right;
+
+        [ TitleGroup( "Start Options" ) ] public bool playOnStart;
+        [ TitleGroup( "Start Options" ) ] public bool hasDelay;
+        [ TitleGroup( "Start Options" ), ShowIf( "hasDelay" ) ] public float delayAmount;
+
+        [ ValueDropdown( "VectorValues" ), LabelText( "Rotate Around" ) ] public Vector3 rotationAxisMaskVector = Vector3.right;
+
+        [ TitleGroup( "Tween" ) ] public Ease easing = Ease.Linear;
         
-        public bool playOnStart;
-
-        [ ShowIf( "playOnStart" ) ]
-		public bool hasDelay;
-
-        [ ShowIf( "hasDelay" ) ]
-		public float delayAmount;
-
-        public RotationMode rotationMode;
-
-        [ Dropdown( "GetVectorValues" ), Label( "Rotate Around" ) ]
-        public Vector3 rotationAxisMaskVector;
+        [ TitleGroup( "Event Flow" ), SerializeField ] private MultipleEventListenerDelegateResponse triggeringEvents;
+        [ TitleGroup( "Event Flow" ) ] public GameEvent[] fireTheseOnComplete;
+#endregion
         
-        [ Dropdown( "GetVectorValues" ), Label( "Rotate Blade Around" ) ]
-        public Vector3 rotationAxisMaskVector_Blade;
-
-        public Ease easing = Ease.Linear;
-
-        public GameEvent[] fireTheseOnComplete;
-        
-        [ field: SerializeField, ReadOnly ]
-        public bool IsPlaying { get; private set; }
-        
-/* Private Fields */
-
+#region Fields (Private)
         private Sequence sequence;
         private float Duration => Mathf.Abs( deltaAngle / angularSpeedInDegrees );
 
-        private DropdownList< Vector3 > GetVectorValues()
+        private static IEnumerable VectorValues = new ValueDropdownList< Vector3 >()
         {
-            return new DropdownList< Vector3 >()
-            {
-                { "X",   Vector3.right      },
-                { "Y",   Vector3.up         },
-                { "Z",   Vector3.forward    }
-            };
-        }
+            { "X",   Vector3.right      },
+            { "Y",   Vector3.up         },
+            { "Z",   Vector3.forward    }
+        };
+#endregion
+
+#region Properties
+        [ field: SerializeField, ReadOnly ]
+        public bool IsPlaying { get; private set; }
 #endregion
 
 #region Unity API
+        private void OnEnable()
+        {
+            triggeringEvents.OnEnable();
+        }
+        
+        private void OnDisable()
+        {
+            triggeringEvents.OnDisable();
+        }
+        
+        private void Awake()
+        {
+            triggeringEvents.response = EventResponse;
+        }
+
         private void Start()
         {
             if( !enabled )
@@ -125,6 +131,11 @@ namespace FFStudio
 #endregion
 
 #region Implementation
+        private void EventResponse()
+        {
+			DOVirtual.DelayedCall( delayAmount, Play );
+		}
+
         private void CreateAndStartSequence()
         {
 			/* Since we use SetRelative + RotateMode.FastBeyond360 combo, we need to specify a delta instead of end value. */

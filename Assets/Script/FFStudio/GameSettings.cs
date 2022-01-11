@@ -1,7 +1,7 @@
 ﻿/* Created by and for usage of FF Studios (2021). */
 
-using NaughtyAttributes;
 using UnityEngine;
+using Sirenix.OdinInspector;
 
 namespace FFStudio
 {
@@ -21,15 +21,15 @@ namespace FFStudio
         [ BoxGroup( "Remote Config" ) ] public bool useRemoveConfig_Components;
 
         public int maxLevelCount;
-        [ Foldout( "UI Settings" ), Tooltip( "Duration of the movement for ui element"          ) ] public float ui_Entity_Move_TweenDuration;
-        [ Foldout( "UI Settings" ), Tooltip( "Duration of the fading for ui element"            ) ] public float ui_Entity_Fade_TweenDuration;
-		[ Foldout( "UI Settings" ), Tooltip( "Duration of the scaling for ui element"           ) ] public float ui_Entity_Scale_TweenDuration;
-		[ Foldout( "UI Settings" ), Tooltip( "Duration of the movement for floating ui element" ) ] public float ui_Entity_FloatingMove_TweenDuration;
-		[ Foldout( "UI Settings" ), Tooltip( "Joy Stick"                                        )] public float ui_Entity_JoyStick_Gap;
-        [ Foldout( "UI Settings" ), Tooltip( "Percentage of the screen to register a swipe"     ) ] public int swipeThreshold;
+        [ BoxGroup( "UI Settings" ), Tooltip( "Duration of the movement for ui element"          ) ] public float ui_Entity_Move_TweenDuration;
+        [ BoxGroup( "UI Settings" ), Tooltip( "Duration of the fading for ui element"            ) ] public float ui_Entity_Fade_TweenDuration;
+		[ BoxGroup( "UI Settings" ), Tooltip( "Duration of the scaling for ui element"           ) ] public float ui_Entity_Scale_TweenDuration;
+		[ BoxGroup( "UI Settings" ), Tooltip( "Duration of the movement for floating ui element" ) ] public float ui_Entity_FloatingMove_TweenDuration;
+		[ BoxGroup( "UI Settings" ), Tooltip( "Joy Stick"                                        ) ] public float ui_Entity_JoyStick_Gap;
+        [ BoxGroup( "UI Settings" ), Tooltip( "Percentage of the screen to register a swipe"     ) ] public int swipeThreshold;
 
-        [ Foldout( "Debug" ) ] public float debug_ui_text_float_height;
-        [ Foldout( "Debug" ) ] public float debug_ui_text_float_duration;
+        [ BoxGroup( "Debug" ) ] public float debug_ui_text_float_height;
+        [ BoxGroup( "Debug" ) ] public float debug_ui_text_float_duration;
 #endregion
 
 #region Implementation

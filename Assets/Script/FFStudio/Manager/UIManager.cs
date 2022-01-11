@@ -5,7 +5,6 @@ using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
 
-
 namespace FFStudio
 {
     public class UIManager : MonoBehaviour

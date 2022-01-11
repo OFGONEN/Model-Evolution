@@ -3,11 +3,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using NaughtyAttributes;
+using Sirenix.OdinInspector;
 
 namespace FFStudio
 {
-	public class DublicateRagdoll : MonoBehaviour
+	public class DuplicateRagdoll : MonoBehaviour
 	{
 		#region Fields
 		public GameObject baseRagdoll;

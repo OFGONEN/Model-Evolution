@@ -1,7 +1,7 @@
 /* Created by and for usage of FF Studios (2021). */
 
 using UnityEngine;
-using NaughtyAttributes;
+using Sirenix.OdinInspector;
 
 namespace FFEditor
 {
@@ -12,7 +12,7 @@ namespace FFEditor
 		[ Tooltip( "Scene to load whenever entering the play mode" ) ]
 		public bool useDefaultScene;
 
-		[ ShowIf( "useDefaultScene" ), Scene() ]
+		[ ShowIf( "useDefaultScene" ), NaughtyAttributes.Scene() ]
 		public int defaultSceneIndex = 0;
 #endregion
 

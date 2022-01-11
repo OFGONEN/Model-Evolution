@@ -2,7 +2,7 @@
 
 using UnityEngine;
 using FFStudio;
-using NaughtyAttributes;
+using Sirenix.OdinInspector;
 
 public class UI_Input_Joystick : UIEntity
 {

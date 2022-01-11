@@ -3,7 +3,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using NaughtyAttributes;
+using Sirenix.OdinInspector;
 
 namespace FFStudio
 {
