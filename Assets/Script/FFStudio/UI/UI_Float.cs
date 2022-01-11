@@ -14,7 +14,7 @@ namespace FFStudio
         public UnityEvent ui_OnComplete;
 
         private RectTransform ui_rectTransform;
-        public RecycledTween recycledTween = new RecycledTween();
+        private RecycledTween recycledTween = new RecycledTween();
 #endregion
 
 #region Properties
@@ -40,7 +40,7 @@ namespace FFStudio
 #region Implementation
         private void OnTweenComplete()
         {
-			ui_OnComplete?.Invoke();
+			ui_OnComplete.Invoke();
 		}
 #endregion
 

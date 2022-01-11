@@ -42,7 +42,7 @@ namespace FFStudio
 #region Implementation
 		private void OnTweenComplete()
 		{
-			ui_OnComplete?.Invoke();
+			ui_OnComplete.Invoke();
 		}
 #endregion
 
