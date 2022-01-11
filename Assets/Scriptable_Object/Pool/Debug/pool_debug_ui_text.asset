@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d373e748fb5cc42329e38a71d5781d1c, type: 3}
   m_Name: pool_debug_ui_text
   m_EditorClassIdentifier: 
-  stackSize: 10
+  stackSize: 1
   pool_entity: {fileID: -8009138592093246269, guid: a79cd824db0ee5240be15b949386a2e4, type: 3}
