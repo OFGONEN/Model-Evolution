@@ -56,7 +56,7 @@ namespace FFStudio
 
 		public void Subscribe_OnComplete( UnityMessage callback )
 		{
-
+			onComplete.Subscribe( callback );
 		}
 #endregion
 
