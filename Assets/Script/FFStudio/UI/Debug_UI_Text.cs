@@ -11,6 +11,8 @@ namespace FFStudio
 	public class Debug_UI_Text : MonoBehaviour
 	{
 #region Fields
+		public Pool_Debug_UI_Text pool;
+
         private UI_Float ui_float; 
         private UI_Fade_Text ui_text; 
 #endregion
@@ -31,8 +33,8 @@ namespace FFStudio
         {
 			gameObject.SetActive( true );
 
-			ui_text.UI_Text.text = text;
-			ui_text.UI_Text.color.SetAlpha( 1 );
+			ui_text.UI_Text.text  = text;
+			ui_text.UI_Text.color = ui_text.UI_Text.color.SetAlpha( 1 );
 
 			ui_float.UI_RectTransform.position = position;
 
@@ -40,10 +42,17 @@ namespace FFStudio
 				GameSettings.Instance.debug_ui_text_float_duration );
 
 			ui_text.DoFade( 0, GameSettings.Instance.debug_ui_text_float_duration );
+
+			ui_float.ui_OnComplete.AddListener( OnFloatComplete );
 		}
 #endregion
 
 #region Implementation
+		private void OnFloatComplete()
+		{
+			ui_float.ui_OnComplete.RemoveListener( OnFloatComplete );
+			pool.ReturnEntity( this );
+		}
 #endregion
 
 #region Editor Only
