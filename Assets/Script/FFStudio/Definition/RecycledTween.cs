@@ -7,6 +7,8 @@ namespace FFStudio
 		private UnityMessage onComplete;
 		private Tween tween;
 
+		public Tween Tween => tween;
+
 		public void Recycle( Tween tween_unsafe, UnityMessage onComplete )
 		{
 			tween = tween.KillProper();

@@ -7,6 +7,8 @@ namespace FFStudio
 		private UnityMessage onComplete;
 		private Sequence sequence;
 
+		public Sequence Sequence => sequence;
+
 		public void Recycle( UnityMessage onComplete )
 		{
 			sequence = sequence.KillProper();

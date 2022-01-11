@@ -16,6 +16,8 @@ namespace FFStudio
 
         private Image ui_Image;
         private RecycledTween recycledTween = new RecycledTween();
+
+        public Tween Tween => recycledTween.Tween;
 #endregion
 
 #region Properties
@@ -29,11 +31,13 @@ namespace FFStudio
 #endregion
 
 #region API
-        public void DoFade( float endValue, float duration )
+        public Tween DoFade( float endValue, float duration )
         {
 			recycledTween.Recycle( 
                 ui_Image.DOFade( endValue, duration ),
                 OnTweenComplete );
+
+			return recycledTween.Tween;
 		}
 #endregion
 

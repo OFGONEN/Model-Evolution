@@ -15,7 +15,9 @@ namespace FFStudio
 
 		private Vector3 ui_StartScale;
 		private RectTransform ui_rectTransform;
-		private RecycledTween recycledTween = new RecycledTween();	
+		private RecycledTween recycledTween = new RecycledTween();
+
+		public Tween Tween => recycledTween.Tween;
 #endregion
 
 #region Properties
@@ -31,18 +33,22 @@ namespace FFStudio
 #endregion
 
 #region API
-        public void DoScale_Target( Vector3 targetScale, float duration )
+        public Tween DoScale_Target( Vector3 targetScale, float duration )
         {
 			recycledTween.Recycle( 
 				ui_rectTransform.DOScale( targetScale , duration ),
 			 	OnTweenComplete );
-        }
 
-        public void DoScale_Start( float duration )
+			return recycledTween.Tween;
+		}
+
+        public Tween DoScale_Start( float duration )
         {
 			recycledTween.Recycle( 
 				ui_rectTransform.DOMove( ui_StartScale, duration ),
 			 	OnTweenComplete );
+
+			return recycledTween.Tween;
         }
 #endregion
 
