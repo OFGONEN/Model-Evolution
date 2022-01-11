@@ -4,17 +4,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 using DG.Tweening;
 
 namespace FFStudio
 {
-	public class UI_Float : MonoBehaviour
+	public class UI_Fade_Image : MonoBehaviour
 	{
 #region Fields
         public UnityEvent ui_OnComplete;
 
-        private RectTransform ui_rectTransform;
-        public RecycledTween recycledTween = new RecycledTween();
+        private Image ui_Image;
+        private RecycledTween recycledTween = new RecycledTween();
 #endregion
 
 #region Properties
@@ -23,16 +24,16 @@ namespace FFStudio
 #region Unity API
         private void Awake()
         {
-            ui_rectTransform = GetComponent< RectTransform >();
+            ui_Image = GetComponentInChildren< Image >();
         }
 #endregion
 
 #region API
-        public void DoFloat( float relativeValue, float duration ) 
+        public void DoFade( float endValue, float duration )
         {
 			recycledTween.Recycle( 
-				ui_rectTransform.DOMove( ui_rectTransform.position + Vector3.up * relativeValue, duration ),
-			 	OnTweenComplete );
+                ui_Image.DOFade( endValue, duration ),
+                OnTweenComplete );
 		}
 #endregion
 
