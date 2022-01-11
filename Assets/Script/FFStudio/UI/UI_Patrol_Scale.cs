@@ -17,6 +17,8 @@ namespace FFStudio
 		private RectTransform ui_rectTransform;
 		private RecycledTween recycledTween = new RecycledTween();
 
+		private SafeEvent onComplete = new SafeEvent();
+
 		public Tween Tween => recycledTween.Tween;
 #endregion
 
@@ -28,8 +30,8 @@ namespace FFStudio
         private void Awake()
         {
 			ui_rectTransform = GetComponent<RectTransform>();
-			ui_StartScale = ui_rectTransform.localScale;    
-        }
+			ui_StartScale = ui_rectTransform.localScale;
+		}
 #endregion
 
 #region API
@@ -44,18 +46,27 @@ namespace FFStudio
 
         public Tween DoScale_Start( float duration )
         {
+			FFLogger.Log( "StartScale: " + ui_StartScale );
 			recycledTween.Recycle( 
-				ui_rectTransform.DOMove( ui_StartScale, duration ),
+				ui_rectTransform.DOScale( ui_StartScale, duration ),
 			 	OnTweenComplete );
 
 			return recycledTween.Tween;
         }
+
+		public void Subscribe_OnComplete( UnityMessage callback )
+		{
+
+		}
 #endregion
 
 #region Implementation
         private void OnTweenComplete()
         {
+			onComplete.Invoke();
 			ui_OnComplete.Invoke();
+
+			onComplete.ClearInvokeList();
 		}
 #endregion
 

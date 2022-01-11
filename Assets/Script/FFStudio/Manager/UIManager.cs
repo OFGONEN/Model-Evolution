@@ -3,7 +3,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
-using NaughtyAttributes;
+using TMPro;
+
 
 namespace FFStudio
 {
@@ -18,8 +19,9 @@ namespace FFStudio
 
         [ Header( "UI Elements" ) ]
         public UI_Patrol_Scale level_loadingBar_Scale;
-        public UIText levelCountText;
-        public UIText informationText;
+        public TextMeshProUGUI level_count_text;
+        public TextMeshProUGUI level_information_text;
+        public UI_Patrol_Scale level_information_text_Scale;
         public Image loadingScreenImage;
         public Image foreGroundImage;
         public RectTransform tutorialObjects;
@@ -55,7 +57,7 @@ namespace FFStudio
             levelCompleteResponse.response = LevelCompleteResponse;
             tapInputListener.response      = ExtensionMethods.EmptyMethod;
 
-            informationText.textRenderer.text = "Tap to Start";
+			level_information_text.text = "Tap to Start";
         }
 #endregion
 
@@ -67,23 +69,22 @@ namespace FFStudio
 								.Append( loadingScreenImage.DOFade( 0, GameSettings.Instance.ui_Entity_Fade_TweenDuration ) )
 								.AppendCallback( () => tapInputListener.response = StartLevel );
 
-			levelCountText.textRenderer.text = "Level " + CurrentLevelData.Instance.currentLevel_Shown;
+			level_count_text.text = "Level " + CurrentLevelData.Instance.currentLevel_Shown;
 
             levelLoadedResponse.response = NewLevelLoaded;
         }
 
-        [ Button ]
         private void LevelCompleteResponse()
         {
             var sequence = DOTween.Sequence();
 
-            // Tween tween = null;
+			// Tween tween = null;
 
-            informationText.textRenderer.text = "Completed \n\n Tap to Continue";
+			level_information_text.text = "Completed \n\n Tap to Continue";
 
 			sequence.Append( foreGroundImage.DOFade( 0.5f, GameSettings.Instance.ui_Entity_Fade_TweenDuration ) )
-                    // .Append( tween ) // TODO: UIElements tween.
-					.Append( informationText.Appear() )
+					// .Append( tween ) // TODO: UIElements tween.
+					.Append( level_information_text_Scale.DoScale_Start( GameSettings.Instance.ui_Entity_Scale_TweenDuration ) )
 					.AppendCallback( () => tapInputListener.response = LoadNewLevel );
 
             elephantLevelEvent.level             = CurrentLevelData.Instance.currentLevel_Shown;
@@ -91,18 +92,17 @@ namespace FFStudio
             elephantLevelEvent.Raise();
         }
 
-        [ Button ]
         private void LevelFailResponse()
         {
             var sequence = DOTween.Sequence();
 
-            // Tween tween = null;
+			// Tween tween = null;
 
-            informationText.textRenderer.text = "Level Failed \n\n Tap to Continue";
+			level_information_text.text = "Level Failed \n\n Tap to Continue";
 
 			sequence.Append( foreGroundImage.DOFade( 0.5f, GameSettings.Instance.ui_Entity_Fade_TweenDuration ) )
                     // .Append( tween ) // TODO: UIElements tween.
-					.Append( informationText.Appear() )
+					.Append( level_information_text_Scale.DoScale_Start( GameSettings.Instance.ui_Entity_Scale_TweenDuration ) )
 					.AppendCallback( () => tapInputListener.response = Resetlevel );
 
             elephantLevelEvent.level             = CurrentLevelData.Instance.currentLevel_Shown;
@@ -112,7 +112,7 @@ namespace FFStudio
 
         private void NewLevelLoaded()
         {
-			levelCountText.textRenderer.text = "Level " + CurrentLevelData.Instance.currentLevel_Shown;
+			level_count_text.text = "Level " + CurrentLevelData.Instance.currentLevel_Shown;
 
 			var sequence = DOTween.Sequence();
 
@@ -130,7 +130,10 @@ namespace FFStudio
 		private void StartLevel()
 		{
 			foreGroundImage.DOFade( 0, GameSettings.Instance.ui_Entity_Fade_TweenDuration );
-			informationText.Disappear().OnComplete( levelRevealedEvent.Raise );
+
+			level_information_text_Scale.DoScale_Target( Vector3.zero, GameSettings.Instance.ui_Entity_Scale_TweenDuration );
+			level_information_text_Scale.Subscribe_OnComplete( levelRevealedEvent.Raise );
+
 			tutorialObjects.gameObject.SetActive( false );
 
 			tapInputListener.response = ExtensionMethods.EmptyMethod;
@@ -142,25 +145,23 @@ namespace FFStudio
 
 		private void LoadNewLevel()
 		{
-			FFLogger.Log( "Load New Level" );
 			tapInputListener.response = ExtensionMethods.EmptyMethod;
 
 			var sequence = DOTween.Sequence();
 
 			sequence.Append( foreGroundImage.DOFade( 1f, GameSettings.Instance.ui_Entity_Fade_TweenDuration ) )
-			        .Join( informationText.Disappear() )
+			        .Join( level_information_text_Scale.DoScale_Target( Vector3.zero, GameSettings.Instance.ui_Entity_Scale_TweenDuration ) )
 			        .AppendCallback( loadNewLevelEvent.Raise );
 		}
 
 		private void Resetlevel()
 		{
-			FFLogger.Log( "Reset Level" );
 			tapInputListener.response = ExtensionMethods.EmptyMethod;
 
 			var sequence = DOTween.Sequence();
 
 			sequence.Append( foreGroundImage.DOFade( 1f, GameSettings.Instance.ui_Entity_Fade_TweenDuration ) )
-			        .Join( informationText.Disappear() )
+			        .Join( level_information_text_Scale.DoScale_Target( Vector3.zero, GameSettings.Instance.ui_Entity_Scale_TweenDuration ) )
 			        .AppendCallback( resetLevelEvent.Raise );
 
 			elephantLevelEvent.level             = CurrentLevelData.Instance.currentLevel_Shown;

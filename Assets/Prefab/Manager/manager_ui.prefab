@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 124199663512924948}
   - component: {fileID: 124199663512924952}
   - component: {fileID: 124199663512924951}
-  - component: {fileID: 124199663512924950}
+  - component: {fileID: 1714538855047132561}
   m_Layer: 5
   m_Name: text_information
   m_TagString: Untagged
@@ -249,7 +249,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &124199663512924950
+--- !u!114 &1714538855047132561
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -258,14 +258,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 124199663512924947}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb337542e31be6d44bb9a3e342e09da6, type: 3}
+  m_Script: {fileID: 11500000, guid: 657ef527157bbba41b355767e76c1de9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiTransform: {fileID: 124199663512924948}
-  destinationTransform: {fileID: 0}
-  startPosition: {x: 0, y: 0, z: 0}
-  startScale: {x: 0, y: 0, z: 0}
-  textRenderer: {fileID: 124199663512924951}
+  ui_OnComplete:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &124199664086749819
 GameObject:
   m_ObjectHideFlags: 0
@@ -741,8 +739,9 @@ MonoBehaviour:
   tapInputListener:
     gameEvent: {fileID: 11400000, guid: 182cfa2632cfdba49bfaf3471d114d23, type: 2}
   level_loadingBar_Scale: {fileID: 4927453079223977394}
-  levelCountText: {fileID: 124199664086749821}
-  informationText: {fileID: 124199663512924950}
+  level_count_text: {fileID: 124199664086749822}
+  level_information_text: {fileID: 124199663512924951}
+  level_information_text_Scale: {fileID: 1714538855047132561}
   loadingScreenImage: {fileID: 124199663173045015}
   foreGroundImage: {fileID: 124199664216971439}
   tutorialObjects: {fileID: 124199664260450679}
