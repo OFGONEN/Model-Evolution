@@ -17,7 +17,7 @@ namespace FFEditor
 		/* Creates a STRING for build text. */
 		public void OnPreprocessBuild( BuildReport report )
 		{
-			var buildStringAsset = AssetDatabase.LoadAssetAtPath( assetPath, typeof( SharedString ) );
+			var buildStringAsset = AssetDatabase.LoadAssetAtPath( assetPath, typeof( SharedStringNotifier ) );
 
 			if( buildStringAsset == null )
 			{
@@ -29,8 +29,8 @@ namespace FFEditor
 			{
 				var buildString = GetBuildString( report.summary.platform );
 
-				var sharedBuildString = buildStringAsset as SharedString;
-				sharedBuildString.sharedValue = buildString;
+				var sharedBuildString = buildStringAsset as SharedStringNotifier;
+				sharedBuildString.SharedValue = buildString;
 
 				EditorUtility.SetDirty( sharedBuildString );
 				AssetDatabase.SaveAssets();

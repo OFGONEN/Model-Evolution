@@ -929,7 +929,7 @@ GameObject:
   - component: {fileID: 4175986013661033011}
   - component: {fileID: 8072179907146505484}
   - component: {fileID: 7045637620155127415}
-  - component: {fileID: 2572513615988188220}
+  - component: {fileID: 4117592824502326402}
   m_Layer: 5
   m_Name: text_build
   m_TagString: Untagged
@@ -1053,7 +1053,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &2572513615988188220
+--- !u!114 &4117592824502326402
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1062,15 +1062,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3474085241652285997}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc588b1148bccca4c89aea2e94046a36, type: 3}
+  m_Script: {fileID: 11500000, guid: a7bf7b123d0000845a52523ecfc69e63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiTransform: {fileID: 4175986013661033011}
-  destinationTransform: {fileID: 0}
-  startPosition: {x: 0, y: 0, z: 0}
-  startScale: {x: 0, y: 0, z: 0}
-  textRenderer: {fileID: 7045637620155127415}
-  sharedString: {fileID: 11400000, guid: 720da4be9a07ef14f8f97cca01a3b72b, type: 2}
+  sharedDataNotifier: {fileID: 11400000, guid: d57ba31c35754a24588417996d6c6f4c, type: 2}
 --- !u!114 &4267308093911501558
 MonoBehaviour:
   m_ObjectHideFlags: 0

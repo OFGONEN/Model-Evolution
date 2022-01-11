@@ -329,7 +329,7 @@ namespace FFEditor
 		public static void BakeBuildString()
 		{
 			StringBuilder stringBuilder = new StringBuilder( 32 );
-			var buildStringAsset = AssetDatabase.LoadAssetAtPath( "Assets/Scriptable_Object/Shared/build_string.asset", typeof( SharedString ) );
+			var buildStringAsset = AssetDatabase.LoadAssetAtPath( "Assets/Scriptable_Object/Shared/build_string.asset", typeof( SharedStringNotifier ) );
 
 			stringBuilder.Append( "IOS_" );
 			string buildNumber = PlayerSettings.iOS.buildNumber;
@@ -343,8 +343,8 @@ namespace FFEditor
 			stringBuilder.Append( "_Build-" );
 			stringBuilder.Append( buildNumber );
 
-			var sharedBuildString = buildStringAsset as SharedString;
-			sharedBuildString.sharedValue = stringBuilder.ToString();
+			var sharedBuildString = buildStringAsset as SharedStringNotifier;
+			sharedBuildString.SharedValue = stringBuilder.ToString();
 
 			EditorUtility.SetDirty( sharedBuildString );
 			AssetDatabase.SaveAssets();
