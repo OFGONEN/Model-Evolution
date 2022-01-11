@@ -29,6 +29,8 @@ namespace FFStudio
 #region API
         public void Spawn( Vector3 position ,string text )
         {
+			gameObject.SetActive( true );
+
 			ui_text.UI_Text.text = text;
 			ui_text.UI_Text.color.SetAlpha( 1 );
 
