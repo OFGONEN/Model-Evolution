@@ -17,9 +17,7 @@ namespace FFStudio
         public EventListenerDelegateResponse tapInputListener;
 
         [ Header( "UI Elements" ) ]
-        public UILoadingBar levelLoadingBar;
-		public UIText levelLoadingText;
-		public UILoadingBar levelProgressBar;
+        public UI_Patrol_Scale level_loadingBar_Scale;
         public UIText levelCountText;
         public UIText informationText;
         public Image loadingScreenImage;
@@ -65,8 +63,7 @@ namespace FFStudio
         private void LevelLoadedResponse()
         {
 			var sequence = DOTween.Sequence()
-								.Append( levelLoadingBar.Disappear() )
-								.Append( levelLoadingText.Disappear() )
+								.Append( level_loadingBar_Scale.DoScale_Target( Vector3.zero, GameSettings.Instance.ui_Entity_Scale_TweenDuration ) )
 								.Append( loadingScreenImage.DOFade( 0, GameSettings.Instance.ui_Entity_Fade_TweenDuration ) )
 								.AppendCallback( () => tapInputListener.response = StartLevel );
 

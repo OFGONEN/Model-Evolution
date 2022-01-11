@@ -740,9 +740,7 @@ MonoBehaviour:
     gameEvent: {fileID: 11400000, guid: ec850936269bc2e47b26cfebd8bdad97, type: 2}
   tapInputListener:
     gameEvent: {fileID: 11400000, guid: 182cfa2632cfdba49bfaf3471d114d23, type: 2}
-  levelLoadingBar: {fileID: 0}
-  levelLoadingText: {fileID: 0}
-  levelProgressBar: {fileID: 0}
+  level_loadingBar_Scale: {fileID: 4927453079223977394}
   levelCountText: {fileID: 124199664086749821}
   informationText: {fileID: 124199663512924950}
   loadingScreenImage: {fileID: 124199663173045015}
@@ -911,7 +909,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7bf7b123d0000845a52523ecfc69e63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sharedDataNotifier: {fileID: 0}
+  sharedDataNotifier: {fileID: 11400000, guid: 720da4be9a07ef14f8f97cca01a3b72b, type: 2}
+--- !u!114 &4927453079223977394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3899390542949180328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 657ef527157bbba41b355767e76c1de9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ui_OnComplete:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &4267308093911501558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1197,9 +1210,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 53f7fd0a255c70f4390daedd5a84594e, type: 3}
---- !u!224 &3899390542949180343 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 453416092374961833, guid: 53f7fd0a255c70f4390daedd5a84594e, type: 3}
+--- !u!1 &3899390542949180328 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 453416092374961846, guid: 53f7fd0a255c70f4390daedd5a84594e, type: 3}
   m_PrefabInstance: {fileID: 3483446906375662878}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &7758410872406146804 stripped
@@ -1223,3 +1236,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &3899390542949180343 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 453416092374961833, guid: 53f7fd0a255c70f4390daedd5a84594e, type: 3}
+  m_PrefabInstance: {fileID: 3483446906375662878}
+  m_PrefabAsset: {fileID: 0}
