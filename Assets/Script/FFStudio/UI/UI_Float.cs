@@ -18,6 +18,7 @@ namespace FFStudio
 #endregion
 
 #region Properties
+        public RectTransform UI_RectTransform => ui_rectTransform;
 #endregion
 
 #region Unity API

@@ -16,9 +16,11 @@ namespace FFStudio
 
 		private TextMeshProUGUI ui_Text;
 		private RecycledTween recycledTween = new RecycledTween();
+
 #endregion
 
 #region Properties
+		public TextMeshProUGUI UI_Text => ui_Text;
 #endregion
 
 #region Unity API
