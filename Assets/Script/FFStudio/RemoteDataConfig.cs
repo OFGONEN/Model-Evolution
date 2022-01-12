@@ -20,7 +20,7 @@ namespace FFStudio
 #region Unity API
         private void Awake()
         {
-			if( !GameSettings.Instance.useRemoveConfig_Components )
+			if( !GameSettings.Instance.useRemoteConfig_Components )
 				return;
 
             for( var i = 0; i < remoteDatas.Length; i++ )

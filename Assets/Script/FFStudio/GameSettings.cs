@@ -17,8 +17,8 @@ namespace FFStudio
 #endregion
         
 #region Fields
-        [ BoxGroup( "Remote Config" ) ] public bool useRemoveConfig_GameSettings;
-        [ BoxGroup( "Remote Config" ) ] public bool useRemoveConfig_Components;
+        [ BoxGroup( "Remote Config" ) ] public bool useRemoteConfig_GameSettings;
+        [ BoxGroup( "Remote Config" ) ] public bool useRemoteConfig_Components;
 
         public int maxLevelCount;
         [ BoxGroup( "UI Settings" ), Tooltip( "Duration of the movement for ui element"          ) ] public float ui_Entity_Move_TweenDuration;
