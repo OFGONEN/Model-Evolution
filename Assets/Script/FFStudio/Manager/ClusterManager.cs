@@ -5,31 +5,33 @@ using System.Collections.Generic;
 using UnityEngine;
 using FFStudio;
 
-public class ClusterManager : MonoBehaviour
+namespace FFStudio
 {
+	public class ClusterManager : MonoBehaviour
+	{
 #region Fields
-    public Cluster[] clusters;
+		public Cluster[] clusters;
 #endregion
 
 #region Properties
 #endregion
 
 #region Unity API
-    private void Awake()
-    {
-        for( var i = 0; i < clusters.Length; i++ )
-        {
-			clusters[ i ].Init();
+		private void Awake()
+		{
+			for( var i = 0; i < clusters.Length; i++ )
+			{
+				clusters[ i ].Init();
+			}
 		}
-    }
 
-    private void Update()
-    {
-        for( var i = 0; i < clusters.Length; i++ )
-        {
-			clusters[ i ].UpdateCluster();
+		private void Update()
+		{
+			for( var i = 0; i < clusters.Length; i++ )
+			{
+				clusters[ i ].UpdateCluster();
+			}
 		}
-    }
 #endregion
 
 #region API
@@ -42,12 +44,5 @@ public class ClusterManager : MonoBehaviour
 #if UNITY_EDITOR
 #endif
 #endregion
-}
-
-public interface IClusterEntity
-{
-	void Subscribe_Cluster();
-	void UnSubscribe_Cluster();
-	void OnUpdate_Cluster();
-	int GetInstanceID();
+	}
 }
