@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
+using Lean.Common;
+using FSA = UnityEngine.Serialization.FormerlySerializedAsAttribute;
 
 namespace Lean.Touch
 {
@@ -11,36 +13,24 @@ namespace Lean.Touch
 		/// <summary>The method used to find fingers to use with this component. See LeanFingerFilter documentation for more information.</summary>
 		public LeanFingerFilter Use = new LeanFingerFilter(true);
 
-		[Space]
-
 		/// <summary>Detect swipes coming from the left edge?</summary>
-		[Tooltip("Detect swipes coming from the left edge?")]
-		public bool Left = true;
+		public bool Left { set { left = value; } get { return left; } } [FSA("Left")] [SerializeField] private bool left = true;
 
 		/// <summary>Detect swipes coming from the right edge?</summary>
-		[Tooltip("Detect swipes coming from the right edge?")]
-		public bool Right = true;
+		public bool Right { set { right = value; } get { return right; } } [FSA("Right")] [SerializeField] private bool right = true;
 
 		/// <summary>Detect swipes coming from the bottom edge?</summary>
-		[Tooltip("Detect swipes coming from the bottom edge?")]
-		public bool Bottom = true;
+		public bool Bottom { set { bottom = value; } get { return bottom; } } [FSA("Bottom")] [SerializeField] private bool bottom = true;
 
 		/// <summary>Detect swipes coming from the top edge?</summary>
-		[Tooltip("Detect swipes coming from the top edge?")]
-		public bool Top = true;
-
-		[Space]
+		public bool Top { set { top = value; } get { return top; } } [FSA("Top")] [SerializeField] private bool top = true;
 
 		/// <summary>If the swipe angle is off by this many degrees, it will be ignored.
-		/// 0 = Must be exactly parallel.
-		/// </summary>
-		[Tooltip("If the swipe angle is off by this many degrees, it will be ignored.\n\n0 = Must be exactly parallel.")]
-		[Range(1.0f, 90.0f)]
-		public float AngleThreshold = 10.0f;
+		/// 0 = Must be exactly parallel.</summary>
+		public float AngleThreshold { set { angleThreshold = value; } get { return angleThreshold; } } [FSA("AngleThreshold")] [SerializeField] [Range(1.0f, 90.0f)] private float angleThreshold = 10.0f;
 
 		/// <summary>The swipe must begin within this many scaled pixels of the edge of the screen.</summary>
-		[Tooltip("The swipe must begin within this many scaled pixels of the edge of the screen.")]
-		public float EdgeThreshold = 10.0f;
+		public float EdgeThreshold { set { edgeThreshold = value; } get { return edgeThreshold; } } [FSA("EdgeThreshold")] [SerializeField] private float edgeThreshold = 10.0f;
 
 		public UnityEvent OnEdge { get { if (onEdge == null) onEdge = new UnityEvent(); return onEdge; } } [SerializeField] private UnityEvent onEdge;
 
@@ -50,19 +40,19 @@ namespace Lean.Touch
 			var rect   = new Rect(0, 0, Screen.width, Screen.height);
 			var vector = (to - from).normalized;
 
-			if (Left == true && CheckAngle(vector, Vector2.right) == true && CheckEdge(from.x - rect.xMin) == true)
+			if (left == true && CheckAngle(vector, Vector2.right) == true && CheckEdge(from.x - rect.xMin) == true)
 			{
 				InvokeEdge(); return;
 			}
-			else if (Right == true && CheckAngle(vector, -Vector2.right) == true && CheckEdge(from.x - rect.xMax) == true)
+			else if (right == true && CheckAngle(vector, -Vector2.right) == true && CheckEdge(from.x - rect.xMax) == true)
 			{
 				InvokeEdge(); return;
 			}
-			else if (Bottom == true && CheckAngle(vector, Vector2.up) == true && CheckEdge(from.y - rect.yMin) == true)
+			else if (bottom == true && CheckAngle(vector, Vector2.up) == true && CheckEdge(from.y - rect.yMin) == true)
 			{
 				InvokeEdge(); return;
 			}
-			else if (Top == true && CheckAngle(vector, -Vector2.up) == true && CheckEdge(from.y - rect.yMax) == true)
+			else if (top == true && CheckAngle(vector, -Vector2.up) == true && CheckEdge(from.y - rect.yMax) == true)
 			{
 				InvokeEdge(); return;
 			}
@@ -85,12 +75,14 @@ namespace Lean.Touch
 		{
 			Use.RemoveAllFingers();
 		}
+
 #if UNITY_EDITOR
 		protected virtual void Reset()
 		{
 			Use.UpdateRequiredSelectable(gameObject);
 		}
 #endif
+
 		protected virtual void Awake()
 		{
 			Use.UpdateRequiredSelectable(gameObject);
@@ -99,7 +91,7 @@ namespace Lean.Touch
 		protected virtual void Update()
 		{
 			// Get the fingers we want to use
-			var fingers = Use.GetFingers();
+			var fingers = Use.UpdateAndGetFingers();
 
 			for (var i = fingers.Count - 1; i >= 0; i--)
 			{
@@ -122,12 +114,47 @@ namespace Lean.Touch
 
 		private bool CheckAngle(Vector2 a, Vector2 b)
 		{
-			return Vector2.Angle(a, b) <= AngleThreshold;
+			return Vector2.Angle(a, b) <= angleThreshold;
 		}
 
 		private bool CheckEdge(float distance)
 		{
-			return Mathf.Abs(distance * LeanTouch.ScalingFactor) < EdgeThreshold;
+			return Mathf.Abs(distance * LeanTouch.ScalingFactor) < edgeThreshold;
 		}
 	}
 }
+
+#if UNITY_EDITOR
+namespace Lean.Touch.Editor
+{
+	using TARGET = LeanSwipeEdge;
+
+	[UnityEditor.CanEditMultipleObjects]
+	[UnityEditor.CustomEditor(typeof(TARGET), true)]
+	public class LeanSwipeEdge_Editor : LeanEditor
+	{
+		protected override void OnInspector()
+		{
+			TARGET tgt; TARGET[] tgts; GetTargets(out tgt, out tgts);
+
+			Draw("Use");
+
+			Separator();
+
+			Draw("left", "Detect swipes coming from the left edge?");
+			Draw("right", "Detect swipes coming from the right edge?");
+			Draw("bottom", "Detect swipes coming from the bottom edge?");
+			Draw("top", "Detect swipes coming from the top edge?");
+
+			Separator();
+
+			Draw("angleThreshold", "If the swipe angle is off by this many degrees, it will be ignored.\n\n0 = Must be exactly parallel.");
+			Draw("edgeThreshold", "The swipe must begin within this many scaled pixels of the edge of the screen.");
+
+			Separator();
+
+			Draw("onEdge");
+		}
+	}
+}
+#endif

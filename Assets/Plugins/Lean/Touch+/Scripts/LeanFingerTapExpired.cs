@@ -3,9 +3,7 @@ using UnityEngine.Events;
 using UnityEngine.Serialization;
 using System.Collections.Generic;
 using Lean.Common;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
+using FSA = UnityEngine.Serialization.FormerlySerializedAsAttribute;
 
 namespace Lean.Touch
 {
@@ -18,20 +16,22 @@ namespace Lean.Touch
 		[System.Serializable] public class Vector3Event : UnityEvent<Vector3> {}
 		[System.Serializable] public class IntEvent : UnityEvent<int> {}
 
-		[Tooltip("Ignore fingers with StartedOverGui?")]
-		public bool IgnoreStartedOverGui = true;
+		/// <summary>Ignore fingers with StartedOverGui?</summary>
+		public bool IgnoreStartedOverGui { set { ignoreStartedOverGui = value; } get { return ignoreStartedOverGui; } } [FSA("IgnoreStartedOverGui")] [SerializeField] private bool ignoreStartedOverGui = true;
 
-		[Tooltip("Ignore fingers with OverGui?")]
-		public bool IgnoreIsOverGui;
+		/// <summary>Ignore fingers with OverGui?</summary>
+		public bool IgnoreIsOverGui { set { ignoreIsOverGui = value; } get { return ignoreIsOverGui; } } [FSA("IgnoreIsOverGui")] [SerializeField] private bool ignoreIsOverGui;
 
-		[Tooltip("Do nothing if this LeanSelectable isn't selected?")]
-		public LeanSelectable RequiredSelectable;
+		/// <summary>If the specified object is set and isn't selected, then this component will do nothing.</summary>
+		public LeanSelectable RequiredSelectable { set { requiredSelectable = value; } get { return requiredSelectable; } } [FSA("RequiredSelectable")] [SerializeField] private LeanSelectable requiredSelectable;
 
-		[Tooltip("How many times must this finger tap before OnTap gets called? (0 = every time) Keep in mind OnTap will only be called once if you use this.")]
-		public int RequiredTapCount = 0;
+		/// <summary>How many times must this finger tap before OnTap gets called?
+		/// 0 = Every time (keep in mind OnTap will only be called once if you use this).</summary>
+		public int RequiredTapCount { set { requiredTapCount = value; } get { return requiredTapCount; } } [FSA("RequiredTapCount")] [SerializeField] private int requiredTapCount;
 
-		[Tooltip("How many times repeating must this finger tap before OnTap gets called? (0 = every time) (e.g. a setting of 2 means OnTap will get called when you tap 2 times, 4 times, 6, 8, 10, etc)")]
-		public int RequiredTapInterval;
+		/// <summary>How many times repeating must this finger tap before OnTap gets called?
+		/// 0 = Every time (e.g. a setting of 2 means OnTap will get called when you tap 2 times, 4 times, 6, 8, 10, etc).</summary>
+		public int RequiredTapInterval { set { requiredTapInterval = value; } get { return requiredTapInterval; } } [FSA("RequiredTapInterval")] [SerializeField] private int requiredTapInterval;
 
 		/// <summary>Called on the first frame the conditions are met.</summary>
 		public LeanFingerEvent OnFinger { get { if (onFinger == null) onFinger = new LeanFingerEvent(); return onFinger; } } [FormerlySerializedAs("onTap")] [FormerlySerializedAs("OnTap")] [SerializeField] private LeanFingerEvent onFinger;
@@ -48,17 +48,19 @@ namespace Lean.Touch
 		public Vector3Event OnWorld { get { if (onWorld == null) onWorld = new Vector3Event(); return onWorld; } } [SerializeField] private Vector3Event onWorld;
 
 		private List<LeanFinger> ignoreFingers = new List<LeanFinger>();
+
 #if UNITY_EDITOR
 		protected virtual void Reset()
 		{
-			RequiredSelectable = GetComponentInParent<LeanSelectable>();
+			requiredSelectable = GetComponentInParent<LeanSelectable>();
 		}
 #endif
+
 		protected virtual void Awake()
 		{
-			if (RequiredSelectable == null)
+			if (requiredSelectable == null)
 			{
-				RequiredSelectable = GetComponentInParent<LeanSelectable>();
+				requiredSelectable = GetComponentInParent<LeanSelectable>();
 			}
 		}
 
@@ -76,7 +78,7 @@ namespace Lean.Touch
 
 		private void HandleFingerTap(LeanFinger finger)
 		{
-			if (IgnoreIsOverGui == true && finger.IsOverGui == true && ignoreFingers.Contains(finger) == false)
+			if (ignoreIsOverGui == true && finger.IsOverGui == true && ignoreFingers.Contains(finger) == false)
 			{
 				ignoreFingers.Add(finger);
 			}
@@ -97,22 +99,22 @@ namespace Lean.Touch
 				return;
 			}
 
-			if (IgnoreStartedOverGui == true && finger.StartedOverGui == true)
+			if (ignoreStartedOverGui == true && finger.StartedOverGui == true)
 			{
 				return;
 			}
 
-			if (RequiredTapCount > 0 && finger.TapCount != RequiredTapCount)
+			if (requiredTapCount > 0 && finger.TapCount != requiredTapCount)
 			{
 				return;
 			}
 
-			if (RequiredTapInterval > 0 && (finger.TapCount % RequiredTapInterval) != 0)
+			if (requiredTapInterval > 0 && (finger.TapCount % requiredTapInterval) != 0)
 			{
 				return;
 			}
 
-			if (RequiredSelectable != null && RequiredSelectable.IsSelected == false)
+			if (requiredSelectable != null && requiredSelectable.IsSelected == false)
 			{
 				return;
 			}
@@ -138,33 +140,31 @@ namespace Lean.Touch
 }
 
 #if UNITY_EDITOR
-namespace Lean.Touch
+namespace Lean.Touch.Editor
 {
-	[CanEditMultipleObjects]
-	[CustomEditor(typeof(LeanFingerTapExpired))]
-	public class LeanFingerTapExpired_Inspector : LeanInspector<LeanFingerTapExpired>
+	using TARGET = LeanFingerTapExpired;
+
+	[UnityEditor.CanEditMultipleObjects]
+	[UnityEditor.CustomEditor(typeof(TARGET))]
+	public class LeanFingerTapExpired_Editor : LeanEditor
 	{
-		private bool showUnusedEvents;
-
-		protected override void DrawInspector()
+		protected override void OnInspector()
 		{
-			Draw("IgnoreStartedOverGui");
-			Draw("IgnoreIsOverGui");
-			Draw("RequiredSelectable");
-			Draw("RequiredTapCount");
-			Draw("RequiredTapInterval");
+			TARGET tgt; TARGET[] tgts; GetTargets(out tgt, out tgts);
 
-			EditorGUILayout.Separator();
+			Draw("ignoreStartedOverGui", "Ignore fingers with StartedOverGui?");
+			Draw("ignoreIsOverGui", "Ignore fingers with OverGui?");
+			Draw("requiredSelectable", "If the specified object is set and isn't selected, then this component will do nothing.");
+			Draw("requiredTapCount", "How many times must this finger tap before OnTap gets called?\n\n0 = Every time (keep in mind OnTap will only be called once if you use this).");
+			Draw("requiredTapInterval", "How many times repeating must this finger tap before OnTap gets called?\n\n0 = Every time (e.g. a setting of 2 means OnTap will get called when you tap 2 times, 4 times, 6, 8, 10, etc).");
 
-			var usedA = Any(t => t.OnFinger.GetPersistentEventCount() > 0);
-			var usedB = Any(t => t.OnCount.GetPersistentEventCount() > 0);
-			var usedC = Any(t => t.OnWorld.GetPersistentEventCount() > 0);
+			Separator();
 
-			EditorGUI.BeginDisabledGroup(usedA && usedC);
-				showUnusedEvents = EditorGUILayout.Foldout(showUnusedEvents, "Show Unused Events");
-			EditorGUI.EndDisabledGroup();
+			var usedA = Any(tgts, t => t.OnFinger.GetPersistentEventCount() > 0);
+			var usedB = Any(tgts, t => t.OnCount.GetPersistentEventCount() > 0);
+			var usedC = Any(tgts, t => t.OnWorld.GetPersistentEventCount() > 0);
 
-			EditorGUILayout.Separator();
+			var showUnusedEvents = DrawFoldout("Show Unused Events", "Show all events?");
 
 			if (usedA == true || showUnusedEvents == true)
 			{

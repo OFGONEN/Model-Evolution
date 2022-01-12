@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
+using Lean.Common;
 
 namespace Lean.Touch
 {
@@ -25,3 +26,22 @@ namespace Lean.Touch
 		}
 	}
 }
+
+#if UNITY_EDITOR
+namespace Lean.Touch.Editor
+{
+	using TARGET = LeanDrop;
+
+	[UnityEditor.CanEditMultipleObjects]
+	[UnityEditor.CustomEditor(typeof(TARGET))]
+	public class LeanDrop_Editor : LeanEditor
+	{
+		protected override void OnInspector()
+		{
+			TARGET tgt; TARGET[] tgts; GetTargets(out tgt, out tgts);
+
+			Draw("onDropped");
+		}
+	}
+}
+#endif

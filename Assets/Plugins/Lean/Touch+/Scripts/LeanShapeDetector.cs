@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.Events;
 using System.Collections.Generic;
+using Lean.Common;
+using FSA = UnityEngine.Serialization.FormerlySerializedAsAttribute;
 
 namespace Lean.Touch
 {
@@ -36,25 +38,23 @@ namespace Lean.Touch
 		/// <summary>The method used to find fingers to use with this component. See LeanFingerFilter documentation for more information.</summary>
 		public LeanFingerFilter Use = new LeanFingerFilter(true);
 
-		[Space]
+		/// <summary>The shape we want to detect.</summary>
+		public LeanShape Shape { set { shape = value; } get { return shape; } } [FSA("Shape")] [SerializeField] private LeanShape shape;
 
-		[Tooltip("The shape we want to detect.")]
-		public LeanShape Shape;
+		/// <summary>The finger must move at least this many scaled pixels for it to record a new point.</summary>
+		public float StepThreshold { set { stepThreshold = value; } get { return stepThreshold; } } [FSA("StepThreshold")] [SerializeField] private float stepThreshold = 1.0f;
 
-		[Tooltip("The finger must move at least this many scaled pixels for it to record a new point.")]
-		public float StepThreshold = 1.0f;
+		/// <summary>The drawn shape must be within this distance of the reference shape to be recognized. This is in local space relative to the reference shape.</summary>
+		public float DistanceThreshold { set { distanceThreshold = value; } get { return distanceThreshold; } } [FSA("DistanceThreshold")] [SerializeField] private float distanceThreshold = 1.0f;
 
-		[Tooltip("The drawn shape must be within this distance of the reference shape to be recognised. This is in local space relative to the reference shape.")]
-		public float DistanceThreshold = 1.0f;
+		/// <summary>If you draw outside the DistanceThreshold, the error factor will increase based on how far you stray, until eventually the shape fails to detect. This allows you to set how high the error factor can become before the detection fails.</summary>
+		public float ErrorThreshold { set { errorThreshold = value; } get { return errorThreshold; } } [FSA("ErrorThreshold")] [SerializeField] private float errorThreshold = 1.0f;
 
-		[Tooltip("If you draw outside the DistanceThreshold, the error factor will increase based on how far you stray, until eventually the shape fails to detect. This allows you to set how high the error factor can become before the detection fails.")]
-		public float ErrorThreshold = 1.0f;
+		/// <summary>If you want to allow partial shape matches, then specify the minimum amount of edges that must be matched in the shape.</summary>
+		public int MinimumPoints { set { minimumPoints = value; } get { return minimumPoints; } } [FSA("MinimumPoints")] [SerializeField] private int minimumPoints = -1;
 
-		[Tooltip("If you want to allow partial shape matches, then specify the minimum amount of edges that must be matched in the shape.")]
-		public int MinimumPoints = -1;
-
-		[Tooltip("Which direction should the shape be checked using?")]
-		public DirectionType Direction = DirectionType.ForwardAndBackward;
+		/// <summary>Which direction should the shape be checked using?</summary>
+		public DirectionType Direction { set { direction = value; } get { return direction; } } [FSA("Direction")] [SerializeField] private DirectionType direction = DirectionType.ForwardAndBackward;
 
 		/// <summary>If the finger goes up and it has traced the specified shape, this event will be invoked with the finger data.</summary>
 		public LeanFingerEvent OnDetected { get { if (onDetected == null) onDetected = new LeanFingerEvent(); return onDetected; } } [SerializeField] private LeanFingerEvent onDetected;
@@ -102,28 +102,35 @@ namespace Lean.Touch
 			LeanTouch.OnFingerUpdate -= HandleFingerUpdate;
 			LeanTouch.OnFingerUp     -= HandleFingerUp;
 		}
+
 #if UNITY_EDITOR
 		protected virtual void OnDrawGizmosSelected()
 		{
 			Gizmos.matrix = transform.localToWorldMatrix;
 
-			if (Shape != null)
+			if (shape != null)
 			{
-				for (var i = 1; i < Shape.Points.Count; i++)
+				for (var i = 1; i < shape.Points.Count; i++)
 				{
-					Gizmos.DrawLine(Shape.Points[i - 1], Shape.Points[i]);
+					Gizmos.DrawLine(shape.Points[i - 1], shape.Points[i]);
 				}
 
-				foreach (var point in Shape.Points)
+				foreach (var point in shape.Points)
 				{
-					Gizmos.DrawWireSphere(point, DistanceThreshold);
+					Gizmos.DrawWireSphere(point, distanceThreshold);
 				}
 			}
 		}
 #endif
+
 		private void HandleFingerDown(LeanFinger finger)
 		{
-			var fingers = Use.GetFingers();
+			//if (finger.Index == LeanTouch.HOVER_FINGER_INDEX)
+			//{
+			//	return;
+			//}
+
+			var fingers = Use.UpdateAndGetFingers();
 
 			if (fingers.Contains(finger) == true)
 			{
@@ -135,7 +142,7 @@ namespace Lean.Touch
 		{
 			var fingerData = LeanFingerData.Find(fingerDatas, finger);
 
-			if (fingerData != null && Vector2.Distance(finger.ScreenPosition, fingerData.EndPoint) > StepThreshold)
+			if (fingerData != null && Vector2.Distance(finger.ScreenPosition, fingerData.EndPoint) > stepThreshold)
 			{
 				fingerData.Points.Add(finger.ScreenPosition);
 			}
@@ -148,30 +155,30 @@ namespace Lean.Touch
 
 			LeanFingerData.Remove(fingerDatas, finger, fingerDataPool);
 
-			if (Shape != null)
+			if (shape != null)
 			{
 				ranges.Clear();
 
-				var min = Shape.Points.Count;
-				var max = Shape.Points.Count;
+				var min = shape.Points.Count;
+				var max = shape.Points.Count;
 
-				if (MinimumPoints > 0)
+				if (minimumPoints > 0)
 				{
-					min = MinimumPoints;
+					min = minimumPoints;
 				}
 
 				for (var i = max; i >= min; i--)
 				{
-					if (Shape.ConnectEnds == true)
+					if (shape.ConnectEnds == true)
 					{
-						for (var j = 0; j < Shape.Points.Count; j++)
+						for (var j = 0; j < shape.Points.Count; j++)
 						{
 							AddRange(j, j + i - 1);
 						}
 					}
 					else
 					{
-						var steps = Shape.Points.Count - i;
+						var steps = shape.Points.Count - i;
 
 						for (var j = 0; j <= steps; j++)
 						{
@@ -182,7 +189,7 @@ namespace Lean.Touch
 
 				foreach (var range in ranges)
 				{
-					if (CalculateMatch(points, Shape.Points, DistanceThreshold, ErrorThreshold, range.x, range.y) == true)
+					if (CalculateMatch(points, shape.Points, distanceThreshold, errorThreshold, range.x, range.y) == true)
 					{
 						if (onDetected != null)
 						{
@@ -197,7 +204,7 @@ namespace Lean.Touch
 
 		private void AddRange(int min, int max)
 		{
-			if (Direction == DirectionType.Forward || Direction == DirectionType.ForwardAndBackward)
+			if (direction == DirectionType.Forward || direction == DirectionType.ForwardAndBackward)
 			{
 				ranges.Add(new Vector2Int(min, max));
 			}
@@ -205,7 +212,7 @@ namespace Lean.Touch
 			min++;
 			max++;
 
-			if (Direction == DirectionType.Backward || Direction == DirectionType.ForwardAndBackward)
+			if (direction == DirectionType.Backward || direction == DirectionType.ForwardAndBackward)
 			{
 				ranges.Add(new Vector2Int(max, min));
 			}
@@ -369,3 +376,29 @@ namespace Lean.Touch
 		}
 	}
 }
+
+#if UNITY_EDITOR
+namespace Lean.Touch.Editor
+{
+	using TARGET = LeanShapeDetector;
+
+	[UnityEditor.CanEditMultipleObjects]
+	[UnityEditor.CustomEditor(typeof(TARGET), true)]
+	public class LeanShapeDetector_Editor : LeanEditor
+	{
+		protected override void OnInspector()
+		{
+			TARGET tgt; TARGET[] tgts; GetTargets(out tgt, out tgts);
+
+			Draw("Use");
+			Draw("shape", "The shape we want to detect.");
+			Draw("stepThreshold", "The finger must move at least this many scaled pixels for it to record a new point.");
+			Draw("distanceThreshold", "The drawn shape must be within this distance of the reference shape to be recognized. This is in local space relative to the reference shape.");
+			Draw("errorThreshold", "If you draw outside the DistanceThreshold, the error factor will increase based on how far you stray, until eventually the shape fails to detect. This allows you to set how high the error factor can become before the detection fails.");
+			Draw("minimumPoints", "If you want to allow partial shape matches, then specify the minimum amount of edges that must be matched in the shape.");
+			Draw("direction", "Which direction should the shape be checked using?");
+			Draw("onDetected");
+		}
+	}
+}
+#endif

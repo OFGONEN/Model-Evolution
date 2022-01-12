@@ -1,9 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 using Lean.Common;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
+using FSA = UnityEngine.Serialization.FormerlySerializedAsAttribute;
 
 namespace Lean.Touch
 {
@@ -19,26 +17,21 @@ namespace Lean.Touch
 
 		/// <summary>The StartWidth and EndWidth values will be increased by this value multiplied by the line length.
 		/// 0 = No change.</summary>
-		[Tooltip("The LineRenderer.widthMultiplier values will be increased by this value multiplied by the line length.\n\n0 = No change.")]
-		public float WidthScale = 0.0f;
+		public float WidthScale { set { widthScale = value; } get { return widthScale; } } [FSA("WidthScale")] [SerializeField] private float widthScale = 0.0f;
 
 		/// <summary>The minimum length of the straight line in world space.
 		/// -1 = Unrestricted.</summary>
-		[Tooltip("The minimum length of the straight line in world space.\n\n-1 = Unrestricted.")]
-		public float LengthMin = -1.0f;
+		public float LengthMin { set { lengthMin = value; } get { return lengthMin; } } [FSA("LengthMin")] [SerializeField] private float lengthMin = -1.0f;
 
 		/// <summary>The maximum length of the straight line in world space.
 		/// -1 = Unrestricted.</summary>
-		[Tooltip("The maximum length of the straight line in world space.\n\n-1 = Unrestricted.")]
-		public float LengthMax = -1.0f;
+		public float LengthMax { set { lengthMax = value; } get { return lengthMax; } } [FSA("LengthMax")] [SerializeField] private float lengthMax = -1.0f;
 
 		/// <summary>Enable this if the line should begin from this Transform's position.</summary>
-		[Tooltip("Enable this if the line should begin from this Transform's position.")]
-		public bool StartAtOrigin;
+		public bool StartAtOrigin { set { startAtOrigin = value; } get { return startAtOrigin; } } [FSA("StartAtOrigin")] [SerializeField] private bool startAtOrigin;
 
 		/// <summary>Drag the line backwards?</summary>
-		[Tooltip("Drag the line backwards?")]
-		public bool Invert;
+		public bool Invert { set { invert = value; } get { return invert; } } [FSA("Invert")] [SerializeField] private bool invert;
 
 		/// <summary>This event gets called when a trail drawing finger goes up.
 		/// Vector3 = Start world point.</summary>
@@ -55,12 +48,12 @@ namespace Lean.Touch
 		/// <summary>This event gets called when a trail drawing finger goes up.
 		/// Vector3 = Start point in world space.
 		/// Vector3 = End point in world space.</summary>
-		public Vector3Vector3Event OnReleasedFromTo { get { if (onReleasedFromTo == null) onReleasedFromTo = new Vector3Vector3Event(); return onReleasedFromTo; } } [Space] [SerializeField] private Vector3Vector3Event onReleasedFromTo;
+		public Vector3Vector3Event OnReleasedFromTo { get { if (onReleasedFromTo == null) onReleasedFromTo = new Vector3Vector3Event(); return onReleasedFromTo; } } [SerializeField] private Vector3Vector3Event onReleasedFromTo;
 
 		protected override void UpdateLine(FingerData fingerData, LeanFinger finger, LineRenderer line)
 		{
-			var color0 = StartColor;
-			var color1 = EndColor;
+			var color0 = startColor;
+			var color1 = endColor;
 			var width  = fingerData.Width;
 
 			if (finger != null)
@@ -72,7 +65,7 @@ namespace Lean.Touch
 				var point0 = ScreenDepth.Convert(finger.StartScreenPosition, gameObject);
 				var point1 = ScreenDepth.Convert(finger.ScreenPosition, gameObject);
 
-				if (StartAtOrigin == true)
+				if (startAtOrigin == true)
 				{
 					point0 = transform.position;
 				}
@@ -80,17 +73,17 @@ namespace Lean.Touch
 				// Get length, and clamp?
 				var length = Vector3.Distance(point0, point1);
 
-				if (LengthMin >= 0.0f && length < LengthMin)
+				if (lengthMin >= 0.0f && length < lengthMin)
 				{
-					length = LengthMin;
+					length = lengthMin;
 				}
 
-				if (LengthMax >= 0.0f && length > LengthMax)
+				if (lengthMax >= 0.0f && length > lengthMax)
 				{
-					length = LengthMax;
+					length = lengthMax;
 				}
 
-				if (Invert == true)
+				if (invert == true)
 				{
 					point1 = point0 - (point1 - point0);
 				}
@@ -103,19 +96,19 @@ namespace Lean.Touch
 			{
 				fingerData.Age += Time.deltaTime;
 
-				var alpha = Mathf.InverseLerp(FadeTime, 0.0f, fingerData.Age);
+				var alpha = Mathf.InverseLerp(fadeTime, 0.0f, fingerData.Age);
 
 				color0.a *= alpha;
 				color1.a *= alpha;
 			}
 
-			if (WidthScale != 0.0f && line.positionCount == 2)
+			if (widthScale != 0.0f && line.positionCount == 2)
 			{
 				var point0 = line.GetPosition(0);
 				var point1 = line.GetPosition(1);
 				var length = Vector3.Distance(point0, point1);
 
-				width += length * WidthScale;
+				width += length * widthScale;
 			}
 
 			line.startColor      = color0;
@@ -164,47 +157,36 @@ namespace Lean.Touch
 }
 
 #if UNITY_EDITOR
-namespace Lean.Touch
+namespace Lean.Touch.Editor
 {
-	[CanEditMultipleObjects]
-	[CustomEditor(typeof(LeanDragLine))]
-	public class LeanDragLine_Inspector : LeanInspector<LeanDragLine>
+	using TARGET = LeanDragLine;
+
+	[UnityEditor.CanEditMultipleObjects]
+	[UnityEditor.CustomEditor(typeof(TARGET))]
+	public class LeanDragLine_Editor : LeanDragTrail_Editor
 	{
-		private bool showUnusedEvents;
-
-		protected override void DrawInspector()
+		protected override void OnInspector()
 		{
-			Draw("Use");
-			Draw("ScreenDepth");
-			Draw("Prefab");
-			Draw("MaxTrails");
+			TARGET tgt; TARGET[] tgts; GetTargets(out tgt, out tgts);
 
-			EditorGUILayout.Separator();
+			base.OnInspector();
 
-			Draw("FadeTime");
-			Draw("StartColor");
-			Draw("EndColor");
+			Separator();
 
-			EditorGUILayout.Separator();
+			Draw("widthScale", "The LineRenderer.widthMultiplier values will be increased by this value multiplied by the line length.\n\n0 = No change.");
+			Draw("lengthMin", "The minimum length of the straight line in world space.\n\n-1 = Unrestricted.");
+			Draw("lengthMax", "The maximum length of the straight line in world space.\n\n-1 = Unrestricted.");
+			Draw("startAtOrigin", "Enable this if the line should begin from this Transform's position.");
+			Draw("invert", "Drag the line backwards?");
 
-			Draw("WidthScale");
-			Draw("LengthMin");
-			Draw("LengthMax");
-			Draw("StartAtOrigin");
-			Draw("Invert");
+			Separator();
 
-			EditorGUILayout.Separator();
+			var usedA = Any(tgts, t => t.OnReleasedFrom.GetPersistentEventCount() > 0);
+			var usedB = Any(tgts, t => t.OnReleasedTo.GetPersistentEventCount() > 0);
+			var usedC = Any(tgts, t => t.OnReleasedDelta.GetPersistentEventCount() > 0);
+			var usedD = Any(tgts, t => t.OnReleasedFromTo.GetPersistentEventCount() > 0);
 
-			var usedA = Any(t => t.OnReleasedFrom.GetPersistentEventCount() > 0);
-			var usedB = Any(t => t.OnReleasedTo.GetPersistentEventCount() > 0);
-			var usedC = Any(t => t.OnReleasedDelta.GetPersistentEventCount() > 0);
-			var usedD = Any(t => t.OnReleasedFromTo.GetPersistentEventCount() > 0);
-
-			EditorGUI.BeginDisabledGroup(usedA && usedB && usedC && usedD);
-				showUnusedEvents = EditorGUILayout.Foldout(showUnusedEvents, "Show Unused Events");
-			EditorGUI.EndDisabledGroup();
-
-			EditorGUILayout.Separator();
+			var showUnusedEvents = DrawFoldout("Show Unused Events", "Show all events?");
 
 			if (usedA == true || showUnusedEvents == true)
 			{

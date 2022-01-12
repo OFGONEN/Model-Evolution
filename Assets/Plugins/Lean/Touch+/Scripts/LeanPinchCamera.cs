@@ -1,8 +1,6 @@
 using UnityEngine;
 using Lean.Common;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
+using FSA = UnityEngine.Serialization.FormerlySerializedAsAttribute;
 
 namespace Lean.Touch
 {
@@ -16,79 +14,79 @@ namespace Lean.Touch
 		/// <summary>The method used to find fingers to use with this component. See LeanFingerFilter documentation for more information.</summary>
 		public LeanFingerFilter Use = new LeanFingerFilter(true);
 
-		/// <summary>The camera that will be used during calculations.
+		/// <summary>The camera this component will calculate using.
 		/// None = MainCamera.</summary>
-		[Tooltip("The camera that will be used during calculations.\n\nNone = MainCamera.")]
-		public Camera Camera;
+		public Camera Camera { set { _camera = value; } get { return _camera; } } [FSA("Camera")] [SerializeField] private Camera _camera;
 
 		/// <summary>The current FOV/Size.</summary>
-		[Tooltip("The current FOV/Size.")]
-		public float Zoom = 50.0f;
+		public float Zoom { set { zoom = value; } get { return zoom; } } [FSA("Zoom")] [SerializeField] private float zoom = 50.0f;
 
 		/// <summary>If you want this component to change smoothly over time, then this allows you to control how quick the changes reach their target value.
 		/// -1 = Instantly change.
 		/// 1 = Slowly change.
 		/// 10 = Quickly change.</summary>
-		[Tooltip("If you want this component to change smoothly over time, then this allows you to control how quick the changes reach their target value.\n\n-1 = Instantly change.\n\n1 = Slowly change.\n\n10 = Quickly change.")]
-		public float Dampening = -1.0f;
+		public float Damping { set { damping = value; } get { return damping; } } [FSA("Damping")] [FSA("Dampening")] [SerializeField] private float damping = -1.0f;
 
 		/// <summary>Limit the FOV/Size?</summary>
-		[Tooltip("Limit the FOV/Size?")]
-		[UnityEngine.Serialization.FormerlySerializedAs("ZoomClamp")]
-		public bool Clamp;
+		public bool Clamp { set { clamp = value; } get { return clamp; } } [FSA("ZoomClamp")] [FSA("Clamp")] [SerializeField] private bool clamp;
 
 		/// <summary>The minimum FOV/Size we want to zoom to.</summary>
-		[Tooltip("The minimum FOV/Size we want to zoom to.")]
-		[UnityEngine.Serialization.FormerlySerializedAs("ZoomMin")]
-		public float ClampMin = 10.0f;
+		public float ClampMin { set { clampMin = value; } get { return clampMin; } } [FSA("ZoomMin")] [FSA("ClampMin")] [SerializeField] private float clampMin = 10.0f;
 
 		/// <summary>The maximum FOV/Size we want to zoom to.</summary>
-		[Tooltip("The maximum FOV/Size we want to zoom to.")]
-		[UnityEngine.Serialization.FormerlySerializedAs("ZoomMax")]
-		public float ClampMax = 60.0f;
+		public float ClampMax { set { clampMax = value; } get { return clampMax; } } [FSA("ZoomMax")] [FSA("ClampMax")] [SerializeField] private float clampMax = 60.0f;
 
-		/// <summary>Should the zoom be performanced relative to the finger center?</summary>
-		[Tooltip("Should the zoom be performanced relative to the finger center?")]
-		public bool Relative;
+		/// <summary>Should the zoom be performed relative to the finger center?</summary>
+		public bool Relative { set { relative = value; } get { return relative; } } [FSA("Relative")] [SerializeField] private bool relative;
 
 		/// <summary>Ignore changes in Z translation for 2D?</summary>
-		[Tooltip("Ignore changes in Z translation for 2D?")]
-		public bool IgnoreZ;
+		public bool IgnoreZ { set { ignoreZ = value; } get { return ignoreZ; } } [FSA("IgnoreZ")] [SerializeField] private bool ignoreZ;
 
 		/// <summary>The method used to find world coordinates from a finger. See LeanScreenDepth documentation for more information.</summary>
 		public LeanScreenDepth ScreenDepth = new LeanScreenDepth(LeanScreenDepth.ConversionType.DepthIntercept);
 
-		[HideInInspector]
 		[SerializeField]
 		private float currentZoom;
 
-		[HideInInspector]
 		[SerializeField]
 		private Vector3 remainingTranslation;
 
 		public void ContinuouslyZoom(float direction)
 		{
-			var factor = LeanTouch.GetDampenFactor(Mathf.Abs(direction), Time.deltaTime);
+			var factor = LeanHelper.GetDampenFactor(Mathf.Abs(direction), Time.deltaTime);
 
 			if (direction > 0.0f)
 			{
-				Zoom = Mathf.Lerp(Zoom, ClampMax, factor);
+				zoom = Mathf.Lerp(zoom, clampMax, factor);
 			}
 			else if (direction <= 0.0f)
 			{
-				Zoom = Mathf.Lerp(Zoom, ClampMin, factor);
+				zoom = Mathf.Lerp(zoom, clampMin, factor);
 			}
 		}
 
 		/// <summary>This method allows you to multiply the current <b>Zoom</b> value by the specified scale. This is useful for quickly changing the zoom from UI button clicks, or <b>LeanMouseWheel</b> scrolling.</summary>
 		public void MultiplyZoom(float scale)
 		{
-			Zoom *= scale;
+			zoom *= scale;
 
-			if (Clamp == true)
+			if (clamp == true)
 			{
-				Zoom = Mathf.Clamp(Zoom, ClampMin, ClampMax);
+				zoom = Mathf.Clamp(zoom, clampMin, clampMax);
 			}
+		}
+
+		/// <summary>This method allows you to multiply the current <b>Zoom</b> value by the specified delta. This works like <b>MultiplyZoom</b>, except a value of 0 will result in no change, -1 will halve the zoom, 2 will double the zoom, etc.</summary>
+		public void IncrementZoom(float delta)
+		{
+			var scale = 1.0f + Mathf.Abs(delta);
+
+			if (delta < 0.0f)
+			{
+				scale = 1.0f / scale;
+			}
+
+			MultiplyZoom(scale);
 		}
 
 		/// <summary>If you've set Use to ManuallyAddedFingers, then you can call this method to manually add a finger.</summary>
@@ -108,12 +106,14 @@ namespace Lean.Touch
 		{
 			Use.RemoveAllFingers();
 		}
+
 #if UNITY_EDITOR
 		protected virtual void Reset()
 		{
 			Use.UpdateRequiredSelectable(gameObject);
 		}
 #endif
+
 		protected virtual void Awake()
 		{
 			Use.UpdateRequiredSelectable(gameObject);
@@ -121,13 +121,13 @@ namespace Lean.Touch
 
 		protected virtual void Start()
 		{
-			currentZoom = Zoom;
+			currentZoom = zoom;
 		}
 
 		protected virtual void LateUpdate()
 		{
 			// Get the fingers we want to use
-			var fingers = Use.GetFingers();
+			var fingers = Use.UpdateAndGetFingers();
 
 			// Get the pinch ratio of these fingers
 			var pinchRatio = LeanGesture.GetPinchRatio(fingers);
@@ -136,24 +136,24 @@ namespace Lean.Touch
 			var oldPosition = transform.localPosition;
 
 			// Make sure the zoom value is valid
-			Zoom = TryClamp(Zoom);
+			zoom = TryClamp(zoom);
 
 			if (pinchRatio != 1.0f)
 			{
 				// Store old zoom value and then modify zoom
-				var oldZoom = Zoom;
+				var oldZoom = zoom;
 
-				Zoom = TryClamp(Zoom * pinchRatio);
+				zoom = TryClamp(zoom * pinchRatio);
 
 				// Zoom relative to a point on screen?
-				if (Relative == true)
+				if (relative == true)
 				{
 					var screenPoint = default(Vector2);
 
 					if (LeanGesture.TryGetScreenCenter(fingers, ref screenPoint) == true)
 					{
 						// Derive actual pinchRatio from the zoom delta (it may differ with clamping)
-						pinchRatio = Zoom / oldZoom;
+						pinchRatio = zoom / oldZoom;
 
 						var worldPoint = ScreenDepth.Convert(screenPoint);
 
@@ -162,7 +162,7 @@ namespace Lean.Touch
 						// Increment
 						remainingTranslation += transform.localPosition - oldPosition;
 
-						if (IgnoreZ == true)
+						if (ignoreZ == true)
 						{
 							remainingTranslation.z = 0.0f;
 						}
@@ -171,10 +171,10 @@ namespace Lean.Touch
 			}
 
 			// Get t value
-			var factor = LeanTouch.GetDampenFactor(Dampening, Time.deltaTime);
+			var factor = LeanHelper.GetDampenFactor(damping, Time.deltaTime);
 
 			// Lerp the current value to the target one
-			currentZoom = Mathf.Lerp(currentZoom, Zoom, factor);
+			currentZoom = Mathf.Lerp(currentZoom, zoom, factor);
 
 			// Set the new zoom
 			SetZoom(currentZoom);
@@ -192,7 +192,7 @@ namespace Lean.Touch
 		protected void SetZoom(float current)
 		{
 			// Make sure the camera exists
-			var camera = LeanTouch.GetCamera(Camera, gameObject);
+			var camera = LeanHelper.GetCamera(_camera, gameObject);
 
 			if (camera != null)
 			{
@@ -213,9 +213,9 @@ namespace Lean.Touch
 
 		private float TryClamp(float z)
 		{
-			if (Clamp == true)
+			if (clamp == true)
 			{
-				z = Mathf.Clamp(z, ClampMin, ClampMax);
+				z = Mathf.Clamp(z, clampMin, clampMax);
 			}
 
 			return z;
@@ -224,35 +224,40 @@ namespace Lean.Touch
 }
 
 #if UNITY_EDITOR
-namespace Lean.Touch
+namespace Lean.Touch.Editor
 {
-	[CanEditMultipleObjects]
-	[CustomEditor(typeof(LeanPinchCamera))]
-	public class LeanPinchCamera_Inspector : LeanInspector<LeanPinchCamera>
+	using TARGET = LeanPinchCamera;
+
+	[UnityEditor.CanEditMultipleObjects]
+	[UnityEditor.CustomEditor(typeof(TARGET))]
+	public class LeanPinchCamera_Editor : LeanEditor
 	{
-		protected override void DrawInspector()
+		protected override void OnInspector()
 		{
+			TARGET tgt; TARGET[] tgts; GetTargets(out tgt, out tgts);
+
 			Draw("Use");
-			Draw("Camera");
-			Draw("Zoom");
-			Draw("Dampening");
-			Draw("Clamp");
-			if (Any(t => t.Clamp == true))
+			Draw("_camera", "The camera that will be used during calculations.\n\nNone = MainCamera.");
+			Draw("zoom", "The current FOV/Size.");
+			Draw("damping", "If you want this component to change smoothly over time, then this allows you to control how quick the changes reach their target value.\n\n-1 = Instantly change.\n\n1 = Slowly change.\n\n10 = Quickly change.");
+			Draw("clamp", "Limit the FOV/Size?");
+
+			if (Any(tgts, t => t.Clamp == true))
 			{
-				EditorGUI.indentLevel++;
-					Draw("ClampMin", null, "Min");
-					Draw("ClampMax", null, "Max");
-				EditorGUI.indentLevel--;
+				BeginIndent();
+					Draw("clampMin", "The minimum FOV/Size we want to zoom to.", "Min");
+					Draw("clampMax", "The maximum FOV/Size we want to zoom to.", "Max");
+				EndIndent();
 			}
 
-			Draw("Relative");
+			Draw("relative", "Should the zoom be performed relative to the finger center?");
 
-			if (Any(t => t.Relative == true))
+			if (Any(tgts, t => t.Relative == true))
 			{
-				EditorGUI.indentLevel++;
-					Draw("IgnoreZ");
+				BeginIndent();
+					Draw("ignoreZ", "Ignore changes in Z translation for 2D?");
 					Draw("ScreenDepth");
-				EditorGUI.indentLevel--;
+				EndIndent();
 			}
 		}
 	}

@@ -1,4 +1,6 @@
 using UnityEngine;
+using Lean.Common;
+using FSA = UnityEngine.Serialization.FormerlySerializedAsAttribute;
 
 namespace Lean.Touch
 {
@@ -11,17 +13,15 @@ namespace Lean.Touch
 		/// <summary>The method used to find fingers to use with this component. See LeanFingerFilter documentation for more information.</summary>
 		public LeanFingerFilter Use = new LeanFingerFilter(true);
 
-		/// <summary>The camera we will be used.
-		/// None = MainCamera.</summary>
-		[Tooltip("The camera we will be used.\n\nNone = MainCamera.")]
-		public Camera Camera;
+		/// <summary>The camera this component will calculate using.
+		/// None/null = MainCamera.</summary>
+		public Camera Camera { set { _camera = value; } get { return _camera; } } [FSA("Camera")] [SerializeField] private Camera _camera;
 
 		/// <summary>If you want this component to change smoothly over time, then this allows you to control how quick the changes reach their target value.
 		/// -1 = Instantly change.
 		/// 1 = Slowly change.
 		/// 10 = Quickly change.</summary>
-		[Tooltip("If you want this component to change smoothly over time, then this allows you to control how quick the changes reach their target value.\n\n-1 = Instantly change.\n\n1 = Slowly change.\n\n10 = Quickly change.")]
-		public float Dampening = 10.0f;
+		public float Damping { set { damping = value; } get { return damping; } } [FSA("Damping")] [FSA("Dampening")] [SerializeField] private float damping = 10.0f;
 
 		[System.NonSerialized]
 		private Rigidbody2D cachedRigidbody;
@@ -49,12 +49,14 @@ namespace Lean.Touch
 		{
 			Use.RemoveAllFingers();
 		}
+
 #if UNITY_EDITOR
 		protected virtual void Reset()
 		{
 			Use.UpdateRequiredSelectable(gameObject);
 		}
 #endif
+
 		protected virtual void Awake()
 		{
 			Use.UpdateRequiredSelectable(gameObject);
@@ -75,7 +77,7 @@ namespace Lean.Touch
 				var newPosition = cachedCamera.ScreenToWorldPoint(targetScreenPoint);
 				var velocity    = (newPosition - oldPosition) / Time.fixedDeltaTime;
 
-				var factor = LeanTouch.GetDampenFactor(Dampening, Time.fixedDeltaTime);
+				var factor = LeanHelper.GetDampenFactor(damping, Time.fixedDeltaTime);
 
 				// Apply the velocity
 				cachedRigidbody.velocity = velocity * factor;
@@ -84,14 +86,14 @@ namespace Lean.Touch
 
 		protected virtual void Update()
 		{
+			// Get the fingers we want to use
+			var fingers = Use.UpdateAndGetFingers();
+
 			// Make sure the camera exists
-			cachedCamera = LeanTouch.GetCamera(Camera, gameObject);
+			cachedCamera = LeanHelper.GetCamera(_camera, gameObject);
 
 			if (cachedCamera != null)
 			{
-				// Get the fingers we want to use
-				var fingers = Use.GetFingers();
-
 				if (fingers.Count > 0)
 				{
 					// If it's the first frame the fingers are down, grab the current screen point of this GameObject
@@ -117,3 +119,24 @@ namespace Lean.Touch
 		}
 	}
 }
+
+#if UNITY_EDITOR
+namespace Lean.Touch.Editor
+{
+	using TARGET = LeanDragTranslateRigidbody2D;
+
+	[UnityEditor.CanEditMultipleObjects]
+	[UnityEditor.CustomEditor(typeof(TARGET))]
+	public class LeanDragTranslateRigidbody2D_Editor : LeanEditor
+	{
+		protected override void OnInspector()
+		{
+			TARGET tgt; TARGET[] tgts; GetTargets(out tgt, out tgts);
+			
+			Draw("Use");
+			Draw("_camera", "The camera this component will calculate using.\n\nNone/null = MainCamera.");
+			Draw("damping", "If you want this component to change smoothly over time, then this allows you to control how quick the changes reach their target value.\n\n-1 = Instantly change.\n\n1 = Slowly change.\n\n10 = Quickly change.");
+		}
+	}
+}
+#endif

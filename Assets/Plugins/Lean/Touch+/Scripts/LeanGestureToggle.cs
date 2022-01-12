@@ -1,4 +1,6 @@
 using UnityEngine;
+using Lean.Common;
+using FSA = UnityEngine.Serialization.FormerlySerializedAsAttribute;
 
 namespace Lean.Touch
 {
@@ -18,32 +20,29 @@ namespace Lean.Touch
 		/// <summary>The method used to find fingers to use with this component. See LeanFingerFilter documentation for more information.</summary>
 		public LeanFingerFilter Use = new LeanFingerFilter(true);
 
-		[Tooltip("If one specific gesture hasn't been isolated yet, keep them all enabled?")]
-		public bool EnableWithoutIsolation;
+		/// <summary>If one specific gesture hasn't been isolated yet, keep them all enabled?</summary>
+		public bool EnableWithoutIsolation { set { enableWithoutIsolation = value; } get { return enableWithoutIsolation; } } [FSA("EnableWithoutIsolation")] [SerializeField] private bool enableWithoutIsolation;
 
-		[Space(10.0f)]
-		[Tooltip("The component that will be enabled/disabled when dragging")]
-		public MonoBehaviour DragComponent;
+		/// <summary>The component that will be enabled/disabled when dragging.</summary>
+		public MonoBehaviour DragComponent { set { dragComponent = value; } get { return dragComponent; } } [FSA("DragComponent")] [SerializeField] private MonoBehaviour dragComponent;
 
-		[Tooltip("The amount of drag required to enable dragging mode")]
-		public float DragThreshold = 50.0f;
+		/// <summary>The amount of drag required to enable dragging mode.</summary>
+		public float DragThreshold { set { dragThreshold = value; } get { return dragThreshold; } } [FSA("DragThreshold")] [SerializeField] private float dragThreshold = 50.0f;
 
-		[Space(10.0f)]
-		[Tooltip("The component that will be enabled/disabled when pinching")]
-		public MonoBehaviour PinchComponent;
+		/// <summary>The component that will be enabled/disabled when pinching.</summary>
+		public MonoBehaviour PinchComponent { set { pinchComponent = value; } get { return pinchComponent; } } [FSA("PinchComponent")] [SerializeField] private MonoBehaviour pinchComponent;
 
-		[Tooltip("The amount of pinch required to enable twisting in scale (e.g. 0.1 = 0.9 to 1.1).")]
-		public float PinchThreshold = 0.1f;
+		/// <summary>The amount of pinch required to enable twisting in scale (e.g. 0.1 = 0.9 to 1.1).</summary>
+		public float PinchThreshold { set { pinchThreshold = value; } get { return pinchThreshold; } } [FSA("PinchThreshold")] [SerializeField] private float pinchThreshold = 0.1f;
 
-		[Space(10.0f)]
-		[Tooltip("The component that will be enabled/disabled when twisting")]
-		public MonoBehaviour TwistComponent;
+		/// <summary>The component that will be enabled/disabled when twisting.</summary>
+		public MonoBehaviour TwistComponent { set { twistComponent = value; } get { return twistComponent; } } [FSA("TwistComponent")] [SerializeField] private MonoBehaviour twistComponent;
 
-		[Tooltip("The amount of twist required to enable twisting in degrees.")]
-		public float TwistThreshold = 5.0f;
+		/// <summary>The amount of twist required to enable twisting in degrees.</summary>
+		public float TwistThreshold { set { twistThreshold = value; } get { return twistThreshold; } } [FSA("TwistThreshold")] [SerializeField] private float twistThreshold = 5.0f;
 
-		[Tooltip("Enable twist component when pinch component is activated?")]
-		public bool TwistWithPinch;
+		/// <summary>Enable twist component when pinch component is activated?</summary>
+		public bool TwistWithPinch { set { twistWithPinch = value; } get { return twistWithPinch; } } [FSA("TwistWithPinch")] [SerializeField] private bool twistWithPinch;
 
 		[System.NonSerialized]
 		private StateType state;
@@ -74,12 +73,14 @@ namespace Lean.Touch
 		{
 			Use.RemoveAllFingers();
 		}
+
 #if UNITY_EDITOR
 		protected virtual void Reset()
 		{
 			Use.UpdateRequiredSelectable(gameObject);
 		}
 #endif
+
 		protected virtual void Awake()
 		{
 			Use.UpdateRequiredSelectable(gameObject);
@@ -88,7 +89,7 @@ namespace Lean.Touch
 		protected virtual void Update()
 		{
 			// Get fingers
-			var fingers = Use.GetFingers();
+			var fingers = Use.UpdateAndGetFingers();
 
 			if (fingers.Count > 0)
 			{
@@ -98,15 +99,15 @@ namespace Lean.Touch
 
 				if (state == StateType.None)
 				{
-					if (DragComponent != null && delta.magnitude >= DragThreshold)
+					if (dragComponent != null && delta.magnitude >= dragThreshold)
 					{
 						state = StateType.Drag;
 					}
-					else if (PinchComponent != null && Mathf.Abs(scale - 1.0f) >= PinchThreshold)
+					else if (pinchComponent != null && Mathf.Abs(scale - 1.0f) >= pinchThreshold)
 					{
 						state = StateType.Pinch;
 					}
-					else if (TwistComponent != null && Mathf.Abs(twist) >= TwistThreshold)
+					else if (twistComponent != null && Mathf.Abs(twist) >= twistThreshold)
 					{
 						state = StateType.Twist;
 					}
@@ -120,20 +121,56 @@ namespace Lean.Touch
 				twist = 0.0f;
 			}
 
-			if (DragComponent != null)
+			if (dragComponent != null)
 			{
-				DragComponent.enabled = state == StateType.Drag || (EnableWithoutIsolation == true && state == StateType.None);
+				dragComponent.enabled = state == StateType.Drag || (enableWithoutIsolation == true && state == StateType.None);
 			}
 
-			if (PinchComponent != null)
+			if (pinchComponent != null)
 			{
-				PinchComponent.enabled = state == StateType.Pinch || (EnableWithoutIsolation == true && state == StateType.None);
+				pinchComponent.enabled = state == StateType.Pinch || (enableWithoutIsolation == true && state == StateType.None);
 			}
 
-			if (TwistComponent != null)
+			if (twistComponent != null)
 			{
-				TwistComponent.enabled = state == StateType.Twist || (EnableWithoutIsolation == true && state == StateType.None) || (TwistWithPinch == true && state == StateType.Pinch);
+				twistComponent.enabled = state == StateType.Twist || (enableWithoutIsolation == true && state == StateType.None) || (twistWithPinch == true && state == StateType.Pinch);
 			}
 		}
 	}
 }
+
+#if UNITY_EDITOR
+namespace Lean.Touch.Editor
+{
+	using TARGET = LeanGestureToggle;
+
+	[UnityEditor.CanEditMultipleObjects]
+	[UnityEditor.CustomEditor(typeof(TARGET))]
+	public class LeanGestureToggle_Editor : LeanEditor
+	{
+		protected override void OnInspector()
+		{
+			TARGET tgt; TARGET[] tgts; GetTargets(out tgt, out tgts);
+
+			Draw("Use");
+			Draw("enableWithoutIsolation", "If one specific gesture hasn't been isolated yet, keep them all enabled?");
+
+			Separator();
+
+			Draw("dragComponent", "The component that will be enabled/disabled when dragging.");
+			Draw("dragThreshold", "The amount of drag required to enable dragging mode.");
+
+			Separator();
+
+			Draw("pinchComponent", "The component that will be enabled/disabled when pinching.");
+			Draw("pinchThreshold", "The amount of pinch required to enable twisting in scale (e.g. 0.1 = 0.9 to 1.1).");
+
+			Separator();
+
+			Draw("twistComponent", "The component that will be enabled/disabled when twisting.");
+			Draw("twistThreshold", "The amount of twist required to enable twisting in degrees.");
+			Draw("twistWithPinch", "Enable twist component when pinch component is activated?");
+		}
+	}
+}
+#endif

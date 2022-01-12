@@ -1,9 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using Lean.Common;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
+using FSA = UnityEngine.Serialization.FormerlySerializedAsAttribute;
 
 namespace Lean.Touch
 {
@@ -13,16 +11,13 @@ namespace Lean.Touch
 	public class LeanShape : MonoBehaviour
 	{
 		/// <summary>Should the start and end points of this shape be connected, forming a loop?</summary>
-		[Tooltip("Should the start and end points of this shape be connected, forming a loop?")]
-		public bool ConnectEnds;
+		public bool ConnectEnds { set { connectEnds = value; } get { return connectEnds; } } [FSA("ConnectEnds")] [SerializeField] private bool connectEnds;
 
 		/// <summary>If you want to visualize the shape, you can specify an output LineRenderer here.</summary>
-		[Tooltip("If you want to visualize the shape, you can specify an output LineRenderer here.")]
-		public LineRenderer Visual;
+		public LineRenderer Visual { set { visual = value; } get { return visual; } } [FSA("Visual")] [SerializeField] private LineRenderer visual;
 
 		/// <summary>The points that define the shape.</summary>
-		[Tooltip("The points that define the shape.")]
-		public List<Vector2> Points;
+		public List<Vector2> Points { get { if (points == null) points = new List<Vector2>(); return points; } } [FSA("Points")] [SerializeField] private List<Vector2> points;
 
 		public static int Mod(int a, int b)
 		{
@@ -33,23 +28,23 @@ namespace Lean.Touch
 
 		public Vector2 GetPoint(int index, bool reverse)
 		{
-			if (Points != null && Points.Count > 0)
+			if (points != null && points.Count > 0)
 			{
 				if (reverse == true)
 				{
-					index = Points.Count - index - 1;
+					index = points.Count - index - 1;
 				}
 
-				if (ConnectEnds == true)
+				if (connectEnds == true)
 				{
-					index = Mod(index, Points.Count);
+					index = Mod(index, points.Count);
 				}
 				else
 				{
-					index = Mathf.Clamp(index, 0, Points.Count - 1);
+					index = Mathf.Clamp(index, 0, points.Count - 1);
 				}
 
-				return Points[index];
+				return points[index];
 			}
 
 			return default(Vector2);
@@ -57,61 +52,64 @@ namespace Lean.Touch
 
 		public void UpdateVisual()
 		{
-			if (Visual != null)
+			if (visual != null)
 			{
-				if (Points != null)
+				if (points != null)
 				{
-					Visual.positionCount = Points.Count;
+					visual.positionCount = points.Count;
 
-					for (var i = Points.Count - 1; i >= 0; i--)
+					for (var i = points.Count - 1; i >= 0; i--)
 					{
-						Visual.SetPosition(i, Points[i]);
+						visual.SetPosition(i, points[i]);
 					}
 
-					if (ConnectEnds == true)
+					if (connectEnds == true)
 					{
-						Visual.positionCount += 1;
+						visual.positionCount += 1;
 
-						Visual.SetPosition(Visual.positionCount - 1, Points[0]);
+						visual.SetPosition(visual.positionCount - 1, points[0]);
 					}
 				}
 				else
 				{
-					Visual.positionCount = 0;
+					visual.positionCount = 0;
 				}
 			}
 		}
+
 #if UNITY_EDITOR
 		protected virtual void Start()
 		{
 			UpdateVisual();
 		}
 #endif
+
 #if UNITY_EDITOR
 		protected virtual void OnValidate()
 		{
 			UpdateVisual();
 		}
 #endif
+
 #if UNITY_EDITOR
 		protected virtual void OnDrawGizmosSelected()
 		{
-			if (Points != null && Points.Count > 1)
+			if (points != null && points.Count > 1)
 			{
 				Gizmos.matrix = transform.localToWorldMatrix;
 
-				if (ConnectEnds == true)
+				if (connectEnds == true)
 				{
-					for (var i = 0; i < Points.Count; i++)
+					for (var i = 0; i < points.Count; i++)
 					{
-						Gizmos.DrawLine(Points[i], Points[(i + 1) % Points.Count]);
+						Gizmos.DrawLine(points[i], points[(i + 1) % points.Count]);
 					}
 				}
 				else
 				{
-					for (var i = 1; i < Points.Count; i++)
+					for (var i = 1; i < points.Count; i++)
 					{
-						Gizmos.DrawLine(Points[i - 1], Points[i]);
+						Gizmos.DrawLine(points[i - 1], points[i]);
 					}
 				}
 			}
@@ -121,10 +119,14 @@ namespace Lean.Touch
 }
 
 #if UNITY_EDITOR
-namespace Lean.Touch.Inspector
+namespace Lean.Touch.Editor
 {
-	[CustomEditor(typeof(LeanShape))]
-	public class LeanShape_Inspector : LeanInspector<LeanShape>
+	using UnityEditor;
+	using TARGET = LeanShape;
+
+	[UnityEditor.CanEditMultipleObjects]
+	[UnityEditor.CustomEditor(typeof(TARGET))]
+	public class LeanShape_Editor : LeanEditor
 	{
 		private bool drawing;
 
@@ -136,12 +138,14 @@ namespace Lean.Touch.Inspector
 
 		private List<Vector2> scaledPoints = new List<Vector2>();
 
-		protected override void DrawInspector()
+		protected override void OnInspector()
 		{
-			Draw("ConnectEnds");
-			Draw("Visual");
+			TARGET tgt; TARGET[] tgts; GetTargets(out tgt, out tgts);
 
-			EditorGUILayout.Separator();
+			Draw("connectEnds", "Should the start and end points of this shape be connected, forming a loop?");
+			Draw("visual", "If you want to visualize the shape, you can specify an output LineRenderer here.");
+
+			Separator();
 
 			if (GUILayout.Button(drawing == true ? "Cancel Drawing" : "Draw") == true)
 			{
@@ -222,9 +226,9 @@ namespace Lean.Touch.Inspector
 				}
 			}
 
-			EditorGUILayout.Separator();
+			Separator();
 
-			Draw("Points");
+			Draw("points", "The points that define the shape.");
 		}
 
 		private List<Vector2> ScalePoints()

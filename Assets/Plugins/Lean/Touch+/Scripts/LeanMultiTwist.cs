@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
+using Lean.Common;
+using FSA = UnityEngine.Serialization.FormerlySerializedAsAttribute;
 
 namespace Lean.Touch
 {
@@ -21,11 +23,13 @@ namespace Lean.Touch
 		/// <summary>The method used to find fingers to use with this component. See LeanFingerFilter documentation for more information.</summary>
 		public LeanFingerFilter Use = new LeanFingerFilter(true);
 
-		/// <summary>If there is no twisting, ignore it?</summary>
-		[Tooltip("If there is no twisting, ignore it?")]
-		public bool IgnoreIfStatic;
+		/// <summary>If there is no twisting, ignore the events?</summary>
+		public bool IgnoreIfStatic { set { ignoreIfStatic = value; } get { return ignoreIfStatic; } } [FSA("IgnoreIfStatic")] [SerializeField] private bool ignoreIfStatic;
 
-		public OneFingerType OneFinger;
+		/// <summary>Should this component allow one finger twisting?
+		/// ScreenCenter = The twist pivot point will be the center of the screen.
+		/// FingerStart = The twist pivot point will be the finger start position.</summary>
+		public OneFingerType OneFinger { set { oneFinger = value; } get { return oneFinger; } } [FSA("OneFinger")] [SerializeField] private OneFingerType oneFinger;
 
 		public FloatEvent OnTwistDegrees { get { if (onTwistDegrees == null) onTwistDegrees = new FloatEvent(); return onTwistDegrees; } } [UnityEngine.Serialization.FormerlySerializedAs("onTwist")] [SerializeField] private FloatEvent onTwistDegrees;
 
@@ -46,12 +50,14 @@ namespace Lean.Touch
 		{
 			Use.RemoveAllFingers();
 		}
+
 #if UNITY_EDITOR
 		protected virtual void Reset()
 		{
 			Use.UpdateRequiredSelectable(gameObject);
 		}
 #endif
+
 		protected virtual void Awake()
 		{
 			Use.UpdateRequiredSelectable(gameObject);
@@ -60,7 +66,7 @@ namespace Lean.Touch
 		protected virtual void Update()
 		{
 			// Get fingers
-			var fingers = Use.GetFingers();
+			var fingers = Use.UpdateAndGetFingers();
 
 			if (fingers.Count > 0)
 			{
@@ -71,16 +77,16 @@ namespace Lean.Touch
 				{
 					degrees = LeanGesture.GetTwistDegrees(fingers);
 				}
-				else if (OneFinger != OneFingerType.None)
+				else if (oneFinger != OneFingerType.None)
 				{
 					var firstFinger    = fingers[0];
-					var referencePoint = OneFinger == OneFingerType.FingerStart ? firstFinger.StartScreenPosition : new Vector2(Screen.width * 0.5f, Screen.height * 0.5f);
+					var referencePoint = oneFinger == OneFingerType.FingerStart ? firstFinger.StartScreenPosition : new Vector2(Screen.width * 0.5f, Screen.height * 0.5f);
 
 					degrees += firstFinger.GetDeltaDegrees(referencePoint, referencePoint);
 				}
 
 				// Ignore?
-				if (IgnoreIfStatic == true && degrees == 0.0f)
+				if (ignoreIfStatic == true && degrees == 0.0f)
 				{
 					return;
 				}
@@ -94,3 +100,28 @@ namespace Lean.Touch
 		}
 	}
 }
+
+#if UNITY_EDITOR
+namespace Lean.Touch.Editor
+{
+	using TARGET = LeanMultiTwist;
+
+	[UnityEditor.CanEditMultipleObjects]
+	[UnityEditor.CustomEditor(typeof(TARGET))]
+	public class LeanDestroy_Editor : LeanEditor
+	{
+		protected override void OnInspector()
+		{
+			TARGET tgt; TARGET[] tgts; GetTargets(out tgt, out tgts);
+
+			Draw("Use");
+			Draw("ignoreIfStatic", "If there is no twisting, ignore the events?");
+			Draw("oneFinger", "Should this component allow one finger twisting?\n\nScreenCenter = The twist pivot point will be the center of the screen.\n\nFingerStart = The twist pivot point will be the finger start position.");
+
+			Separator();
+
+			Draw("onTwistDegrees");
+		}
+	}
+}
+#endif

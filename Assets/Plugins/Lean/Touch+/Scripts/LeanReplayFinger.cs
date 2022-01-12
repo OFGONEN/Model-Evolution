@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Lean.Common;
+using FSA = UnityEngine.Serialization.FormerlySerializedAsAttribute;
 
 namespace Lean.Touch
 {
@@ -8,69 +10,69 @@ namespace Lean.Touch
 	[AddComponentMenu(LeanTouch.ComponentPathPrefix + "Replay Finger")]
 	public class LeanReplayFinger : MonoBehaviour
 	{
-		[Tooltip("The cursor used to show the recording")]
-		public Transform Cursor;
+		/// <summary>The cursor used to show the recording.</summary>
+		public Transform Cursor { set { cursor = value; } get { return cursor; } } [FSA("Cursor")] [SerializeField] private Transform cursor;
 
-		[Tooltip("The conversion method used to find a world point from a screen point")]
+		/// <summary>The conversion method used to find a world point from a screen point.</summary>
 		public LeanScreenDepth ScreenDepth = new LeanScreenDepth(LeanScreenDepth.ConversionType.FixedDistance, Physics.DefaultRaycastLayers, 10.0f);
 
-		[Tooltip("Is the recording playing?")]
-		public bool Playing;
+		/// <summary>Is the recording playing?</summary>
+		public bool Playing { set { playing = value; } get { return playing; } } [FSA("Playing")] [SerializeField] private bool playing;
 
-		[Tooltip("The position of the playback in seconds")]
-		public float PlayTime;
+		/// <summary>The position of the playback in seconds.</summary>
+		public float PlayTime { set { playTime = value; } get { return playTime; } } [FSA("PlayTime")] [SerializeField] private float playTime;
 
 		// Currently recorded snapshots
 		private List<LeanSnapshot> snapshots = new List<LeanSnapshot>();
 
 		public void Replay()
 		{
-			Playing  = true;
-			PlayTime = 0.0f;
+			playing  = true;
+			playTime = 0.0f;
 		}
 
 		public void StopReplay()
 		{
-			Playing = false;
+			playing = false;
 		}
 
 		protected virtual void OnEnable()
 		{
-			LeanTouch.OnFingerUpdate += HandleFingerSet;
-			LeanTouch.OnFingerUp  += HandleFingerUp;
+			LeanTouch.OnFingerUpdate += HandleFingerUpdate;
+			LeanTouch.OnFingerUp     += HandleFingerUp;
 		}
 
 		protected virtual void OnDisable()
 		{
-			LeanTouch.OnFingerUpdate -= HandleFingerSet;
-			LeanTouch.OnFingerUp  -= HandleFingerUp;
+			LeanTouch.OnFingerUpdate -= HandleFingerUpdate;
+			LeanTouch.OnFingerUp     -= HandleFingerUp;
 		}
 
 		protected virtual void Update()
 		{
 			// Is the recording being played back?
-			if (Playing == true)
+			if (playing == true)
 			{
-				PlayTime += Time.deltaTime;
+				playTime += Time.deltaTime;
 
 				var screenPosition = default(Vector2);
 
-				if (LeanSnapshot.TryGetScreenPosition(snapshots, PlayTime, ref screenPosition) == true)
+				if (LeanSnapshot.TryGetScreenPosition(snapshots, playTime, ref screenPosition) == true)
 				{
-					Cursor.position = ScreenDepth.Convert(screenPosition, gameObject);
+					cursor.position = ScreenDepth.Convert(screenPosition, gameObject);
 				}
 			}
 		}
 
-		private void HandleFingerSet(LeanFinger finger)
+		private void HandleFingerUpdate(LeanFinger finger)
 		{
-			if (finger.StartedOverGui == false)
+			if (finger.StartedOverGui == false && finger.Index != LeanTouch.HOVER_FINGER_INDEX)
 			{
-				Playing = false;
+				playing = false;
 
-				if (Cursor != null)
+				if (cursor != null)
 				{
-					Cursor.position = ScreenDepth.Convert(finger.ScreenPosition, gameObject);
+					cursor.position = ScreenDepth.Convert(finger.ScreenPosition, gameObject);
 				}
 			}
 		}
@@ -104,3 +106,25 @@ namespace Lean.Touch
 		}
 	}
 }
+
+#if UNITY_EDITOR
+namespace Lean.Touch.Editor
+{
+	using TARGET = LeanReplayFinger;
+
+	[UnityEditor.CanEditMultipleObjects]
+	[UnityEditor.CustomEditor(typeof(TARGET), true)]
+	public class LeanReplayFinger_Editor : LeanEditor
+	{
+		protected override void OnInspector()
+		{
+			TARGET tgt; TARGET[] tgts; GetTargets(out tgt, out tgts);
+
+			Draw("cursor", "The cursor used to show the recording.");
+			Draw("ScreenDepth");
+			Draw("playing", "Is the recording playing?");
+			Draw("playTime", "The position of the playback in seconds.");
+		}
+	}
+}
+#endif

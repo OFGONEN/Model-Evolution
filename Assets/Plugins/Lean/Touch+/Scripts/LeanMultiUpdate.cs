@@ -1,11 +1,8 @@
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Serialization;
 using System.Collections.Generic;
 using Lean.Common;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
+using FSA = UnityEngine.Serialization.FormerlySerializedAsAttribute;
 
 namespace Lean.Touch
 {
@@ -31,21 +28,21 @@ namespace Lean.Touch
 		public LeanFingerFilter Use = new LeanFingerFilter(true);
 
 		/// <summary>If the fingers didn't move, skip calling </summary>
-		public bool IgnoreIfStatic;
+		public bool IgnoreIfStatic { set { ignoreIfStatic = value; } get { return ignoreIfStatic; } } [FSA("IgnoreIfStatic")] [SerializeField] private bool ignoreIfStatic;
 
 		/// <summary>This event is invoked when the requirements are met.
 		/// List<LeanFinger> = The fingers that are touching the screen.</summary>
-		public LeanFingerListEvent OnFingers { get { if (onFingers == null) onFingers = new LeanFingerListEvent(); return onFingers; } } [FormerlySerializedAs("onSet")] [SerializeField] private LeanFingerListEvent onFingers;
+		public LeanFingerListEvent OnFingers { get { if (onFingers == null) onFingers = new LeanFingerListEvent(); return onFingers; } } [FSA("onSet")] [SerializeField] private LeanFingerListEvent onFingers;
 
 		/// <summary>The coordinate space of the OnDelta values.</summary>
-		public CoordinateType Coordinate;
+		public CoordinateType Coordinate { set { coordinate = value; } get { return coordinate; } } [FSA("Coordinate")] [SerializeField] private CoordinateType coordinate;
 
 		/// <summary>The delta values will be multiplied by this when output.</summary>
-		public float Multiplier = 1.0f;
+		public float Multiplier { set { multiplier = value; } get { return multiplier; } } [FSA("Multiplier")] [SerializeField] private float multiplier = 1.0f;
 
 		/// <summary>This event is invoked when the requirements are met.
 		/// Vector2 = Position Delta based on your Delta setting.</summary>
-		public Vector2Event OnDelta { get { if (onDelta == null) onDelta = new Vector2Event(); return onDelta; } } [FormerlySerializedAs("onDragDelta")] [SerializeField] private Vector2Event onDelta;
+		public Vector2Event OnDelta { get { if (onDelta == null) onDelta = new Vector2Event(); return onDelta; } } [FSA("onDragDelta")] [SerializeField] private Vector2Event onDelta;
 
 		/// <summary>Called on the first frame the conditions are met.
 		/// Float = The distance/magnitude/length of the swipe delta vector.</summary>
@@ -88,12 +85,14 @@ namespace Lean.Touch
 		{
 			Use.RemoveAllFingers();
 		}
+
 #if UNITY_EDITOR
 		protected virtual void Reset()
 		{
 			Use.UpdateRequiredSelectable(gameObject);
 		}
 #endif
+
 		protected virtual void Awake()
 		{
 			Use.UpdateRequiredSelectable(gameObject);
@@ -102,7 +101,7 @@ namespace Lean.Touch
 		protected virtual void Update()
 		{
 			// Get an initial list of fingers
-			var fingers = Use.GetFingers();
+			var fingers = Use.UpdateAndGetFingers();
 
 			if (fingers.Count > 0)
 			{
@@ -111,7 +110,7 @@ namespace Lean.Touch
 				var screenTo   = LeanGesture.GetScreenCenter(fingers);
 				var finalDelta = screenTo - screenFrom;
 
-				if (IgnoreIfStatic == true && finalDelta.sqrMagnitude <= 0.0f)
+				if (ignoreIfStatic == true && finalDelta.sqrMagnitude <= 0.0f)
 				{
 					return;
 				}
@@ -121,13 +120,13 @@ namespace Lean.Touch
 					onFingers.Invoke(fingers);
 				}
 
-				switch (Coordinate)
+				switch (coordinate)
 				{
 					case CoordinateType.ScaledPixels:     finalDelta *= LeanTouch.ScalingFactor; break;
 					case CoordinateType.ScreenPercentage: finalDelta *= LeanTouch.ScreenFactor;  break;
 				}
 
-				finalDelta *= Multiplier;
+				finalDelta *= multiplier;
 
 				if (onDelta != null)
 				{
@@ -167,34 +166,32 @@ namespace Lean.Touch
 }
 
 #if UNITY_EDITOR
-namespace Lean.Touch
+namespace Lean.Touch.Editor
 {
-	[CanEditMultipleObjects]
-	[CustomEditor(typeof(LeanMultiUpdate))]
-	public class LeanMultiUpdate_Inspector : LeanInspector<LeanMultiUpdate>
+	using TARGET = LeanMultiUpdate;
+
+	[UnityEditor.CanEditMultipleObjects]
+	[UnityEditor.CustomEditor(typeof(TARGET))]
+	public class LeanMultiUpdate_Editor : LeanEditor
 	{
-		private bool showUnusedEvents;
-
-		protected override void DrawInspector()
+		protected override void OnInspector()
 		{
+			TARGET tgt; TARGET[] tgts; GetTargets(out tgt, out tgts);
+
 			Draw("Use");
-			Draw("IgnoreIfStatic", "If the finger didn't move, ignore it?");
+			Draw("ignoreIfStatic", "If the finger didn't move, ignore it?");
 
-			EditorGUILayout.Separator();
+			Separator();
 
-			var usedA = Any(t => t.OnFingers.GetPersistentEventCount() > 0);
-			var usedB = Any(t => t.OnDelta.GetPersistentEventCount() > 0);
-			var usedC = Any(t => t.OnDistance.GetPersistentEventCount() > 0);
-			var usedD = Any(t => t.OnWorldFrom.GetPersistentEventCount() > 0);
-			var usedE = Any(t => t.OnWorldTo.GetPersistentEventCount() > 0);
-			var usedF = Any(t => t.OnWorldDelta.GetPersistentEventCount() > 0);
-			var usedG = Any(t => t.OnWorldFromTo.GetPersistentEventCount() > 0);
+			var usedA = Any(tgts, t => t.OnFingers.GetPersistentEventCount() > 0);
+			var usedB = Any(tgts, t => t.OnDelta.GetPersistentEventCount() > 0);
+			var usedC = Any(tgts, t => t.OnDistance.GetPersistentEventCount() > 0);
+			var usedD = Any(tgts, t => t.OnWorldFrom.GetPersistentEventCount() > 0);
+			var usedE = Any(tgts, t => t.OnWorldTo.GetPersistentEventCount() > 0);
+			var usedF = Any(tgts, t => t.OnWorldDelta.GetPersistentEventCount() > 0);
+			var usedG = Any(tgts, t => t.OnWorldFromTo.GetPersistentEventCount() > 0);
 
-			EditorGUI.BeginDisabledGroup(usedA && usedB && usedC && usedD && usedE && usedF && usedG);
-				showUnusedEvents = EditorGUILayout.Foldout(showUnusedEvents, "Show Unused Events");
-			EditorGUI.EndDisabledGroup();
-
-			EditorGUILayout.Separator();
+			var showUnusedEvents = DrawFoldout("Show Unused Events", "Show all events?");
 
 			if (usedA == true || showUnusedEvents == true)
 			{
@@ -203,8 +200,8 @@ namespace Lean.Touch
 
 			if (usedB == true || usedC == true || showUnusedEvents == true)
 			{
-				Draw("Coordinate", "The coordinate space of the OnDelta values.");
-				Draw("Multiplier", "The delta values will be multiplied by this when output.");
+				Draw("coordinate", "The coordinate space of the OnDelta values.");
+				Draw("multiplier", "The delta values will be multiplied by this when output.");
 			}
 
 			if (usedB == true || showUnusedEvents == true)

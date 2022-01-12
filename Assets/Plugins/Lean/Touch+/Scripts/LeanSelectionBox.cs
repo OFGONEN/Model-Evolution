@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using Lean.Common;
+using FSA = UnityEngine.Serialization.FormerlySerializedAsAttribute;
 
 namespace Lean.Touch
 {
@@ -15,17 +17,28 @@ namespace Lean.Touch
 			public RectTransform Box; // The RectTransform instance associated with this link
 		}
 
-		[Tooltip("Ignore fingers with StartedOverGui?")]
-		public bool IgnoreIfStartedOverGui = true;
+		/// <summary>The camera this component will calculate using.
+		/// None/null = MainCamera.</summary>
+		public Camera Camera { set { _camera = value; } get { return _camera; } } [FSA("Camera")] [SerializeField] private Camera _camera;
 
-		[Tooltip("The selection box prefab")]
-		public RectTransform Prefab;
+		/// <summary>Ignore fingers with StartedOverGui?</summary>
+		public bool IgnoreIfStartedOverGui { set { ignoreIfStartedOverGui = value; } get { return ignoreIfStartedOverGui; } } [FSA("IgnoreIfStartedOverGui")] [SerializeField] private bool ignoreIfStartedOverGui = true;
 
-		[Tooltip("The transform the prefabs will be spawned on (NOTE: This RectTransform must fill the whole screen, like the main canvas)")]
-		public RectTransform Root;
+		/// <summary>The selection box prefab.</summary>
+		public RectTransform Prefab { set { prefab = value; } get { return prefab; } } [FSA("Prefab")] [SerializeField] private RectTransform prefab;
 
-		[Tooltip("The camera used to calculate box coordinates (None = MainCamera)")]
-		public Camera Camera;
+		/// <summary>The transform the prefabs will be spawned on.
+		/// NOTE: This RectTransform must fill the whole screen, like the main canvas.</summary>
+		public RectTransform Root { set { root = value; } get { return root; } } [FSA("Root")] [SerializeField] private RectTransform root;
+
+		/// <summary>The selected objects will be selected by this component.</summary>
+		public LeanSelectByFinger Select { set { select = value; } get { return select; } } [FSA("Select")] [SerializeField] private LeanSelectByFinger select;
+
+		/// <summary>For an object to be selected, it must be in one of these layers.</summary>
+		public LayerMask RequiredLayers { set { requiredLayers = value; } get { return requiredLayers; } } [SerializeField] private LayerMask requiredLayers = -1;
+
+		/// <summary>For an object to be selected, it must have one of these tags.</summary>
+		public List<string> RequiredTags { get { if (requiredTags == null) requiredTags = new List<string>(); return requiredTags; } } [SerializeField] private List<string> requiredTags;
 
 		// This stores all the links between Fingers and RectTransform instances
 		private List<FingerData> fingerDatas = new List<FingerData>();
@@ -35,16 +48,16 @@ namespace Lean.Touch
 
 		protected virtual void OnEnable()
 		{
-			LeanTouch.OnFingerDown += HandleFingerDown;
-			LeanTouch.OnFingerUpdate  += HandleFingerSet;
-			LeanTouch.OnFingerUp   += HandleFingerUp;
+			LeanTouch.OnFingerDown   += HandleFingerDown;
+			LeanTouch.OnFingerUpdate += HandleFingerSet;
+			LeanTouch.OnFingerUp     += HandleFingerUp;
 		}
 
 		protected virtual void OnDisable()
 		{
-			LeanTouch.OnFingerDown -= HandleFingerDown;
-			LeanTouch.OnFingerUpdate  -= HandleFingerSet;
-			LeanTouch.OnFingerUp   -= HandleFingerUp;
+			LeanTouch.OnFingerDown   -= HandleFingerDown;
+			LeanTouch.OnFingerUpdate -= HandleFingerSet;
+			LeanTouch.OnFingerUp     -= HandleFingerUp;
 		}
 
 		private void HandleFingerDown(LeanFinger finger)
@@ -56,7 +69,12 @@ namespace Lean.Touch
 			}
 
 			// Only use fingers clear of the GUI
-			if (IgnoreIfStartedOverGui == true && finger.StartedOverGui == true)
+			if (ignoreIfStartedOverGui == true && finger.StartedOverGui == true)
+			{
+				return;
+			}
+
+			if (finger.Index == LeanTouch.HOVER_FINGER_INDEX)
 			{
 				return;
 			}
@@ -68,12 +86,12 @@ namespace Lean.Touch
 			fingerData.Finger = finger;
 
 			// Create LineRenderer instance for this link
-			fingerData.Box = Instantiate(Prefab);
+			fingerData.Box = Instantiate(prefab);
 
 			fingerData.Box.gameObject.SetActive(true);
 
 			// Move box to root
-			fingerData.Box.transform.SetParent(Root, false);
+			fingerData.Box.transform.SetParent(root, false);
 		}
 
 		private void HandleFingerSet(LeanFinger finger)
@@ -111,7 +129,7 @@ namespace Lean.Touch
 		private void WriteTransform(RectTransform rect, LeanFinger finger)
 		{
 			// Make sure the camera exists
-			var camera = LeanTouch.GetCamera(Camera, gameObject);
+			var camera = LeanHelper.GetCamera(_camera, gameObject);
 
 			if (camera != null)
 			{
@@ -151,23 +169,87 @@ namespace Lean.Touch
 				// Rebuild list of all selectables within rect
 				selectables.Clear();
 
-				foreach (var selectable in LeanSelectable.Instances)
+				foreach (var selectable in LeanSelectableByFinger.Instances)
 				{
-					var viewportPoint = camera.WorldToViewportPoint(selectable.transform.position);
+					var selectableMask = 1 << selectable.gameObject.layer;
 
-					if (viewportRect.Contains(viewportPoint) == true)
+					if ((selectableMask & requiredLayers) != 0 && HasRequiredTag(selectable.tag) == true)
 					{
-						selectables.Add(selectable);
+						var viewportPoint = camera.WorldToViewportPoint(selectable.transform.position);
+
+						if (viewportRect.Contains(viewportPoint) == true)
+						{
+							selectables.Add(selectable);
+						}
 					}
 				}
 
 				// Select them
-				LeanSelectable.ReplaceSelection(finger, selectables);
+				select.ReplaceSelection(selectables, finger);
 			}
 			else
 			{
 				Debug.LogError("Failed to find camera. Either tag your cameras MainCamera, or set one in this component.", this);
 			}
 		}
+
+		private bool HasRequiredTag(string tag)
+		{
+			var count = 0;
+
+			if (requiredTags != null)
+			{
+				foreach (var requiredTag in requiredTags)
+				{
+					if (string.IsNullOrEmpty(requiredTag) == false)
+					{
+						count += 1;
+
+						if (requiredTag == tag)
+						{
+							return true;
+						}
+					}
+				}
+			}
+
+			return count == 0;
+		}
 	}
 }
+
+#if UNITY_EDITOR
+namespace Lean.Touch.Editor
+{
+	using TARGET = LeanSelectionBox;
+
+	[UnityEditor.CanEditMultipleObjects]
+	[UnityEditor.CustomEditor(typeof(TARGET))]
+	public class LeanSelectionBox_Editor : LeanEditor
+	{
+		protected override void OnInspector()
+		{
+			TARGET tgt; TARGET[] tgts; GetTargets(out tgt, out tgts);
+
+			Draw("_camera", "The camera the translation will be calculated using.\n\nNone/null = MainCamera.");
+			Draw("ignoreIfStartedOverGui", "Ignore fingers with StartedOverGui?");
+			BeginError(Any(tgts, t => t.Prefab == null));
+				Draw("prefab", "The selection box prefab.");
+			EndError();
+			BeginError(Any(tgts, t => t.Root == null));
+				Draw("root", "The transform the prefabs will be spawned on.\n\nNOTE: This RectTransform must fill the whole screen, like the main canvas.");
+			EndError();
+			BeginError(Any(tgts, t => t.Select == null));
+				Draw("select", "The selected objects will be selected by this component.");
+			EndError();
+			
+			Separator();
+
+			BeginError(Any(tgts, t => t.RequiredLayers == 0));
+				Draw("requiredLayers", "For an object to be selected, it must be in one of these layers.");
+			EndError();
+			Draw("requiredTags", "For an object to be selected, it must have one of these tags.");
+		}
+	}
+}
+#endif

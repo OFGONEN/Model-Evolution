@@ -162,7 +162,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8986509287307983656, guid: 161d21dd970272741b0bc270c3d02e6a, type: 3}
       propertyPath: clusters.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8986509287307983657, guid: 161d21dd970272741b0bc270c3d02e6a, type: 3}
       propertyPath: m_RootOrder

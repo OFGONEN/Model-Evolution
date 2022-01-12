@@ -1,4 +1,6 @@
 using UnityEngine;
+using Lean.Common;
+using FSA = UnityEngine.Serialization.FormerlySerializedAsAttribute;
 
 namespace Lean.Touch
 {
@@ -11,11 +13,12 @@ namespace Lean.Touch
 		/// <summary>The method used to find fingers to use with this component. See LeanFingerFilter documentation for more information.</summary>
 		public LeanFingerFilter Use = new LeanFingerFilter(true);
 
-		[Tooltip("The color you want to paint the hit triangles")]
-		public Color PaintColor;
+		/// <summary>The color you want to paint the hit triangles.</summary>
+		public Color PaintColor { set { paintColor = value; } get { return paintColor; } } [FSA("PaintColor")] [SerializeField] private Color paintColor;
 
-		[Tooltip("The camera the translation will be calculated using (default = MainCamera)")]
-		public Camera Camera;
+		/// <summary>The camera this component will calculate using.
+		/// None/null = MainCamera.</summary>
+		public Camera Camera { set { _camera = value; } get { return _camera; } } [FSA("Camera")] [SerializeField] private Camera _camera;
 
 		// The cached mesh filter
 		[System.NonSerialized]
@@ -46,12 +49,14 @@ namespace Lean.Touch
 		{
 			Use.RemoveAllFingers();
 		}
+
 #if UNITY_EDITOR
 		protected virtual void Reset()
 		{
 			Use.UpdateRequiredSelectable(gameObject);
 		}
 #endif
+
 		protected virtual void Awake()
 		{
 			Use.UpdateRequiredSelectable(gameObject);
@@ -59,7 +64,7 @@ namespace Lean.Touch
 
 		protected virtual void Update()
 		{
-			var fingers = Use.GetFingers();
+			var fingers = Use.UpdateAndGetFingers();
 
 			for (var i = fingers.Count - 1; i >= 0; i--)
 			{
@@ -101,7 +106,7 @@ namespace Lean.Touch
 				// Raycast under the finger and paint the hit triangle
 				var hit = default(RaycastHit);
 
-				if (Physics.Raycast(finger.GetRay(Camera), out hit) == true)
+				if (Physics.Raycast(finger.GetRay(_camera), out hit) == true)
 				{
 					if (hit.collider.gameObject == gameObject)
 					{
@@ -121,3 +126,24 @@ namespace Lean.Touch
 		}
 	}
 }
+
+#if UNITY_EDITOR
+namespace Lean.Touch.Editor
+{
+	using TARGET = LeanDragColorMesh;
+
+	[UnityEditor.CanEditMultipleObjects]
+	[UnityEditor.CustomEditor(typeof(TARGET))]
+	public class LeanDragColorMesh_Editor : LeanEditor
+	{
+		protected override void OnInspector()
+		{
+			TARGET tgt; TARGET[] tgts; GetTargets(out tgt, out tgts);
+			
+			Draw("Use");
+			Draw("paintColor", "The color you want to paint the hit triangles.");
+			Draw("_camera", "The camera this component will calculate using.\n\nNone/null = MainCamera.");
+		}
+	}
+}
+#endif

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 using Lean.Common;
+using FSA = UnityEngine.Serialization.FormerlySerializedAsAttribute;
 
 namespace Lean.Touch
 {
@@ -24,57 +25,54 @@ namespace Lean.Touch
 		[System.Serializable] public class FloatEvent : UnityEvent<float> {}
 
 		/// <summary>Do nothing if this LeanSelectable isn't selected?</summary>
-		[Tooltip("Do nothing if this LeanSelectable isn't selected?")]
-		public LeanSelectable RequiredSelectable;
+		public LeanSelectable RequiredSelectable { set { requiredSelectable = value; } get { return requiredSelectable; } } [FSA("RequiredSelectable")] [SerializeField] private LeanSelectable requiredSelectable;
 
 		/// <summary>When using simulated fingers, should they be created from a specific mouse button?
 		/// -1 = Ignore.
 		/// 0 = Left Mouse.
 		/// 1 = Right Mouse.
 		/// 2 = Middle Mouse.</summary>
-		[Tooltip("When using simulated fingers, should they be created from a specific mouse button?\n\n0 = Left Mouse.\n\n1 = Right Mouse.\n\n2 = Middle Mouse.")]
-		public int RequiredMouseButton = -1;
+		public int RequiredMouseButton { set { requiredMouseButton = value; } get { return requiredMouseButton; } } [FSA("RequiredMouseButton")] [SerializeField] private int requiredMouseButton = -1;
 
 		/// <summary>Should the scroll delta be modified before use?
 		/// Sign = The swipe delta will either be 1 or -1.</summary>
-		[Tooltip("Should the scroll delta be modified before use?\n\nSign = The swipe delta will either be 1, 0, or -1.")]
-		public ModifyType Modify;
+		public ModifyType Modify { set { modify = value; } get { return modify; } } [FSA("Modify")] [SerializeField] private ModifyType modify;
 
 		/// <summary>This final delta value will be multiplied by this.</summary>
-		[Tooltip("This final delta value will be multiplied by this.")]
-		public float Multiplier = 1.0f;
+		public float Multiplier { set { multiplier = value; } get { return multiplier; } } [FSA("Multiplier")] [SerializeField] private float multiplier = 1.0f;
 
 		/// <summary>The coordinate space of the output delta values.
 		/// ZeroBased = Scrolling where 0 means no scroll.
 		/// OneBased = ZeroBased + 1. Scrolling where 1 means no scroll. This is suitable for use with components where you multiply a value.</summary>
-		[Tooltip("The coordinate space of the output delta values.\n\nZeroBased = Scrolling where 0 means no scroll.\n\nOneBased = ZeroBased + 1. Scrolling where 1 means no scroll. This is suitable for use with components where you multiply a value.")]
-		public CoordinateType Coordinate;
+		public CoordinateType Coordinate { set { coordinate = value; } get { return coordinate; } } [FSA("Coordinate")] [SerializeField] private CoordinateType coordinate;
 
 		/// <summary>Called when the mouse scrolls.
 		/// Float = Scroll delta.</summary>
 		public FloatEvent OnDelta { get { if (onDelta == null) onDelta = new FloatEvent(); return onDelta; } } [SerializeField] private FloatEvent onDelta;
+
 #if UNITY_EDITOR
 		protected virtual void Reset()
 		{
-			RequiredSelectable = GetComponentInParent<LeanSelectable>();
+			requiredSelectable = GetComponentInParent<LeanSelectable>();
 		}
 #endif
+
 		protected virtual void Awake()
 		{
-			if (RequiredSelectable == null)
+			if (requiredSelectable == null)
 			{
-				RequiredSelectable = GetComponentInParent<LeanSelectable>();
+				requiredSelectable = GetComponentInParent<LeanSelectable>();
 			}
 		}
 
 		protected virtual void Update()
 		{
-			if (RequiredSelectable != null && RequiredSelectable.IsSelected == false)
+			if (requiredSelectable != null && requiredSelectable.IsSelected == false)
 			{
 				return;
 			}
 
-			if (RequiredMouseButton >= 0 && LeanInput.GetMousePressed(RequiredMouseButton) == false)
+			if (requiredMouseButton >= 0 && LeanInput.GetMousePressed(requiredMouseButton) == false)
 			{
 				return;
 			}
@@ -86,7 +84,7 @@ namespace Lean.Touch
 				return;
 			}
 
-			switch (Modify)
+			switch (modify)
 			{
 				case ModifyType.Sign:
 				{
@@ -95,9 +93,9 @@ namespace Lean.Touch
 				break;
 			}
 
-			finalDelta *= Multiplier;
+			finalDelta *= multiplier;
 
-			switch (Coordinate)
+			switch (coordinate)
 			{
 				case CoordinateType.OneBased:
 				{
@@ -113,3 +111,30 @@ namespace Lean.Touch
 		}
 	}
 }
+
+#if UNITY_EDITOR
+namespace Lean.Touch.Editor
+{
+	using TARGET = LeanMouseWheel;
+
+	[UnityEditor.CanEditMultipleObjects]
+	[UnityEditor.CustomEditor(typeof(TARGET), true)]
+	public class LeanMouseWheel_Editor : LeanEditor
+	{
+		protected override void OnInspector()
+		{
+			TARGET tgt; TARGET[] tgts; GetTargets(out tgt, out tgts);
+
+			Draw("requiredSelectable", "Do nothing if this LeanSelectable isn't selected?");
+			Draw("requiredMouseButton", "When using simulated fingers, should they be created from a specific mouse button?\n\n-1 = Ignore.\n\n0 = Left Mouse.\n\n1 = Right Mouse.\n\n2 = Middle Mouse.");
+			Draw("modify", "Should the scroll delta be modified before use?\n\nSign = The swipe delta will either be 1 or -1.");
+			Draw("multiplier", "This final delta value will be multiplied by this.");
+			Draw("coordinate", "The coordinate space of the output delta values.\n\nZeroBased = Scrolling where 0 means no scroll.\n\nOneBased = ZeroBased + 1. Scrolling where 1 means no scroll. This is suitable for use with components where you multiply a value.");
+			
+			Separator();
+			
+			Draw("onDelta");
+		}
+	}
+}
+#endif

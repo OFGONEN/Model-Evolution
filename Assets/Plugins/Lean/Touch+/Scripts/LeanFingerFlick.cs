@@ -1,8 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
+using Lean.Common;
+using FSA = UnityEngine.Serialization.FormerlySerializedAsAttribute;
 
 namespace Lean.Touch
 {
@@ -25,35 +24,36 @@ namespace Lean.Touch
 		}
 
 		/// <summary>Ignore fingers with StartedOverGui?</summary>
-		public bool IgnoreStartedOverGui = true;
+		public bool IgnoreStartedOverGui { set { ignoreStartedOverGui = value; } get { return ignoreStartedOverGui; } } [FSA("IgnoreStartedOverGui")] [SerializeField] private bool ignoreStartedOverGui = true;
 
-		/// <summary>Ignore fingers with IsOverGui?</summary>
-		public bool IgnoreIsOverGui;
+		/// <summary>Ignore fingers with OverGui?</summary>
+		public bool IgnoreIsOverGui { set { ignoreIsOverGui = value; } get { return ignoreIsOverGui; } } [FSA("IgnoreIsOverGui")] [SerializeField] private bool ignoreIsOverGui;
 
-		/// <summary>Do nothing if this LeanSelectable isn't selected?</summary>
-		public LeanSelectable RequiredSelectable;
+		/// <summary>If the specified object is set and isn't selected, then this component will do nothing.</summary>
+		public LeanSelectable RequiredSelectable { set { requiredSelectable = value; } get { return requiredSelectable; } } [FSA("RequiredSelectable")] [SerializeField] private LeanSelectable requiredSelectable;
 
 		/// <summary>This allows you to choose how the flick will be detected.
 		/// Default = Detects one flick within the current <b>TapThreshold</b> time.
 		/// IgnoreAge = You can hold the finger for any duration before flicking.
 		/// Multiple = You can stop moving the finger for <b>TapThreshold</b> seconds and perform additional flicks.</summary>
-		public CheckType Check;
+		public CheckType Check { set { check = value; } get { return check; } } [FSA("Check")] [SerializeField] private CheckType check;
 
 		// Additional finger data
-		[HideInInspector]
 		[SerializeField]
-		private List<FingerData> fingerDatas = new List<FingerData>();
+		private List<FingerData> fingerDatas;
+
 #if UNITY_EDITOR
 		protected virtual void Reset()
 		{
-			RequiredSelectable = GetComponentInParent<LeanSelectable>();
+			requiredSelectable = GetComponentInParent<LeanSelectable>();
 		}
 #endif
+
 		protected virtual void Awake()
 		{
-			if (RequiredSelectable == null)
+			if (requiredSelectable == null)
 			{
-				RequiredSelectable = GetComponentInParent<LeanSelectable>();
+				requiredSelectable = GetComponentInParent<LeanSelectable>();
 			}
 		}
 
@@ -91,7 +91,7 @@ namespace Lean.Touch
 							HandleFingerSwipe(finger, screenFrom, screenTo);
 
 							// If multi-flicks aren't allowed, remove the finger
-							if (Check != CheckType.Multiple)
+							if (check != CheckType.Multiple)
 							{
 								LeanFingerData.Remove(fingerDatas, finger);
 							}
@@ -107,6 +107,11 @@ namespace Lean.Touch
 
 		private void HandleFingerDown(LeanFinger finger)
 		{
+			if (finger.Index == LeanTouch.HOVER_FINGER_INDEX)
+			{
+				return;
+			}
+
 			var data = LeanFingerData.FindOrCreate(ref fingerDatas, finger);
 
 			data.Flicked = false;
@@ -119,22 +124,22 @@ namespace Lean.Touch
 
 		private bool TestFinger(LeanFinger finger, Vector2 screenFrom, Vector2 screenTo)
 		{
-			if (IgnoreStartedOverGui == true && finger.StartedOverGui == true)
+			if (ignoreStartedOverGui == true && finger.StartedOverGui == true)
 			{
 				return false;
 			}
 
-			if (IgnoreIsOverGui == true && finger.IsOverGui == true)
+			if (ignoreIsOverGui == true && finger.IsOverGui == true)
 			{
 				return false;
 			}
 
-			if (RequiredSelectable != null && RequiredSelectable.IsSelectedBy(finger) == false)
+			if (requiredSelectable != null && requiredSelectable.IsSelected == false)
 			{
 				return false;
 			}
 
-			if (Check == CheckType.Default && finger.Age >= LeanTouch.CurrentTapThreshold)
+			if (check == CheckType.Default && finger.Age >= LeanTouch.CurrentTapThreshold)
 			{
 				return false;
 			}
@@ -145,21 +150,24 @@ namespace Lean.Touch
 }
 
 #if UNITY_EDITOR
-namespace Lean.Touch
+namespace Lean.Touch.Editor
 {
-	[CanEditMultipleObjects]
-	[CustomEditor(typeof(LeanFingerFlick))]
-	public class LeanFingerFlick_Inspector : LeanSwipeBase_Inspector<LeanFingerFlick>
+	using TARGET = LeanFingerFlick;
+
+	[UnityEditor.CanEditMultipleObjects]
+	[UnityEditor.CustomEditor(typeof(TARGET))]
+	public class LeanFingerFlick_Editor : LeanSwipeBase_Editor
 	{
-		protected override void DrawInspector()
+		protected override void OnInspector()
 		{
-			Draw("IgnoreStartedOverGui", "Ignore fingers with StartedOverGui?");
-			Draw("IgnoreIsOverGui", "Ignore fingers with IsOverGui?");
-			Draw("RequiredSelectable", "Do nothing if this LeanSelectable isn't selected?");
+			TARGET tgt; TARGET[] tgts; GetTargets(out tgt, out tgts);
 
-			Draw("Check", "");
+			Draw("ignoreStartedOverGui", "Ignore fingers with StartedOverGui?");
+			Draw("ignoreIsOverGui", "Ignore fingers with OverGui?");
+			Draw("requiredSelectable", "If the specified object is set and isn't selected, then this component will do nothing.");
+			Draw("check", "This allows you to choose how the flick will be detected.\n\nDefault = Detects one flick within the current TapThreshold time.\n\nIgnoreAge = You can hold the finger for any duration before flicking.\n\nMultiple = You can stop moving the finger for TapThreshold seconds and perform additional flicks.");
 
-			base.DrawInspector();
+			base.OnInspector();
 		}
 	}
 }

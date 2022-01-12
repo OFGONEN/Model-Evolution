@@ -1,11 +1,8 @@
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Serialization;
 using System.Collections.Generic;
 using Lean.Common;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
+using FSA = UnityEngine.Serialization.FormerlySerializedAsAttribute;
 
 namespace Lean.Touch
 {
@@ -17,101 +14,92 @@ namespace Lean.Touch
 		[System.Serializable]
 		public class FingerData : LeanFingerData
 		{
-			public bool    LastSet; // Was this finger held?
-			public Vector2 TotalScaledDelta; // The total movement so we can ignore it if it gets too high
+			public bool    Eligible;
+			public bool    Held;
+			public Vector2 Movement;
 		}
 
 		[System.Serializable] public class LeanFingerEvent : UnityEvent<LeanFinger> {}
 		[System.Serializable] public class Vector3Event : UnityEvent<Vector3> {}
 
 		/// <summary>Ignore fingers with StartedOverGui?</summary>
-		[Tooltip("Ignore fingers with StartedOverGui?")]
-		public bool IgnoreStartedOverGui = true;
+		public bool IgnoreStartedOverGui { set { ignoreStartedOverGui = value; } get { return ignoreStartedOverGui; } } [FSA("IgnoreStartedOverGui")] [SerializeField] private bool ignoreStartedOverGui = true;
 
-		/// <summary>Ignore fingers with IsOverGui?</summary>
-		[Tooltip("Ignore fingers with IsOverGui?")]
-		public bool IgnoreIsOverGui;
+		/// <summary>Ignore fingers with OverGui?</summary>
+		public bool IgnoreIsOverGui { set { ignoreIsOverGui = value; } get { return ignoreIsOverGui; } } [FSA("IgnoreIsOverGui")] [SerializeField] private bool ignoreIsOverGui;
 
-		/// <summary>Do nothing if this LeanSelectable isn't selected?</summary>
-		[Tooltip("Do nothing if this LeanSelectable isn't selected?")]
-		public LeanSelectable RequiredSelectable;
+		/// <summary>If the specified object is set and isn't selected, then this component will do nothing.</summary>
+		public LeanSelectable RequiredSelectable { set { requiredSelectable = value; } get { return requiredSelectable; } } [FSA("RequiredSelectable")] [SerializeField] private LeanSelectable requiredSelectable;
 
 		/// <summary>The finger must be held for this many seconds.</summary>
-		[Tooltip("The finger must be held for this many seconds.")]
-		public float MinimumAge = 1.0f;
+		public float MinimumAge { set { minimumAge = value; } get { return minimumAge; } } [FSA("MinimumAge")] [SerializeField] private float minimumAge = 1.0f;
 
 		/// <summary>The finger cannot move more than this many pixels relative to the reference DPI.</summary>
-		[Tooltip("The finger cannot move more than this many pixels relative to the reference DPI.")]
-		public float MaximumMovement = 5.0f;
+		public float MaximumMovement { set { maximumMovement = value; } get { return maximumMovement; } } [FSA("MaximumMovement")] [SerializeField] private float maximumMovement = 5.0f;
 
 		/// <summary>Called on the first frame the conditions are met.</summary>
-		public LeanFingerEvent OnFingerDown { get { if (onFingerDown == null) onFingerDown = new LeanFingerEvent(); return onFingerDown; } } [FormerlySerializedAs("onHeldDown")] [FormerlySerializedAs("OnHeldDown")] [SerializeField] private LeanFingerEvent onFingerDown;
+		public LeanFingerEvent OnFingerDown { get { if (onFingerDown == null) onFingerDown = new LeanFingerEvent(); return onFingerDown; } } [FSA("onHeldDown")] [FSA("OnHeldDown")] [SerializeField] private LeanFingerEvent onFingerDown;
 
 		/// <summary>Called on every frame the conditions are met.</summary>
-		public LeanFingerEvent OnFingerUpdate { get { if (onFingerUpdate == null) onFingerUpdate = new LeanFingerEvent(); return onFingerUpdate; } } [FormerlySerializedAs("onFingerSet")] [FormerlySerializedAs("onHeldSet")] [FormerlySerializedAs("OnHeldSet")] [SerializeField] private LeanFingerEvent onFingerUpdate;
+		public LeanFingerEvent OnFingerUpdate { get { if (onFingerUpdate == null) onFingerUpdate = new LeanFingerEvent(); return onFingerUpdate; } } [FSA("onFingerSet")] [FSA("onHeldSet")] [FSA("OnHeldSet")] [SerializeField] private LeanFingerEvent onFingerUpdate;
 
 		/// <summary>Called on the last frame the conditions are met.</summary>
-		public LeanFingerEvent OnFingerUp { get { if (onFingerUp == null) onFingerUp = new LeanFingerEvent(); return onFingerUp; } } [FormerlySerializedAs("onHeldUp")] [FormerlySerializedAs("OnHeldUp")] [SerializeField] private LeanFingerEvent onFingerUp;
+		public LeanFingerEvent OnFingerUp { get { if (onFingerUp == null) onFingerUp = new LeanFingerEvent(); return onFingerUp; } } [FSA("onHeldUp")] [FSA("OnHeldUp")] [SerializeField] private LeanFingerEvent onFingerUp;
 
 		/// <summary>The method used to find world coordinates from a finger. See LeanScreenDepth documentation for more information.</summary>
 		public LeanScreenDepth ScreenDepth = new LeanScreenDepth(LeanScreenDepth.ConversionType.DepthIntercept);
 
 		/// <summary>Called on the first frame the conditions are met.
 		/// Vector3 = Start point based on the ScreenDepth settings.</summary>
-		public Vector3Event OnWorldDown { get { if (onWorldDown == null) onWorldDown = new Vector3Event(); return onWorldDown; } } [FormerlySerializedAs("onPositionDown")] [SerializeField] private Vector3Event onWorldDown;
+		public Vector3Event OnWorldDown { get { if (onWorldDown == null) onWorldDown = new Vector3Event(); return onWorldDown; } } [FSA("onPositionDown")] [SerializeField] private Vector3Event onWorldDown;
 
 		/// <summary>Called on the first frame the conditions are met.
 		/// Vector3 = Current point based on the ScreenDepth settings.</summary>
-		public Vector3Event OnWorldUpdate { get { if (onWorldUpdate == null) onWorldUpdate = new Vector3Event(); return onWorldUpdate; } } [FormerlySerializedAs("onWorldSet")] [FormerlySerializedAs("onPositionSet")] [SerializeField] private Vector3Event onWorldUpdate;
+		public Vector3Event OnWorldUpdate { get { if (onWorldUpdate == null) onWorldUpdate = new Vector3Event(); return onWorldUpdate; } } [FSA("onWorldSet")] [FSA("onPositionSet")] [SerializeField] private Vector3Event onWorldUpdate;
 
 		/// <summary>Called on the first frame the conditions are met.
 		/// Vector3 = End point based on the ScreenDepth settings.</summary>
-		public Vector3Event OnWorldUp { get { if (onWorldUp == null) onWorldUp = new Vector3Event(); return onWorldUp; } } [FormerlySerializedAs("onPositionUp")] [SerializeField] private Vector3Event onWorldUp;
+		public Vector3Event OnWorldUp { get { if (onWorldUp == null) onWorldUp = new Vector3Event(); return onWorldUp; } } [FSA("onPositionUp")] [SerializeField] private Vector3Event onWorldUp;
 
 		// Additional finger data
-		[HideInInspector]
 		[SerializeField]
 		private List<FingerData> fingerDatas = new List<FingerData>();
+
 #if UNITY_EDITOR
 		protected virtual void Reset()
 		{
-			RequiredSelectable = GetComponentInParent<LeanSelectable>();
+			requiredSelectable = GetComponentInParent<LeanSelectable>();
 		}
 #endif
+
 		protected virtual void Awake()
 		{
-			if (RequiredSelectable == null)
+			if (requiredSelectable == null)
 			{
-				RequiredSelectable = GetComponentInParent<LeanSelectable>();
+				requiredSelectable = GetComponentInParent<LeanSelectable>();
 			}
 		}
 
 		protected virtual void OnEnable()
 		{
 			LeanTouch.OnFingerDown   += HandleFingerDown;
-			LeanTouch.OnFingerUpdate += HandleFingerSet;
-			LeanTouch.OnFingerUp     += HandleFingerUp;
+			LeanTouch.OnFingerUpdate += HandleFingerUpdate;
 		}
 
 		protected virtual void OnDisable()
 		{
 			LeanTouch.OnFingerDown   -= HandleFingerDown;
-			LeanTouch.OnFingerUpdate -= HandleFingerSet;
-			LeanTouch.OnFingerUp     -= HandleFingerUp;
+			LeanTouch.OnFingerUpdate -= HandleFingerUpdate;
 		}
 
 		private void HandleFingerDown(LeanFinger finger)
 		{
-			if (IgnoreStartedOverGui == true && finger.StartedOverGui == true)
-			{
-				return;
-			}
-			if (IgnoreIsOverGui == true && finger.IsOverGui == true)
+			if (ignoreStartedOverGui == true && finger.StartedOverGui == true)
 			{
 				return;
 			}
 
-			if (RequiredSelectable != null && RequiredSelectable.IsSelected == false)
+			if (finger.Index == LeanTouch.HOVER_FINGER_INDEX)
 			{
 				return;
 			}
@@ -119,131 +107,140 @@ namespace Lean.Touch
 			// Get link for this finger and reset
 			var fingerData = LeanFingerData.FindOrCreate(ref fingerDatas, finger);
 
-			fingerData.LastSet          = false;
-			fingerData.TotalScaledDelta = Vector2.zero;
+			fingerData.Eligible = true;
+			fingerData.Held     = false;
+			fingerData.Movement = Vector2.zero;
 		}
 
-		private void HandleFingerSet(LeanFinger finger)
+		private void HandleFingerUpdate(LeanFinger finger)
 		{
 			// Try and find the link for this finger
 			var fingerData = LeanFingerData.Find(fingerDatas, finger);
 
 			if (fingerData != null)
 			{
-				// Has this finger been held for more than MinimumAge without moving more than MaximumMovement?
-				var set = finger.Age >= MinimumAge && fingerData.TotalScaledDelta.magnitude < MaximumMovement;
+				fingerData.Movement += finger.ScaledDelta;
 
-				fingerData.TotalScaledDelta += finger.ScaledDelta;
-
-				if (set == true && fingerData.LastSet == false)
+				if (fingerData.Movement.magnitude > maximumMovement)
 				{
-					if (onFingerDown != null)
-					{
-						onFingerDown.Invoke(finger);
-					}
-
-					if (onWorldDown != null)
-					{
-						var position = ScreenDepth.Convert(finger.ScreenPosition, gameObject);
-
-						onWorldDown.Invoke(position);
-					}
+					fingerData.Eligible = false;
 				}
 
-				if (set == true)
+				if (IsHeld(finger, fingerData) == true)
 				{
-					if (onFingerUpdate != null)
+					if (fingerData.Held == false)
 					{
-						onFingerUpdate.Invoke(finger);
+						fingerData.Held = true;
+
+						InvokeDown(finger);
 					}
 
-					if (onWorldUpdate != null)
-					{
-						var position = ScreenDepth.Convert(finger.ScreenPosition, gameObject);
-
-						onWorldUpdate.Invoke(position);
-					}
+					InvokeUpdate(finger);
 				}
-
-				if (set == false && fingerData.LastSet == true)
+				else if (fingerData.Held == true)
 				{
-					if (onFingerUp != null)
-					{
-						onFingerUp.Invoke(finger);
-					}
+					InvokeUp(finger);
 
-					if (onWorldUp != null)
-					{
-						var position = ScreenDepth.Convert(finger.ScreenPosition, gameObject);
-
-						onWorldUp.Invoke(position);
-					}
+					fingerDatas.Remove(fingerData);
 				}
-
-				// Store last value
-				fingerData.LastSet = set;
+				else if (finger.Set == false)
+				{
+					fingerDatas.Remove(fingerData);
+				}
 			}
 		}
 
-		private void HandleFingerUp(LeanFinger finger)
+		private bool IsHeld(LeanFinger finger, FingerData fingerData)
 		{
-			// Find link for this finger, and clear it
-			var fingerData = LeanFingerData.Find(fingerDatas, finger);
-
-			if (fingerData != null)
+			if (ignoreIsOverGui == true && finger.IsOverGui == true)
 			{
-				fingerDatas.Remove(fingerData);
+				return false;
+			}
 
-				if (fingerData.LastSet == true)
-				{
-					if (onFingerUp != null)
-					{
-						onFingerUp.Invoke(finger);
-					}
+			if (requiredSelectable != null && requiredSelectable.IsSelected == false)
+			{
+				return false;
+			}
 
-					if (onWorldUp != null)
-					{
-						var position = ScreenDepth.Convert(finger.ScreenPosition, gameObject);
+			return fingerData.Eligible == true && finger.Age >= minimumAge && finger.Set == true;
+		}
 
-						onWorldUp.Invoke(position);
-					}
-				}
+		private void InvokeDown(LeanFinger finger)
+		{
+			if (onFingerDown != null)
+			{
+				onFingerDown.Invoke(finger);
+			}
+
+			if (onWorldDown != null)
+			{
+				var position = ScreenDepth.Convert(finger.ScreenPosition, gameObject);
+
+				onWorldDown.Invoke(position);
+			}
+		}
+
+		private void InvokeUpdate(LeanFinger finger)
+		{
+			if (onFingerUpdate != null)
+			{
+				onFingerUpdate.Invoke(finger);
+			}
+
+			if (onWorldUpdate != null)
+			{
+				var position = ScreenDepth.Convert(finger.ScreenPosition, gameObject);
+
+				onWorldUpdate.Invoke(position);
+			}
+		}
+
+		private void InvokeUp(LeanFinger finger)
+		{
+			if (onFingerUp != null)
+			{
+				onFingerUp.Invoke(finger);
+			}
+
+			if (onWorldUp != null)
+			{
+				var position = ScreenDepth.Convert(finger.ScreenPosition, gameObject);
+
+				onWorldUp.Invoke(position);
 			}
 		}
 	}
 }
 
 #if UNITY_EDITOR
-namespace Lean.Touch
+namespace Lean.Touch.Editor
 {
-	[CanEditMultipleObjects]
-	[CustomEditor(typeof(LeanFingerHeld))]
-	public class LeanFingerHeld_Inspector : LeanInspector<LeanFingerHeld>
+	using TARGET = LeanFingerHeld;
+
+	[UnityEditor.CanEditMultipleObjects]
+	[UnityEditor.CustomEditor(typeof(TARGET))]
+	public class LeanFingerHeld_Editor : LeanEditor
 	{
-		private bool showUnusedEvents;
-
-		protected override void DrawInspector()
+		protected override void OnInspector()
 		{
-			Draw("IgnoreStartedOverGui");
-			Draw("IgnoreIsOverGui");
-			Draw("RequiredSelectable");
-			Draw("MinimumAge");
-			Draw("MaximumMovement");
+			TARGET tgt; TARGET[] tgts; GetTargets(out tgt, out tgts);
 
-			EditorGUILayout.Separator();
+			Draw("ignoreStartedOverGui", "Ignore fingers with StartedOverGui?");
+			Draw("ignoreIsOverGui", "Ignore fingers with OverGui?");
+			Draw("requiredSelectable", "If the specified object is set and isn't selected, then this component will do nothing.");
+			Draw("minimumAge", "The finger must be held for this many seconds.");
+			Draw("maximumMovement", "The finger cannot move more than this many pixels relative to the reference DPI.");
 
-			var usedA = Any(t => t.OnFingerDown.GetPersistentEventCount() > 0);
-			var usedB = Any(t => t.OnFingerUpdate.GetPersistentEventCount() > 0);
-			var usedC = Any(t => t.OnFingerUp.GetPersistentEventCount() > 0);
-			var usedD = Any(t => t.OnWorldDown.GetPersistentEventCount() > 0);
-			var usedE = Any(t => t.OnWorldUpdate.GetPersistentEventCount() > 0);
-			var usedF = Any(t => t.OnWorldUp.GetPersistentEventCount() > 0);
+			Separator();
 
-			EditorGUI.BeginDisabledGroup(usedA && usedB && usedC && usedD && usedE && usedF);
-				showUnusedEvents = EditorGUILayout.Foldout(showUnusedEvents, "Show Unused Events");
-			EditorGUI.EndDisabledGroup();
+			var usedA = Any(tgts, t => t.OnFingerDown.GetPersistentEventCount() > 0);
+			var usedB = Any(tgts, t => t.OnFingerUpdate.GetPersistentEventCount() > 0);
+			var usedC = Any(tgts, t => t.OnFingerUp.GetPersistentEventCount() > 0);
+			var usedD = Any(tgts, t => t.OnWorldDown.GetPersistentEventCount() > 0);
+			var usedE = Any(tgts, t => t.OnWorldUpdate.GetPersistentEventCount() > 0);
+			var usedF = Any(tgts, t => t.OnWorldUp.GetPersistentEventCount() > 0);
 
-			EditorGUILayout.Separator();
+			var showUnusedEvents = DrawFoldout("Show Unused Events", "Show all events?");
 
 			if (usedA == true || showUnusedEvents == true)
 			{

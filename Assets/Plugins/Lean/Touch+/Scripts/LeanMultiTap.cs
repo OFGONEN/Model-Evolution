@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Serialization;
 using System.Collections.Generic;
+using Lean.Common;
+using FSA = UnityEngine.Serialization.FormerlySerializedAsAttribute;
 
 namespace Lean.Touch
 {
@@ -17,18 +18,6 @@ namespace Lean.Touch
 		/// <summary>The method used to find fingers to use with this component. See LeanFingerFilter documentation for more information.</summary>
 		public LeanFingerFilter Use = new LeanFingerFilter(true);
 
-		/// <summary>This is set to true the frame a multi-tap occurs.</summary>
-		[Tooltip("This is set to true the frame a multi-tap occurs.")]
-		public bool MultiTap;
-
-		/// <summary>This is set to the current multi-tap count.</summary>
-		[Tooltip("This is set to the current multi-tap count.")]
-		public int MultiTapCount;
-
-		/// <summary>Highest number of fingers held down during this multi-tap.</summary>
-		[Tooltip("Highest number of fingers held down during this multi-tap.")]
-		public int HighestFingerCount;
-
 		/// <summary>Called when a multi-tap occurs.</summary>
 		public UnityEvent OnTap { get { if (onTap == null) onTap = new UnityEvent(); return onTap; } } [SerializeField] private UnityEvent onTap;
 
@@ -43,13 +32,19 @@ namespace Lean.Touch
 		/// <summary>Called when a multi-tap occurs.
 		/// Int = The amount of times you've multi-tapped.
 		/// Int = The maximum amount of fingers involved in this multi-tap.</summary>
-		public IntIntEvent OnCountHighest { get { if (onCountHighest == null) onCountHighest = new IntIntEvent(); return onCountHighest; } } [FormerlySerializedAs("OnTap")] [SerializeField] private IntIntEvent onCountHighest;
+		public IntIntEvent OnCountHighest { get { if (onCountHighest == null) onCountHighest = new IntIntEvent(); return onCountHighest; } } [FSA("OnTap")] [SerializeField] private IntIntEvent onCountHighest;
 
 		// Seconds at least one finger has been held down
 		private float age;
 
 		// Previous fingerCount
 		private int lastFingerCount;
+
+		/// <summary>This is set to the current multi-tap count.</summary>
+		private int multiTapCount;
+
+		/// <summary>Highest number of fingers held down during this multi-tap.</summary>
+		private int highestFingerCount;
 
 		/// <summary>If you've set Use to ManuallyAddedFingers, then you can call this method to manually add a finger.</summary>
 		public void AddFinger(LeanFinger finger)
@@ -68,12 +63,14 @@ namespace Lean.Touch
 		{
 			Use.RemoveAllFingers();
 		}
+
 #if UNITY_EDITOR
 		protected virtual void Reset()
 		{
 			Use.UpdateRequiredSelectable(gameObject);
 		}
 #endif
+
 		protected virtual void Awake()
 		{
 			Use.UpdateRequiredSelectable(gameObject);
@@ -82,7 +79,7 @@ namespace Lean.Touch
 		protected virtual void Update()
 		{
 			// Get fingers and calculate how many are still touching the screen
-			var fingers     = Use.GetFingers();
+			var fingers     = Use.UpdateAndGetFingers();
 			var fingerCount = GetFingerCount(fingers);
 
 			// At least one finger set?
@@ -92,18 +89,15 @@ namespace Lean.Touch
 				if (lastFingerCount == 0)
 				{
 					age                = 0.0f;
-					HighestFingerCount = fingerCount;
+					highestFingerCount = fingerCount;
 				}
-				else if (fingerCount > HighestFingerCount)
+				else if (fingerCount > highestFingerCount)
 				{
-					HighestFingerCount = fingerCount;
+					highestFingerCount = fingerCount;
 				}
 			}
 
 			age += Time.unscaledDeltaTime;
-
-			// Reset
-			MultiTap = false;
 
 			// Is a multi-tap still eligible?
 			if (age <= LeanTouch.CurrentTapThreshold)
@@ -111,7 +105,7 @@ namespace Lean.Touch
 				// All fingers released?
 				if (fingerCount == 0 && lastFingerCount > 0)
 				{
-					MultiTapCount += 1;
+					multiTapCount += 1;
 
 					if (onTap != null)
 					{
@@ -120,25 +114,25 @@ namespace Lean.Touch
 
 					if (onCount != null)
 					{
-						onCount.Invoke(MultiTapCount);
+						onCount.Invoke(multiTapCount);
 					}
 
 					if (onHighest != null)
 					{
-						onHighest.Invoke(HighestFingerCount);
+						onHighest.Invoke(highestFingerCount);
 					}
 
 					if (onCountHighest != null)
 					{
-						onCountHighest.Invoke(MultiTapCount, HighestFingerCount);
+						onCountHighest.Invoke(multiTapCount, highestFingerCount);
 					}
 				}
 			}
 			// Reset
 			else
 			{
-				MultiTapCount      = 0;
-				HighestFingerCount = 0;
+				multiTapCount      = 0;
+				highestFingerCount = 0;
 			}
 
 			lastFingerCount = fingerCount;
@@ -160,3 +154,51 @@ namespace Lean.Touch
 		}
 	}
 }
+
+#if UNITY_EDITOR
+namespace Lean.Touch.Editor
+{
+	using TARGET = LeanMultiTap;
+
+	[UnityEditor.CanEditMultipleObjects]
+	[UnityEditor.CustomEditor(typeof(TARGET), true)]
+	public class LeanMultiTap_Editor : LeanEditor
+	{
+		protected override void OnInspector()
+		{
+			TARGET tgt; TARGET[] tgts; GetTargets(out tgt, out tgts);
+
+			Draw("Use");
+
+			Separator();
+
+			var usedA = Any(tgts, t => t.OnTap.GetPersistentEventCount() > 0);
+			var usedB = Any(tgts, t => t.OnCount.GetPersistentEventCount() > 0);
+			var usedC = Any(tgts, t => t.OnHighest.GetPersistentEventCount() > 0);
+			var usedD = Any(tgts, t => t.OnCountHighest.GetPersistentEventCount() > 0);
+
+			var showUnusedEvents = DrawFoldout("Show Unused Events", "Show all events?");
+
+			if (usedA == true || showUnusedEvents == true)
+			{
+				Draw("onTap");
+			}
+
+			if (usedB == true || showUnusedEvents == true)
+			{
+				Draw("onCount");
+			}
+
+			if (usedC == true || showUnusedEvents == true)
+			{
+				Draw("onHighest");
+			}
+
+			if (usedD == true || showUnusedEvents == true)
+			{
+				Draw("onCountHighest");
+			}
+		}
+	}
+}
+#endif
