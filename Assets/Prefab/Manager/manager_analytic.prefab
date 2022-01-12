@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8939332168275667369}
+  - component: {fileID: 1436860115345433105}
   m_Layer: 0
   m_Name: manager_analytic
   m_TagString: Untagged
@@ -30,3 +31,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1436860115345433105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5750746192651346742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d65779f4a6b6489da65a755bf7615d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  elephantEventListener:
+    gameEvent: {fileID: 11400000, guid: 33ccf5f609258ea46b63b78483df10f5, type: 2}
+  elephantRemoteConfigListener:
+    gameEvent: {fileID: 11400000, guid: fce0517684d57439aad15342a420da2f, type: 2}
+  build_string: {fileID: 11400000, guid: 720da4be9a07ef14f8f97cca01a3b72b, type: 2}

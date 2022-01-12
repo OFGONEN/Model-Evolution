@@ -42,6 +42,14 @@ namespace FFStudio
 
 		private void Start()
 		{
+			var eventSystem = GameObject.Find( "EventSystem" );
+
+			if( eventSystem != null )
+			{
+				FFLogger.Log( "Another EventSystem is disabled", eventSystem );
+				eventSystem.SetActive( false );
+			}
+
 			StartCoroutine( LoadLevel() );
 		}
 #endregion
