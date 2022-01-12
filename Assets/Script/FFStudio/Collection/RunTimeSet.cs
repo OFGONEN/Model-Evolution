@@ -14,10 +14,16 @@ namespace FFStudio
 
 		public void AddList( TValue value )
 		{
+#if UNITY_EDITOR
 			if( !itemList.Contains( value ) )
 				itemList.Add( value );
+			else
+				FFLogger.Log( "Trying to add same value to RunTime-LIST", value as Object );
+#else
+			itemList.Add( value );
+#endif
 		}
-        
+
 		public void RemoveList( TValue value )
 		{
 			itemList.Remove( value );
@@ -25,8 +31,14 @@ namespace FFStudio
 
 		public void AddDictionary( TKey key, TValue value )
 		{
+#if UNITY_EDITOR
 			if( !itemDictionary.ContainsKey( key ) )
 				itemDictionary.Add( key, value );
+			else
+				FFLogger.Log( "Trying to add same value to RunTime-DICTIONARY", value as Object );
+#else
+			itemDictionary.Add( key, value );
+#endif
 		}
         
 		public void RemoveDictionary( TKey key )
