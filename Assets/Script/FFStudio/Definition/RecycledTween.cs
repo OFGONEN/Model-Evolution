@@ -27,11 +27,15 @@ namespace FFStudio
 			tween.OnComplete( OnComplete_Safe );
 		}
 
+		public void Kill()
+		{
+			tween = tween.KillProper();
+		}
+
 		private void OnComplete_Safe()
 		{
-			onComplete?.Invoke();
-
 			tween = null;
+			onComplete?.Invoke();
 		}
 	}
 }
