@@ -2,7 +2,7 @@
 
 using System;
 using UnityEngine;
-using DG.Tweening;
+using UnityEngine.Events;
 
 namespace FFStudio
 {
@@ -13,4 +13,26 @@ namespace FFStudio
 		public Vector3 rotation; // Euler angles.
 		public Vector3 scale; // Local scale.
 	}
+
+	[Serializable]
+	public struct EventPair
+	{
+		public EventListenerDelegateResponse eventListener;
+		public UnityEvent unityEvent;
+
+		public void Pair()
+		{
+			eventListener.response = unityEvent.Invoke;
+		}
+	}
+
+	[Serializable]
+	public struct ParticleData
+	{
+		public string alias;
+		public bool parent;
+		public Vector3 offset;
+		public float size;
+	}
+
 }
