@@ -7,15 +7,17 @@ namespace FFStudio
 	[ CreateAssetMenu( fileName = "ParticleGameEvent", menuName = "FF/Event/ParticleGameEvent" ) ]
 	public class ParticleSpawnEvent : GameEvent
 	{
-		public string particleAlias;
-		public Vector3 spawnPoint;
-		[ HideInInspector ] public Transform particleParent;
+		public string particle_alias;
+		public Vector3 particle_spawn_point;
+		public float particle_spawn_size;
+		[ HideInInspector ] public Transform particle_spawn_parent;
 
-		public void Raise( string alias, Vector3 position, Transform parent = null )
+		public void Raise( string alias, Vector3 position, Transform parent = null, float size = 1f )
 		{
-			particleAlias  = alias;
-			spawnPoint     = position;
-			particleParent = parent;
+			particle_alias        = alias;
+			particle_spawn_size   = size;
+			particle_spawn_point  = position;
+			particle_spawn_parent = parent;
 
 			Raise();
 		}

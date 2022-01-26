@@ -49,9 +49,9 @@ namespace FFStudio
 
 			ParticleEffectPool pool;
 
-			if( !particleEffectDictionary.TryGetValue( spawnEvent.particleAlias, out pool ) )
+			if( !particleEffectDictionary.TryGetValue( spawnEvent.particle_alias, out pool ) )
 			{
-				FFLogger.Log( "Particle:" + spawnEvent.particleAlias + " is missing!" );
+				FFLogger.Log( "Particle:" + spawnEvent.particle_alias + " is missing!" );
 				return;
 			}
 
