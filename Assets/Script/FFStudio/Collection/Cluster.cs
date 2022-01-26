@@ -19,12 +19,22 @@ namespace FFStudio
 
 		public void Subscribe( IClusterEntity entity )
 		{
-			cluster_entities.Add( entity.GetInstanceID(), entity );
+#if UNITY_EDITOR
+			IClusterEntity cluster_entity;
+			cluster_entities.TryGetValue( entity.GetID(), out cluster_entity );
+
+			if( cluster_entity == null )
+				cluster_entities.Add( entity.GetID(), entity );
+			else
+				FFLogger.Log( "Cluster Entity is already Subscribed", ( entity as MonoBehaviour ) );
+#else
+			cluster_entities.Add( entity.GetID(), entity );
+#endif		
 		}
 
 		public void UnSubscribe( IClusterEntity entity )
 		{
-			cluster_entities.Remove( entity.GetInstanceID() );
+			cluster_entities.Remove( entity.GetID() );
 		}
 
 		public void UpdateCluster()

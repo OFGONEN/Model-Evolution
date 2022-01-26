@@ -7,6 +7,6 @@ namespace FFStudio
 		void Subscribe_Cluster();
 		void UnSubscribe_Cluster();
 		void OnUpdate_Cluster();
-		int GetInstanceID();
+		int GetID();
 	}
 }
