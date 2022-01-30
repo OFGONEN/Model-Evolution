@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 453416092374961833}
   - component: {fileID: 453416092374961835}
   - component: {fileID: 453416092374961832}
-  - component: {fileID: 8972054619498509272}
+  - component: {fileID: 757215293584952950}
   m_Layer: 5
   m_Name: ui_loading_bar_with_text
   m_TagString: Untagged
@@ -155,7 +155,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8972054619498509272
+--- !u!114 &757215293584952950
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -167,7 +167,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bfa241fe572bc84b8e01bfa83b03bee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sharedDataNotifier: {fileID: 11400000, guid: efed110f1e415924a95492a771f1a6ee, type: 2}
+  sharedDataNotifier: {fileID: 0}
+  ui_Image: {fileID: 453416092164098073}
 --- !u!1 &3702581891566363931
 GameObject:
   m_ObjectHideFlags: 0

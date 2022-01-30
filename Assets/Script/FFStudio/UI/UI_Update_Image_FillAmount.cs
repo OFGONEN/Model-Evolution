@@ -1,7 +1,5 @@
 /* Created by and for usage of FF Studios (2021). */
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using FFStudio;
@@ -11,7 +9,7 @@ public class UI_Update_Image_FillAmount : MonoBehaviour
 #region Fields
 	public SharedFloatNotifier sharedDataNotifier;
 
-	private Image ui_Image;
+	public Image ui_Image;
 #endregion
 
 #region Properties
@@ -30,8 +28,6 @@ public class UI_Update_Image_FillAmount : MonoBehaviour
 
     private void Awake()
     {
-        ui_Image = GetComponentInChildren< Image >();
-
 		OnSharedDataChange();
 	}
 #endregion

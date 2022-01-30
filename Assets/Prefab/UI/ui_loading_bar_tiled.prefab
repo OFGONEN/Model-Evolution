@@ -84,11 +84,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4758390764532085901}
-  - component: {fileID: 2405919284311414378}
   - component: {fileID: 4758390764532085903}
   - component: {fileID: 4758390764532085900}
   - component: {fileID: 733782031458368144}
   - component: {fileID: 1456284227009541125}
+  - component: {fileID: 8959495324259469367}
   m_Layer: 5
   m_Name: ui_loading_bar_tiled
   m_TagString: Untagged
@@ -116,25 +116,6 @@ RectTransform:
   m_AnchoredPosition: {x: -230, y: -124.561035}
   m_SizeDelta: {x: 99, y: 19.9186}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2405919284311414378
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4758390764532085906}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f8abc3eb69906c448d7f65d059a0ef6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uiTransform: {fileID: 4758390764532085901}
-  destinationTransform: {fileID: 0}
-  startPosition: {x: 0, y: 0, z: 0}
-  startScale: {x: 0, y: 0, z: 0}
-  progressProperty: {fileID: 0}
-  fillingImage: {fileID: 4758390763685458493}
-  stepSize: 0.1111111
 --- !u!222 &4758390764532085903
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -198,3 +179,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c82201d0dd9fd940bd9b72e795eab67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8959495324259469367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4758390764532085906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 322a669cc9e49bf48bbcb32c63da8244, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stepSize: 0.11111111
+  sharedDataNotifier: {fileID: 0}
+  ui_Image: {fileID: 4758390763685458493}

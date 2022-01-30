@@ -1163,6 +1163,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 757215293584952950, guid: 53f7fd0a255c70f4390daedd5a84594e, type: 3}
+      propertyPath: sharedDataNotifier
+      value: 
+      objectReference: {fileID: 11400000, guid: efed110f1e415924a95492a771f1a6ee, type: 2}
     - target: {fileID: 940648899346219135, guid: 53f7fd0a255c70f4390daedd5a84594e, type: 3}
       propertyPath: m_text
       value: Loading...

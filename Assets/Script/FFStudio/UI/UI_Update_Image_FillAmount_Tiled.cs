@@ -13,7 +13,7 @@ public class UI_Update_Image_FillAmount_Tiled : MonoBehaviour
 	public float stepSize;
 	public SharedFloatNotifier sharedDataNotifier;
 
-	private Image ui_Image;
+	public Image ui_Image;
 #endregion
 
 #region Properties
@@ -32,8 +32,6 @@ public class UI_Update_Image_FillAmount_Tiled : MonoBehaviour
 
     private void Awake()
     {
-        ui_Image = GetComponentInChildren< Image >();
-
 		OnSharedDataChange();
 	}
 #endregion
