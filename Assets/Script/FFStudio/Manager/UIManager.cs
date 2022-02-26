@@ -96,7 +96,6 @@ namespace FFStudio
             var sequence = DOTween.Sequence();
 
 			// Tween tween = null;
-
 			level_information_text.text = "Level Failed \n\n Tap to Continue";
 
 			sequence.Append( foreGroundImage.DOFade( 0.5f, GameSettings.Instance.ui_Entity_Fade_TweenDuration ) )
@@ -113,17 +112,20 @@ namespace FFStudio
         {
 			level_count_text.text = "Level " + CurrentLevelData.Instance.currentLevel_Shown;
 
+			level_information_text.text = "Tap to Start";
+
 			var sequence = DOTween.Sequence();
 
 			// Tween tween = null;
 
-			sequence.Append( foreGroundImage.DOFade( 0, GameSettings.Instance.ui_Entity_Fade_TweenDuration ) )
+			sequence.Append( foreGroundImage.DOFade( 0.5f, GameSettings.Instance.ui_Entity_Fade_TweenDuration ) )
 					// .Append( tween ) // TODO: UIElements tween.
-					.AppendCallback( levelRevealedEvent.Raise );
+					.Append( level_information_text_Scale.DoScale_Start( GameSettings.Instance.ui_Entity_Scale_TweenDuration ) )
+					.AppendCallback( () => tapInputListener.response = StartLevel );
 
-            elephantLevelEvent.level             = CurrentLevelData.Instance.currentLevel_Shown;
-            elephantLevelEvent.elephantEventType = ElephantEvent.LevelStarted;
-            elephantLevelEvent.Raise();
+            // elephantLevelEvent.level             = CurrentLevelData.Instance.currentLevel_Shown;
+            // elephantLevelEvent.elephantEventType = ElephantEvent.LevelStarted;
+            // elephantLevelEvent.Raise();
         }
 
 		private void StartLevel()
