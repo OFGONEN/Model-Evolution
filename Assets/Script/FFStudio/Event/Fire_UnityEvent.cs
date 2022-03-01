@@ -1,36 +1,35 @@
 /* Created by and for usage of FF Studios (2021). */
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace FFStudio
 {
 	public class Fire_UnityEvent : MonoBehaviour
 	{
 #region Fields
-        public EventListenerDelegateResponse event_listener;
-        public UnityEvent unityEvent;
+        public EventPair[] eventPairs;
 #endregion
 
 #region Properties
 #endregion
 
 #region Unity API
-        private void OnEnable()
-        {
-			event_listener.OnEnable();
+		private void OnEnable()
+		{
+			for( var i = 0; i < eventPairs.Length; i++ )
+				eventPairs[ i ].eventListener.OnEnable();
 		}
 
-        private void OnDisable()
-        {
-			event_listener.OnDisable();
+		private void OnDisable()
+		{
+			for( var i = 0; i < eventPairs.Length; i++ )
+				eventPairs[ i ].eventListener.OnDisable();
 		}
 
-        private void Awake()
-        {
-			event_listener.response = OnEventResponse;
+		private void Awake()
+		{
+			for( var i = 0; i < eventPairs.Length; i++ )
+				eventPairs[ i ].Pair();
 		}
 #endregion
 
@@ -38,10 +37,6 @@ namespace FFStudio
 #endregion
 
 #region Implementation
-        private void OnEventResponse()
-        {
-			unityEvent.Invoke();
-		}
 #endregion
 
 #region Editor Only
