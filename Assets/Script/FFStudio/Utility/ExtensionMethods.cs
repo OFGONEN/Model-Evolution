@@ -208,6 +208,24 @@ namespace FFStudio
 			return theVector;
 		}
 
+		public static Vector3 OffsetX( this Vector3 theVector, float deltaX )
+		{
+			theVector.x += deltaX;
+			return theVector;
+		}
+
+		public static Vector3 OffsetY( this Vector3 theVector, float deltaY )
+		{
+			theVector.y += deltaY;
+			return theVector;
+		}
+
+		public static Vector3 OffsetZ( this Vector3 theVector, float deltaZ )
+		{
+			theVector.z += deltaZ;
+			return theVector;
+		}
+
 		public static float ComponentSum( this Vector3 theVector )
 		{
 			return theVector.x + theVector.y + theVector.z;
