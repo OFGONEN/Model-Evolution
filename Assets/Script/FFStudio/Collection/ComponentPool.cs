@@ -1,15 +1,15 @@
 /* Created by and for usage of FF Studios (2021). */
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections.Generic;
+using Sirenix.OdinInspector;
 
 namespace FFStudio
 {
 	public abstract class ComponentPool< T > : RunTimeStack< T > where T: Component
 	{
-		#region Fields
-		public T pool_entity;
+#region Fields
+		[ AssetSelector ] public T pool_entity;
 
 		private Transform pool_parent;
 		private bool pool_active;
