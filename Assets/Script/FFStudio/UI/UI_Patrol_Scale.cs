@@ -46,7 +46,6 @@ namespace FFStudio
 
         public Tween DoScale_Start( float duration )
         {
-			FFLogger.Log( "StartScale: " + ui_StartScale );
 			recycledTween.Recycle( 
 				ui_rectTransform.DOScale( ui_StartScale, duration ),
 			 	OnTweenComplete );
