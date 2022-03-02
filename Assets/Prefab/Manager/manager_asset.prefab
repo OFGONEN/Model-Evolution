@@ -11,11 +11,11 @@ GameObject:
   - component: {fileID: 4364745634903858525}
   - component: {fileID: 4364745634903858524}
   m_Layer: 0
-  m_Name: manager_assetHolder
+  m_Name: manager_asset
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4364745634903858525
 Transform:
