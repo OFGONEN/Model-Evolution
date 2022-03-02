@@ -56,8 +56,8 @@ namespace FFEditor
 			for( var i = 1; i <= maxLevelCount; i++ )
 			{
 				var levelData = Resources.Load< LevelData >( "level_data_" + i );
-                levelData.sceneIndex++;
-                EditorUtility.SetDirty( levelData );
+				levelData.sceneIndex = i + 1;
+				EditorUtility.SetDirty( levelData );
 			}
 
 			AssetDatabase.SaveAssets();
