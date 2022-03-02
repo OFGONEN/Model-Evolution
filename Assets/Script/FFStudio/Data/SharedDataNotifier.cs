@@ -34,7 +34,10 @@ namespace FFStudio
 #endregion
 
 #region Unity API
-
+		private void OnValidate()
+		{
+			changeEvent?.Invoke();
+		}
 #endregion
 
 #region API
