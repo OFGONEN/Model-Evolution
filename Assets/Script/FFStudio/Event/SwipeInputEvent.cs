@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace FFStudio
 {
-    [ CreateAssetMenu( fileName = "SwipeInputEvent", menuName = "FF/Event/Input/SwipeInputEvent" ) ]
+    [ CreateAssetMenu( fileName = "event_", menuName = "FF/Event/Input/SwipeInputEvent" ) ]
     public class SwipeInputEvent : Vector2GameEvent
     {
         public float angleThreshold;

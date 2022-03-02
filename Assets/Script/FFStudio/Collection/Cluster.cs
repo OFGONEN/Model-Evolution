@@ -6,11 +6,11 @@ using UnityEngine;
 
 namespace FFStudio
 {
-	[CreateAssetMenu( fileName = "cluster", menuName = "FF/Data/Cluster" )]
+	[ CreateAssetMenu( fileName = "cluster_", menuName = "FF/Data/Cluster" ) ]
 	public class Cluster : ScriptableObject
 	{
 		public int cluster_count;
-		private Dictionary<int, IClusterEntity> cluster_entities;
+		private Dictionary< int, IClusterEntity > cluster_entities;
 
 		public void Init()
 		{

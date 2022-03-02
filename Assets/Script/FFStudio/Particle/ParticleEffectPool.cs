@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace FFStudio
 {
-	[ CreateAssetMenu( fileName = "ParticlePool", menuName = "FF/Data/Pool/ParticlePool" ) ]
+	[ CreateAssetMenu( fileName = "pool_pfx_", menuName = "FF/Data/Pool/ParticlePool" ) ]
 	public class ParticleEffectPool : ComponentPool< ParticleEffect >
 	{
 		private ParticleEffectStopped initial_delegate;

@@ -6,7 +6,7 @@ using Sirenix.OdinInspector;
 
 namespace FFStudio
 {
-	[ CreateAssetMenu( fileName = "GameEvent", menuName = "FF/Event/GameEvent" ) ]
+	[ CreateAssetMenu( fileName = "event_", menuName = "FF/Event/GameEvent" ) ]
 	public class GameEvent : ScriptableObject
 	{
 #region Fields

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace FFStudio
 {
-	[ CreateAssetMenu( fileName = "ParticleGameEvent", menuName = "FF/Event/ParticleGameEvent" ) ]
+	[ CreateAssetMenu( fileName = "event_pfx_spawn", menuName = "FF/Event/ParticleGameEvent" ) ]
 	public class ParticleSpawnEvent : GameEvent
 	{
 		public string particle_alias;

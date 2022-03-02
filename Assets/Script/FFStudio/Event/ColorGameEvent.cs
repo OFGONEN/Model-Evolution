@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace FFStudio
 {
-	[ CreateAssetMenu( fileName = "ColorGameEvent", menuName = "FF/Event/ColorGameEvent" ) ]
+	[ CreateAssetMenu( fileName = "event_", menuName = "FF/Event/ColorGameEvent" ) ]
 	public class ColorGameEvent : GameEvent
 	{
 		public Color eventValue;

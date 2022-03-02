@@ -3,7 +3,7 @@
 using UnityEngine;
 using FFStudio;
 
-[ CreateAssetMenu( fileName = "shared_input_joystick", menuName = "FF/Data/Shared/Input/JoyStick" ) ]
+[ CreateAssetMenu( fileName = "notif_input_joystick", menuName = "FF/Data/Shared/Input/JoyStick" ) ]
 public class SharedInput_JoyStick : SharedVector2Notifier
 {
 #region Fields (Public)
