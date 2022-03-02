@@ -4,6 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 using Sirenix.OdinInspector;
 using System.Collections;
+using Shapes;
 
 namespace FFStudio
 {
@@ -12,22 +13,25 @@ namespace FFStudio
         public enum RotationMode { Local, World }
         
 #region Fields (Inspector Interface)
-        [ TitleGroup( "Parameters" ), SuffixLabel( "Degrees (°)" ) ]                    public float deltaAngle;
-        [ TitleGroup( "Parameters" ), SuffixLabel( "Degrees/Second (°/s)" ), Min( 0 ) ] public float angularSpeedInDegrees;
-        [ TitleGroup( "Parameters" ) ]                                                  public RotationMode rotationMode;
-        [ TitleGroup( "Parameters" ), ValueDropdown( "VectorValues" ), LabelText( "Rotate Around" ) ]
-            public Vector3 rotationAxisMaskVector = Vector3.right;
+    [ Title( "Parameters" ) ]
+        [ SuffixLabel( "Degrees (°)" ) ] public float deltaAngle;
+        [ SuffixLabel( "Degrees/Seconds (°/s)" ), Min( 0 ) ] public float angularSpeedInDegrees;
+        public RotationMode rotationMode;
+        [ ValueDropdown( "VectorValues" ), LabelText( "Rotate Around" ) ] public Vector3 rotationAxisMaskVector = Vector3.right;
         
-        [ TitleGroup( "Start Options" ) ]                       public bool playOnStart;
-		[ TitleGroup( "Start Options" ) ]                       public bool hasDelay;
-        [ TitleGroup( "Start Options" ), ShowIf( "hasDelay" ) ] public float delayAmount;
+    [ Title( "Start Options" ) ]
+        public bool playOnStart;
+		public bool hasDelay;
+        [ ShowIf( "hasDelay" ) ] public float delayAmount;
         
-        [ TitleGroup( "Tween" ), DisableIf( "IsPlaying" ) ] public bool loop;
-        [ TitleGroup( "Tween" ), ShowIf( "loop" ) ]         public LoopType loopType = LoopType.Restart;
-        [ TitleGroup( "Tween" ) ]                           public Ease easing = Ease.Linear;
+    [ Title( "Tween" ) ]
+        [ DisableIf( "IsPlaying" ) ] public bool loop;
+        [ ShowIf( "loop" ) ] public LoopType loopType = LoopType.Restart;
+        public Ease easing = Ease.Linear;
         
-        [ TitleGroup( "Event Flow" ), SerializeField ] private MultipleEventListenerDelegateResponse triggeringEvents;
-        [ TitleGroup( "Event Flow" ) ] public GameEvent[] fireTheseOnComplete;
+    [ Title( "Event Flow" ) ]
+        [ SerializeField ] private MultipleEventListenerDelegateResponse triggeringEvents;
+        [ SerializeField ] private GameEvent[] fireTheseOnComplete;
 #endregion
 
 #region Fields (Private)
@@ -61,7 +65,9 @@ namespace FFStudio
         private void Awake()
         {
             triggeringEvents.response = EventResponse;
-        }
+
+			IsPlaying = false;
+		}
 
         private void Start()
         {
@@ -139,14 +145,12 @@ namespace FFStudio
 
         private void CreateAndStartTween()
         {
-			/* Since we use SetRelative + RotateMode.FastBeyond360 combo, we need to specify a delta instead of end value. */
-
 			if( rotationMode == RotationMode.Local )
-			    tween = transform.DOLocalRotate( rotationAxisMaskVector * deltaAngle, Duration );
+			    tween = transform.DOLocalRotate( rotationAxisMaskVector * deltaAngle, Duration, RotateMode.LocalAxisAdd );
             else
-                tween = transform.DORotate( rotationAxisMaskVector * deltaAngle, Duration );
+                tween = transform.DORotate( rotationAxisMaskVector * deltaAngle, Duration, RotateMode.WorldAxisAdd );
                 
-            tween.SetRelative()
+            tween // Don't need to set SetRelative() as RotateMode.XXXAxisAdd automatically means relative end value.
                  .SetEase( easing )
                  .SetLoops( loop ? -1 : 0, loopType )
                  .OnComplete( TweenComplete );
@@ -160,7 +164,6 @@ namespace FFStudio
 
             for( var i = 0; i < fireTheseOnComplete.Length; i++ )
 				fireTheseOnComplete[ i ].Raise();
-
 		}
 
         private void KillTween()
@@ -170,6 +173,60 @@ namespace FFStudio
             tween.Kill();
             tween = null;
         }
+#endregion
+
+#region EditorOnly
+#if UNITY_EDITOR
+        private float currentStartAngle_editor;
+		private float currentEndAngle_editor;
+		private Vector3 currentStartVector_editor, currentEndVector_editor;
+
+		private void OnDrawGizmos()
+		{
+			var deltaAngle_radians = Mathf.Deg2Rad * deltaAngle;
+			var radius = 1.0f;
+
+			if( Application.isPlaying == false || IsPlaying == false )
+            {
+				currentStartAngle_editor = Vector3.Dot( transform.rotation.eulerAngles, rotationAxisMaskVector ) * Mathf.Deg2Rad;
+				currentEndAngle_editor   = currentStartAngle_editor + deltaAngle_radians;
+
+				var startToEndRotation = Quaternion.AngleAxis( deltaAngle, rotationAxisMaskVector );
+
+				if( rotationAxisMaskVector == Vector3.right )
+					currentStartVector_editor = -transform.forward;
+				else if( rotationAxisMaskVector == Vector3.up )
+					currentStartVector_editor = transform.right;
+				else if( rotationAxisMaskVector == Vector3.forward )
+					currentStartVector_editor = transform.right;
+				else
+					return;
+
+				currentEndVector_editor = startToEndRotation * currentStartVector_editor;
+			}
+            else
+            {
+				if( rotationAxisMaskVector == Vector3.right )
+					Draw.Sphere( transform.position - transform.forward * radius, 0.1f, Color.green );
+				else if( rotationAxisMaskVector == Vector3.up )
+					Draw.Sphere( transform.position + transform.right * radius, 0.1f, Color.green );
+				else if( rotationAxisMaskVector == Vector3.forward )
+					Draw.Sphere( transform.position + transform.right * radius, 0.1f, Color.green );
+            }
+
+			var startPos = transform.position + currentStartVector_editor * radius;
+			var endPos   = transform.position + currentEndVector_editor * radius;
+
+			Draw.Sphere( startPos, 0.1f );
+            
+			Draw.ArcDashed( transform.position, rotationAxisMaskVector, currentStartAngle_editor, currentEndAngle_editor );
+
+			var arrowDirection = Vector3.Cross( rotationAxisMaskVector, currentEndVector_editor ).normalized;
+			Draw.Cone( endPos, arrowDirection, 0.1f, 0.2f, Color.red );
+            
+            // TODO: Fix X axis problem: Arc is not "in-sync" with start and end Spheres.
+		}
+#endif
 #endregion
     }
 }
