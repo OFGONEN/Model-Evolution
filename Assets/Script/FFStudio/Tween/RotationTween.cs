@@ -180,11 +180,23 @@ namespace FFStudio
         private float currentStartAngle_editor;
 		private float currentEndAngle_editor;
 		private Vector3 currentStartVector_editor, currentEndVector_editor;
+		private Renderer renderer_editor;
+        
+        private void OnValidate()
+        {
+			renderer_editor = GetComponentInChildren< Renderer >();
+        }
 
 		private void OnDrawGizmos()
 		{
 			var deltaAngle_radians = Mathf.Deg2Rad * deltaAngle;
 			var radius = 1.0f;
+
+			if( renderer_editor )
+			{
+				Vector3 rotationPlaneExtents = Vector3.Scale( renderer_editor.bounds.extents, Vector3.one - rotationAxisMaskVector );
+				radius = rotationPlaneExtents.magnitude * 1.5f;
+			}
 
 			if( Application.isPlaying == false || IsPlaying == false )
             {
@@ -219,7 +231,7 @@ namespace FFStudio
 
 			Draw.Sphere( startPos, 0.1f );
             
-			Draw.ArcDashed( transform.position, rotationAxisMaskVector, currentStartAngle_editor, currentEndAngle_editor );
+			Draw.ArcDashed( transform.position, rotationAxisMaskVector, radius, currentStartAngle_editor, currentEndAngle_editor );
 
 			var arrowDirection = Vector3.Cross( rotationAxisMaskVector, currentEndVector_editor ).normalized;
 			Draw.Cone( endPos, arrowDirection, 0.1f, 0.2f, Color.red );
