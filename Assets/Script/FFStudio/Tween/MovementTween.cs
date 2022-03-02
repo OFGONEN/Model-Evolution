@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEditor;
 using Sirenix.OdinInspector;
 using DG.Tweening;
+using Shapes;
 
 namespace FFStudio
 {
@@ -27,24 +28,22 @@ namespace FFStudio
 		
 		[ TitleGroup( "Event Flow" ), SerializeField ] private MultipleEventListenerDelegateResponse triggeringEvents;
 		[ TitleGroup( "Event Flow" ) ] public GameEvent[] fireTheseOnComplete;
+		[ TitleGroup( "Event Flow" ) ] public bool hasDelay_beforeEvents;
+		[ TitleGroup( "Event Flow" ), ShowIf( "hasDelay_beforeEvents" ) ] public float delayAmount_beforeEvents;
 #endregion
 
 #region Fields (Private)
 		private Vector3 startPosition;
 		private Vector3 targetPosition;
 		private Tween tween;
-		private float Duration 
-		{
-			get 
-			{
-				return Mathf.Abs( deltaPosition.magnitude / velocity );
-			}
-		}
+		private float Duration => Mathf.Abs( deltaPosition.magnitude / velocity );
 #endregion
 
 #region Properties (Public)
         [ field: SerializeField, ReadOnly ]
         public bool IsPlaying { get; private set; }
+		
+		public Tween Tween => tween;
 #endregion
 
 #region Unity API
@@ -100,6 +99,17 @@ namespace FFStudio
 
 			IsPlaying = true;
 		}
+		
+		[ Button() ]
+		public void PlayBackwards()
+		{
+			if( tween == null )
+				CreateAndStartTween( true /* reversed. */ );
+			else
+				tween.Play();
+
+			IsPlaying = true;
+		}
 
 		[ Button(), EnableIf( "IsPlaying" ) ]
 		public void Pause()
@@ -140,21 +150,30 @@ namespace FFStudio
 #region Implementation
 		private void EventResponse()
 		{
-			DOVirtual.DelayedCall( delayAmount, Play );
+			if( hasDelay_beforeEvents )
+				DOVirtual.DelayedCall( delayAmount, Play );
+			else
+				Play();
 		}
 
-		private void CreateAndStartTween()
+		private void CreateAndStartTween( bool isReversed = false )
 		{
 			if( movementMode == MovementMode.Local )
-				tween = transform.DOLocalMove( deltaPosition, Duration );
+				tween = transform.DOLocalMove( isReversed ? -deltaPosition : deltaPosition, Duration );
 			else
-				tween = transform.DOMove( deltaPosition, Duration );
+				tween = transform.DOMove( isReversed ? -deltaPosition : deltaPosition, Duration );
 
-			tween.SetRelative()
-				 .SetEase( easing )
-                 .SetLoops( loop ? -1 : 0, loopType )
-                 .OnComplete( TweenComplete );
-        }
+			tween
+				.SetRelative()
+				.SetLoops( loop ? -1 : 0, loopType )
+				.SetEase( easing )
+				.OnComplete( TweenComplete );
+
+#if UNITY_EDITOR
+			tween.SetId( name + "_ff_rotation_tween" );
+#endif
+		}
+		
         private void TweenComplete()
         {
 			IsPlaying = false;
@@ -180,8 +199,6 @@ namespace FFStudio
 		{
 			Vector3 startPos = startPosition;
 
-			Handles.color = Color.green;
-
 			if( Application.isPlaying )
 			{
 				if( movementMode == MovementMode.Local && transform.parent != null )
@@ -190,12 +207,13 @@ namespace FFStudio
 			else
 				startPos = transform.position;
 
-			Handles.DrawSolidDisc( startPos, Vector3.up, 0.25f );
-			Handles.DrawSolidDisc( startPos + deltaPosition, Vector3.up, 0.25f );
-			Handles.DrawDottedLine( startPos, startPos + deltaPosition, 10 );
-
-			Handles.color = Color.blue;
-			Handles.DrawSolidDisc( transform.position, Vector3.up, 0.125f );
+			Color color = new Color( 1.0f, 0.75f, 0.0f );
+			Draw.LineDashed( startPos, startPos + deltaPosition, new DashStyle( 1 ), 0.125f, LineEndCap.None, color );
+			var direction = deltaPosition.normalized;
+			var deltaMagnitude = deltaPosition.magnitude;
+			var coneLength = 0.2f;
+			var conePos = Vector3.Lerp( startPos, startPos + deltaPosition, 1.0f - coneLength / deltaMagnitude );
+			Draw.Cone( conePos, deltaPosition.normalized, 0.2f, 0.2f, color );
 		}
 #endif
 #endregion
