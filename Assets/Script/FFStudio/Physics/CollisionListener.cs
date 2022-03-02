@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace FFStudio
 {
-	public class CollisionListener : ColliderListener< CollisionMessage, Collision >
+	public abstract class CollisionListener : ColliderListener< CollisionMessage, Collision >
 	{
 #region Fields (Private)
 		private event CollisionMessage collisionEvent;

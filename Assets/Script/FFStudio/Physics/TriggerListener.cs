@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace FFStudio
 {
-	public class TriggerListener : ColliderListener< TriggerMessage, Collider >
+	public abstract class TriggerListener : ColliderListener< TriggerMessage, Collider >
 	{
 #region Fields (Private)
 		private event TriggerMessage triggerEvent;
