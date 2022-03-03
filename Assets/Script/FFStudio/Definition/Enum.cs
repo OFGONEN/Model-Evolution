@@ -14,4 +14,12 @@ namespace FFStudio
         Vector3_Y,
         Vector3_Z
     }
+
+	public enum AnimationParameterType
+	{
+		Trigger,
+		Bool,
+		Int,
+		Float
+	}
 }

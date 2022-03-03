@@ -9,7 +9,7 @@ namespace FFStudio
 	public class ColorSetter : MonoBehaviour
 	{
 #region Fields (Inspector Interface)
-		[TitleGroup( "Setup" ), SerializeField] private Color color;
+		[ TitleGroup( "Setup" ), SerializeField ] private Color color;
 #endregion
 
 #region Fields (Private)
