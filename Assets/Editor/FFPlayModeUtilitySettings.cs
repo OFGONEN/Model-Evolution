@@ -36,7 +36,7 @@ namespace FFEditor
 			var scene_count = SceneManager.sceneCountInBuildSettings;
 
 			for( var i = 0; i < scene_count; i++ )
-				list.Add( Path.GetFileNameWithoutExtension( SceneUtility.GetScenePathByBuildIndex( i ) ), i );
+				list.Add( Path.GetFileNameWithoutExtension( SceneUtility.GetScenePathByBuildIndex( i ) ) + $" ({i})", i );
 
 			return list;
 		}
