@@ -1,7 +1,7 @@
 /* Created by and for usage of FF Studios (2021). */
 
 using UnityEngine;
-using UnityEditor;
+using UnityEngine.Events;
 using Sirenix.OdinInspector;
 using DG.Tweening;
 using Shapes;
@@ -31,7 +31,8 @@ namespace FFStudio
 		
 	[ Title( "Event Flow" ) ]
 		[ SerializeField ] private MultipleEventListenerDelegateResponse triggeringEvents;
-		public GameEvent[] fireTheseOnComplete;
+		public GameEvent[] events_firedOnComplete;
+		public UnityEvent unityEvents_firedOnComplete;
 		public bool hasDelay_beforeEvents;
 		[ ShowIf( "hasDelay_beforeEvents" ) ] public float delayAmount_beforeEvents;
 #endregion
@@ -184,8 +185,10 @@ namespace FFStudio
 
 			KillTween();
 
-            for( var i = 0; i < fireTheseOnComplete.Length; i++ )
-				fireTheseOnComplete[ i ].Raise();
+            for( var i = 0; i < events_firedOnComplete.Length; i++ )
+				events_firedOnComplete[ i ].Raise();
+
+			unityEvents_firedOnComplete.Invoke();
 		}
 
 		private void KillTween()
