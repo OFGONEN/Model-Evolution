@@ -47,7 +47,7 @@ namespace FFStudio
 #region Implementation
         private void LevelLoadedResponse()
         {
-			levelProgress.SharedValue = 0;
+			levelProgress.SetValue_NotifyAlways( 0 );
 
 			var levelData = CurrentLevelData.Instance.levelData;
 
