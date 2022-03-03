@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: level_data_1
   m_EditorClassIdentifier: 
   scene_index: 1
-  overrideAsActiveScene: 0
+  scene_overrideAsActiveScene: 0

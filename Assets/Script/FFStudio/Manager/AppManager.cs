@@ -1,6 +1,7 @@
 /* Created by and for usage of FF Studios (2021). */
 
 using System.Collections;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,15 +10,12 @@ namespace FFStudio
 	public class AppManager : MonoBehaviour
 	{
 #region Fields
-		[ Header( "Event Listeners" ) ]
+	[ Title( "Event Listeners" ) ]
 		public EventListenerDelegateResponse loadNewLevelListener;
 		public EventListenerDelegateResponse resetLevelListener;
 
-		[ Header( "Fired Events" ) ]
+	[ Title( "Fired Events" ) ]
 		public GameEvent levelLoaded;
-		public GameEvent cleanUpEvent;
-
-		[ Header( "Fired Events" ) ]
 		public SharedFloatNotifier levelProgress;
 #endregion
 
@@ -63,7 +61,6 @@ namespace FFStudio
 
 			CurrentLevelData.Instance.LoadCurrentLevelData();
 
-			cleanUpEvent.Raise();
 			// SceneManager.LoadScene( CurrentLevelData.Instance.levelData.sceneIndex, LoadSceneMode.Additive );
 			var operation = SceneManager.LoadSceneAsync( CurrentLevelData.Instance.levelData.scene_index, LoadSceneMode.Additive );
 
