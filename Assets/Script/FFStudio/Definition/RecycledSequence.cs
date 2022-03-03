@@ -7,6 +7,8 @@ namespace FFStudio
 		private UnityMessage onComplete;
 		private Sequence sequence;
 
+		public Sequence Sequence => sequence;
+
 		public Sequence Recycle( UnityMessage onComplete )
 		{
 			sequence = sequence.KillProper();
@@ -15,6 +17,10 @@ namespace FFStudio
 
 			sequence = DOTween.Sequence();
 			sequence.OnComplete( OnComplete_Safe );
+
+#if UNITY_EDITOR
+			sequence.SetId( "_ff_RecycledSequence" );
+#endif
 
 			return sequence;
 		}
@@ -25,6 +31,11 @@ namespace FFStudio
 
 			sequence = DOTween.Sequence();
 			sequence.OnComplete( OnComplete_Safe );
+
+#if UNITY_EDITOR
+			sequence.SetId( "_ff_RecycledSequence" );
+#endif
+			
 			return sequence;
 		}
 

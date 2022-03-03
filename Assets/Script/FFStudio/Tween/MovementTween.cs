@@ -38,17 +38,18 @@ namespace FFStudio
 #endregion
 
 #region Fields (Private)
+		private RecycledTween recycledTween = new RecycledTween();
+		private float Duration => Mathf.Abs( deltaPosition.magnitude / velocity );
+		
 		private Vector3 startPosition;
 		private Vector3 targetPosition;
-		private Tween tween;
-		private float Duration => Mathf.Abs( deltaPosition.magnitude / velocity );
 #endregion
 
 #region Properties (Public)
         [ field: SerializeField, ReadOnly ]
         public bool IsPlaying { get; private set; }
 		
-		public Tween Tween => tween;
+		public Tween Tween => recycledTween.Tween;
 #endregion
 
 #region Unity API
@@ -97,10 +98,10 @@ namespace FFStudio
 		[ Button() ]
 		public void Play()
 		{
-			if( tween == null )
+			if( recycledTween.Tween == null )
 				CreateAndStartTween();
 			else
-				tween.Play();
+				recycledTween.Tween.Play();
 
 			IsPlaying = true;
 		}
@@ -108,10 +109,10 @@ namespace FFStudio
 		[ Button() ]
 		public void PlayBackwards()
 		{
-			if( tween == null )
+			if( recycledTween.Tween == null )
 				CreateAndStartTween( true /* reversed. */ );
 			else
-				tween.Play();
+				recycledTween.Tween.Play();
 
 			IsPlaying = true;
 		}
@@ -119,10 +120,10 @@ namespace FFStudio
 		[ Button(), EnableIf( "IsPlaying" ) ]
 		public void Pause()
 		{
-			if( tween == null )
+			if( recycledTween.Tween == null )
 				return;
 
-			tween.Pause();
+			recycledTween.Tween.Pause();
 
 			IsPlaying = false;
 		}
@@ -130,10 +131,10 @@ namespace FFStudio
 		[ Button(), EnableIf( "IsPlaying" ) ]
 		public void Stop()
 		{
-			if( tween == null )
+			if( recycledTween.Tween == null )
 				return;
 
-			tween.Rewind();
+			recycledTween.Tween.Rewind();
 
 			IsPlaying = false;
 		}
@@ -141,11 +142,11 @@ namespace FFStudio
 		[ Button(), EnableIf( "IsPlaying" ) ]
 		public void Restart()
 		{
-			if( tween == null )
+			if( recycledTween.Tween == null )
 				Play();
 			else
 			{
-				tween.Restart();
+				recycledTween.Tween.Restart();
 
 				IsPlaying = true;
 			}
@@ -164,26 +165,23 @@ namespace FFStudio
 		private void CreateAndStartTween( bool isReversed = false )
 		{
 			if( movementMode == MovementMode.Local )
-				tween = transform.DOLocalMove( isReversed ? -deltaPosition : deltaPosition, Duration );
+				recycledTween.Recycle( transform.DOLocalMove( isReversed ? -deltaPosition : deltaPosition, Duration ), OnTweenComplete );
 			else
-				tween = transform.DOMove( isReversed ? -deltaPosition : deltaPosition, Duration );
+				recycledTween.Recycle( transform.DOMove( isReversed ? -deltaPosition : deltaPosition, Duration ), OnTweenComplete );
 
-			tween
+			recycledTween.Tween
 				.SetRelative()
 				.SetLoops( loop ? -1 : 0, loopType )
-				.SetEase( easing )
-				.OnComplete( TweenComplete );
+				.SetEase( easing );
 
 #if UNITY_EDITOR
-			tween.SetId( name + "_ff_rotation_tween" );
+			recycledTween.Tween.SetId( name + "_ff_movement_tween" );
 #endif
 		}
 		
-        private void TweenComplete()
+        private void OnTweenComplete()
         {
 			IsPlaying = false;
-
-			KillTween();
 
             for( var i = 0; i < events_firedOnComplete.Length; i++ )
 				events_firedOnComplete[ i ].Raise();
@@ -195,8 +193,7 @@ namespace FFStudio
 		{
 			IsPlaying = false;
 
-			tween.Kill();
-			tween = null;
+			recycledTween.Kill();
 		}
 #endregion
 

@@ -35,7 +35,7 @@ namespace FFStudio
 #endregion
         
 #region Fields (Private)
-        private Sequence sequence;
+        private RecycledSequence recycledSequence = new RecycledSequence();
         private float Duration => Mathf.Abs( deltaAngle / angularSpeedInDegrees );
 
         private static IEnumerable VectorValues = new ValueDropdownList< Vector3 >()
@@ -49,6 +49,8 @@ namespace FFStudio
 #region Properties
         [ field: SerializeField, ReadOnly ]
         public bool IsPlaying { get; private set; }
+        
+        public Sequence Sequence => recycledSequence.Sequence;
 #endregion
 
 #region Unity API
@@ -91,10 +93,10 @@ namespace FFStudio
         [ Button() ]
         public void Play()
         {
-            if( sequence == null )
+            if( recycledSequence.Sequence == null )
                 CreateAndStartSequence();
             else
-                sequence.Play();
+                recycledSequence.Sequence.Play();
 
             IsPlaying = true;
         }
@@ -102,10 +104,10 @@ namespace FFStudio
         [ Button(), EnableIf( "IsPlaying" ) ]
         public void Pause()
         {
-            if( sequence == null )
+            if( recycledSequence.Sequence == null )
                 return;
 
-            sequence.Pause();
+            recycledSequence.Sequence.Pause();
 
             IsPlaying = false;
         }
@@ -113,10 +115,10 @@ namespace FFStudio
         [ Button(), EnableIf( "IsPlaying" ) ]
         public void Stop()
         {
-            if( sequence == null )
+            if( recycledSequence.Sequence == null )
                 return;
                 
-            sequence.Rewind();
+            recycledSequence.Sequence.Rewind();
 
             IsPlaying = false;
         }
@@ -124,11 +126,11 @@ namespace FFStudio
         [ Button(), EnableIf( "IsPlaying" ) ]
         public void Restart()
         {
-            if( sequence == null )
+            if( recycledSequence.Sequence == null )
                 Play();
             else
             {
-                sequence.Restart();
+                recycledSequence.Sequence.Restart();
 
                 IsPlaying = true;
             }
@@ -145,23 +147,20 @@ namespace FFStudio
         {
 			/* Since we use SetRelative + RotateMode.FastBeyond360 combo, we need to specify a delta instead of end value. */
 
-			sequence = DOTween.Sequence()
-							.Append( transform.DOLocalRotate( rotationAxisMaskVector * deltaAngle, Duration ).SetEase( easing ) )
-							.Append( transform.DOLocalRotate( rotationAxisMaskVector_Blade * 180.0f, 0.25f ).SetEase( easing ) )
-							.Append( transform.DOLocalRotate( rotationAxisMaskVector * deltaAngle, Duration ).SetEase( easing ) )
-							.Append( transform.DOLocalRotate( rotationAxisMaskVector_Blade * 180.0f, 0.25f ).SetEase( easing ) );
+			recycledSequence.Recycle( OnSequenceComplete )
+                .Append( transform.DOLocalRotate( rotationAxisMaskVector * deltaAngle, Duration ).SetEase( easing ) )
+                .Append( transform.DOLocalRotate( rotationAxisMaskVector_Blade * 180.0f, 0.25f ).SetEase( easing ) )
+                .Append( transform.DOLocalRotate( rotationAxisMaskVector * deltaAngle, Duration ).SetEase( easing ) )
+                .Append( transform.DOLocalRotate( rotationAxisMaskVector_Blade * 180.0f, 0.25f ).SetEase( easing ) );
 
-			sequence
+			recycledSequence.Sequence
 				.SetRelative()
-                .SetLoops( -1, LoopType.Restart )
-                .OnComplete( OnSequenceComplete );
-        }
+				.SetLoops( -1, LoopType.Restart );
+		}
 
         private void OnSequenceComplete()
         {
 			IsPlaying = false;
-
-			KillSequence();
 
             for( var i = 0; i < events_fireOnComplete.Length; i++ )
 				events_fireOnComplete[ i ].Raise();
@@ -173,8 +172,7 @@ namespace FFStudio
         {
             IsPlaying = false;
             
-            sequence.Kill();
-            sequence = null;
+            recycledSequence.Kill();
         }
 #endregion
     }

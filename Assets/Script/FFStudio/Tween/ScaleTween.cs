@@ -10,7 +10,7 @@ namespace FFStudio
 	public class ScaleTween : MonoBehaviour
 	{
 #region Fields (Inspector Interface)
-	 [ Title( "Parameters" ) ]
+	[ Title( "Parameters" ) ]
     	public Vector3 targetScale;
 		public float duration;
 
@@ -32,12 +32,14 @@ namespace FFStudio
 
 #region Fields (Inspector Interface)
 		private Vector3 startScale;
-		private Tween tween;
+		private RecycledTween recycledTween = new RecycledTween();
 #endregion
 
 #region Properties
         [ field: SerializeField, ReadOnly ]
         public bool IsPlaying { get; private set; }
+		
+		public Tween Tween => recycledTween.Tween;
 #endregion
 
 #region Unity API
@@ -82,10 +84,10 @@ namespace FFStudio
 		[ Button() ]
 		public void Play()
 		{
-			if( tween == null )
+			if( recycledTween.Tween == null )
 				CreateAndStartTween();
 			else
-				tween.Play();
+				recycledTween.Tween.Play();
 
 			IsPlaying = true;
 		}
@@ -93,10 +95,10 @@ namespace FFStudio
 		[ Button(), EnableIf( "IsPlaying" ) ]
 		public void Pause()
 		{
-			if( tween == null )
+			if( recycledTween.Tween == null )
 				return;
 
-			tween.Pause();
+			recycledTween.Tween.Pause();
 
 			IsPlaying = false;
 		}
@@ -104,10 +106,10 @@ namespace FFStudio
 		[ Button(), EnableIf( "IsPlaying" ) ]
 		public void Stop()
 		{
-			if( tween == null )
+			if( recycledTween.Tween == null )
 				return;
 
-			tween.Rewind();
+			recycledTween.Tween.Rewind();
 
 			IsPlaying = false;
 		}
@@ -115,11 +117,11 @@ namespace FFStudio
 		[ Button(), EnableIf( "IsPlaying" ) ]
 		public void Restart()
 		{
-			if( tween == null )
+			if( recycledTween.Tween == null )
 				Play();
 			else
 			{
-				tween.Restart();
+				recycledTween.Tween.Restart();
 
 				IsPlaying = true;
 			}
@@ -128,10 +130,10 @@ namespace FFStudio
 		[ Button() ]
 		public void Rewind()
 		{
-			if( tween == null )
+			if( recycledTween.Tween == null )
 				return;
 
-			tween.Rewind();
+			recycledTween.Tween.Rewind();
 
 			IsPlaying = false;
 		}
@@ -145,18 +147,19 @@ namespace FFStudio
 
 		private void CreateAndStartTween()
 		{
-			tween = transform.DOScale( targetScale, duration );
+			recycledTween.Recycle( transform.DOScale( targetScale, duration ), OnTweenComplete );
 
-			tween.SetEase( easing )
-                 .SetLoops( loop ? -1 : 0, loopType )
-                 .OnComplete( TweenComplete );
-        }
+			recycledTween.Tween.SetEase( easing )
+				 .SetLoops( loop ? -1 : 0, loopType );
+
+#if UNITY_EDITOR
+			recycledTween.Tween.SetId( name + "_ff_scale_tween" );
+#endif
+		}
 		
-        private void TweenComplete()
+        private void OnTweenComplete()
         {
 			IsPlaying = false;
-
-			KillTween();
 
             for( var i = 0; i < events_fireOnComplete.Length; i++ )
 				events_fireOnComplete[ i ].Raise();
@@ -168,8 +171,7 @@ namespace FFStudio
 		{
 			IsPlaying = false;
 
-			tween.Kill();
-			tween = null;
+			recycledTween.Kill();
 		}
 #endregion
 

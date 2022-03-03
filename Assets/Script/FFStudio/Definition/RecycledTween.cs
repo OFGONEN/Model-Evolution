@@ -17,6 +17,10 @@ namespace FFStudio
 			this.onComplete = onComplete;
 
 			tween.OnComplete( OnComplete_Safe );
+
+#if UNITY_EDITOR
+			tween.SetId( "_ff_RecycledTween" );
+#endif
 		}
 
 		public void Recycle( Tween tween_unsafe )
@@ -25,6 +29,10 @@ namespace FFStudio
 			tween = tween_unsafe;
 
 			tween.OnComplete( OnComplete_Safe );
+
+#if UNITY_EDITOR
+			tween.SetId( "_ff_RecycledTween" );
+#endif
 		}
 
 		public void Kill()
