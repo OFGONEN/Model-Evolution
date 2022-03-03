@@ -11,9 +11,9 @@ namespace FFStudio
     {
 #region Fields
         [ BoxGroup( "Setup" ), SerializeField ]
-        private SharedDataNotifierType sharedDataNotifier;
+        protected SharedDataNotifierType sharedDataNotifier;
 
-        private TextMeshProUGUI ui_Text; 
+        protected TextMeshProUGUI ui_Text; 
 #endregion
 
 #region Unity API
