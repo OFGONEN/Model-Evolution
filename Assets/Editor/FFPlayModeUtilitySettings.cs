@@ -2,6 +2,9 @@
 
 using UnityEngine;
 using Sirenix.OdinInspector;
+using System.Collections;
+using UnityEngine.SceneManagement;
+using System.IO;
 
 namespace FFEditor
 {
@@ -12,7 +15,7 @@ namespace FFEditor
 		[ Tooltip( "Scene to load whenever entering the play mode" ) ]
 		public bool useDefaultScene;
 
-		[ ShowIf( "useDefaultScene" ), NaughtyAttributes.Scene() ]
+		[ ShowIf( "useDefaultScene" ), ValueDropdown( "SceneList" ) ]
 		public int defaultSceneIndex = 0;
 #endregion
 
@@ -24,5 +27,19 @@ namespace FFEditor
 
 #region Implementation
 #endregion
+
+#if UNITY_EDITOR
+		private static IEnumerable SceneList()
+        {
+			var list = new ValueDropdownList< int >();
+
+			var scene_count = SceneManager.sceneCountInBuildSettings;
+
+			for( var i = 0; i < scene_count; i++ )
+				list.Add( Path.GetFileNameWithoutExtension( SceneUtility.GetScenePathByBuildIndex( i ) ), i );
+
+			return list;
+		}
+#endif
 	}
 }

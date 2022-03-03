@@ -52,7 +52,7 @@ namespace FFStudio
 #region Implementation
 		private void ResetLevel()
 		{
-			var operation = SceneManager.UnloadSceneAsync( CurrentLevelData.Instance.levelData.sceneIndex );
+			var operation = SceneManager.UnloadSceneAsync( CurrentLevelData.Instance.levelData.scene_index );
 			operation.completed += ( AsyncOperation operation ) => StartCoroutine( LoadLevel() );
 		}
 		
@@ -65,7 +65,7 @@ namespace FFStudio
 
 			cleanUpEvent.Raise();
 			// SceneManager.LoadScene( CurrentLevelData.Instance.levelData.sceneIndex, LoadSceneMode.Additive );
-			var operation = SceneManager.LoadSceneAsync( CurrentLevelData.Instance.levelData.sceneIndex, LoadSceneMode.Additive );
+			var operation = SceneManager.LoadSceneAsync( CurrentLevelData.Instance.levelData.scene_index, LoadSceneMode.Additive );
 
 			levelProgress.SharedValue = 0;
 
@@ -86,7 +86,7 @@ namespace FFStudio
 			PlayerPrefs.SetInt( "Level", CurrentLevelData.Instance.currentLevel_Real );
 			PlayerPrefs.SetInt( "Consecutive Level", CurrentLevelData.Instance.currentLevel_Shown );
 
-			var operation = SceneManager.UnloadSceneAsync( CurrentLevelData.Instance.levelData.sceneIndex );
+			var operation = SceneManager.UnloadSceneAsync( CurrentLevelData.Instance.levelData.scene_index );
 			operation.completed += ( AsyncOperation operation ) => StartCoroutine( LoadLevel() );
 		}
 #endregion

@@ -1,8 +1,8 @@
 /* Created by and for usage of FF Studios (2021). */
 
 using UnityEngine;
-using NaughtyAttributes;
 using TMPro;
+using Sirenix.OdinInspector;
 
 namespace FFStudio
 {

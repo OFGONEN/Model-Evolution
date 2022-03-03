@@ -52,7 +52,7 @@ namespace FFStudio
 			var levelData = CurrentLevelData.Instance.levelData;
 
             // Set Active Scene
-			if( levelData.overrideAsActiveScene )
+			if( levelData.scene_overrideAsActiveScene )
 				SceneManager.SetActiveScene( SceneManager.GetSceneAt( 1 ) );
             else
 				SceneManager.SetActiveScene( SceneManager.GetSceneAt( 0 ) );
