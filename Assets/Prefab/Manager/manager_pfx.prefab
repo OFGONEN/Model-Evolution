@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4684278216112045699}
   - component: {fileID: 4684278216112045696}
   m_Layer: 0
-  m_Name: manager_particle
+  m_Name: manager_pfx
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,6 +43,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 227cd4c92a59b224d9f99d9e97bf6358, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnParticleListener:
+  listener_pfx_spawn:
     gameEvent: {fileID: 11400000, guid: fe240f220ab36cc44923227184f9c2a7, type: 2}
-  particleEffectPools: []
+  listener_pfx_spawn_random:
+    gameEvent: {fileID: 11400000, guid: 0e566b9988b734020893e6b1049f50df, type: 2}
+  pools_pfx: []
+  pools_pfx_random: []

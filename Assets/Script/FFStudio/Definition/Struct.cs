@@ -29,10 +29,23 @@ namespace FFStudio
 	[Serializable]
 	public struct ParticleData
 	{
+		public ParticleSpawnEvent particle_event;
 		public string alias;
 		public bool parent;
 		public Vector3 offset;
 		public float size;
 	}
+
+	[Serializable]
+	public struct RandomParticlePool
+	{
+		public string alias;
+		public ParticleEffectPool[] particleEffectPools;
+
+		public ParticleEffect GiveRandomEntity()
+		{
+			return particleEffectPools.ReturnRandom<ParticleEffectPool>().GetEntity();
+		}
+	} 
 
 }

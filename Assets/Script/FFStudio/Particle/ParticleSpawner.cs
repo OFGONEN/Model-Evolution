@@ -11,8 +11,7 @@ namespace FFStudio
 	public class ParticleSpawner : MonoBehaviour
 	{
 #region Fields
-		[ BoxGroup( "Setup" ) ] public ParticleSpawnEvent particle_event;
-		[ BoxGroup( "Setup" ) ] public ParticleData[] particleDatas;
+		public ParticleData[] particleDatas;
 #endregion
 
 #region Properties
@@ -27,7 +26,7 @@ namespace FFStudio
 			var data = particleDatas[ index ];
 
 			Transform parent = data.parent ? transform : null;
-			particle_event.Raise( data.alias, transform.position + data.offset, parent, data.size );
+			data.particle_event.Raise( data.alias, transform.position + data.offset, parent, data.size );
 		}
 #endregion
 
