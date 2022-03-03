@@ -74,6 +74,8 @@ namespace FFStudio
         protected override void InvokeEvent( Collider other )
 		{
 			triggerEvent?.Invoke( other );
+
+			unityEvent.Invoke( other );
 		}
 #endregion
 

@@ -1,6 +1,7 @@
 /* Created by and for usage of FF Studios (2021). */
 
 using UnityEngine;
+using UnityEngine.Events;
 using Sirenix.OdinInspector;
 
 namespace FFStudio
@@ -12,6 +13,8 @@ namespace FFStudio
 
 		public Component AttachedComponent => attachedComponent;
 		public Collider AttachedCollider => attachedCollider;
+		
+		public UnityEvent< CallbackArgumentType > unityEvent;
 #endregion
 
 #region  Fields (Private)
