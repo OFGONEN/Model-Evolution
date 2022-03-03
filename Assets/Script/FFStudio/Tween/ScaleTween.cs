@@ -9,19 +9,23 @@ namespace FFStudio
 	public class ScaleTween : MonoBehaviour
 	{
 #region Fields (Inspector Interface)
-    	[ TitleGroup( "Parameters" ) ] public Vector3 targetScale;
-		[ TitleGroup( "Parameters" ) ] public float duration;
+	 [ Title( "Parameters" ) ]
+    	public Vector3 targetScale;
+		public float duration;
 
-    	[ TitleGroup( "Start Options" ) ] public bool playOnStart;
-		[ TitleGroup( "Start Options" ) ] public bool hasDelay;
-		[ TitleGroup( "Start Options" ), ShowIf( "hasDelay" ) ] public float delayAmount;
+	[ Title( "Start Options" ) ]
+    	public bool playOnStart;
+		public bool hasDelay;
+		[ ShowIf( "hasDelay" ) ] public float delayAmount;
 		
-    	[ TitleGroup( "Tween" ), DisableIf( "IsPlaying" ) ] public bool loop;
-		[ TitleGroup( "Tween" ), ShowIf( "loop" ) ] public LoopType loopType = LoopType.Restart;
-		[ TitleGroup( "Tween" ) ] public Ease easing = Ease.Linear;
+	[ Title( "Tween" ) ]
+    	[ DisableIf( "IsPlaying" ) ] public bool loop;
+		[ ShowIf( "loop" ) ] public LoopType loopType = LoopType.Restart;
+		Ease easing = Ease.Linear;
 		
-    	[ TitleGroup( "Event Flow" ), SerializeField ] private MultipleEventListenerDelegateResponse triggeringEvents;
-		[ TitleGroup( "Event Flow" ) ] public GameEvent[] fireTheseOnComplete;
+	[ Title( "Event Flow" ) ]
+    	[ SerializeField ] private MultipleEventListenerDelegateResponse triggeringEvents;
+		public GameEvent[] fireTheseOnComplete;
 #endregion
 
 #region Fields (Inspector Interface)

@@ -11,22 +11,25 @@ namespace FFStudio
     {
 #region Fields
         public enum RotationMode { Local, World }
+    [ Title( "Parameters" ) ]
+		[ SuffixLabel( "Degrees (°)", true ) ] public float deltaAngle;
+        [ SuffixLabel( "Degrees/Seconds (°/s)", true ), Min( 0 ) ] public float angularSpeedInDegrees;
+        public RotationMode rotationMode;
+        [ ValueDropdown( "VectorValues" ), LabelText( "Rotate Pendulum Around" ) ] public Vector3 rotationAxisMaskVector_Blade = Vector3.right;
 
-        [ TitleGroup( "Parameters" ), SuffixLabel( "Degrees (°)", true ) ] public float deltaAngle;
-        [ TitleGroup( "Parameters" ), SuffixLabel( "Degrees/Seconds (°/s)", true ), Min( 0 ) ] public float angularSpeedInDegrees;
-        [ TitleGroup( "Parameters" ) ] public RotationMode rotationMode;
-        [ TitleGroup( "Parameters" ), ValueDropdown( "VectorValues" ), LabelText( "Rotate Pendulum Around" ) ] public Vector3 rotationAxisMaskVector_Blade = Vector3.right;
-
-        [ TitleGroup( "Start Options" ) ] public bool playOnStart;
-        [ TitleGroup( "Start Options" ) ] public bool hasDelay;
-        [ TitleGroup( "Start Options" ), ShowIf( "hasDelay" ) ] public float delayAmount;
+    [ Title( "Start Options" ) ]
+        public bool playOnStart;
+        public bool hasDelay;
+        [ ShowIf( "hasDelay" ) ] public float delayAmount;
 
         [ ValueDropdown( "VectorValues" ), LabelText( "Rotate Around" ) ] public Vector3 rotationAxisMaskVector = Vector3.right;
 
-        [ TitleGroup( "Tween" ) ] public Ease easing = Ease.Linear;
+    [ Title( "Tween" ) ]
+        public Ease easing = Ease.Linear;
         
-        [ TitleGroup( "Event Flow" ), SerializeField ] private MultipleEventListenerDelegateResponse triggeringEvents;
-        [ TitleGroup( "Event Flow" ) ] public GameEvent[] fireTheseOnComplete;
+    [ Title( "Event Flow" ) ]
+        [ SerializeField ] private MultipleEventListenerDelegateResponse triggeringEvents;
+        public GameEvent[] fireTheseOnComplete;
 #endregion
         
 #region Fields (Private)

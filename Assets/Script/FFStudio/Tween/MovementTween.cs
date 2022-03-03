@@ -14,22 +14,26 @@ namespace FFStudio
 		
 #region Fields (Inspector Interface)
 
-		[ TitleGroup( "Parameters" ) ] public Vector3 deltaPosition;
-		[ TitleGroup( "Parameters" ) ] public float velocity;
-		[ TitleGroup( "Parameters" ) ] public MovementMode movementMode;
+	[ Title( "Parameters" ) ]
+		public Vector3 deltaPosition;
+		public float velocity;
+		public MovementMode movementMode;
 
-		[ TitleGroup( "Start Options" ) ] public bool playOnStart;
-		[ TitleGroup( "Start Options" ) ] public bool hasDelay;
-        [ TitleGroup( "Start Options" ), ShowIf( "hasDelay" ) ] public float delayAmount;
+	[ Title( "Start Options" ) ]
+		public bool playOnStart;
+		public bool hasDelay;
+        [ ShowIf( "hasDelay" ) ] public float delayAmount;
 		
-		[ TitleGroup( "Tween" ), DisableIf( "IsPlaying" ) ] public bool loop;
-        [ TitleGroup( "Tween" ), ShowIf( "loop" ) ] public LoopType loopType = LoopType.Restart;
-		[ TitleGroup( "Tween" ) ] public Ease easing = Ease.Linear;
+	[ Title( "Tween" ) ]
+		[ DisableIf( "IsPlaying" ) ] public bool loop;
+        [ ShowIf( "loop" ) ] public LoopType loopType = LoopType.Restart;
+		public Ease easing = Ease.Linear;
 		
-		[ TitleGroup( "Event Flow" ), SerializeField ] private MultipleEventListenerDelegateResponse triggeringEvents;
-		[ TitleGroup( "Event Flow" ) ] public GameEvent[] fireTheseOnComplete;
-		[ TitleGroup( "Event Flow" ) ] public bool hasDelay_beforeEvents;
-		[ TitleGroup( "Event Flow" ), ShowIf( "hasDelay_beforeEvents" ) ] public float delayAmount_beforeEvents;
+	[ Title( "Event Flow" ) ]
+		[ SerializeField ] private MultipleEventListenerDelegateResponse triggeringEvents;
+		public GameEvent[] fireTheseOnComplete;
+		public bool hasDelay_beforeEvents;
+		[ ShowIf( "hasDelay_beforeEvents" ) ] public float delayAmount_beforeEvents;
 #endregion
 
 #region Fields (Private)
