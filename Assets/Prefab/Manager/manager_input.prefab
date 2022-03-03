@@ -45,10 +45,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 702ac59cd07692945a08dfba8421ea74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  swipeInputEvent: {fileID: 11400000, guid: 098e32fbac85f404ba69e3d0dffc1fb1, type: 2}
-  screenPressEvent: {fileID: 11400000, guid: b7d2ab9da272b334fb2a66ca5bcc6fc8, type: 2}
-  tapInputEvent: {fileID: 11400000, guid: 182cfa2632cfdba49bfaf3471d114d23, type: 2}
-  mainCamera_ReferenceNotifier: {fileID: 11400000, guid: 488e798dd6f140e4a84fa7485b885dd3, type: 2}
+  event_input_swipe: {fileID: 11400000, guid: 098e32fbac85f404ba69e3d0dffc1fb1, type: 2}
+  event_input_screenPress: {fileID: 11400000, guid: b7d2ab9da272b334fb2a66ca5bcc6fc8, type: 2}
+  event_input_tap: {fileID: 11400000, guid: 182cfa2632cfdba49bfaf3471d114d23, type: 2}
+  notifier_reference_camera_main: {fileID: 11400000, guid: 488e798dd6f140e4a84fa7485b885dd3, type: 2}
 --- !u!114 &961601380926824722
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -2,45 +2,46 @@
 
 using UnityEngine;
 using Lean.Touch;
+using Sirenix.OdinInspector;
 
 namespace FFStudio
 {
     public class InputManager : MonoBehaviour
     {
-#region Fields
-		[ Header( "Fired Events" ) ]
-		public SwipeInputEvent swipeInputEvent;
-		public ScreenPressEvent screenPressEvent;
-		public IntGameEvent tapInputEvent;
+#region Fields (Inspector Interface)
+	[ Title( "Fired Events" ) ]
+		public SwipeInputEvent event_input_swipe;
+		public ScreenPressEvent event_input_screenPress;
+		public IntGameEvent event_input_tap;
 
-		[ Header( "Shared Variables" ) ]
-		public SharedReferenceNotifier mainCamera_ReferenceNotifier;
+	[ Title( "Shared Variables" ) ]
+		public SharedReferenceNotifier notifier_reference_camera_main;
+#endregion
 
-		// Privat fields
+#region Fields (Private)
 		private int swipeThreshold;
 
-		// Components
-		private Transform mainCamera_Transform;
-		private Camera mainCamera;
+		private Transform transform_camera_main;
+		private Camera camera_main;
 		private LeanTouch leanTouch;
 #endregion
 
 #region Unity API
 		private void OnEnable()
 		{
-			mainCamera_ReferenceNotifier.Subscribe( OnCameraReferenceChange );
+			notifier_reference_camera_main.Subscribe( OnCameraReferenceChange );
 		}
 
 		private void OnDisable()
 		{
-			mainCamera_ReferenceNotifier.Unsubscribe( OnCameraReferenceChange );
+			notifier_reference_camera_main.Unsubscribe( OnCameraReferenceChange );
 		}
 
 		private void Awake()
 		{
 			swipeThreshold = Screen.width * GameSettings.Instance.swipeThreshold / 100;
 
-			leanTouch         = GetComponent<LeanTouch>();
+			leanTouch         = GetComponent< LeanTouch >();
 			leanTouch.enabled = false;
 		}
 #endregion
@@ -48,31 +49,31 @@ namespace FFStudio
 #region API
 		public void Swiped( Vector2 delta )
 		{
-			swipeInputEvent.ReceiveInput( delta );
+			event_input_swipe.ReceiveInput( delta );
 		}
 		
 		public void Tapped( int count )
 		{
-			tapInputEvent.eventValue = count;
+			event_input_tap.eventValue = count;
 
-			tapInputEvent.Raise();
+			event_input_tap.Raise();
 		}
 #endregion
 
 #region Implementation
 		private void OnCameraReferenceChange()
 		{
-			var value = mainCamera_ReferenceNotifier.SharedValue;
+			var value = notifier_reference_camera_main.SharedValue;
 
 			if( value == null )
 			{
-				mainCamera_Transform = null;
+				transform_camera_main = null;
 				leanTouch.enabled = false;
 			}
 			else 
 			{
-				mainCamera_Transform = value as Transform;
-				mainCamera           = mainCamera_Transform.GetComponent< Camera >();
+				transform_camera_main = value as Transform;
+				camera_main           = transform_camera_main.GetComponent< Camera >();
 				leanTouch.enabled    = true;
 			}
 		}
