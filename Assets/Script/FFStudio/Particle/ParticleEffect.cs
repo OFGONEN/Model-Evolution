@@ -15,6 +15,8 @@ namespace FFStudio
 		private ParticleEffectPool particle_pool;
 		private ParticleEffectStopped particleEffectStopped;
 		private ParticleSystem particles;
+
+		private Vector3 particle_start_size;
 #endregion
 
 #region UnityAPI
@@ -37,6 +39,8 @@ namespace FFStudio
 			    mainParticle.playOnAwake = false;
 
 			level_finish_listener.response = OnParticleSystemStopped;
+
+			particle_start_size = transform.localScale;
 		}
 
 		private void OnParticleSystemStopped()
@@ -59,7 +63,7 @@ namespace FFStudio
 			gameObject.SetActive( true );
 			
 			transform.position   = particleEvent.particle_spawn_point;
-			transform.localScale = Vector3.one * particleEvent.particle_spawn_size;
+			transform.localScale = particle_start_size * particleEvent.particle_spawn_size;
 
 			if( particleEvent.particle_spawn_parent != null )
 				transform.SetParent( particleEvent.particle_spawn_parent );
