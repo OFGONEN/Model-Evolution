@@ -30,7 +30,6 @@ namespace FFStudio
 
 		[ BoxGroup( "UI PopUp Setting" ) ] public float ui_PopUp_height;
 		[ BoxGroup( "UI PopUp Setting" ) ] public float ui_PopUp_duration;
-		[ BoxGroup( "UI PopUp Setting" ) ] public Color ui_PopUp_color;
 
         [ BoxGroup( "Debug" ) ] public float debug_ui_text_float_height;
         [ BoxGroup( "Debug" ) ] public float debug_ui_text_float_duration;

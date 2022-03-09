@@ -10,6 +10,8 @@ public class UIPopUpText : MonoBehaviour
 #region Fields
     private UI_Float ui_float; 
     private UI_Fade_Text ui_text; 
+
+	private Vector3 ui_start_scale;
 #endregion
 
 #region Properties
@@ -20,11 +22,13 @@ public class UIPopUpText : MonoBehaviour
     {
         ui_float = GetComponentInChildren< UI_Float >();
         ui_text  = GetComponentInChildren< UI_Fade_Text >();
-    }
+
+		ui_start_scale = ui_float.UI_RectTransform.localScale;
+	}
 #endregion
 
 #region API
-	public void Spawn( Vector3 position, string text )
+	public void Spawn( Vector3 position, string text, float size, Color color )
 	{
 		gameObject.SetActive( true );
 		transform.position = position;
@@ -34,15 +38,11 @@ public class UIPopUpText : MonoBehaviour
 
 		ui_text.DoFade( 0, GameSettings.Instance.ui_PopUp_duration );
 
-		ui_text.UI_Text.text  = text;
-		ui_text.UI_Text.color = GameSettings.Instance.ui_PopUp_color;
-	} 
+		ui_float.UI_RectTransform.localScale = ui_start_scale + Vector3.one * size;
 
-	public void Spawn( Vector3 position, string text, Color color )
-	{
-		Spawn( position, text );
+		ui_text.UI_Text.text  = text;
 		ui_text.UI_Text.color = color;
-	}
+	} 
 #endregion
 
 #region Implementation

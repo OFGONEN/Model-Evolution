@@ -23,6 +23,5 @@ MonoBehaviour:
   swipeThreshold: 2
   ui_PopUp_height: 1
   ui_PopUp_duration: 1
-  ui_PopUp_color: {r: 0.254717, g: 0.254717, b: 0.254717, a: 1}
   debug_ui_text_float_height: 1
   debug_ui_text_float_duration: 1
