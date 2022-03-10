@@ -297,6 +297,26 @@ namespace FFStudio
             currentRender.bones = targetModelBones.ToArray();
         }
 
+		public static async void UpdateSkinnedMeshRenderer( this GameObject gameObject, SkinnedMeshRenderer currentRenderer, Transform rootBone, DressData data )
+		{
+			currentRenderer.sharedMesh      = data.dress_mesh;
+			currentRenderer.sharedMaterials = data.dress_sharedMaterials;
+			currentRenderer.localBounds     = data.dress_localBounds;
+
+			baseModelBones.Clear();
+			targetModelBones.Clear();
+
+			gameObject.GetComponentsInChildren< Transform >( true, baseModelBones );
+
+			for( int boneOrder = 0; boneOrder < data.dress_bone_names.Length; boneOrder++ )
+			{
+				targetModelBones.Add( baseModelBones.Find( c => c.name == data.dress_bone_names[ boneOrder ] ) );
+			}
+
+			currentRenderer.rootBone = rootBone;
+			currentRenderer.bones    = targetModelBones.ToArray();
+		}
+
 		public static void SetFieldValue( this object source, string fieldName, string value )
 		{
 				var fieldInfo = source.GetType().GetField( fieldName );

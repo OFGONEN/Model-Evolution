@@ -13,7 +13,8 @@ public class DressData : ScriptableObject
 	public Bounds dress_localBounds;
 	public Mesh dress_mesh;
 
-    public bool override_top;
+	public bool isAccessory;
+	public bool override_top;
     public bool override_bottom;
     public bool override_shoe;
 }
