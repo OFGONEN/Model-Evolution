@@ -2,6 +2,7 @@
 
 using UnityEngine;
 using Sirenix.OdinInspector;
+using DG.Tweening;
 
 namespace FFStudio
 {
@@ -31,8 +32,18 @@ namespace FFStudio
 		[ BoxGroup( "UI PopUp Setting" ) ] public float ui_PopUp_height;
 		[ BoxGroup( "UI PopUp Setting" ) ] public float ui_PopUp_duration;
 
+		[ BoxGroup( "Movement" ) ] public Ease movement_path_ease;
+		[ BoxGroup( "Movement" ) ] public float movement_clampDistance;
+		[ BoxGroup( "Movement" ) ] public float movement_speed_forward;
+		[ BoxGroup( "Movement" ) ] public float movement_speed_lateral;
+		[ BoxGroup( "Movement" ) ] public float movement_speed_forward_increase;
+
         [ BoxGroup( "Debug" ) ] public float debug_ui_text_float_height;
         [ BoxGroup( "Debug" ) ] public float debug_ui_text_float_duration;
+#endregion
+
+#region Properties
+        public float IncreaseSpeedCofactor => movement_speed_forward_increase / movement_speed_forward;
 #endregion
 
 #region Implementation
