@@ -41,6 +41,7 @@ public class Movement : MonoBehaviour
 		movement_tween = transform.DOPath( movement_points, GameSettings.Instance.movement_speed_forward, PathType.CatmullRom )
 			.SetEase( GameSettings.Instance.movement_path_ease )
             .SetLookAt( 0 , false )
+            .OnComplete( StopPath )
 			.SetSpeedBased();
 
 		movement_delegate_lateral = MovementLateral;
@@ -54,6 +55,11 @@ public class Movement : MonoBehaviour
     public void DefaultSpeed()
     {
 		movement_tween.timeScale = 1f;
+	}
+
+    public void StopPath()
+    {
+		movement_tween = movement_tween.KillProper();
 	}
 #endregion
 
