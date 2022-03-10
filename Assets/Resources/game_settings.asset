@@ -24,8 +24,9 @@ MonoBehaviour:
   ui_PopUp_height: 1
   ui_PopUp_duration: 1
   movement_path_ease: 1
-  movement_clampDistance: 0
+  movement_clampDistance: 2
   movement_speed_forward: 3
-  movement_speed_lateral: 1
+  movement_speed_lateral: 1.5
+  movement_speed_forward_increase: 5
   debug_ui_text_float_height: 1
   debug_ui_text_float_duration: 1

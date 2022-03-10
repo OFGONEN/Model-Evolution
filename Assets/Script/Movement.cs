@@ -11,30 +11,63 @@ using UnityEditor;
 public class Movement : MonoBehaviour
 {
 #region Fields
-    [ BoxGroup( "Setup" ) ] public Vector3[] path_points;
+    [ BoxGroup( "Setup" ) ] public Vector3[] movement_points;
+    [ BoxGroup( "Setup" ) ] public SharedFloat movement_input_lateral;
+    [ BoxGroup( "Setup" ) ] public Transform movement_transform;
 
 	// Private \\
-	private Tween path_tween;
+	private Tween movement_tween;
+    private UnityMessage movement_delegate_lateral;
 #endregion
 
 #region Properties
 #endregion
 
 #region Unity API
+    private void Awake()
+    {
+		movement_delegate_lateral = ExtensionMethods.EmptyMethod;
+	}
+
+    private void Update()
+    {
+		movement_delegate_lateral();
+	}
 #endregion
 
 #region API
-    [ Button() ]
     public void StartPath()
     {
-		path_tween = transform.DOPath( path_points, GameSettings.Instance.movement_speed_forward, PathType.CatmullRom )
+		movement_tween = transform.DOPath( movement_points, GameSettings.Instance.movement_speed_forward, PathType.CatmullRom )
 			.SetEase( GameSettings.Instance.movement_path_ease )
             .SetLookAt( 0 , false )
 			.SetSpeedBased();
+
+		movement_delegate_lateral = MovementLateral;
+	}
+
+    public void IncreaseSpeed()
+    {
+		movement_tween.timeScale = GameSettings.Instance.IncreaseSpeedCofactor;
+	}
+
+    public void DefaultSpeed()
+    {
+		movement_tween.timeScale = 1f;
 	}
 #endregion
 
 #region Implementation
+    private void MovementLateral()
+    {
+		var localPosition = movement_transform.localPosition;
+
+		localPosition.x = Mathf.Clamp( localPosition.x + GameSettings.Instance.movement_speed_lateral * Time.deltaTime * movement_input_lateral.sharedValue,
+			-GameSettings.Instance.movement_clampDistance,
+			GameSettings.Instance.movement_clampDistance );
+
+		movement_transform.localPosition = localPosition;
+	}
 #endregion
 
 #region Editor Only
@@ -44,13 +77,13 @@ public class Movement : MonoBehaviour
     {
         var path = GetComponent< DOTweenPath >();
 		path.wps.Clear();
-		path.wps.InsertRange( 0, path_points );
+		path.wps.InsertRange( 0, movement_points );
 	}
 
     [ Button() ]
     public void ImportPath()
     {
-        path_points = GetComponent< DOTweenPath >().wps.ToArray();
+        movement_points = GetComponent< DOTweenPath >().wps.ToArray();
     }
 #endif
 #endregion

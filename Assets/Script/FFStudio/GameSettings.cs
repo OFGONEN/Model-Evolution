@@ -36,9 +36,14 @@ namespace FFStudio
 		[ BoxGroup( "Movement" ) ] public float movement_clampDistance;
 		[ BoxGroup( "Movement" ) ] public float movement_speed_forward;
 		[ BoxGroup( "Movement" ) ] public float movement_speed_lateral;
+		[ BoxGroup( "Movement" ) ] public float movement_speed_forward_increase;
 
         [ BoxGroup( "Debug" ) ] public float debug_ui_text_float_height;
         [ BoxGroup( "Debug" ) ] public float debug_ui_text_float_duration;
+#endregion
+
+#region Properties
+        public float IncreaseSpeedCofactor => movement_speed_forward_increase / movement_speed_forward;
 #endregion
 
 #region Implementation
