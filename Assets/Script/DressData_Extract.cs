@@ -6,6 +6,7 @@ using Sirenix.OdinInspector;
 public class DressData_Extract : MonoBehaviour
 {
 #region Fields
+    public SkinnedMeshRenderer skinnedMeshRenderer;
     public DressData dressData;
 #endregion
 
@@ -19,8 +20,6 @@ public class DressData_Extract : MonoBehaviour
     [ Button() ]
     public void ExtractBoneName()
     {
-        var skinnedMeshRenderer = GetComponent< SkinnedMeshRenderer >();
-
         dressData.dress_bone_names = new string[ skinnedMeshRenderer.bones.Length ];
 
         dressData.dress_mesh            = skinnedMeshRenderer.sharedMesh;
