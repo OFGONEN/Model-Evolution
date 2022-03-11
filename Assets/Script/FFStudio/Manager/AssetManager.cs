@@ -10,6 +10,15 @@ namespace FFStudio
 #region Fields
 		public GameSettings gameSettings;
 		public CurrentLevelData currentLevelData;
+
+		public Pool_UIPopUpText pool_UIPopUpText;
+#endregion
+
+#region UnityAPI
+		private void Awake()
+		{
+			pool_UIPopUpText.InitPool( transform, false );
+		}
 #endregion
 	}
 }

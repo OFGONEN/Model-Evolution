@@ -2,6 +2,7 @@
 
 using UnityEngine;
 using Sirenix.OdinInspector;
+using DG.Tweening;
 
 namespace FFStudio
 {
@@ -21,15 +22,28 @@ namespace FFStudio
         [ BoxGroup( "Remote Config" ) ] public bool useRemoteConfig_Components;
 
         public int maxLevelCount;
-        [ BoxGroup( "UI Settings" ), Tooltip( "Duration of the movement for ui element"          ) ] public float ui_Entity_Move_TweenDuration;
-        [ BoxGroup( "UI Settings" ), Tooltip( "Duration of the fading for ui element"            ) ] public float ui_Entity_Fade_TweenDuration;
-		[ BoxGroup( "UI Settings" ), Tooltip( "Duration of the scaling for ui element"           ) ] public float ui_Entity_Scale_TweenDuration;
-		[ BoxGroup( "UI Settings" ), Tooltip( "Duration of the movement for floating ui element" ) ] public float ui_Entity_FloatingMove_TweenDuration;
-		[ BoxGroup( "UI Settings" ), Tooltip( "Joy Stick"                                        ) ] public float ui_Entity_JoyStick_Gap;
-        [ BoxGroup( "UI Settings" ), Tooltip( "Percentage of the screen to register a swipe"     ) ] public int swipeThreshold;
+        [ BoxGroup( "UI Setting" ), Tooltip( "Duration of the movement for ui element"          ) ] public float ui_Entity_Move_TweenDuration;
+        [ BoxGroup( "UI Setting" ), Tooltip( "Duration of the fading for ui element"            ) ] public float ui_Entity_Fade_TweenDuration;
+		[ BoxGroup( "UI Setting" ), Tooltip( "Duration of the scaling for ui element"           ) ] public float ui_Entity_Scale_TweenDuration;
+		[ BoxGroup( "UI Setting" ), Tooltip( "Duration of the movement for floating ui element" ) ] public float ui_Entity_FloatingMove_TweenDuration;
+		[ BoxGroup( "UI Setting" ), Tooltip( "Joy Stick"                                        ) ] public float ui_Entity_JoyStick_Gap;
+        [ BoxGroup( "UI Setting" ), Tooltip( "Percentage of the screen to register a swipe"     ) ] public int swipeThreshold;
+
+		[ BoxGroup( "UI PopUp Setting" ) ] public float ui_PopUp_height;
+		[ BoxGroup( "UI PopUp Setting" ) ] public float ui_PopUp_duration;
+
+		[ BoxGroup( "Movement" ) ] public Ease movement_path_ease;
+		[ BoxGroup( "Movement" ) ] public float movement_clampDistance;
+		[ BoxGroup( "Movement" ) ] public float movement_speed_forward;
+		[ BoxGroup( "Movement" ) ] public float movement_speed_lateral;
+		[ BoxGroup( "Movement" ) ] public float movement_speed_forward_increase;
 
         [ BoxGroup( "Debug" ) ] public float debug_ui_text_float_height;
         [ BoxGroup( "Debug" ) ] public float debug_ui_text_float_duration;
+#endregion
+
+#region Properties
+        public float IncreaseSpeedCofactor => movement_speed_forward_increase / movement_speed_forward;
 #endregion
 
 #region Implementation

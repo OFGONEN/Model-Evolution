@@ -39,6 +39,16 @@ namespace FFStudio
 	}
 
 	[Serializable]
+	public struct PopUpTextData
+	{
+		public string text;
+		public Color color;
+		public bool parent;
+		public Vector3 offset;
+		public float size;
+	}
+
+	[Serializable]
 	public struct RandomParticlePool
 	{
 		public string alias;

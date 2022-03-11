@@ -21,5 +21,12 @@ MonoBehaviour:
   ui_Entity_FloatingMove_TweenDuration: 0.5
   ui_Entity_JoyStick_Gap: 50
   swipeThreshold: 2
+  ui_PopUp_height: 1
+  ui_PopUp_duration: 1
+  movement_path_ease: 1
+  movement_clampDistance: 2
+  movement_speed_forward: 3
+  movement_speed_lateral: 300
+  movement_speed_forward_increase: 5
   debug_ui_text_float_height: 1
   debug_ui_text_float_duration: 1

@@ -34,7 +34,8 @@ namespace FFStudio
         public Tween DoFloat( float relativeValue, float duration ) 
         {
 			recycledTween.Recycle( 
-				ui_rectTransform.DOMove( ui_rectTransform.position + Vector3.up * relativeValue, duration ),
+				ui_rectTransform.DOMove( Vector3.up * relativeValue, duration )
+                                        .SetRelative(),
 			 	OnTweenComplete );
 
 			return recycledTween.Tween;
