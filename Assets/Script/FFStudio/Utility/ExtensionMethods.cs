@@ -297,7 +297,7 @@ namespace FFStudio
             currentRender.bones = targetModelBones.ToArray();
         }
 
-		public static async void UpdateSkinnedMeshRenderer( this GameObject gameObject, SkinnedMeshRenderer currentRenderer, Transform rootBone, DressData data )
+		public static void UpdateSkinnedMeshRenderer( this GameObject gameObject, SkinnedMeshRenderer currentRenderer, Transform rootBone, DressData data )
 		{
 			currentRenderer.sharedMesh      = data.dress_mesh;
 			currentRenderer.sharedMaterials = data.dress_sharedMaterials;
