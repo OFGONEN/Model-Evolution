@@ -297,7 +297,7 @@ namespace FFStudio
             currentRender.bones = targetModelBones.ToArray();
         }
 
-		public static void UpdateSkinnedMeshRenderer( this GameObject gameObject, SkinnedMeshRenderer currentRenderer, Transform rootBone, DressData data )
+		public static void UpdateSkinnedMeshRenderer( this GameObject gameObject, SkinnedMeshRenderer currentRenderer, DressData data )
 		{
 			currentRenderer.sharedMesh      = data.dress_mesh;
 			currentRenderer.sharedMaterials = data.dress_sharedMaterials;
@@ -310,10 +310,13 @@ namespace FFStudio
 
 			for( int boneOrder = 0; boneOrder < data.dress_bone_names.Length; boneOrder++ )
 			{
-				targetModelBones.Add( baseModelBones.Find( c => c.name == data.dress_bone_names[ boneOrder ] ) );
+				var bone = baseModelBones.Find( c => c.name == data.dress_bone_names[ boneOrder ] );
+				targetModelBones.Add( bone );
+
+				if( data.dress_bone_names[ boneOrder ].Equals( data.dress_rootBone ) )
+					currentRenderer.rootBone = bone;
 			}
 
-			currentRenderer.rootBone = rootBone;
 			currentRenderer.bones    = targetModelBones.ToArray();
 		}
 
