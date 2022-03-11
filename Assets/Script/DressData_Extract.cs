@@ -18,7 +18,7 @@ public class DressData_Extract : MonoBehaviour
 
 #region API
     [ Button() ]
-    public void ExtractBoneName()
+    public void ExtractDressData()
     {
         dressData.dress_bone_names = new string[ skinnedMeshRenderer.bones.Length ];
 
