@@ -14,6 +14,9 @@ namespace FFStudio
 		[ BoxGroup( "Setup" ), ValueDropdown( "SceneList" ), LabelText( "Scene Index" ) ] public int scene_index;
         [ BoxGroup( "Setup" ), LabelText( "Override As Active Scene" ) ] public bool scene_overrideAsActiveScene;
 
+        [ BoxGroup( "Setup" ) ] public bool cloth_start_special;
+        [ BoxGroup( "Setup" ), ShowIf( "cloth_start_special" ) ] public DressData cloth_start_cloth;
+
 #if UNITY_EDITOR
 		private static IEnumerable SceneList()
         {

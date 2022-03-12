@@ -12,12 +12,25 @@ public class Dress : MonoBehaviour
     [ BoxGroup( "Setup" ) ] public Animator animator;
     [ BoxGroup( "Setup" ) ] public MeshRenderer dress_mesh_renderer;
     [ BoxGroup( "Setup" ) ] public MeshFilter dress_mesh_filter;
+
+    // Private Field \\
+    private bool canEvolve;
 #endregion
 
 #region Properties
 #endregion
 
 #region Unity API
+    private void Awake()
+    {
+		var levelData = CurrentLevelData.Instance.levelData;
+
+        if( levelData.cloth_start_special )
+        {
+			dress_mesh_renderer.sharedMaterials = levelData.cloth_start_cloth.dress_sharedMaterials;
+			dress_mesh_filter.mesh = levelData.cloth_start_cloth.dress_mesh;
+		}
+	}
 #endregion
 
 #region API
