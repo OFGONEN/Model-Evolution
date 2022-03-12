@@ -27,8 +27,7 @@ public class Dress : MonoBehaviour
 
         if( levelData.cloth_start_special )
         {
-			dress_mesh_renderer.sharedMaterials = levelData.cloth_start_cloth.dress_sharedMaterials;
-			dress_mesh_filter.mesh = levelData.cloth_start_cloth.dress_mesh;
+			SpawnMesh( levelData.cloth_start_cloth );
 		}
 	}
 #endregion
@@ -37,6 +36,12 @@ public class Dress : MonoBehaviour
 #endregion
 
 #region Implementation
+    private void SpawnMesh( DressData dressData )
+    {
+		dress_mesh_renderer.sharedMaterials   = dressData.dress_sharedMaterials;
+		dress_mesh_filter.mesh                = dressData.dress_mesh;
+		dress_mesh_filter.transform.position += dressData.dress_offset_position;
+	}
 #endregion
 
 #region Editor Only
