@@ -6,24 +6,24 @@ using UnityEngine;
 using FFStudio;
 
 [ CreateAssetMenu( fileName = "notifier_", menuName = "FF/Data/Shared/Notifier/Float Aritmetic" ) ]
-public class SharedFloatNotifier_Aritmetic : SharedFloatNotifier
+public class SharedIntNotifier_Aritmetic : SharedIntNotifier
 {
-	public void Add( float value )
+	public void Add( int value )
 	{
 		SharedValue += value;
 	}
 
-	public void Subtract( float value )
+	public void Subtract( int value )
 	{
 		SharedValue -= value;
 	}
 
-	public void Multiply( float value )
+	public void Multiply( int value )
 	{
 		SharedValue *= value;
 	}
 
-	public void Divide( float value )
+	public void Divide( int value )
 	{
 		SharedValue /= value;
 	}
