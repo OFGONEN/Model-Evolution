@@ -26,9 +26,9 @@ public class Dress : MonoBehaviour
 		var levelData = CurrentLevelData.Instance.levelData;
 
         if( levelData.cloth_start_special )
-        {
 			SpawnMesh( levelData.cloth_start_cloth );
-		}
+        else
+			SpawnMesh( levelData.cloth_evolve_datas[ 0 ] );
 	}
 #endregion
 
@@ -36,11 +36,13 @@ public class Dress : MonoBehaviour
 #endregion
 
 #region Implementation
-    private void SpawnMesh( DressData dressData )
+    private void SpawnMesh( EvolveData evolveData )
     {
-		dress_mesh_renderer.sharedMaterials   = dressData.dress_sharedMaterials;
-		dress_mesh_filter.mesh                = dressData.dress_mesh;
-		dress_mesh_filter.transform.position += dressData.dress_offset_position;
+		var dress_data = evolveData.evolve_dress_data;
+
+		dress_mesh_renderer.sharedMaterials   = dress_data.dress_sharedMaterials;
+		dress_mesh_filter.mesh                = dress_data.dress_mesh;
+		dress_mesh_filter.transform.position += dress_data.dress_offset_position;
 	}
 #endregion
 
