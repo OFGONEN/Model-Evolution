@@ -330,6 +330,6 @@ MonoBehaviour:
   particleDatas:
   - particle_event: {fileID: 11400000, guid: fe240f220ab36cc44923227184f9c2a7, type: 2}
     alias: collectable_
-    parent: 1
+    parent: 0
     offset: {x: 0, y: 0.5, z: 0}
     size: 1
