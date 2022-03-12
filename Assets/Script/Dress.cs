@@ -33,12 +33,21 @@ public class Dress : MonoBehaviour
         else
 			evolveData = levelData.cloth_evolve_datas[ 0 ];
 
-		notify_time.SharedValue = evolveData.evolve_dress_time;
 		SpawnMesh( evolveData );
+		//todo Update time indicator
 	}
 #endregion
 
 #region API
+	public void EvolveToIndex( IntGameEvent gameEvent )
+	{
+		canEvolve = true;
+
+		var index = gameEvent.eventValue;
+		SpawnMesh( CurrentLevelData.Instance.levelData.cloth_evolve_datas[ index ] );
+
+		//todo Update time indicator
+	}
 #endregion
 
 #region Implementation

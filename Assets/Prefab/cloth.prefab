@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 352245658610709759}
   - component: {fileID: 8935389186476333484}
-  - component: {fileID: 5290117529326854693}
   - component: {fileID: 9006063527558546177}
+  - component: {fileID: 5290117529326854693}
+  - component: {fileID: -3131649872388627935}
   m_Layer: 0
   m_Name: cloth
   m_TagString: Untagged
@@ -49,6 +50,22 @@ MonoBehaviour:
   movement_points: []
   movement_input_lateral: {fileID: 11400000, guid: a13758f5f4b50f44cbbacd8d3fff2476, type: 2}
   movement_transform: {fileID: 5237732566003934628}
+--- !u!114 &9006063527558546177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3705295433299473825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76e8e1fd0e2c34ca08f1464057b029bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  notify_time: {fileID: 11400000, guid: f5b7cefb60a6d9949a48db3ddff88fbe, type: 2}
+  animator: {fileID: 1841390312221601869}
+  dress_mesh_renderer: {fileID: 6706396656654565330}
+  dress_mesh_filter: {fileID: 7137378492245890809}
 --- !u!114 &5290117529326854693
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -130,7 +147,65 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
---- !u!114 &9006063527558546177
+  - eventListener:
+      gameEvent: {fileID: 11400000, guid: 4e3b31fd2bf8d4fe0991bf2bc3b718ad, type: 2}
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 9006063527558546177}
+          m_TargetAssemblyTypeName: Dress, Assembly-CSharp
+          m_MethodName: EvolveToIndex
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 11400000, guid: 4e3b31fd2bf8d4fe0991bf2bc3b718ad, type: 2}
+            m_ObjectArgumentAssemblyTypeName: FFStudio.IntGameEvent, Assembly-CSharp
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: -3131649872388627935}
+          m_TargetAssemblyTypeName: FFStudio.ParticleSpawner, Assembly-CSharp
+          m_MethodName: Spawn
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventListener:
+      gameEvent: {fileID: 11400000, guid: 8fdfab73fd97b4998975ece7c18c2b91, type: 2}
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 9006063527558546177}
+          m_TargetAssemblyTypeName: Dress, Assembly-CSharp
+          m_MethodName: EvolveToIndex
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 11400000, guid: 8fdfab73fd97b4998975ece7c18c2b91, type: 2}
+            m_ObjectArgumentAssemblyTypeName: FFStudio.IntGameEvent, Assembly-CSharp
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: -3131649872388627935}
+          m_TargetAssemblyTypeName: FFStudio.ParticleSpawner, Assembly-CSharp
+          m_MethodName: Spawn
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 1
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &-3131649872388627935
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -139,13 +214,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 3705295433299473825}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76e8e1fd0e2c34ca08f1464057b029bf, type: 3}
+  m_Script: {fileID: 11500000, guid: 4f753b2c2b78147c181c65650f11a67d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notify_time: {fileID: 11400000, guid: f5b7cefb60a6d9949a48db3ddff88fbe, type: 2}
-  animator: {fileID: 1841390312221601869}
-  dress_mesh_renderer: {fileID: 6706396656654565330}
-  dress_mesh_filter: {fileID: 7137378492245890809}
+  particleDatas:
+  - particle_event: {fileID: 11400000, guid: fe240f220ab36cc44923227184f9c2a7, type: 2}
+    alias: evolve_positive
+    parent: 1
+    offset: {x: 0, y: 0, z: 0}
+    size: 1
+  - particle_event: {fileID: 11400000, guid: fe240f220ab36cc44923227184f9c2a7, type: 2}
+    alias: evolve_negative
+    parent: 1
+    offset: {x: 0, y: 0, z: 0}
+    size: 1
 --- !u!1 &4319363876558104727
 GameObject:
   m_ObjectHideFlags: 0
