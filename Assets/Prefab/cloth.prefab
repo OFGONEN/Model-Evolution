@@ -142,6 +142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76e8e1fd0e2c34ca08f1464057b029bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  notify_time: {fileID: 11400000, guid: f5b7cefb60a6d9949a48db3ddff88fbe, type: 2}
   animator: {fileID: 1841390312221601869}
   dress_mesh_renderer: {fileID: 6706396656654565330}
   dress_mesh_filter: {fileID: 7137378492245890809}

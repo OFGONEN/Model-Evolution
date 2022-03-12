@@ -9,6 +9,8 @@ using Sirenix.OdinInspector;
 public class Dress : MonoBehaviour
 {
 #region Fields
+    [ BoxGroup( "Shared" ) ] public SharedIntNotifier_Aritmetic notify_time;
+
     [ BoxGroup( "Setup" ) ] public Animator animator;
     [ BoxGroup( "Setup" ) ] public MeshRenderer dress_mesh_renderer;
     [ BoxGroup( "Setup" ) ] public MeshFilter dress_mesh_filter;
@@ -24,11 +26,15 @@ public class Dress : MonoBehaviour
     private void Awake()
     {
 		var levelData = CurrentLevelData.Instance.levelData;
+		EvolveData evolveData;
 
-        if( levelData.cloth_start_special )
-			SpawnMesh( levelData.cloth_start_cloth );
+		if( levelData.cloth_start_special )
+			evolveData = levelData.cloth_start_cloth;
         else
-			SpawnMesh( levelData.cloth_evolve_datas[ 0 ] );
+			evolveData = levelData.cloth_evolve_datas[ 0 ];
+
+		notify_time.SharedValue = evolveData.evolve_dress_time;
+		SpawnMesh( evolveData );
 	}
 #endregion
 
