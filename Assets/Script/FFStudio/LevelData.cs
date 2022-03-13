@@ -17,7 +17,10 @@ namespace FFStudio
         [ BoxGroup( "Setup" ) ] public bool cloth_start_special;
         [ BoxGroup( "Setup" ), ShowIf( "cloth_start_special" ) ] public EvolveData cloth_start_cloth;
 
+        [ BoxGroup( "Setup" ) ] public int cloth_time_min;
+        [ BoxGroup( "Setup" ) ] public int cloth_time_max;
         [ BoxGroup( "Setup" ) ] public EvolveData[] cloth_evolve_datas;
+
 
 #if UNITY_EDITOR
 		private static IEnumerable SceneList()

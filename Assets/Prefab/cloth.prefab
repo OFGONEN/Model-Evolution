@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 9006063527558546177}
   - component: {fileID: 5290117529326854693}
   - component: {fileID: -3131649872388627935}
+  - component: {fileID: -2687495480277787591}
   m_Layer: 0
   m_Name: cloth
   m_TagString: Untagged
@@ -66,6 +67,7 @@ MonoBehaviour:
   animator: {fileID: 1841390312221601869}
   dress_mesh_renderer: {fileID: 6706396656654565330}
   dress_mesh_filter: {fileID: 7137378492245890809}
+  particleSpawner: {fileID: -3131649872388627935}
 --- !u!114 &5290117529326854693
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -228,6 +230,34 @@ MonoBehaviour:
     parent: 1
     offset: {x: 0, y: 0, z: 0}
     size: 1
+--- !u!114 &-2687495480277787591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3705295433299473825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06802b127b24a994ab520c2b527c307f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sharedDataNotifier: {fileID: 11400000, guid: f5b7cefb60a6d9949a48db3ddff88fbe, type: 2}
+  notify_event:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 9006063527558546177}
+        m_TargetAssemblyTypeName: Dress, Assembly-CSharp
+        m_MethodName: NotifyUpdate_Time
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4319363876558104727
 GameObject:
   m_ObjectHideFlags: 0
