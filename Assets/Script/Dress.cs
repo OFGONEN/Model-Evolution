@@ -26,8 +26,12 @@ public class Dress : MonoBehaviour
 #endregion
 
 #region Properties
-	private EvolveData NextEvolveData    => CurrentLevelData.Instance.levelData.cloth_evolve_datas[ cloth_current_index + 1 ];
-	private EvolveData PrevEvolveData    => CurrentLevelData.Instance.levelData.cloth_evolve_datas[ cloth_current_index - 1 ];
+	private EvolveData NextEvolveData    => CurrentLevelData.Instance.levelData.cloth_evolve_datas[ Mathf.Min( 
+		cloth_current_index + 1, 
+		CurrentLevelData.Instance.levelData.cloth_evolve_datas.Length - 1 ) ];
+	private EvolveData PrevEvolveData    => CurrentLevelData.Instance.levelData.cloth_evolve_datas[ Mathf.Max( 
+		cloth_current_index - 1,
+		0 ) ];
 	private EvolveData CurrentEvolveData => CurrentLevelData.Instance.levelData.cloth_evolve_datas[ cloth_current_index ];
 #endregion
 
