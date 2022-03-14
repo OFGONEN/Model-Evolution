@@ -27,6 +27,7 @@ MonoBehaviour:
     m_Center: {x: 0.010759257, y: 0.19016413, z: 0.037676726}
     m_Extent: {x: 0.19288221, y: 0.10771315, z: 0.10089049}
   dress_mesh: {fileID: 4300000, guid: 5472c36d30e954240b7b0bdb9dce6ce7, type: 2}
+  dress_offset_position: {x: 0, y: -1, z: 0}
   isAccessory: 0
   override_top: 0
   override_bottom: 0

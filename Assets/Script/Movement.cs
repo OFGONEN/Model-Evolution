@@ -79,7 +79,7 @@ public class Movement : MonoBehaviour
 #region Editor Only
 #if UNITY_EDITOR
     [ Button() ]
-    public void ExportPath()
+    private void ExportPath()
     {
         var path = GetComponent< DOTweenPath >();
 		path.wps.Clear();
@@ -87,7 +87,7 @@ public class Movement : MonoBehaviour
 	}
 
     [ Button() ]
-    public void ImportPath()
+    private void ImportPath()
     {
         movement_points = GetComponent< DOTweenPath >().wps.ToArray();
     }

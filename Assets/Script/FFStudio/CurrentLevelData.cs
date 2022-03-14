@@ -31,7 +31,7 @@ namespace FFStudio
 			if( currentLevel_Real > GameSettings.Instance.maxLevelCount )
 				currentLevel_Real = Random.Range( 1, GameSettings.Instance.maxLevelCount );
 
-			levelData = Resources.Load<LevelData>( "level_data_" + currentLevel_Real );
+			levelData = Resources.Load< LevelData >( "level_data_" + currentLevel_Real );
 		}
 #endregion
 
@@ -39,7 +39,7 @@ namespace FFStudio
         static CurrentLevelData LoadInstance()
 		{
 			if( instance == null )
-				instance = Resources.Load<CurrentLevelData>( "level_current" );
+				instance = Resources.Load< CurrentLevelData >( "level_current" );
 
 			returnInstance = ReturnInstance;
 
