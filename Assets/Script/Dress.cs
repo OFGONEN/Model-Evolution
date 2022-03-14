@@ -80,13 +80,13 @@ public class Dress : MonoBehaviour
 	{
 		cloth_current_index = gameEvent.eventValue;
 
-		var data = CurrentLevelData.Instance.levelData.cloth_evolve_datas[ cloth_current_index ];
-		SpawnMesh( data );
+		cloth_current_data = CurrentEvolveData;
+		SpawnMesh( cloth_current_data );
 
-		var time = data.evolve_dress_time;
+		var time = cloth_current_data.evolve_dress_time;
 
 		notify_time.sharedValue = time;
-		UpdateTimeIndicator( time, data.evolve_dress_color );
+		UpdateTimeIndicator( time, cloth_current_data.evolve_dress_color );
 
 		onNotifyTime = OnNotifyTime_PostEvolve;
 	}
