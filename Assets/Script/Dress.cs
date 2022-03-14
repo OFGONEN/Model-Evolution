@@ -4,6 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FFStudio;
+using DG.Tweening;
+using TMPro;
 using Sirenix.OdinInspector;
 
 public class Dress : MonoBehaviour
@@ -15,11 +17,15 @@ public class Dress : MonoBehaviour
     [ BoxGroup( "Setup" ) ] public MeshRenderer dress_mesh_renderer;
     [ BoxGroup( "Setup" ) ] public MeshFilter dress_mesh_filter;
 
+    [ BoxGroup( "Time Indicator" ) ] public TextMeshProUGUI indicator_text_renderer;
+
     [ BoxGroup( "Component" ) ] public ParticleSpawner particleSpawner; // { evolve_positive, evolve_negative }
 
     // Private Field \\
 	private EvolveData cloth_current_data;
 	private int cloth_current_index;
+	[ ShowInInspector, ReadOnly ] private int cloth_current_time;
+	private RecycledSequence indicator_sequence = new RecycledSequence();
 
 	// Private Delegates \\
 	private UnityMessage onNotifyTime;
@@ -60,8 +66,11 @@ public class Dress : MonoBehaviour
 
 		var time = evolveData.evolve_dress_time;
 
-		notify_time.SharedValue = time;
-		UpdateTimeIndicator( time, evolveData.evolve_dress_color );
+		notify_time.SharedValue       = time;
+		indicator_text_renderer.text  = time.ToString();
+		indicator_text_renderer.color = cloth_current_data.evolve_dress_color;
+		cloth_current_time            = time;
+		// UpdateTimeIndicator( time, evolveData.evolve_dress_color );
 	}
 #endregion
 
@@ -76,7 +85,7 @@ public class Dress : MonoBehaviour
 
 		var time = data.evolve_dress_time;
 
-		notify_time.SharedValue = time;
+		notify_time.sharedValue = time;
 		UpdateTimeIndicator( time, data.evolve_dress_color );
 
 		onNotifyTime = OnNotifyTime_PostEvolve;
@@ -180,7 +189,12 @@ public class Dress : MonoBehaviour
 
 	private void UpdateTimeIndicator( int time, Color color )
 	{
-		//todo
+		var duration = GameSettings.Instance.indicator_update_duration;
+
+		var sequence = indicator_sequence.Recycle();
+		sequence.Append( DOTween.To( () => cloth_current_time, x => cloth_current_time = x, time, duration) );
+		sequence.Join( indicator_text_renderer.DOColor( color, duration ) );
+		sequence.OnUpdate( () => indicator_text_renderer.text = cloth_current_time.ToString() );
 	}
 
 	private Color ReturnLerpedColor( EvolveData targetData, int time )

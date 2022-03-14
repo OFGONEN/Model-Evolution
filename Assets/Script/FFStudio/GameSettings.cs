@@ -38,6 +38,8 @@ namespace FFStudio
 		[ BoxGroup( "Movement" ) ] public float movement_speed_lateral;
 		[ BoxGroup( "Movement" ) ] public float movement_speed_forward_increase;
 
+		[ BoxGroup( "Indicator" ) ] public float indicator_update_duration;
+
         [ BoxGroup( "Debug" ) ] public float debug_ui_text_float_height;
         [ BoxGroup( "Debug" ) ] public float debug_ui_text_float_duration;
 #endregion
