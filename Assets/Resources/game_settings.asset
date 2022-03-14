@@ -29,5 +29,7 @@ MonoBehaviour:
   movement_speed_lateral: 300
   movement_speed_forward_increase: 5
   indicator_update_duration: 0.25
+  indicator_popUp_size: 0
+  indicator_popUp_offset: {x: 0, y: 0.15, z: 0}
   debug_ui_text_float_height: 1
   debug_ui_text_float_duration: 1

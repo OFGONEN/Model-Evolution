@@ -12,6 +12,7 @@ public class Dress : MonoBehaviour
 {
 #region Fields
     [ BoxGroup( "Shared" ) ] public SharedIntNotifier_Aritmetic notify_time;
+    [ BoxGroup( "Shared" ) ] public Pool_UIPopUpText pool_UIPopUpText;
 
     [ BoxGroup( "Setup" ) ] public Animator animator;
     [ BoxGroup( "Setup" ) ] public MeshRenderer dress_mesh_renderer;
@@ -87,6 +88,7 @@ public class Dress : MonoBehaviour
 
 		notify_time.sharedValue = time;
 		UpdateTimeIndicator( time, cloth_current_data.evolve_dress_color );
+		SpawnPopUpText( cloth_current_data );
 
 		onNotifyTime = OnNotifyTime_PostEvolve;
 	}
@@ -133,6 +135,7 @@ public class Dress : MonoBehaviour
 			SpawnMesh( cloth_current_data );
 			UpdateTimeIndicator( time, ReturnLerpedColor( NextEvolveData, time ) );
 
+			SpawnPopUpText( cloth_current_data );
 			//todo animation
 		}
 		else if( CanEvolveDown( time, out index ) )
@@ -143,6 +146,7 @@ public class Dress : MonoBehaviour
 
 			SpawnMesh( cloth_current_data );
 			UpdateTimeIndicator( time, ReturnLerpedColor( NextEvolveData, time ) );
+			SpawnPopUpText( cloth_current_data );
 
 			//todo animation
 		}
@@ -202,6 +206,15 @@ public class Dress : MonoBehaviour
 		return Color.Lerp( cloth_current_data.evolve_dress_color,
 			targetData.evolve_dress_color,
 			Mathf.InverseLerp( cloth_current_data.evolve_dress_time, targetData.evolve_dress_time, time ) );
+	}
+
+	private void SpawnPopUpText( EvolveData data )
+	{
+		var entity = pool_UIPopUpText.GetEntity();
+		entity.Spawn( transform.position + GameSettings.Instance.indicator_popUp_offset, 
+			data.evolve_dress_time.ToString(), 
+			GameSettings.Instance.indicator_popUp_size, 
+			data.evolve_dress_color );
 	}
 #endregion
 

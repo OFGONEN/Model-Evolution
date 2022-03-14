@@ -65,6 +65,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   notify_time: {fileID: 11400000, guid: f5b7cefb60a6d9949a48db3ddff88fbe, type: 2}
+  pool_UIPopUpText: {fileID: 11400000, guid: eaaacbd90b1464ad2b2a3a962a8a84b2, type: 2}
   animator: {fileID: 1841390312221601869}
   dress_mesh_renderer: {fileID: 6706396656654565330}
   dress_mesh_filter: {fileID: 7137378492245890809}
@@ -419,6 +420,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5237732566003934628}
   - component: {fileID: 295315413265327516}
+  - component: {fileID: 4698466283448942268}
   m_Layer: 31
   m_Name: movement
   m_TagString: Untagged
@@ -455,6 +457,25 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4698466283448942268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8851345386749091899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3f909ed24e084e2eb302adf25bbe24c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pool_UIPopUpText: {fileID: 0}
+  popUpTextDatas:
+  - text: 
+    color: {r: 0, g: 0, b: 0, a: 0}
+    parent: 0
+    offset: {x: 0, y: 0, z: 0}
+    size: 0
 --- !u!1001 &6843651395792776523
 PrefabInstance:
   m_ObjectHideFlags: 0

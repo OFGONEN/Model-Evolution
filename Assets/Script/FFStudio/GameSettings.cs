@@ -39,6 +39,8 @@ namespace FFStudio
 		[ BoxGroup( "Movement" ) ] public float movement_speed_forward_increase;
 
 		[ BoxGroup( "Indicator" ) ] public float indicator_update_duration;
+		[ BoxGroup( "Indicator" ) ] public float indicator_popUp_size;
+		[ BoxGroup( "Indicator" ) ] public Vector3 indicator_popUp_offset;
 
         [ BoxGroup( "Debug" ) ] public float debug_ui_text_float_height;
         [ BoxGroup( "Debug" ) ] public float debug_ui_text_float_duration;
