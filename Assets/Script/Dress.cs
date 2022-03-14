@@ -4,22 +4,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FFStudio;
+using DG.Tweening;
+using TMPro;
 using Sirenix.OdinInspector;
 
 public class Dress : MonoBehaviour
 {
 #region Fields
     [ BoxGroup( "Shared" ) ] public SharedIntNotifier_Aritmetic notify_time;
+    [ BoxGroup( "Shared" ) ] public Pool_UIPopUpText pool_UIPopUpText;
 
     [ BoxGroup( "Setup" ) ] public Animator animator;
     [ BoxGroup( "Setup" ) ] public MeshRenderer dress_mesh_renderer;
     [ BoxGroup( "Setup" ) ] public MeshFilter dress_mesh_filter;
+
+    [ BoxGroup( "Time Indicator" ) ] public TextMeshProUGUI indicator_text_renderer;
 
     [ BoxGroup( "Component" ) ] public ParticleSpawner particleSpawner; // { evolve_positive, evolve_negative }
 
     // Private Field \\
 	private EvolveData cloth_current_data;
 	private int cloth_current_index;
+	[ ShowInInspector, ReadOnly ] private int cloth_current_time;
+	private RecycledSequence indicator_sequence = new RecycledSequence();
 
 	// Private Delegates \\
 	private UnityMessage onNotifyTime;
@@ -60,8 +67,11 @@ public class Dress : MonoBehaviour
 
 		var time = evolveData.evolve_dress_time;
 
-		notify_time.SharedValue = time;
-		UpdateTimeIndicator( time, evolveData.evolve_dress_color );
+		notify_time.SharedValue       = time;
+		indicator_text_renderer.text  = time.ToString();
+		indicator_text_renderer.color = cloth_current_data.evolve_dress_color;
+		cloth_current_time            = time;
+		// UpdateTimeIndicator( time, evolveData.evolve_dress_color );
 	}
 #endregion
 
@@ -71,13 +81,14 @@ public class Dress : MonoBehaviour
 	{
 		cloth_current_index = gameEvent.eventValue;
 
-		var data = CurrentLevelData.Instance.levelData.cloth_evolve_datas[ cloth_current_index ];
-		SpawnMesh( data );
+		cloth_current_data = CurrentEvolveData;
+		SpawnMesh( cloth_current_data );
 
-		var time = data.evolve_dress_time;
+		var time = cloth_current_data.evolve_dress_time;
 
-		notify_time.SharedValue = time;
-		UpdateTimeIndicator( time, data.evolve_dress_color );
+		notify_time.sharedValue = time;
+		UpdateTimeIndicator( time, cloth_current_data.evolve_dress_color );
+		SpawnPopUpText( cloth_current_data );
 
 		onNotifyTime = OnNotifyTime_PostEvolve;
 	}
@@ -94,9 +105,9 @@ public class Dress : MonoBehaviour
     {
 		var dress_data = evolveData.evolve_dress_data;
 
-		dress_mesh_renderer.sharedMaterials   = dress_data.dress_sharedMaterials;
-		dress_mesh_filter.mesh                = dress_data.dress_mesh;
-		dress_mesh_filter.transform.position  = dress_data.dress_offset_position;
+		dress_mesh_renderer.sharedMaterials       = dress_data.dress_sharedMaterials;
+		dress_mesh_filter.mesh                    = dress_data.dress_mesh;
+		dress_mesh_filter.transform.localPosition = dress_data.dress_offset_position;
 	}
 
 	private void OnNotifyTime_PreEvolve()
@@ -124,6 +135,7 @@ public class Dress : MonoBehaviour
 			SpawnMesh( cloth_current_data );
 			UpdateTimeIndicator( time, ReturnLerpedColor( NextEvolveData, time ) );
 
+			SpawnPopUpText( cloth_current_data );
 			//todo animation
 		}
 		else if( CanEvolveDown( time, out index ) )
@@ -134,6 +146,7 @@ public class Dress : MonoBehaviour
 
 			SpawnMesh( cloth_current_data );
 			UpdateTimeIndicator( time, ReturnLerpedColor( NextEvolveData, time ) );
+			SpawnPopUpText( cloth_current_data );
 
 			//todo animation
 		}
@@ -180,7 +193,12 @@ public class Dress : MonoBehaviour
 
 	private void UpdateTimeIndicator( int time, Color color )
 	{
-		//todo
+		var duration = GameSettings.Instance.indicator_update_duration;
+
+		var sequence = indicator_sequence.Recycle();
+		sequence.Append( DOTween.To( () => cloth_current_time, x => cloth_current_time = x, time, duration) );
+		sequence.Join( indicator_text_renderer.DOColor( color, duration ) );
+		sequence.OnUpdate( () => indicator_text_renderer.text = cloth_current_time.ToString() );
 	}
 
 	private Color ReturnLerpedColor( EvolveData targetData, int time )
@@ -188,6 +206,15 @@ public class Dress : MonoBehaviour
 		return Color.Lerp( cloth_current_data.evolve_dress_color,
 			targetData.evolve_dress_color,
 			Mathf.InverseLerp( cloth_current_data.evolve_dress_time, targetData.evolve_dress_time, time ) );
+	}
+
+	private void SpawnPopUpText( EvolveData data )
+	{
+		var entity = pool_UIPopUpText.GetEntity();
+		entity.Spawn( transform.position + GameSettings.Instance.indicator_popUp_offset, 
+			data.evolve_dress_time.ToString(), 
+			GameSettings.Instance.indicator_popUp_size, 
+			data.evolve_dress_color );
 	}
 #endregion
 
