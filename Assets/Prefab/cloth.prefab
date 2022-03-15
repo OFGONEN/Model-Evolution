@@ -52,6 +52,21 @@ MonoBehaviour:
   movement_points: []
   movement_input_lateral: {fileID: 11400000, guid: a13758f5f4b50f44cbbacd8d3fff2476, type: 2}
   movement_transform: {fileID: 5237732566003934628}
+  animation_transform: {fileID: 5220861811305579851}
+  anim_moving_position_up: 1
+  anim_moving_position_down: 0.2
+  anim_moving_position_offset: 0.1
+  anim_moving_duration_up: 0.6
+  anim_moving_duration_down: 0.5
+  anim_moving_ease: 010000000300000002000000
+  anim_evolve_position_up: 1.2
+  anim_evolve_position_offset: 0.1
+  anim_evolve_duration_up: 0.6
+  anim_evolve_duration_down: 0.7
+  anim_evolve_duration_down_wait: 0.2
+  anim_evolve_ease_up: 1
+  anim_evolve_ease_down: 1
+  anim_evolve_ease_rotation: 1
 --- !u!114 &9006063527558546177
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66,7 +81,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   notify_time: {fileID: 11400000, guid: f5b7cefb60a6d9949a48db3ddff88fbe, type: 2}
   pool_UIPopUpText: {fileID: 11400000, guid: eaaacbd90b1464ad2b2a3a962a8a84b2, type: 2}
-  animator: {fileID: 1841390312221601869}
+  animator: {fileID: 0}
   dress_mesh_renderer: {fileID: 6706396656654565330}
   dress_mesh_filter: {fileID: 7137378492245890809}
   indicator_text_renderer: {fileID: 2038398949833874325}
@@ -368,7 +383,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5220861811305579851}
-  - component: {fileID: 1841390312221601869}
   m_Layer: 31
   m_Name: animation
   m_TagString: Untagged
@@ -391,25 +405,6 @@ Transform:
   m_Father: {fileID: 5237732566003934628}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &1841390312221601869
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5869911344135041781}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: ca09ce8e9727145dab1f781cf21b2e61, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8851345386749091899
 GameObject:
   m_ObjectHideFlags: 0
@@ -420,7 +415,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5237732566003934628}
   - component: {fileID: 295315413265327516}
-  - component: {fileID: 4698466283448942268}
   m_Layer: 31
   m_Name: movement
   m_TagString: Untagged
@@ -457,25 +451,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4698466283448942268
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8851345386749091899}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3f909ed24e084e2eb302adf25bbe24c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pool_UIPopUpText: {fileID: 0}
-  popUpTextDatas:
-  - text: 
-    color: {r: 0, g: 0, b: 0, a: 0}
-    parent: 0
-    offset: {x: 0, y: 0, z: 0}
-    size: 0
 --- !u!1001 &6843651395792776523
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -497,7 +472,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5750892087156865112, guid: 07b911b5704e44c109b0b54780d722f8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 5750892087156865112, guid: 07b911b5704e44c109b0b54780d722f8, type: 3}
       propertyPath: m_LocalPosition.z

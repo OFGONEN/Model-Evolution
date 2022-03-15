@@ -14,10 +14,30 @@ public class Movement : MonoBehaviour
     [ BoxGroup( "Setup" ) ] public Vector3[] movement_points;
     [ BoxGroup( "Setup" ) ] public SharedFloat movement_input_lateral;
     [ BoxGroup( "Setup" ) ] public Transform movement_transform;
+    [ BoxGroup( "Setup" ) ] public Transform animation_transform;
+
+    [ FoldoutGroup( "Animation - Moving" ) ] public float anim_moving_position_up;
+    [ FoldoutGroup( "Animation - Moving" ) ] public float anim_moving_position_down;
+    [ FoldoutGroup( "Animation - Moving" ) ] public float anim_moving_position_offset;
+    [ FoldoutGroup( "Animation - Moving" ) ] public float anim_moving_duration_up;
+    [ FoldoutGroup( "Animation - Moving" ) ] public float anim_moving_duration_down;
+    [ FoldoutGroup( "Animation - Moving" ) ] public Ease[] anim_moving_ease;
+
+    [ FoldoutGroup( "Animation - Evolve" ) ] public float anim_evolve_position_up;
+    [ FoldoutGroup( "Animation - Evolve" ) ] public float anim_evolve_position_offset;
+    [ FoldoutGroup( "Animation - Evolve" ) ] public float anim_evolve_duration_up;
+    [ FoldoutGroup( "Animation - Evolve" ) ] public float anim_evolve_duration_down;
+    [ FoldoutGroup( "Animation - Evolve" ) ] public float anim_evolve_duration_down_wait;
+    [ FoldoutGroup( "Animation - Evolve" ) ] public Ease  anim_evolve_ease_up;
+    [ FoldoutGroup( "Animation - Evolve" ) ] public Ease  anim_evolve_ease_down;
+    [ FoldoutGroup( "Animation - Evolve" ) ] public Ease  anim_evolve_ease_rotation;
 
 	// Private \\
 	private Tween movement_tween;
     private UnityMessage movement_delegate_lateral;
+
+    // Recycled
+	private RecycledSequence animation_sequence = new RecycledSequence();
 #endregion
 
 #region Properties
@@ -61,6 +81,50 @@ public class Movement : MonoBehaviour
     {
 		movement_tween = movement_tween.KillProper();
 	}
+
+    [ Button() ]
+	public void MovingAnimation()
+	{
+		animation_sequence.Kill();
+
+		var sequence = animation_sequence.Recycle();
+
+		sequence.Append( animation_transform.DOLocalMoveY(
+			anim_moving_position_up.ReturnRandomOffset( anim_moving_position_offset ),
+			anim_moving_duration_up ) );
+		sequence.Append( animation_transform.DOLocalMoveY(
+			anim_moving_position_down.ReturnRandomOffset( anim_moving_position_offset ),
+			anim_moving_duration_down ) );
+
+		sequence.SetEase( anim_moving_ease.ReturnRandom< Ease >() );
+		sequence.OnComplete( MovingAnimation );
+	}
+
+	[ Button() ]
+	public void EvolveAnimation()
+	{
+		animation_sequence.Kill();
+
+		var sequence = animation_sequence.Recycle();
+
+		var positionUp = anim_evolve_position_up.ReturnRandomOffset( anim_evolve_position_offset );
+		var durationUp = ( positionUp - transform.localPosition.y ) * anim_evolve_duration_up / positionUp;
+
+		sequence.Append( animation_transform.DOLocalMoveY(
+			positionUp,
+			durationUp 
+		).SetEase( anim_evolve_ease_up ) );
+
+		sequence.Join( animation_transform.DOLocalRotate( Vector3.up * 360,
+			durationUp )
+			.SetEase( anim_evolve_ease_rotation )
+			.SetRelative() );
+
+		sequence.Append( animation_transform.DOLocalMoveY( 0, anim_evolve_duration_down ).SetEase( anim_evolve_ease_down ) );
+		sequence.AppendInterval( anim_evolve_duration_down_wait );
+
+		sequence.OnComplete( MovingAnimation );
+	}
 #endregion
 
 #region Implementation
@@ -91,6 +155,30 @@ public class Movement : MonoBehaviour
     {
         movement_points = GetComponent< DOTweenPath >().wps.ToArray();
     }
+
+	// [ ShowInInspector ] private bool Gizmos_anim_moving;
+	// [ ShowInInspector ] private bool Gizmos_anim_evolve;
+
+	// private void OnDrawGizmosSelected()
+	// {
+	// 	if( Gizmos_anim_moving )
+	// 	{
+	// 		var positionDown = transform.localPosition.AddY( anim_moving_position_down );
+	// 		var positionUp = transform.localPosition.AddY( anim_moving_position_up );
+
+	// 		Handles.DrawDottedLine( positionDown, positionUp, 1 );
+	// 		Handles.DrawWireDisc( positionDown, Vector3.forward, anim_moving_position_offset );
+	// 		Handles.DrawWireDisc( positionUp, Vector3.forward, anim_moving_position_offset );
+	// 	}
+
+	// 	if( Gizmos_anim_evolve )
+	// 	{
+	// 		var positionUp = transform.localPosition.AddY( anim_evolve_position_up );
+
+	// 		Handles.Label( positionUp, "Evolve Anim" );
+	// 		Handles.DrawWireDisc( positionUp, Vector3.forward, anim_evolve_position_offset );
+	// 	}
+	// }
 #endif
 #endregion
 }

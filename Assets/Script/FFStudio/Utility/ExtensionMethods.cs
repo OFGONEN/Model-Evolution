@@ -397,6 +397,17 @@ namespace FFStudio
 		{
 			return array[ Random.Range( 0, array.Length ) ];
 		}
+		
+		public static float ReturnRandomOffset( this float value, float offset )
+		{
+			return Random.Range( value - offset, value + offset );
+		}
+
+		public static Vector3 AddY( this Vector3 vector, float value )
+		{
+			vector.y += value;
+			return vector;
+		}
 	}
 }
 
