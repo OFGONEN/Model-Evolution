@@ -156,29 +156,29 @@ public class Movement : MonoBehaviour
         movement_points = GetComponent< DOTweenPath >().wps.ToArray();
     }
 
-	// [ ShowInInspector ] private bool Gizmos_anim_moving;
-	// [ ShowInInspector ] private bool Gizmos_anim_evolve;
+	[ ShowInInspector ] private bool Gizmos_anim_moving;
+	[ ShowInInspector ] private bool Gizmos_anim_evolve;
 
-	// private void OnDrawGizmosSelected()
-	// {
-	// 	if( Gizmos_anim_moving )
-	// 	{
-	// 		var positionDown = transform.localPosition.AddY( anim_moving_position_down );
-	// 		var positionUp = transform.localPosition.AddY( anim_moving_position_up );
+	private void OnDrawGizmosSelected()
+	{
+		if( Gizmos_anim_moving )
+		{
+			var positionDown = transform.localPosition.AddY( anim_moving_position_down );
+			var positionUp = transform.localPosition.AddY( anim_moving_position_up );
 
-	// 		Handles.DrawDottedLine( positionDown, positionUp, 1 );
-	// 		Handles.DrawWireDisc( positionDown, Vector3.forward, anim_moving_position_offset );
-	// 		Handles.DrawWireDisc( positionUp, Vector3.forward, anim_moving_position_offset );
-	// 	}
+			Handles.DrawDottedLine( positionDown, positionUp, 1 );
+			Handles.DrawWireDisc( positionDown, Vector3.forward, anim_moving_position_offset );
+			Handles.DrawWireDisc( positionUp, Vector3.forward, anim_moving_position_offset );
+		}
 
-	// 	if( Gizmos_anim_evolve )
-	// 	{
-	// 		var positionUp = transform.localPosition.AddY( anim_evolve_position_up );
+		if( Gizmos_anim_evolve )
+		{
+			var positionUp = transform.localPosition.AddY( anim_evolve_position_up );
 
-	// 		Handles.Label( positionUp, "Evolve Anim" );
-	// 		Handles.DrawWireDisc( positionUp, Vector3.forward, anim_evolve_position_offset );
-	// 	}
-	// }
+			Handles.Label( positionUp, "Evolve Anim" );
+			Handles.DrawWireDisc( positionUp, Vector3.forward, anim_evolve_position_offset );
+		}
+	}
 #endif
 #endregion
 }
