@@ -142,18 +142,20 @@ public class Movement : MonoBehaviour
 
 #region Editor Only
 #if UNITY_EDITOR
+	[ ShowInInspector ] private DOTweenPath path;
+
     [ Button() ]
     private void ExportPath()
     {
-        var path = GetComponent< DOTweenPath >();
 		path.wps.Clear();
 		path.wps.InsertRange( 0, movement_points );
+		path.pathType = PathType.CatmullRom;
 	}
 
     [ Button() ]
     private void ImportPath()
     {
-        movement_points = GetComponent< DOTweenPath >().wps.ToArray();
+        movement_points = path.wps.ToArray();
     }
 
 	[ ShowInInspector ] private bool Gizmos_anim_moving;
