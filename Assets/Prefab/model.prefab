@@ -435,6 +435,7 @@ GameObject:
   - component: {fileID: -410895126963344935}
   - component: {fileID: -706068336177039013}
   - component: {fileID: 6784292480776458763}
+  - component: {fileID: -8419525650231357401}
   m_Layer: 0
   m_Name: model
   m_TagString: Untagged
@@ -520,6 +521,30 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 6784292480776458763}
+          m_TargetAssemblyTypeName: FFStudio.AnimatorInterface, Assembly-CSharp
+          m_MethodName: UpdateParameter
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 1
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 6784292480776458763}
+          m_TargetAssemblyTypeName: FFStudio.AnimatorInterface, Assembly-CSharp
+          m_MethodName: UpdateParameter
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!114 &6784292480776458763
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -544,6 +569,24 @@ MonoBehaviour:
     parameter_bool: 0
     parameter_int: 0
     parameter_float: 0
+--- !u!114 &-8419525650231357401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3672962640472374559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f753b2c2b78147c181c65650f11a67d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleDatas:
+  - particle_event: {fileID: 11400000, guid: fe240f220ab36cc44923227184f9c2a7, type: 2}
+    alias: model_cloth
+    parent: 0
+    offset: {x: 0, y: 1, z: 0}
+    size: 1
 --- !u!1001 &3433194868842481244
 PrefabInstance:
   m_ObjectHideFlags: 0
