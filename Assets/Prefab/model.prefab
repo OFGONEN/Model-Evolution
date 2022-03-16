@@ -503,6 +503,23 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  - eventListener:
+      gameEvent: {fileID: 11400000, guid: 1dc6f0b43b87042a3ad981b8de5afd19, type: 2}
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: -410895126963344935}
+          m_TargetAssemblyTypeName: Model, Assembly-CSharp
+          m_MethodName: DressUpResponse
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 11400000, guid: 1dc6f0b43b87042a3ad981b8de5afd19, type: 2}
+            m_ObjectArgumentAssemblyTypeName: DressData_GameEvent, Assembly-CSharp
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!114 &6784292480776458763
 MonoBehaviour:
   m_ObjectHideFlags: 0

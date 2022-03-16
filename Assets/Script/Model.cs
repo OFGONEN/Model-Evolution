@@ -28,6 +28,10 @@ public class Model : MonoBehaviour
 #endregion
 
 #region API
+    public void DressUpResponse( DressData_GameEvent gameEvent )
+    {
+		DressUp( gameEvent.eventValue );
+	}
 #endregion
 
 #region Implementation
