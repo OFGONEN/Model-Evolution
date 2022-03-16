@@ -31,6 +31,22 @@ PrefabInstance:
       propertyPath: particleDatas.Array.data[0].alias
       value: collectable_positive
       objectReference: {fileID: 0}
+    - target: {fileID: 6021355476169076381, guid: b0bea5380d6bcf44fbe80712984347ae, type: 3}
+      propertyPath: color.b
+      value: 0.020182133
+      objectReference: {fileID: 0}
+    - target: {fileID: 6021355476169076381, guid: b0bea5380d6bcf44fbe80712984347ae, type: 3}
+      propertyPath: color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6021355476169076381, guid: b0bea5380d6bcf44fbe80712984347ae, type: 3}
+      propertyPath: color.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7145852798918066427, guid: b0bea5380d6bcf44fbe80712984347ae, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7812215585440109402, guid: b0bea5380d6bcf44fbe80712984347ae, type: 3}
       propertyPath: m_Name
       value: door_base_add

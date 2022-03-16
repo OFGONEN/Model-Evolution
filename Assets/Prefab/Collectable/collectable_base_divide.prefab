@@ -7,6 +7,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1305058165863625815, guid: 5ba95a07fb0462943ad8161919721f0a, type: 3}
+      propertyPath: color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1305058165863625815, guid: 5ba95a07fb0462943ad8161919721f0a, type: 3}
+      propertyPath: color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1305058165863625815, guid: 5ba95a07fb0462943ad8161919721f0a, type: 3}
+      propertyPath: color.r
+      value: 0.24528301
+      objectReference: {fileID: 0}
     - target: {fileID: 3258395994257232914, guid: 5ba95a07fb0462943ad8161919721f0a, type: 3}
       propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 3
@@ -33,7 +45,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6291257228935287796, guid: 5ba95a07fb0462943ad8161919721f0a, type: 3}
       propertyPath: m_Name
-      value: collectable_devide
+      value: collectable_base_divide
       objectReference: {fileID: 0}
     - target: {fileID: 6296172168503899155, guid: 5ba95a07fb0462943ad8161919721f0a, type: 3}
       propertyPath: m_RootOrder

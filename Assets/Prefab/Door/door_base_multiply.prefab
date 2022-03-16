@@ -31,6 +31,26 @@ PrefabInstance:
       propertyPath: particleDatas.Array.data[0].alias
       value: collectable_positive
       objectReference: {fileID: 0}
+    - target: {fileID: 6021355476169076381, guid: b0bea5380d6bcf44fbe80712984347ae, type: 3}
+      propertyPath: type
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6021355476169076381, guid: b0bea5380d6bcf44fbe80712984347ae, type: 3}
+      propertyPath: color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6021355476169076381, guid: b0bea5380d6bcf44fbe80712984347ae, type: 3}
+      propertyPath: color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6021355476169076381, guid: b0bea5380d6bcf44fbe80712984347ae, type: 3}
+      propertyPath: color.r
+      value: 0.09571409
+      objectReference: {fileID: 0}
+    - target: {fileID: 7145852798918066427, guid: b0bea5380d6bcf44fbe80712984347ae, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7812215585440109402, guid: b0bea5380d6bcf44fbe80712984347ae, type: 3}
       propertyPath: m_Name
       value: door_base_multiply
@@ -79,5 +99,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8235866651769202695, guid: b0bea5380d6bcf44fbe80712984347ae, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 525db45b2ebe18842a5def43de83a261, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b0bea5380d6bcf44fbe80712984347ae, type: 3}
