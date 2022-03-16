@@ -13,14 +13,15 @@ namespace FFStudio
     {
 		[ BoxGroup( "Setup" ), ValueDropdown( "SceneList" ), LabelText( "Scene Index" ) ] public int scene_index;
         [ BoxGroup( "Setup" ), LabelText( "Override As Active Scene" ) ] public bool scene_overrideAsActiveScene;
+        [ BoxGroup( "Setup" ), LabelText( "Clean All Persistent Cloth Data" ) ] public bool cloth_start_clean;
 
-        [ BoxGroup( "Setup" ) ] public string cloth_pose;
-        [ BoxGroup( "Setup" ) ] public bool cloth_start_special;
-        [ BoxGroup( "Setup" ), ShowIf( "cloth_start_special" ) ] public EvolveData cloth_start_cloth;
+        [ BoxGroup( "Cloth" ) ] public string cloth_pose;
+        [ BoxGroup( "Cloth" ) ] public bool cloth_start_special;
+        [ BoxGroup( "Cloth" ), ShowIf( "cloth_start_special" ) ] public EvolveData cloth_start_cloth;
 
-        [ BoxGroup( "Setup" ) ] public int cloth_time_min;
-        [ BoxGroup( "Setup" ) ] public int cloth_time_max;
-        [ BoxGroup( "Setup" ) ] public EvolveData[] cloth_evolve_datas;
+        [ BoxGroup( "Cloth" ) ] public int cloth_time_min;
+        [ BoxGroup( "Cloth" ) ] public int cloth_time_max;
+        [ BoxGroup( "Cloth" ) ] public EvolveData[] cloth_evolve_datas;
 
 
 #if UNITY_EDITOR
