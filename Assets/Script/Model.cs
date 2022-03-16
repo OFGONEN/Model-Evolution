@@ -9,6 +9,8 @@ using Sirenix.OdinInspector;
 public class Model : MonoBehaviour
 {
 #region Fields
+    [ BoxGroup( "Shared" ) ] public DressDataList list_dressData;
+
     [ BoxGroup( "Setup" ) ] public SkinnedMeshRenderer renderer_top;
     [ BoxGroup( "Setup" ) ] public SkinnedMeshRenderer renderer_bottom;
     [ BoxGroup( "Setup" ) ] public SkinnedMeshRenderer renderer_shoe;
@@ -20,12 +22,16 @@ public class Model : MonoBehaviour
 #region Unity API
     private void Awake()
     {
-        //todo dress up persistent clothes
-    }
+        for( var i = 0; i < list_dressData.itemList.Count; i++ )
+			DressUp( list_dressData.itemList[ i ] );
+	}
 #endregion
 
 #region API
-    public void DressUp( DressData data )
+#endregion
+
+#region Implementation
+    private void DressUp( DressData data )
     {
 		SkinnedMeshRenderer targetRenderer = null;
 
@@ -43,11 +49,8 @@ public class Model : MonoBehaviour
         }
 
 		gameObject.UpdateSkinnedMeshRenderer( targetRenderer, data );
-		//todo add to persistent
+		list_dressData.AddList( data );
 	}
-#endregion
-
-#region Implementation
 #endregion
 
 #region Editor Only
