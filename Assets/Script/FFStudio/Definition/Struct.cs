@@ -86,4 +86,12 @@ namespace FFStudio
 		public UnityEvent event_complete;
 		public bool event_complete_alwaysInvoke;
 	}
+
+	[ Serializable ]
+	public struct EvolveData
+	{
+		public DressData evolve_dress_data;
+		public int evolve_dress_time;
+		public Color evolve_dress_color;
+	}
 }

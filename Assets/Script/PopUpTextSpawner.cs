@@ -43,7 +43,7 @@ public class PopUpTextSpawner : MonoBehaviour
 		for( var i = 0; i < popUpTextDatas.Length; i++ )
 		{
 			var data = popUpTextDatas[ i ];
-			Handles.Label( transform.position + data.offset, "Particle Spawn:" + data.text );
+			Handles.Label( transform.position + data.offset, "PopUp:" + data.text );
 			Handles.DrawWireCube( transform.position + data.offset, Vector3.one / 4f );
 		}
 	}

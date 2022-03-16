@@ -4,26 +4,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FFStudio;
+using Sirenix.OdinInspector;
 
 [ CreateAssetMenu( fileName = "notifier_", menuName = "FF/Data/Shared/Notifier/Float Aritmetic" ) ]
-public class SharedFloatNotifier_Aritmetic : SharedFloatNotifier
+public class SharedIntNotifier_Aritmetic : SharedIntNotifier
 {
-	public void Add( float value )
+	[ Button() ]
+	public void Add( int value )
 	{
 		SharedValue += value;
 	}
 
-	public void Subtract( float value )
+	[ Button() ]
+	public void Subtract( int value )
 	{
 		SharedValue -= value;
 	}
 
-	public void Multiply( float value )
+	[ Button() ]
+	public void Multiply( int value )
 	{
 		SharedValue *= value;
 	}
 
-	public void Divide( float value )
+	[ Button() ]
+	public void Divide( int value )
 	{
 		SharedValue /= value;
 	}

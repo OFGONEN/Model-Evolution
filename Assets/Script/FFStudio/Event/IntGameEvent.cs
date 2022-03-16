@@ -8,5 +8,11 @@ namespace FFStudio
     public class IntGameEvent : GameEvent
     {
         public int eventValue;
+
+        public void Raise( int value )
+        {
+			eventValue = value;
+			Raise();
+		}
     }
 }

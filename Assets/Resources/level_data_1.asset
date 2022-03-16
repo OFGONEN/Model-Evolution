@@ -14,3 +14,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scene_index: 1
   scene_overrideAsActiveScene: 0
+  cloth_pose: pose_1
+  cloth_start_special: 0
+  cloth_start_cloth:
+    evolve_dress_data: {fileID: 11400000, guid: c2b82c524c6f840d7b01552ab40a87b6, type: 2}
+    evolve_dress_time: 1500
+    evolve_dress_color: {r: 0, g: 0, b: 1, a: 1}
+  cloth_time_min: 1890
+  cloth_time_max: 2000
+  cloth_evolve_datas:
+  - evolve_dress_data: {fileID: 11400000, guid: 2fa743689034946ba957b62f2f70f14a, type: 2}
+    evolve_dress_time: 1900
+    evolve_dress_color: {r: 1, g: 0, b: 0, a: 1}
+  - evolve_dress_data: {fileID: 11400000, guid: c2b82c524c6f840d7b01552ab40a87b6, type: 2}
+    evolve_dress_time: 1930
+    evolve_dress_color: {r: 0, g: 0, b: 1, a: 1}
+  - evolve_dress_data: {fileID: 11400000, guid: 2fa743689034946ba957b62f2f70f14a, type: 2}
+    evolve_dress_time: 1950
+    evolve_dress_color: {r: 1, g: 0, b: 0, a: 1}
+  - evolve_dress_data: {fileID: 11400000, guid: c2b82c524c6f840d7b01552ab40a87b6, type: 2}
+    evolve_dress_time: 1970
+    evolve_dress_color: {r: 0, g: 0, b: 1, a: 1}

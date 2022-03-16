@@ -3,18 +3,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FFStudio;
+using Sirenix.OdinInspector;
 
 [CreateAssetMenu( fileName = "dress_data", menuName = "FF/Game/DressData" )]
 public class DressData : ScriptableObject
 {
-	public string dress_rootBone;
-	public string[] dress_bone_names;
-	public Material[] dress_sharedMaterials;
-	public Bounds dress_localBounds;
-	public Mesh dress_mesh;
+	[ ReadOnly ] public string dress_rootBone;
+	[ ReadOnly ] public string[] dress_bone_names;
+	[ ReadOnly ] public Material[] dress_sharedMaterials;
+	[ ReadOnly ] public Bounds dress_localBounds;
+	[ ReadOnly ] public Mesh dress_mesh;
 
-	public bool isAccessory;
-	public bool override_top;
-    public bool override_bottom;
-    public bool override_shoe;
+	[ BoxGroup( "Setup" ) ] public Vector3 dress_offset_position;
+	[ BoxGroup( "Setup" ) ] public DressType dress_type;
+	[ BoxGroup( "Setup" ) ] public bool isAccessory;
+	[ BoxGroup( "Setup" ) ] public bool override_top;
+    [ BoxGroup( "Setup" ) ] public bool override_bottom;
+    [ BoxGroup( "Setup" ) ] public bool override_shoe;
 }
