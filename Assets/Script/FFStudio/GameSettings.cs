@@ -32,11 +32,13 @@ namespace FFStudio
 		[ BoxGroup( "UI PopUp Setting" ) ] public float ui_PopUp_height;
 		[ BoxGroup( "UI PopUp Setting" ) ] public float ui_PopUp_duration;
 
-		[ BoxGroup( "Movement" ) ] public Ease movement_path_ease;
+		[ BoxGroup( "Movement" ) ] public Ease 	movement_path_ease;
 		[ BoxGroup( "Movement" ) ] public float movement_clampDistance;
 		[ BoxGroup( "Movement" ) ] public float movement_speed_forward;
 		[ BoxGroup( "Movement" ) ] public float movement_speed_lateral;
 		[ BoxGroup( "Movement" ) ] public float movement_speed_forward_increase;
+		[ BoxGroup( "Movement" ) ] public float movement_finishLine_duration;
+		[ BoxGroup( "Movement" ) ] public Ease  movement_finishLine_ease;
 
 		[ BoxGroup( "Indicator" ) ] public float indicator_update_duration;
 		[ BoxGroup( "Indicator" ) ] public float indicator_popUp_size;

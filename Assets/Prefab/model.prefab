@@ -178,6 +178,20 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.0011048019, y: -0.08460255, z: -0.012730688}
     m_Extent: {x: 0.1130269, y: 0.09938891, z: 0.104396924}
   m_DirtyAABB: 0
+--- !u!114 &6295990581786117332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2350923087460964438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a8b9286af946534c832e5352b9db9e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sharedReferenceProperty: {fileID: 11400000, guid: e901475c439de4e6482148304636428d, type: 2}
+  referenceComponent: {fileID: 7241721383460258083}
 --- !u!1 &2734111144474463624
 GameObject:
   m_ObjectHideFlags: 0
@@ -379,9 +393,9 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 6784292480776458763}
-          m_TargetAssemblyTypeName: FFStudio.AnimatorInterface, Assembly-CSharp
-          m_MethodName: UpdateParameter
+        - m_Target: {fileID: -8419525650231357401}
+          m_TargetAssemblyTypeName: FFStudio.ParticleSpawner, Assembly-CSharp
+          m_MethodName: Spawn
           m_Mode: 3
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -498,14 +512,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ecf65a1c2a27d0d4589673942fb2f0ee, type: 3}
---- !u!4 &566491705776263412 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2916570863362053800, guid: ecf65a1c2a27d0d4589673942fb2f0ee, type: 3}
-  m_PrefabInstance: {fileID: 3433194868842481244}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2869947314014674976 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 608321761475470972, guid: ecf65a1c2a27d0d4589673942fb2f0ee, type: 3}
+  m_PrefabInstance: {fileID: 3433194868842481244}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7180975589659691142 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -3746190272939815206, guid: ecf65a1c2a27d0d4589673942fb2f0ee, type: 3}
+  m_PrefabInstance: {fileID: 3433194868842481244}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6924067745025077936 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -3480699329000672020, guid: ecf65a1c2a27d0d4589673942fb2f0ee, type: 3}
   m_PrefabInstance: {fileID: 3433194868842481244}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &4542591189272503896 stripped
@@ -538,11 +557,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6000407479487422213, guid: ecf65a1c2a27d0d4589673942fb2f0ee, type: 3}
   m_PrefabInstance: {fileID: 3433194868842481244}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &7180975589659691142 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -3746190272939815206, guid: ecf65a1c2a27d0d4589673942fb2f0ee, type: 3}
-  m_PrefabInstance: {fileID: 3433194868842481244}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6843873725282809372 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8169382868667117632, guid: ecf65a1c2a27d0d4589673942fb2f0ee, type: 3}
@@ -573,6 +587,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5465940246521907071, guid: ecf65a1c2a27d0d4589673942fb2f0ee, type: 3}
   m_PrefabInstance: {fileID: 3433194868842481244}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2350923087460964438 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1082271958561512970, guid: ecf65a1c2a27d0d4589673942fb2f0ee, type: 3}
+  m_PrefabInstance: {fileID: 3433194868842481244}
+  m_PrefabAsset: {fileID: 0}
 --- !u!95 &9137730126472838093 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: ecf65a1c2a27d0d4589673942fb2f0ee, type: 3}
@@ -583,8 +602,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ecf65a1c2a27d0d4589673942fb2f0ee, type: 3}
   m_PrefabInstance: {fileID: 3433194868842481244}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &6924067745025077936 stripped
+--- !u!4 &566491705776263412 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: -3480699329000672020, guid: ecf65a1c2a27d0d4589673942fb2f0ee, type: 3}
+  m_CorrespondingSourceObject: {fileID: 2916570863362053800, guid: ecf65a1c2a27d0d4589673942fb2f0ee, type: 3}
   m_PrefabInstance: {fileID: 3433194868842481244}
   m_PrefabAsset: {fileID: 0}

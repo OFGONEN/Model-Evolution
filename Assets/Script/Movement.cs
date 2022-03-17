@@ -16,6 +16,8 @@ public class Movement : MonoBehaviour
     [ BoxGroup( "Setup" ) ] public Transform movement_transform;
     [ BoxGroup( "Setup" ) ] public Transform animation_transform;
 
+    [ BoxGroup( "Shared" ) ] public SharedReferenceNotifier notifier_modelTransform;
+
     [ FoldoutGroup( "Animation - Moving" ) ] public float anim_moving_position_up;
     [ FoldoutGroup( "Animation - Moving" ) ] public float anim_moving_position_down;
     [ FoldoutGroup( "Animation - Moving" ) ] public float anim_moving_position_offset;
@@ -126,6 +128,19 @@ public class Movement : MonoBehaviour
 		sequence.AppendInterval( anim_evolve_duration_down_wait );
 
 		sequence.OnComplete( MovingAnimation );
+	}
+
+	public Tween OnFinishLine()
+	{
+		StopPath();
+		animation_sequence.Kill();
+		movement_delegate_lateral = ExtensionMethods.EmptyMethod;
+
+		var target = notifier_modelTransform.sharedValue as Transform;
+
+		animation_transform.DORotate( Vector3.zero, GameSettings.Instance.movement_finishLine_duration / 2f );
+		return animation_transform.DOMove( target.position, GameSettings.Instance.movement_finishLine_duration )
+			.SetEase( GameSettings.Instance.movement_finishLine_ease );
 	}
 #endregion
 
