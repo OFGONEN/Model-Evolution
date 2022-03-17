@@ -14,7 +14,6 @@ public class Dress : MonoBehaviour
     [ BoxGroup( "Shared" ) ] public SharedIntNotifier_Aritmetic notify_time;
     [ BoxGroup( "Shared" ) ] public Pool_UIPopUpText pool_UIPopUpText;
 
-    [ BoxGroup( "Setup" ) ] public Animator animator;
     [ BoxGroup( "Setup" ) ] public MeshRenderer dress_mesh_renderer;
     [ BoxGroup( "Setup" ) ] public MeshFilter dress_mesh_filter;
 
