@@ -82,7 +82,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   notify_time: {fileID: 11400000, guid: f5b7cefb60a6d9949a48db3ddff88fbe, type: 2}
   pool_UIPopUpText: {fileID: 11400000, guid: eaaacbd90b1464ad2b2a3a962a8a84b2, type: 2}
-  dress_event: {fileID: 11400000, guid: 1dc6f0b43b87042a3ad981b8de5afd19, type: 2}
+  event_dressUp: {fileID: 11400000, guid: 1dc6f0b43b87042a3ad981b8de5afd19, type: 2}
+  event_level_complete: {fileID: 11400000, guid: 28d976b368abc004a924d98b1751a17d, type: 2}
   dress_mesh_renderer: {fileID: 6706396656654565330}
   dress_mesh_filter: {fileID: 7137378492245890809}
   dress_movement: {fileID: 8935389186476333484}

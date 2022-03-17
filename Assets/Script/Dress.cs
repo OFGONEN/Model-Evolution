@@ -13,7 +13,8 @@ public class Dress : MonoBehaviour
 #region Fields
     [ BoxGroup( "Shared" ) ] public SharedIntNotifier_Aritmetic notify_time;
     [ BoxGroup( "Shared" ) ] public Pool_UIPopUpText pool_UIPopUpText;
-    [ BoxGroup( "Shared" ) ] public DressData_GameEvent dress_event;
+    [ BoxGroup( "Shared" ) ] public DressData_GameEvent event_dressUp;
+    [ BoxGroup( "Shared" ) ] public GameEvent event_level_complete;
 
     [ BoxGroup( "Setup" ) ] public MeshRenderer dress_mesh_renderer;
     [ BoxGroup( "Setup" ) ] public MeshFilter dress_mesh_filter;
@@ -111,7 +112,8 @@ public class Dress : MonoBehaviour
 #region Implementation
 	private void OnClothReachedModel()
 	{
-		dress_event.Raise( cloth_current_data.evolve_dress_data );
+		event_dressUp.Raise( cloth_current_data.evolve_dress_data );
+		DOVirtual.DelayedCall( GameSettings.Instance.game_level_finish_wait, event_level_complete.Raise );
 	}
 
     private void SpawnMesh( EvolveData evolveData )

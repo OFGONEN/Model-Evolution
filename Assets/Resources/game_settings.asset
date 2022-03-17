@@ -35,5 +35,6 @@ MonoBehaviour:
   indicator_popUp_offset: {x: 0, y: 0.15, z: 0}
   camera_follow_speed_lateral: 3
   camera_follow_speed_depth: 2.75
+  game_level_finish_wait: 0.7
   debug_ui_text_float_height: 1
   debug_ui_text_float_duration: 1

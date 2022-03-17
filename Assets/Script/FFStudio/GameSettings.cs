@@ -47,6 +47,8 @@ namespace FFStudio
 		[ BoxGroup( "Camera" ) ] public float camera_follow_speed_lateral;
 		[ BoxGroup( "Camera" ) ] public float camera_follow_speed_depth;
 
+		[ BoxGroup( "Game" ) ] public float game_level_finish_wait;
+
         [ BoxGroup( "Debug" ) ] public float debug_ui_text_float_height;
         [ BoxGroup( "Debug" ) ] public float debug_ui_text_float_duration;
 #endregion
