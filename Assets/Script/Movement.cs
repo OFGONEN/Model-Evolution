@@ -65,6 +65,8 @@ public class Movement : MonoBehaviour
 			.SetSpeedBased();
 
 		movement_delegate_lateral = MovementLateral;
+
+		MovingAnimation();
 	}
 
     public void IncreaseSpeed()

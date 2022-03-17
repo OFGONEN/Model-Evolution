@@ -80,9 +80,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   notify_time: {fileID: 11400000, guid: f5b7cefb60a6d9949a48db3ddff88fbe, type: 2}
   pool_UIPopUpText: {fileID: 11400000, guid: eaaacbd90b1464ad2b2a3a962a8a84b2, type: 2}
-  animator: {fileID: 0}
   dress_mesh_renderer: {fileID: 6706396656654565330}
   dress_mesh_filter: {fileID: 7137378492245890809}
+  dress_movement: {fileID: 8935389186476333484}
   indicator_text_renderer: {fileID: 2038398949833874325}
   particleSpawner: {fileID: 2434015812624048410}
 --- !u!114 &5290117529326854693

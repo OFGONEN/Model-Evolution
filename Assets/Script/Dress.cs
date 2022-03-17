@@ -16,6 +16,7 @@ public class Dress : MonoBehaviour
 
     [ BoxGroup( "Setup" ) ] public MeshRenderer dress_mesh_renderer;
     [ BoxGroup( "Setup" ) ] public MeshFilter dress_mesh_filter;
+    [ BoxGroup( "Setup" ) ] public Movement dress_movement;
 
     [ BoxGroup( "Time Indicator" ) ] public TextMeshProUGUI indicator_text_renderer;
 
@@ -24,7 +25,7 @@ public class Dress : MonoBehaviour
     // Private Field \\
 	private EvolveData cloth_current_data;
 	private int cloth_current_index;
-	[ ShowInInspector, ReadOnly ] private int cloth_current_time;
+	private int cloth_current_time;
 	private RecycledSequence indicator_sequence = new RecycledSequence();
 
 	// Private Delegates \\
@@ -89,6 +90,8 @@ public class Dress : MonoBehaviour
 		UpdateTimeIndicator( time, cloth_current_data.evolve_dress_color );
 		SpawnPopUpText( cloth_current_data );
 
+		dress_movement.EvolveAnimation();
+
 		onNotifyTime = OnNotifyTime_PostEvolve;
 	}
 
@@ -135,7 +138,8 @@ public class Dress : MonoBehaviour
 			UpdateTimeIndicator( time, ReturnLerpedColor( NextEvolveData, time ) );
 
 			SpawnPopUpText( cloth_current_data );
-			//todo animation
+
+			dress_movement.EvolveAnimation();
 		}
 		else if( CanEvolveDown( time, out index ) )
 		{
@@ -147,7 +151,7 @@ public class Dress : MonoBehaviour
 			UpdateTimeIndicator( time, ReturnLerpedColor( NextEvolveData, time ) );
 			SpawnPopUpText( cloth_current_data );
 
-			//todo animation
+			dress_movement.EvolveAnimation();
 		}
 		else
 			UpdateTimeIndicator( time, ReturnLerpedColor( NextEvolveData, time ) );
