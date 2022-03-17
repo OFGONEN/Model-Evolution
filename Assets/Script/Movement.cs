@@ -11,7 +11,7 @@ using UnityEditor;
 public class Movement : MonoBehaviour
 {
 #region Fields
-    [ BoxGroup( "Setup" ) ] public Vector3[] movement_points;
+    [ BoxGroup( "Setup" ), ReadOnly ] public Vector3[] movement_points;
     [ BoxGroup( "Setup" ) ] public SharedFloat movement_input_lateral;
     [ BoxGroup( "Setup" ) ] public Transform movement_transform;
     [ BoxGroup( "Setup" ) ] public Transform animation_transform;
@@ -142,7 +142,7 @@ public class Movement : MonoBehaviour
 
 #region Editor Only
 #if UNITY_EDITOR
-	[ ShowInInspector ] private DOTweenPath path;
+	[ ShowInInspector, BoxGroup( "EditorOnly" ) ] private DOTweenPath path;
 
     [ Button() ]
     private void ExportPath()
@@ -158,8 +158,8 @@ public class Movement : MonoBehaviour
         movement_points = path.wps.ToArray();
     }
 
-	[ ShowInInspector ] private bool Gizmos_anim_moving;
-	[ ShowInInspector ] private bool Gizmos_anim_evolve;
+	[ ShowInInspector, BoxGroup( "EditorOnly" ) ] private bool Gizmos_anim_moving;
+	[ ShowInInspector, BoxGroup( "EditorOnly" ) ] private bool Gizmos_anim_evolve;
 
 	private void OnDrawGizmosSelected()
 	{
