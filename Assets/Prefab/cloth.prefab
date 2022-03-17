@@ -415,6 +415,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5237732566003934628}
   - component: {fileID: 295315413265327516}
+  - component: {fileID: 2279112614206089628}
   m_Layer: 31
   m_Name: movement
   m_TagString: Untagged
@@ -451,6 +452,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.5, z: 0.5}
   m_Center: {x: 0, y: 0.25, z: 0}
+--- !u!114 &2279112614206089628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8851345386749091899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a8b9286af946534c832e5352b9db9e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sharedReferenceProperty: {fileID: 11400000, guid: 1bcf974a8739942a78d7debe752d9962, type: 2}
+  referenceComponent: {fileID: 5237732566003934628}
 --- !u!1001 &6843651395792776523
 PrefabInstance:
   m_ObjectHideFlags: 0

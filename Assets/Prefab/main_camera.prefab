@@ -12,7 +12,9 @@ GameObject:
   - component: {fileID: 3747325266785291021}
   - component: {fileID: 3747325266785291022}
   - component: {fileID: 1943585445343330057}
+  - component: {fileID: 7792684485560795143}
   - component: {fileID: -7260795920303046796}
+  - component: {fileID: 7250867786753765450}
   m_Layer: 0
   m_Name: main_camera
   m_TagString: MainCamera
@@ -99,6 +101,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sharedReferenceProperty: {fileID: 11400000, guid: 488e798dd6f140e4a84fa7485b885dd3, type: 2}
   referenceComponent: {fileID: 3747325266785291020}
+--- !u!114 &7792684485560795143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3747325266785291023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60db4d3f28d9e4066ac5867418757173, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reference_transform_target: {fileID: 11400000, guid: 1bcf974a8739942a78d7debe752d9962, type: 2}
 --- !u!114 &-7260795920303046796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,3 +174,67 @@ MonoBehaviour:
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
   m_AfterStackBundles: []
+--- !u!114 &7250867786753765450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3747325266785291023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 245dc21cc9428744fa28ad2d6ce7d327, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventPairs:
+  - eventListener:
+      gameEvent: {fileID: 11400000, guid: 28d976b368abc004a924d98b1751a17d, type: 2}
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7792684485560795143}
+          m_TargetAssemblyTypeName: CameraController, Assembly-CSharp
+          m_MethodName: LevelCompleteResponse
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventListener:
+      gameEvent: {fileID: 11400000, guid: ec850936269bc2e47b26cfebd8bdad97, type: 2}
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7792684485560795143}
+          m_TargetAssemblyTypeName: CameraController, Assembly-CSharp
+          m_MethodName: LevelCompleteResponse
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventListener:
+      gameEvent: {fileID: 11400000, guid: efef06bf257ee27438d6c2aab4936226, type: 2}
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7792684485560795143}
+          m_TargetAssemblyTypeName: CameraController, Assembly-CSharp
+          m_MethodName: LevelStartedResponse
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2

@@ -42,6 +42,9 @@ namespace FFStudio
 		[ BoxGroup( "Indicator" ) ] public float indicator_popUp_size;
 		[ BoxGroup( "Indicator" ) ] public Vector3 indicator_popUp_offset;
 
+		[ BoxGroup( "Camera" ) ] public float camera_follow_speed_lateral;
+		[ BoxGroup( "Camera" ) ] public float camera_follow_speed_depth;
+
         [ BoxGroup( "Debug" ) ] public float debug_ui_text_float_height;
         [ BoxGroup( "Debug" ) ] public float debug_ui_text_float_duration;
 #endregion
