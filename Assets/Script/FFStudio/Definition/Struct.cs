@@ -80,8 +80,8 @@ namespace FFStudio
 		public bool change_position;
 		public bool change_rotation;
 
-		[ ShowIf( "tween_does_position" ) ] public Ease ease_position;
-		[ ShowIf( "tween_does_rotation" ) ] public Ease ease_rotation;
+		[ ShowIf( "change_position" ) ] public Ease ease_position;
+		[ ShowIf( "change_rotation" ) ] public Ease ease_rotation;
 
 		public UnityEvent event_complete;
 		public bool event_complete_alwaysInvoke;
