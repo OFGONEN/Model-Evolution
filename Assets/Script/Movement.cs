@@ -17,6 +17,7 @@ public class Movement : MonoBehaviour
     [ BoxGroup( "Setup" ) ] public Transform animation_transform;
 
     [ BoxGroup( "Shared" ) ] public SharedReferenceNotifier notifier_modelTransform;
+    [ BoxGroup( "Shared" ) ] public SharedReferenceNotifier notifier_clothTransform;
 
     [ FoldoutGroup( "Animation - Moving" ) ] public float anim_moving_position_up;
     [ FoldoutGroup( "Animation - Moving" ) ] public float anim_moving_position_down;
@@ -135,6 +136,8 @@ public class Movement : MonoBehaviour
 		StopPath();
 		animation_sequence.Kill();
 		movement_delegate_lateral = ExtensionMethods.EmptyMethod;
+
+		notifier_clothTransform.SharedValue = animation_transform;
 
 		var target = notifier_modelTransform.sharedValue as Transform;
 

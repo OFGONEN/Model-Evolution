@@ -53,6 +53,7 @@ MonoBehaviour:
   movement_transform: {fileID: 5237732566003934628}
   animation_transform: {fileID: 5220861811305579851}
   notifier_modelTransform: {fileID: 11400000, guid: e901475c439de4e6482148304636428d, type: 2}
+  notifier_clothTransform: {fileID: 11400000, guid: 1bcf974a8739942a78d7debe752d9962, type: 2}
   anim_moving_position_up: 1
   anim_moving_position_down: 0.2
   anim_moving_position_offset: 0.1
