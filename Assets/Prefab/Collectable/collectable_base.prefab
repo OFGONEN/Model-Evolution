@@ -45,8 +45,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0.5, z: 0}
+  m_Size: {x: 0.2, y: 0.2, z: 0.2}
+  m_Center: {x: 0, y: 0.1, z: 0}
 --- !u!114 &3258395994257232914
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,7 +114,7 @@ MonoBehaviour:
   particleDatas:
   - particle_event: {fileID: 11400000, guid: fe240f220ab36cc44923227184f9c2a7, type: 2}
     alias: collectable_
-    parent: 1
+    parent: 0
     offset: {x: 0, y: 0.5, z: 0}
     size: 1
 --- !u!1 &7623572783314533820
@@ -144,7 +144,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7623572783314533820}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6296172168503899155}
@@ -168,7 +168,7 @@ MonoBehaviour:
   zTest: 4
   zOffsetFactor: 0
   zOffsetUnits: 0
-  radius: 0.5
+  radius: 0.1
   radiusSpace: 0
 --- !u!33 &4621858331280212919
 MeshFilter:

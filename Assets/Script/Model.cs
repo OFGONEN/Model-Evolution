@@ -30,7 +30,7 @@ public class Model : MonoBehaviour
 #region API
     public void DressUpResponse( DressData_GameEvent gameEvent )
     {
-		DressUp( gameEvent.eventValue );
+		DressUp_Register( gameEvent.eventValue );
 	}
 #endregion
 
@@ -53,6 +53,11 @@ public class Model : MonoBehaviour
         }
 
 		gameObject.UpdateSkinnedMeshRenderer( targetRenderer, data );
+	}
+
+    private void DressUp_Register( DressData data )
+    {
+		DressUp( data );
 		list_dressData.AddList( data );
 	}
 #endregion

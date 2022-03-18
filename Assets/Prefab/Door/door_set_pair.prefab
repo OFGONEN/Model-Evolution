@@ -39,6 +39,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1154896509161781427}
     m_Modifications:
+    - target: {fileID: 2371919275100543846, guid: f3b312fe25eda9c428715f45ea0b562b, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3434975403907123399, guid: f3b312fe25eda9c428715f45ea0b562b, type: 3}
       propertyPath: m_Name
       value: door_base_set_right
@@ -88,12 +92,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6704882646640013697, guid: f3b312fe25eda9c428715f45ea0b562b, type: 3}
-      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Target
-      value: 
-      objectReference: {fileID: 11400000, guid: 8fdfab73fd97b4998975ece7c18c2b91, type: 2}
-    - target: {fileID: 6704882646640013697, guid: f3b312fe25eda9c428715f45ea0b562b, type: 3}
-      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: 
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8336709030880011749, guid: f3b312fe25eda9c428715f45ea0b562b, type: 3}
       propertyPath: particleDatas.Array.data[0].alias
@@ -113,6 +113,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1154896509161781427}
     m_Modifications:
+    - target: {fileID: 2371919275100543846, guid: f3b312fe25eda9c428715f45ea0b562b, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3434975403907123399, guid: f3b312fe25eda9c428715f45ea0b562b, type: 3}
       propertyPath: m_Name
       value: door_base_set_left

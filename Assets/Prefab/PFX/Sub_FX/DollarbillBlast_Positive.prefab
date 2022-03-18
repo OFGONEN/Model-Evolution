@@ -4821,7 +4821,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &446502
 Transform:
   m_ObjectHideFlags: 0
@@ -9602,7 +9602,7 @@ GameObject:
   - component: {fileID: 19813282}
   - component: {fileID: 19907290}
   m_Layer: 0
-  m_Name: DollarbillBlast
+  m_Name: DollarbillBlast_Positive
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

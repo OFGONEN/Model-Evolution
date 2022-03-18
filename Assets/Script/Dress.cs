@@ -13,19 +13,20 @@ public class Dress : MonoBehaviour
 #region Fields
     [ BoxGroup( "Shared" ) ] public SharedIntNotifier_Aritmetic notify_time;
     [ BoxGroup( "Shared" ) ] public Pool_UIPopUpText pool_UIPopUpText;
+    [ BoxGroup( "Shared" ) ] public DressData_GameEvent event_dressUp;
+    [ BoxGroup( "Shared" ) ] public GameEvent event_level_complete;
 
-    [ BoxGroup( "Setup" ) ] public Animator animator;
     [ BoxGroup( "Setup" ) ] public MeshRenderer dress_mesh_renderer;
     [ BoxGroup( "Setup" ) ] public MeshFilter dress_mesh_filter;
-
-    [ BoxGroup( "Time Indicator" ) ] public TextMeshProUGUI indicator_text_renderer;
+    [ BoxGroup( "Setup" ) ] public Movement dress_movement;
+    [ BoxGroup( "Setup" ) ] public TextMeshProUGUI indicator_text_renderer;
 
     [ BoxGroup( "Component" ) ] public ParticleSpawner particleSpawner; // { evolve_positive, evolve_negative }
 
     // Private Field \\
 	private EvolveData cloth_current_data;
 	private int cloth_current_index;
-	[ ShowInInspector, ReadOnly ] private int cloth_current_time;
+	private int cloth_current_time;
 	private RecycledSequence indicator_sequence = new RecycledSequence();
 
 	// Private Delegates \\
@@ -90,6 +91,8 @@ public class Dress : MonoBehaviour
 		UpdateTimeIndicator( time, cloth_current_data.evolve_dress_color );
 		SpawnPopUpText( cloth_current_data );
 
+		dress_movement.EvolveAnimation();
+
 		onNotifyTime = OnNotifyTime_PostEvolve;
 	}
 
@@ -98,9 +101,21 @@ public class Dress : MonoBehaviour
 	{
 		onNotifyTime();
 	}
+
+	public void OnFinishLine()
+	{
+		onNotifyTime = ExtensionMethods.EmptyMethod;
+		dress_movement.OnFinishLine().OnComplete( OnClothReachedModel );
+	}
 #endregion
 
 #region Implementation
+	private void OnClothReachedModel()
+	{
+		event_dressUp.Raise( cloth_current_data.evolve_dress_data );
+		DOVirtual.DelayedCall( GameSettings.Instance.game_level_finish_wait, event_level_complete.Raise );
+	}
+
     private void SpawnMesh( EvolveData evolveData )
     {
 		var dress_data = evolveData.evolve_dress_data;
@@ -136,7 +151,8 @@ public class Dress : MonoBehaviour
 			UpdateTimeIndicator( time, ReturnLerpedColor( NextEvolveData, time ) );
 
 			SpawnPopUpText( cloth_current_data );
-			//todo animation
+
+			dress_movement.EvolveAnimation();
 		}
 		else if( CanEvolveDown( time, out index ) )
 		{
@@ -148,7 +164,7 @@ public class Dress : MonoBehaviour
 			UpdateTimeIndicator( time, ReturnLerpedColor( NextEvolveData, time ) );
 			SpawnPopUpText( cloth_current_data );
 
-			//todo animation
+			dress_movement.EvolveAnimation();
 		}
 		else
 			UpdateTimeIndicator( time, ReturnLerpedColor( NextEvolveData, time ) );

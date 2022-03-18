@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 8935389186476333484}
   - component: {fileID: 9006063527558546177}
   - component: {fileID: 5290117529326854693}
-  - component: {fileID: -3131649872388627935}
   - component: {fileID: -2687495480277787591}
   - component: {fileID: 1529282657941897753}
   m_Layer: 31
@@ -53,6 +52,8 @@ MonoBehaviour:
   movement_input_lateral: {fileID: 11400000, guid: a13758f5f4b50f44cbbacd8d3fff2476, type: 2}
   movement_transform: {fileID: 5237732566003934628}
   animation_transform: {fileID: 5220861811305579851}
+  notifier_modelTransform: {fileID: 11400000, guid: e901475c439de4e6482148304636428d, type: 2}
+  notifier_clothTransform: {fileID: 11400000, guid: 1bcf974a8739942a78d7debe752d9962, type: 2}
   anim_moving_position_up: 1
   anim_moving_position_down: 0.2
   anim_moving_position_offset: 0.1
@@ -81,11 +82,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   notify_time: {fileID: 11400000, guid: f5b7cefb60a6d9949a48db3ddff88fbe, type: 2}
   pool_UIPopUpText: {fileID: 11400000, guid: eaaacbd90b1464ad2b2a3a962a8a84b2, type: 2}
-  animator: {fileID: 0}
+  event_dressUp: {fileID: 11400000, guid: 1dc6f0b43b87042a3ad981b8de5afd19, type: 2}
+  event_level_complete: {fileID: 11400000, guid: 28d976b368abc004a924d98b1751a17d, type: 2}
   dress_mesh_renderer: {fileID: 6706396656654565330}
   dress_mesh_filter: {fileID: 7137378492245890809}
+  dress_movement: {fileID: 8935389186476333484}
   indicator_text_renderer: {fileID: 2038398949833874325}
-  particleSpawner: {fileID: -3131649872388627935}
+  particleSpawner: {fileID: 2434015812624048410}
 --- !u!114 &5290117529326854693
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,9 +158,9 @@ MonoBehaviour:
     unityEvent:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 8935389186476333484}
-          m_TargetAssemblyTypeName: Movement, Assembly-CSharp
-          m_MethodName: StopPath
+        - m_Target: {fileID: 9006063527558546177}
+          m_TargetAssemblyTypeName: Dress, Assembly-CSharp
+          m_MethodName: OnFinishLine
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -184,7 +187,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: -3131649872388627935}
+        - m_Target: {fileID: 2434015812624048410}
           m_TargetAssemblyTypeName: FFStudio.ParticleSpawner, Assembly-CSharp
           m_MethodName: Spawn
           m_Mode: 3
@@ -213,7 +216,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: -3131649872388627935}
+        - m_Target: {fileID: 2434015812624048410}
           m_TargetAssemblyTypeName: FFStudio.ParticleSpawner, Assembly-CSharp
           m_MethodName: Spawn
           m_Mode: 3
@@ -225,29 +228,23 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
---- !u!114 &-3131649872388627935
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3705295433299473825}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f753b2c2b78147c181c65650f11a67d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  particleDatas:
-  - particle_event: {fileID: 11400000, guid: fe240f220ab36cc44923227184f9c2a7, type: 2}
-    alias: evolve_positive
-    parent: 1
-    offset: {x: 0, y: 0, z: 0}
-    size: 1
-  - particle_event: {fileID: 11400000, guid: fe240f220ab36cc44923227184f9c2a7, type: 2}
-    alias: evolve_negative
-    parent: 1
-    offset: {x: 0, y: 0, z: 0}
-    size: 1
+  - eventListener:
+      gameEvent: {fileID: 11400000, guid: 1dc6f0b43b87042a3ad981b8de5afd19, type: 2}
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 5869911344135041781}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!114 &-2687495480277787591
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -415,6 +412,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5237732566003934628}
   - component: {fileID: 295315413265327516}
+  - component: {fileID: 2279112614206089628}
+  - component: {fileID: 2434015812624048410}
   m_Layer: 31
   m_Name: movement
   m_TagString: Untagged
@@ -449,8 +448,45 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.5, y: 0.5, z: 0.5}
+  m_Center: {x: 0, y: 0.25, z: 0}
+--- !u!114 &2279112614206089628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8851345386749091899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a8b9286af946534c832e5352b9db9e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sharedReferenceProperty: {fileID: 11400000, guid: 1bcf974a8739942a78d7debe752d9962, type: 2}
+  referenceComponent: {fileID: 5237732566003934628}
+--- !u!114 &2434015812624048410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8851345386749091899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f753b2c2b78147c181c65650f11a67d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleDatas:
+  - particle_event: {fileID: 11400000, guid: fe240f220ab36cc44923227184f9c2a7, type: 2}
+    alias: evolve_positive
+    parent: 1
+    offset: {x: 0, y: 0, z: 0}
+    size: 1
+  - particle_event: {fileID: 11400000, guid: fe240f220ab36cc44923227184f9c2a7, type: 2}
+    alias: evolve_negative
+    parent: 1
+    offset: {x: 0, y: 0, z: 0}
+    size: 1
 --- !u!1001 &6843651395792776523
 PrefabInstance:
   m_ObjectHideFlags: 0
