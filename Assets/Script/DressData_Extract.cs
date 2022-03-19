@@ -1,6 +1,7 @@
 /* Created by and for usage of FF Studios (2021). */
 
 using UnityEngine;
+using UnityEditor;
 using FFStudio;
 using Sirenix.OdinInspector;
 
@@ -22,7 +23,9 @@ public class DressData_Extract : MonoBehaviour
     [ Button() ]
     public void ExtractDressData()
     {
-        dressData.dress_bone_names = new string[ skinnedMeshRenderer_Extract.bones.Length ];
+		EditorUtility.SetDirty( dressData );
+
+		dressData.dress_bone_names = new string[ skinnedMeshRenderer_Extract.bones.Length ];
 
         dressData.dress_mesh            = skinnedMeshRenderer_Extract.sharedMesh;
         dressData.dress_localBounds     = skinnedMeshRenderer_Extract.localBounds;
@@ -31,7 +34,9 @@ public class DressData_Extract : MonoBehaviour
 
         for( var i = 0; i < skinnedMeshRenderer_Extract.bones.Length; i++ )
             dressData.dress_bone_names[ i ] = skinnedMeshRenderer_Extract.bones[ i ].name;
-    }
+
+		AssetDatabase.SaveAssets();
+	}
 
     [ Button() ]
     public void DressUp()
