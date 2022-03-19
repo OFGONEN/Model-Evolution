@@ -41,6 +41,30 @@ public class BoneBaker : MonoBehaviour
 		}
 	}
 
+	[ Button() ]
+	public void LogBoneAllTransform()
+	{
+		var baseBones = baseObject.GetComponentsInChildren<Transform>();
+		var targetBones = targetObject.GetComponentsInChildren<Transform>();
+
+		if( baseBones.Length != targetBones.Length )
+		{
+			FFLogger.Log( "BONE COUNT DOES NOT MATCH" );
+			return;
+		}
+
+		for( var i = 0; i < baseBones.Length; i++ )
+		{
+			if( baseBones[ i ].name == targetBones[ i ].name )
+			{
+					FFLogger.Log( baseBones[ i ].name + " position offset: " + ( targetBones[ i ].position - baseBones[ i ].position ), baseBones[ i ] );
+					FFLogger.Log( baseBones[ i ].name + " rotation offset: " + ( targetBones[ i ].eulerAngles - baseBones[ i ].eulerAngles ), baseBones[ i ] );
+			}
+			else
+				FFLogger.Log( baseBones[ i ].name + " DOES NOT MATCH " + targetBones[ i ].name );
+		}
+	}
+
 	[Button()]
 	public void EvenUpBones()
 	{
@@ -63,16 +87,7 @@ public class BoneBaker : MonoBehaviour
 		}
 	}
 
-    [ Button() ]
-    public void UpdateSkin()
-    {
-		baseSkin.sharedMesh      = targetSkin.sharedMesh;
-		baseSkin.sharedMaterials = targetSkin.sharedMaterials;
-		baseSkin.localBounds     = targetSkin.localBounds;
-		baseSkin.bones           = targetSkin.bones;
-    }
-
-	[Button()]
+	[ Button() ]
 	public void BakeAndSet()
 	{
 		List<Matrix4x4> poses = new List<Matrix4x4>();
@@ -85,7 +100,7 @@ public class BoneBaker : MonoBehaviour
 		baseSkin.sharedMesh      = mesh;
 		baseSkin.sharedMaterials = targetSkin.sharedMaterials;
 		baseSkin.localBounds     = targetSkin.localBounds;
-		baseSkin.bones = targetSkin.bones;
+		// baseSkin.bones = targetSkin.bones;
 	}
 
     [ Button() ]
