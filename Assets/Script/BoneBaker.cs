@@ -41,6 +41,30 @@ public class BoneBaker : MonoBehaviour
 		}
 	}
 
+	[ Button() ]
+	public void LogBoneAllTransform()
+	{
+		var baseBones = baseObject.GetComponentsInChildren<Transform>();
+		var targetBones = targetObject.GetComponentsInChildren<Transform>();
+
+		if( baseBones.Length != targetBones.Length )
+		{
+			FFLogger.Log( "BONE COUNT DOES NOT MATCH" );
+			return;
+		}
+
+		for( var i = 0; i < baseBones.Length; i++ )
+		{
+			if( baseBones[ i ].name == targetBones[ i ].name )
+			{
+					FFLogger.Log( baseBones[ i ].name + " position offset: " + ( targetBones[ i ].position - baseBones[ i ].position ), baseBones[ i ] );
+					FFLogger.Log( baseBones[ i ].name + " rotation offset: " + ( targetBones[ i ].eulerAngles - baseBones[ i ].eulerAngles ), baseBones[ i ] );
+			}
+			else
+				FFLogger.Log( baseBones[ i ].name + " DOES NOT MATCH " + targetBones[ i ].name );
+		}
+	}
+
 	[Button()]
 	public void EvenUpBones()
 	{
