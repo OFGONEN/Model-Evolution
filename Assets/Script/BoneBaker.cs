@@ -87,16 +87,7 @@ public class BoneBaker : MonoBehaviour
 		}
 	}
 
-    [ Button() ]
-    public void UpdateSkin()
-    {
-		baseSkin.sharedMesh      = targetSkin.sharedMesh;
-		baseSkin.sharedMaterials = targetSkin.sharedMaterials;
-		baseSkin.localBounds     = targetSkin.localBounds;
-		baseSkin.bones           = targetSkin.bones;
-    }
-
-	[Button()]
+	[ Button() ]
 	public void BakeAndSet()
 	{
 		List<Matrix4x4> poses = new List<Matrix4x4>();
@@ -109,7 +100,7 @@ public class BoneBaker : MonoBehaviour
 		baseSkin.sharedMesh      = mesh;
 		baseSkin.sharedMaterials = targetSkin.sharedMaterials;
 		baseSkin.localBounds     = targetSkin.localBounds;
-		baseSkin.bones = targetSkin.bones;
+		// baseSkin.bones = targetSkin.bones;
 	}
 
     [ Button() ]
