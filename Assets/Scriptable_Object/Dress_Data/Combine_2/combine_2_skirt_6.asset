@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47aa1f00f8d4a439fb3ced482a29ae75, type: 3}
+  m_Name: combine_2_skirt_6
+  m_EditorClassIdentifier: 
+  dress_rootBone: Hips
+  dress_bone_names:
+  - Hips
+  - Left leg
+  - Right leg
+  dress_sharedMaterials:
+  - {fileID: 2100000, guid: a2829df0bfae7214390d3aa9dcc77c64, type: 2}
+  dress_localBounds:
+    m_Center: {x: -0.0027711093, y: -0.13188984, z: -0.016056418}
+    m_Extent: {x: 0.19611779, y: 0.12343745, z: 0.14004074}
+  dress_mesh: {fileID: 4300000, guid: 0292c18e35151fa49ac430c180fdcf3e, type: 2}
+  dress_offset_position: {x: 0, y: 0, z: 0}
+  dress_type: 0
+  isAccessory: 0
+  override_top: 0
+  override_bottom: 0
+  override_shoe: 0
