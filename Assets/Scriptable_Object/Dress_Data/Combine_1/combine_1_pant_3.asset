@@ -10,32 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 47aa1f00f8d4a439fb3ced482a29ae75, type: 3}
-  m_Name: combine_1_shirt_2
+  m_Name: combine_1_pant_3
   m_EditorClassIdentifier: 
   dress_rootBone: Hips
   dress_bone_names:
   - Hips
-  - Spine
-  - Chest
-  - Neck
-  - Head
-  - Left shoulder
-  - Left arm
-  - Left elbow
-  - Left wrist
-  - Mixamorig_LeftHandThumb1
-  - Upper Chest
-  - Right shoulder
-  - Right arm
-  - Right elbow
-  - Right wrist
-  - Mixamorig_RightHandThumb1
+  - Left leg
+  - Left knee
+  - Left ankle
+  - Left toe
+  - Right leg
+  - Right knee
+  - Right ankle
+  - Right toe
   dress_sharedMaterials:
   - {fileID: 2100000, guid: a2829df0bfae7214390d3aa9dcc77c64, type: 2}
   dress_localBounds:
-    m_Center: {x: -0.0024238974, y: 0.13235214, z: 0.008366875}
-    m_Extent: {x: 0.37624633, y: 0.2445192, z: 0.1300255}
-  dress_mesh: {fileID: 4300000, guid: 60ae27fb4442d4aefafcf5d1d0e32c7d, type: 2}
+    m_Center: {x: -0.00017850101, y: -0.5207518, z: -0.022186149}
+    m_Extent: {x: 0.2096668, y: 0.49402672, z: 0.13881232}
+  dress_mesh: {fileID: 4300000, guid: fd00a0d68f485234a9505a53596af7d2, type: 2}
   dress_offset_position: {x: 0, y: 0, z: 0}
   dress_type: 0
   isAccessory: 0
