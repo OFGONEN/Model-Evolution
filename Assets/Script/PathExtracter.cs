@@ -23,7 +23,7 @@ public class PathExtracter : MonoBehaviour
 
 #region API
     [ Button() ]
-    public void AddPath()
+    public void ExtractPath()
     {
 		path_points = new Vector3[ path_parent.childCount ];
 
@@ -31,6 +31,12 @@ public class PathExtracter : MonoBehaviour
         {
 			path_points[ i ] = path_parent.GetChild( i ).localPosition;
 		}
+    }
+
+    [ Button() ]
+    public void AddPath()
+    {
+		ExtractPath();
 
 		path.wps.AddRange( path_points );
 	}
