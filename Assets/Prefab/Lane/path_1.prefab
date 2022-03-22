@@ -9,10 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1759257707220810106}
+  - component: {fileID: -745302860874703518}
   - component: {fileID: 1759257707220810105}
   m_Layer: 0
   m_Name: path_1
-  m_TagString: Untagged
+  m_TagString: EditorOnly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31,6 +32,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-745302860874703518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1759257707220810104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e56dcf52dc01d481580e47fe5f512bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  path: {fileID: 1759257707220810105}
+  path_parent: {fileID: 0}
+  path_points: []
 --- !u!114 &1759257707220810105
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,19 +135,68 @@ MonoBehaviour:
   forwardDirection: {x: 0, y: 0, z: 1}
   upDirection: {x: 0, y: 1, z: 0}
   tweenRigidbody: 0
-  wps: []
+  wps:
+  - {x: 0, y: 0, z: 0}
   fullWps: []
   path:
-    wpLengths: []
-    wps: []
-    type: 0
+    wpLengths:
+    - 0
+    - 0
+    wps:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    type: 1
     subdivisionsXSegment: 10
-    subdivisions: 0
-    controlPoints: []
+    subdivisions: 20
+    controlPoints:
+    - a: {x: 0, y: 0, z: 0}
+      b: {x: 0, y: 0, z: 0}
+    - a: {x: 0, y: 0, z: 0}
+      b: {x: 0, y: 0, z: 0}
     length: 0
-    isFinalized: 0
-    timesTable: []
-    lengthsTable: []
+    isFinalized: 1
+    timesTable:
+    - 0.05
+    - 0.1
+    - 0.15
+    - 0.2
+    - 0.25
+    - 0.3
+    - 0.35
+    - 0.4
+    - 0.45000002
+    - 0.5
+    - 0.55
+    - 0.6
+    - 0.65000004
+    - 0.7
+    - 0.75
+    - 0.8
+    - 0.85
+    - 0.90000004
+    - 0.95
+    - 1
+    lengthsTable:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
   inspectorMode: 0
   pathType: 1
   handlesType: 0
@@ -142,6 +207,6 @@ MonoBehaviour:
   showWpLength: 0
   pathColor: {r: 1, g: 1, b: 1, a: 0.5}
   lastSrcPosition: {x: 0, y: 0, z: 0}
-  lastSrcRotation: {x: 0, y: 0, z: 0, w: 0}
-  wpsDropdown: 0
+  lastSrcRotation: {x: 0, y: 0, z: 0, w: 1}
+  wpsDropdown: 1
   dropToFloorOffset: 0
