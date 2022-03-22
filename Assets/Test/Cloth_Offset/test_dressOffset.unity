@@ -198,8 +198,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25fd49f145f954378a3b133beffbb504, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dressData_offset: {x: 0, y: -0.26, z: 0}
-  dressData: {fileID: 11400000, guid: 0d8bf3f94d4f371468ed46db110b14b7, type: 2}
+  dressData_offset: {x: 0, y: -0.75, z: 0}
+  dressData: {fileID: 11400000, guid: d91a5d51fafbc2649a01c9a197b29b39, type: 2}
 --- !u!4 &595718586
 Transform:
   m_ObjectHideFlags: 0
@@ -451,7 +451,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1519173802}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.26, z: 0}
+  m_LocalPosition: {x: 0, y: -0.75, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 595718586}
@@ -506,7 +506,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1519173802}
-  m_Mesh: {fileID: 4300000, guid: 2638b9d96a0475045aba181ebaac7fc3, type: 2}
+  m_Mesh: {fileID: 4300000, guid: 6b775932805f5294f9d50349e53281d5, type: 2}
 --- !u!1001 &1991996914
 PrefabInstance:
   m_ObjectHideFlags: 0
