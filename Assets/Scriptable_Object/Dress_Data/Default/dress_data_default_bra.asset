@@ -12,22 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47aa1f00f8d4a439fb3ced482a29ae75, type: 3}
   m_Name: dress_data_default_bra
   m_EditorClassIdentifier: 
-  dress_rootBone: mixamorig:Spine
+  dress_rootBone: Hips
   dress_bone_names:
-  - mixamorig:RightShoulder
-  - mixamorig:Spine1
-  - mixamorig:Spine2
-  - mixamorig:RightArm
-  - mixamorig:Spine
-  - mixamorig:LeftShoulder
-  - mixamorig:LeftArm
+  - Hips
+  - Spine
+  - Chest
+  - Left shoulder
+  - Left arm
+  - Upper Chest
+  - Right shoulder
+  - Right arm
   dress_sharedMaterials:
   - {fileID: 2100000, guid: a2829df0bfae7214390d3aa9dcc77c64, type: 2}
   dress_localBounds:
-    m_Center: {x: 0.010759257, y: 0.19016413, z: 0.037676726}
-    m_Extent: {x: 0.19288221, y: 0.10771315, z: 0.10089049}
-  dress_mesh: {fileID: 4300000, guid: 5472c36d30e954240b7b0bdb9dce6ce7, type: 2}
+    m_Center: {x: 0.0066800043, y: 0.23470324, z: 0.013304003}
+    m_Extent: {x: 0.18857741, y: 0.12424486, z: 0.12582824}
+  dress_mesh: {fileID: 4300000, guid: c174858e8ef8c47979c5168c338a412d, type: 2}
   dress_offset_position: {x: 0, y: -1, z: 0}
+  dress_type: 0
   isAccessory: 0
   override_top: 0
   override_bottom: 0
