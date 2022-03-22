@@ -80,7 +80,7 @@ public class Dress : MonoBehaviour
 	//info: called from Fire_UnityEvent component with evolve_set event
 	public void EvolveToIndex( IntGameEvent gameEvent )
 	{
-		cloth_current_index = gameEvent.eventValue;
+		cloth_current_index = Mathf.Clamp( gameEvent.eventValue, 0, CurrentLevelData.Instance.levelData.cloth_evolve_datas.Length - 1 );
 
 		cloth_current_data = CurrentEvolveData;
 		SpawnMesh( cloth_current_data );
