@@ -29,7 +29,7 @@ public class PathExtracter : MonoBehaviour
 
 		for( var i = 0; i < path_parent.childCount; i++ )
         {
-			path_points[ i ] = path_parent.GetChild( i ).localPosition;
+			path_points[ i ] = path_parent.GetChild( i ).position;
 		}
     }
 
