@@ -12,7 +12,9 @@ public class PathExtracter : MonoBehaviour
     public DOTweenPath path;
 
     [ BoxGroup( "Setup" ) ] public Transform path_parent;
+    [ BoxGroup( "Setup" ) ] public Vector3 path_offset;
     [ BoxGroup( "Setup" ) ] public Vector3[] path_points;
+
 #endregion
 
 #region Properties
@@ -29,14 +31,22 @@ public class PathExtracter : MonoBehaviour
 
 		for( var i = 0; i < path_parent.childCount; i++ )
         {
-			path_points[ i ] = path_parent.GetChild( i ).position;
+			path_points[ i ] = path_parent.GetChild( i ).localPosition;
+		}
+    }
+
+    private void OffsetPath()
+    {
+		for( var i = 0; i < path_points.Length; i++ )
+        {
+			path_points[ i ] += path_offset;
 		}
     }
 
     [ Button() ]
     public void AddPath()
     {
-		ExtractPath();
+		OffsetPath();
 
 		path.wps.AddRange( path_points );
 	}
