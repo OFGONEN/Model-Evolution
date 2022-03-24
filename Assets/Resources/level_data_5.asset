@@ -18,7 +18,7 @@ MonoBehaviour:
   cloth_pose: pose_7
   cloth_start_special: 1
   cloth_start_cloth:
-    evolve_dress_data: {fileID: 11400000, guid: 1db26403c82a347c7bf8a73c00f5cd20, type: 2}
+    evolve_dress_data: {fileID: 11400000, guid: 12e06a0d43b024fa8a75b4cc53038a13, type: 2}
     evolve_dress_time: 1300
     evolve_dress_color: {r: 0.5496618, g: 0.5496618, b: 0.6037736, a: 1}
   cloth_time_min: 1920
