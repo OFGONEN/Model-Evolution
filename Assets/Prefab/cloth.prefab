@@ -245,6 +245,23 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  - eventListener:
+      gameEvent: {fileID: 11400000, guid: 800f0cfa9923345d19fb8388aea6b702, type: 2}
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 9006063527558546177}
+          m_TargetAssemblyTypeName: Dress, Assembly-CSharp
+          m_MethodName: OnLookAHead
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!114 &-2687495480277787591
 MonoBehaviour:
   m_ObjectHideFlags: 0
