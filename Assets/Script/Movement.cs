@@ -11,7 +11,7 @@ using UnityEditor;
 public class Movement : MonoBehaviour
 {
 #region Fields
-    [ BoxGroup( "Setup" ) ] public Vector3[] movement_points;
+    [ BoxGroup( "Setup" ) ] public SharedPath movement_path;
     [ BoxGroup( "Setup" ) ] public SharedFloat movement_input_lateral;
     [ BoxGroup( "Setup" ) ] public Transform movement_transform;
     [ BoxGroup( "Setup" ) ] public Transform animation_transform;
@@ -61,7 +61,7 @@ public class Movement : MonoBehaviour
 #region API
     public void StartPath()
     {
-		movement_tween = transform.DOPath( movement_points, GameSettings.Instance.movement_speed_forward, PathType.CatmullRom )
+		movement_tween = transform.DOPath( movement_path.points, GameSettings.Instance.movement_speed_forward, PathType.CatmullRom )
 			.SetEase( GameSettings.Instance.movement_path_ease )
             .SetLookAt( 0 , false )
             .OnComplete( StopPath )
@@ -162,22 +162,6 @@ public class Movement : MonoBehaviour
 
 #region Editor Only
 #if UNITY_EDITOR
-	[ ShowInInspector, BoxGroup( "EditorOnly" ) ] private DOTweenPath path;
-
-    [ Button() ]
-    private void ExportPath()
-    {
-		path.wps.Clear();
-		path.wps.InsertRange( 0, movement_points );
-		path.pathType = PathType.CatmullRom;
-	}
-
-    [ Button() ]
-    private void ImportPath()
-    {
-        movement_points = path.wps.ToArray();
-    }
-
 	[ ShowInInspector, BoxGroup( "EditorOnly" ) ] private bool Gizmos_anim_moving;
 	[ ShowInInspector, BoxGroup( "EditorOnly" ) ] private bool Gizmos_anim_evolve;
 

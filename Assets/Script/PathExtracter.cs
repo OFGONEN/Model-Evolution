@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 using DG.Tweening;
+using UnityEditor;
 
 public class PathExtracter : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class PathExtracter : MonoBehaviour
     [ BoxGroup( "Setup" ) ] public Transform path_parent;
     [ BoxGroup( "Setup" ) ] public Vector3 path_offset;
     [ BoxGroup( "Setup" ) ] public Vector3[] path_points;
+    [ BoxGroup( "Setup" ) ] public SharedPath sharedPath;
 
 #endregion
 
@@ -49,6 +51,14 @@ public class PathExtracter : MonoBehaviour
 		OffsetPath();
 
 		path.wps.AddRange( path_points );
+	}
+
+    [ Button() ]
+    public void ExtractSharedPath()
+    {
+		EditorUtility.SetDirty( sharedPath );
+		sharedPath.points = path.wps.ToArray();
+		AssetDatabase.SaveAssets();
 	}
 #endregion
 

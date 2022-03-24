@@ -99,6 +99,7 @@ MonoBehaviour:
   - {x: 7.4999986, y: -2.749998, z: 94.03793}
   - {x: 7.4999905, y: -2.7499962, z: 94.995544}
   - {x: 7.4999833, y: -2.749997, z: 96.001884}
+  sharedPath: {fileID: 11400000, guid: 8fe24723cc5bd4c7f88b9916f57269b3, type: 2}
 --- !u!114 &1759257707220810105
 MonoBehaviour:
   m_ObjectHideFlags: 0

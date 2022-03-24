@@ -48,6 +48,7 @@ MonoBehaviour:
   path_parent: {fileID: 0}
   path_offset: {x: 0, y: 0, z: 0}
   path_points: []
+  sharedPath: {fileID: 11400000, guid: 68494254160174077ab4604593aa4330, type: 2}
 --- !u!114 &1759257707220810105
 MonoBehaviour:
   m_ObjectHideFlags: 0
