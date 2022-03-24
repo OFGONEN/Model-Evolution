@@ -11,7 +11,7 @@ using UnityEditor;
 public class Movement : MonoBehaviour
 {
 #region Fields
-    [ BoxGroup( "Setup" ), ReadOnly ] public Vector3[] movement_points;
+    [ BoxGroup( "Setup" ) ] public Vector3[] movement_points;
     [ BoxGroup( "Setup" ) ] public SharedFloat movement_input_lateral;
     [ BoxGroup( "Setup" ) ] public Transform movement_transform;
     [ BoxGroup( "Setup" ) ] public Transform animation_transform;
