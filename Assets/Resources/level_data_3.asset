@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ea3c0b9fd00fd441b6cebc5941ee13b, type: 3}
   m_Name: level_data_3
   m_EditorClassIdentifier: 
-  scene_index: 1
+  scene_index: 3
   scene_overrideAsActiveScene: 0
   cloth_start_clean: 0
   cloth_pose: pose_6
