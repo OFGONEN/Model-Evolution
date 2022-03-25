@@ -182,6 +182,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4380831613729426878, guid: 336baf8c017f8ec479e87ac6020bb83b, type: 3}
+      propertyPath: m_text
+      value: '+13
+
+        years'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4957353247955912156, guid: 336baf8c017f8ec479e87ac6020bb83b, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 13
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 336baf8c017f8ec479e87ac6020bb83b, type: 3}
 --- !u!1001 &204193219
@@ -191,6 +201,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 358303285248869735, guid: cd1e1b3fb4bd64dcfa77235d435975e8, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9119751905400357505, guid: cd1e1b3fb4bd64dcfa77235d435975e8, type: 3}
       propertyPath: m_Name
       value: collectable_base_subtract_4
@@ -310,6 +324,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 6209897106857023128, guid: 7e5eb49d3d4cf2f49953db534c65e587, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7854840620681481136, guid: 7e5eb49d3d4cf2f49953db534c65e587, type: 3}
       propertyPath: m_Name
       value: door_set_pair
@@ -323,6 +341,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 358303285248869735, guid: 72b6b3299938246c4bdb0a4217d99126, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9119751905400357505, guid: 72b6b3299938246c4bdb0a4217d99126, type: 3}
       propertyPath: m_Name
       value: collectable_base_add_1
@@ -410,6 +432,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 358303285248869735, guid: 72b6b3299938246c4bdb0a4217d99126, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9119751905400357505, guid: 72b6b3299938246c4bdb0a4217d99126, type: 3}
       propertyPath: m_Name
       value: collectable_base_add_7
@@ -467,6 +493,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 358303285248869735, guid: 72b6b3299938246c4bdb0a4217d99126, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9119751905400357505, guid: 72b6b3299938246c4bdb0a4217d99126, type: 3}
       propertyPath: m_Name
       value: collectable_base_add_3
@@ -573,13 +603,23 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4380831613729426878, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
+      propertyPath: m_text
+      value: '-52
+
+        weeks'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4380831613729426878, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+      objectReference: {fileID: 11400000, guid: a2a0eac20462392448130bfd1e995e86, type: 2}
     - target: {fileID: 4380831613729426878, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+      objectReference: {fileID: -279046927834550113, guid: a2a0eac20462392448130bfd1e995e86, type: 2}
+    - target: {fileID: 4957353247955912156, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
 --- !u!1001 &617376977
@@ -589,6 +629,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 358303285248869735, guid: cd1e1b3fb4bd64dcfa77235d435975e8, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9119751905400357505, guid: cd1e1b3fb4bd64dcfa77235d435975e8, type: 3}
       propertyPath: m_Name
       value: collectable_base_subtract
@@ -695,13 +739,23 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4380831613729426878, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
+      propertyPath: m_text
+      value: '-7
+
+        years'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4380831613729426878, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+      objectReference: {fileID: 11400000, guid: a2a0eac20462392448130bfd1e995e86, type: 2}
     - target: {fileID: 4380831613729426878, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+      objectReference: {fileID: -279046927834550113, guid: a2a0eac20462392448130bfd1e995e86, type: 2}
+    - target: {fileID: 4957353247955912156, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
 --- !u!1001 &634769617
@@ -711,6 +765,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 358303285248869735, guid: 72b6b3299938246c4bdb0a4217d99126, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9119751905400357505, guid: 72b6b3299938246c4bdb0a4217d99126, type: 3}
       propertyPath: m_Name
       value: collectable_base_add_5
@@ -768,6 +826,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 358303285248869735, guid: cd1e1b3fb4bd64dcfa77235d435975e8, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9119751905400357505, guid: cd1e1b3fb4bd64dcfa77235d435975e8, type: 3}
       propertyPath: m_Name
       value: collectable_base_subtract_5
@@ -993,6 +1055,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4380831613729426878, guid: 336baf8c017f8ec479e87ac6020bb83b, type: 3}
+      propertyPath: m_text
+      value: '+190
+
+        weeks'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4957353247955912156, guid: 336baf8c017f8ec479e87ac6020bb83b, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 336baf8c017f8ec479e87ac6020bb83b, type: 3}
 --- !u!1001 &808441349
@@ -1049,6 +1121,16 @@ PrefabInstance:
     - target: {fileID: 3922598539208934776, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4380831613729426878, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
+      propertyPath: m_text
+      value: '-3
+
+        years'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4957353247955912156, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
@@ -1158,6 +1240,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 358303285248869735, guid: cd1e1b3fb4bd64dcfa77235d435975e8, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9119751905400357505, guid: cd1e1b3fb4bd64dcfa77235d435975e8, type: 3}
       propertyPath: m_Name
       value: collectable_base_subtract_6
@@ -1264,13 +1350,23 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4380831613729426878, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
+      propertyPath: m_text
+      value: '-60
+
+        months'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4380831613729426878, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+      objectReference: {fileID: 11400000, guid: a2a0eac20462392448130bfd1e995e86, type: 2}
     - target: {fileID: 4380831613729426878, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+      objectReference: {fileID: -279046927834550113, guid: a2a0eac20462392448130bfd1e995e86, type: 2}
+    - target: {fileID: 4957353247955912156, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
 --- !u!1001 &960499703
@@ -1333,13 +1429,23 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4380831613729426878, guid: 336baf8c017f8ec479e87ac6020bb83b, type: 3}
+      propertyPath: m_text
+      value: '+30
+
+        years'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4380831613729426878, guid: 336baf8c017f8ec479e87ac6020bb83b, type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+      objectReference: {fileID: 11400000, guid: a2a0eac20462392448130bfd1e995e86, type: 2}
     - target: {fileID: 4380831613729426878, guid: 336baf8c017f8ec479e87ac6020bb83b, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+      objectReference: {fileID: -279046927834550113, guid: a2a0eac20462392448130bfd1e995e86, type: 2}
+    - target: {fileID: 4957353247955912156, guid: 336baf8c017f8ec479e87ac6020bb83b, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 30
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 336baf8c017f8ec479e87ac6020bb83b, type: 3}
 --- !u!1001 &979232120
@@ -1400,6 +1506,16 @@ PrefabInstance:
     - target: {fileID: 3922598539208934776, guid: 336baf8c017f8ec479e87ac6020bb83b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4380831613729426878, guid: 336baf8c017f8ec479e87ac6020bb83b, type: 3}
+      propertyPath: m_text
+      value: '+1900
+
+        days'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4957353247955912156, guid: 336baf8c017f8ec479e87ac6020bb83b, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 336baf8c017f8ec479e87ac6020bb83b, type: 3}
@@ -1463,13 +1579,23 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4380831613729426878, guid: 336baf8c017f8ec479e87ac6020bb83b, type: 3}
+      propertyPath: m_text
+      value: '+520
+
+        weeks'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4380831613729426878, guid: 336baf8c017f8ec479e87ac6020bb83b, type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+      objectReference: {fileID: 11400000, guid: a2a0eac20462392448130bfd1e995e86, type: 2}
     - target: {fileID: 4380831613729426878, guid: 336baf8c017f8ec479e87ac6020bb83b, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+      objectReference: {fileID: -279046927834550113, guid: a2a0eac20462392448130bfd1e995e86, type: 2}
+    - target: {fileID: 4957353247955912156, guid: 336baf8c017f8ec479e87ac6020bb83b, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 336baf8c017f8ec479e87ac6020bb83b, type: 3}
 --- !u!1001 &1078722326
@@ -1531,6 +1657,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4380831613729426878, guid: 336baf8c017f8ec479e87ac6020bb83b, type: 3}
+      propertyPath: m_text
+      value: '+15
+
+        years'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4957353247955912156, guid: 336baf8c017f8ec479e87ac6020bb83b, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 15
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 336baf8c017f8ec479e87ac6020bb83b, type: 3}
 --- !u!1001 &1184163119
@@ -1589,13 +1725,23 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4380831613729426878, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
+      propertyPath: m_text
+      value: '-12
+
+        weeks'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4380831613729426878, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+      objectReference: {fileID: 11400000, guid: a2a0eac20462392448130bfd1e995e86, type: 2}
     - target: {fileID: 4380831613729426878, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+      objectReference: {fileID: -279046927834550113, guid: a2a0eac20462392448130bfd1e995e86, type: 2}
+    - target: {fileID: 4957353247955912156, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
 --- !u!1001 &1251333123
@@ -1605,6 +1751,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 358303285248869735, guid: cd1e1b3fb4bd64dcfa77235d435975e8, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9119751905400357505, guid: cd1e1b3fb4bd64dcfa77235d435975e8, type: 3}
       propertyPath: m_Name
       value: collectable_base_subtract_3
@@ -1662,6 +1812,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 358303285248869735, guid: 72b6b3299938246c4bdb0a4217d99126, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9119751905400357505, guid: 72b6b3299938246c4bdb0a4217d99126, type: 3}
       propertyPath: m_Name
       value: collectable_base_add
@@ -1836,6 +1990,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 358303285248869735, guid: cd1e1b3fb4bd64dcfa77235d435975e8, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9119751905400357505, guid: cd1e1b3fb4bd64dcfa77235d435975e8, type: 3}
       propertyPath: m_Name
       value: collectable_base_subtract_2
@@ -1923,6 +2081,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 358303285248869735, guid: 72b6b3299938246c4bdb0a4217d99126, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9119751905400357505, guid: 72b6b3299938246c4bdb0a4217d99126, type: 3}
       propertyPath: m_Name
       value: collectable_base_add_2
@@ -1980,6 +2142,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 358303285248869735, guid: cd1e1b3fb4bd64dcfa77235d435975e8, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9119751905400357505, guid: cd1e1b3fb4bd64dcfa77235d435975e8, type: 3}
       propertyPath: m_Name
       value: collectable_base_subtract_1
@@ -2094,6 +2260,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 358303285248869735, guid: 72b6b3299938246c4bdb0a4217d99126, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9119751905400357505, guid: 72b6b3299938246c4bdb0a4217d99126, type: 3}
       propertyPath: m_Name
       value: collectable_base_add_8
@@ -2204,13 +2374,23 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4380831613729426878, guid: 336baf8c017f8ec479e87ac6020bb83b, type: 3}
+      propertyPath: m_text
+      value: '+365
+
+        days'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4380831613729426878, guid: 336baf8c017f8ec479e87ac6020bb83b, type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+      objectReference: {fileID: 11400000, guid: a2a0eac20462392448130bfd1e995e86, type: 2}
     - target: {fileID: 4380831613729426878, guid: 336baf8c017f8ec479e87ac6020bb83b, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+      objectReference: {fileID: -279046927834550113, guid: a2a0eac20462392448130bfd1e995e86, type: 2}
+    - target: {fileID: 4957353247955912156, guid: 336baf8c017f8ec479e87ac6020bb83b, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 336baf8c017f8ec479e87ac6020bb83b, type: 3}
 --- !u!1 &1743656206
@@ -2250,6 +2430,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 358303285248869735, guid: 72b6b3299938246c4bdb0a4217d99126, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9119751905400357505, guid: 72b6b3299938246c4bdb0a4217d99126, type: 3}
       propertyPath: m_Name
       value: collectable_base_add_6
@@ -2355,6 +2539,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4380831613729426878, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
+      propertyPath: m_text
+      value: '-15
+
+        days'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4957353247955912156, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
 --- !u!1 &1778858409
@@ -2447,13 +2641,23 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4380831613729426878, guid: 336baf8c017f8ec479e87ac6020bb83b, type: 3}
+      propertyPath: m_text
+      value: '+360
+
+        months'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4380831613729426878, guid: 336baf8c017f8ec479e87ac6020bb83b, type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+      objectReference: {fileID: 11400000, guid: a2a0eac20462392448130bfd1e995e86, type: 2}
     - target: {fileID: 4380831613729426878, guid: 336baf8c017f8ec479e87ac6020bb83b, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+      objectReference: {fileID: -279046927834550113, guid: a2a0eac20462392448130bfd1e995e86, type: 2}
+    - target: {fileID: 4957353247955912156, guid: 336baf8c017f8ec479e87ac6020bb83b, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 30
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 336baf8c017f8ec479e87ac6020bb83b, type: 3}
 --- !u!1001 &1854289658
@@ -2515,6 +2719,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4380831613729426878, guid: 336baf8c017f8ec479e87ac6020bb83b, type: 3}
+      propertyPath: m_text
+      value: '+190
+
+        days'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4957353247955912156, guid: 336baf8c017f8ec479e87ac6020bb83b, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 336baf8c017f8ec479e87ac6020bb83b, type: 3}
 --- !u!1001 &1865536751
@@ -2524,6 +2738,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 358303285248869735, guid: 72b6b3299938246c4bdb0a4217d99126, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9119751905400357505, guid: 72b6b3299938246c4bdb0a4217d99126, type: 3}
       propertyPath: m_Name
       value: collectable_base_add_4
@@ -2660,13 +2878,23 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4380831613729426878, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
+      propertyPath: m_text
+      value: '-160
+
+        weeks'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4380831613729426878, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+      objectReference: {fileID: 11400000, guid: a2a0eac20462392448130bfd1e995e86, type: 2}
     - target: {fileID: 4380831613729426878, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+      objectReference: {fileID: -279046927834550113, guid: a2a0eac20462392448130bfd1e995e86, type: 2}
+    - target: {fileID: 4957353247955912156, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
 --- !u!1001 &2041882522
@@ -2725,13 +2953,23 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4380831613729426878, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
+      propertyPath: m_text
+      value: '-160
+
+        days'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4380831613729426878, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+      objectReference: {fileID: 11400000, guid: a2a0eac20462392448130bfd1e995e86, type: 2}
     - target: {fileID: 4380831613729426878, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+      objectReference: {fileID: -279046927834550113, guid: a2a0eac20462392448130bfd1e995e86, type: 2}
+    - target: {fileID: 4957353247955912156, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
 --- !u!1001 &2092855063
@@ -2790,12 +3028,22 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4380831613729426878, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
+      propertyPath: m_text
+      value: '-12
+
+        months'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4380831613729426878, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+      objectReference: {fileID: 11400000, guid: a2a0eac20462392448130bfd1e995e86, type: 2}
     - target: {fileID: 4380831613729426878, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+      objectReference: {fileID: -279046927834550113, guid: a2a0eac20462392448130bfd1e995e86, type: 2}
+    - target: {fileID: 4957353247955912156, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
