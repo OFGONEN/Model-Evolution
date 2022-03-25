@@ -994,6 +994,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4380831613729426878, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
+      propertyPath: m_text
+      value: '-19
+
+        weeks'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4957353247955912156, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
 --- !u!1001 &738007430
