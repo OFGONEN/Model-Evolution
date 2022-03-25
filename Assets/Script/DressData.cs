@@ -18,7 +18,4 @@ public class DressData : ScriptableObject
 	[ BoxGroup( "Setup" ) ] public Vector3 dress_offset_position;
 	[ BoxGroup( "Setup" ) ] public DressType dress_type;
 	[ BoxGroup( "Setup" ) ] public bool isAccessory;
-	[ BoxGroup( "Setup" ) ] public bool override_top;
-    [ BoxGroup( "Setup" ) ] public bool override_bottom;
-    [ BoxGroup( "Setup" ) ] public bool override_shoe;
 }

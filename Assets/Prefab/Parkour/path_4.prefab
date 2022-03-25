@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: -745302860874703518}
   - component: {fileID: 1759257707220810105}
   m_Layer: 0
-  m_Name: path_1
+  m_Name: path_4
   m_TagString: EditorOnly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,7 +46,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   path: {fileID: 1759257707220810105}
   path_parent: {fileID: 0}
+  path_offset: {x: 0, y: 0, z: 0}
   path_points: []
+  sharedPath: {fileID: 11400000, guid: 72fe9722756b14803881e55ec983b6c8, type: 2}
 --- !u!114 &1759257707220810105
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,24 +138,24 @@ MonoBehaviour:
   upDirection: {x: 0, y: 1, z: 0}
   tweenRigidbody: 0
   wps:
-  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 130}
   fullWps: []
   path:
     wpLengths:
     - 0
-    - 0
+    - 130
     wps:
     - {x: 0, y: 0, z: 0}
-    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 130}
     type: 1
     subdivisionsXSegment: 10
     subdivisions: 20
     controlPoints:
-    - a: {x: 0, y: 0, z: 0}
+    - a: {x: 0, y: 0, z: 130}
       b: {x: 0, y: 0, z: 0}
-    - a: {x: 0, y: 0, z: 0}
+    - a: {x: 0, y: 0, z: 260}
       b: {x: 0, y: 0, z: 0}
-    length: 0
+    length: 130
     isFinalized: 1
     timesTable:
     - 0.05
@@ -177,26 +179,26 @@ MonoBehaviour:
     - 0.95
     - 1
     lengthsTable:
-    - 0
-    - 0
-    - 0
-    - 0
-    - 0
-    - 0
-    - 0
-    - 0
-    - 0
-    - 0
-    - 0
-    - 0
-    - 0
-    - 0
-    - 0
-    - 0
-    - 0
-    - 0
-    - 0
-    - 0
+    - 0.63375
+    - 2.47
+    - 5.41125
+    - 9.360001
+    - 14.21875
+    - 19.890001
+    - 26.276249
+    - 33.280003
+    - 40.803753
+    - 48.75
+    - 57.021248
+    - 65.520004
+    - 74.14876
+    - 82.81
+    - 91.40625
+    - 99.840004
+    - 108.01375
+    - 115.83001
+    - 123.191246
+    - 130
   inspectorMode: 0
   pathType: 1
   handlesType: 0

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 using DG.Tweening;
+using UnityEditor;
 
 public class PathExtracter : MonoBehaviour
 {
@@ -12,7 +13,10 @@ public class PathExtracter : MonoBehaviour
     public DOTweenPath path;
 
     [ BoxGroup( "Setup" ) ] public Transform path_parent;
+    [ BoxGroup( "Setup" ) ] public Vector3 path_offset;
     [ BoxGroup( "Setup" ) ] public Vector3[] path_points;
+    [ BoxGroup( "Setup" ) ] public SharedPath sharedPath;
+
 #endregion
 
 #region Properties
@@ -33,12 +37,28 @@ public class PathExtracter : MonoBehaviour
 		}
     }
 
+    private void OffsetPath()
+    {
+		for( var i = 0; i < path_points.Length; i++ )
+        {
+			path_points[ i ] += path_offset;
+		}
+    }
+
     [ Button() ]
     public void AddPath()
     {
-		ExtractPath();
+		OffsetPath();
 
 		path.wps.AddRange( path_points );
+	}
+
+    [ Button() ]
+    public void ExtractSharedPath()
+    {
+		EditorUtility.SetDirty( sharedPath );
+		sharedPath.points = path.wps.ToArray();
+		AssetDatabase.SaveAssets();
 	}
 #endregion
 
