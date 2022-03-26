@@ -19,10 +19,7 @@ MonoBehaviour:
   dress_localBounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
-  dress_mesh: {fileID: 4300000, guid: 4fac99213698f6945a6169face6b052c, type: 2}
+  dress_mesh: {fileID: 4300000, guid: 38a89652000054f6fb2aaffa79769519, type: 2}
   dress_offset_position: {x: 0, y: 0, z: 0}
   dress_type: 0
   isAccessory: 0
-  override_top: 0
-  override_bottom: 0
-  override_shoe: 0

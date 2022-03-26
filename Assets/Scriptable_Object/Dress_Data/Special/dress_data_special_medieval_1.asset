@@ -15,14 +15,11 @@ MonoBehaviour:
   dress_rootBone: 
   dress_bone_names: []
   dress_sharedMaterials:
-  - {fileID: 2100000, guid: 3ed54dfbf15cc974eabe9c99a5310642, type: 2}
+  - {fileID: 2100000, guid: e7acc9916fafa014ea35540a93a95fd9, type: 2}
   dress_localBounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
-  dress_mesh: {fileID: 4300000, guid: 4fac99213698f6945a6169face6b052c, type: 2}
+  dress_mesh: {fileID: 4300000, guid: d2b9923771cf442c5adca4ee2438f306, type: 2}
   dress_offset_position: {x: 0, y: 0, z: 0}
   dress_type: 0
   isAccessory: 0
-  override_top: 0
-  override_bottom: 0
-  override_shoe: 0

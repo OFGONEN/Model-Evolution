@@ -3,6 +3,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 using FFStudio;
 using Sirenix.OdinInspector;
 
@@ -13,10 +14,13 @@ public class SpecialDressExtract : MonoBehaviour
     [ Button() ]
     public void ExtractData()
     {
-        var filter   = GetComponent< MeshFilter >();
+		EditorUtility.SetDirty( dressData );
+		var filter   = GetComponent< MeshFilter >();
         var renderer = GetComponent< MeshRenderer >();
 
 		dressData.dress_mesh            = filter.sharedMesh;
 		dressData.dress_sharedMaterials = renderer.sharedMaterials;
+
+		AssetDatabase.SaveAssets();
 	}
 }
