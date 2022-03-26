@@ -476,13 +476,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3326512110214455034, guid: 7e5eb49d3d4cf2f49953db534c65e587, type: 3}
       propertyPath: m_text
-      value: 'Negative Text
-
-'
+      value: go to great gatsby party
+      objectReference: {fileID: 0}
+    - target: {fileID: 3326512110214455034, guid: 7e5eb49d3d4cf2f49953db534c65e587, type: 3}
+      propertyPath: m_fontSize
+      value: 0.28
+      objectReference: {fileID: 0}
+    - target: {fileID: 3326512110214455034, guid: 7e5eb49d3d4cf2f49953db534c65e587, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 0.28
       objectReference: {fileID: 0}
     - target: {fileID: 4127494390380919595, guid: 7e5eb49d3d4cf2f49953db534c65e587, type: 3}
       propertyPath: m_text
-      value: Positive Text
+      value: go to 20's jazz concert
+      objectReference: {fileID: 0}
+    - target: {fileID: 4127494390380919595, guid: 7e5eb49d3d4cf2f49953db534c65e587, type: 3}
+      propertyPath: m_fontSize
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4127494390380919595, guid: 7e5eb49d3d4cf2f49953db534c65e587, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 4370269402710514094, guid: 7e5eb49d3d4cf2f49953db534c65e587, type: 3}
       propertyPath: m_Mesh
