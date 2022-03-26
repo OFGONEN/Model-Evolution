@@ -393,13 +393,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3326512110214455034, guid: 7e5eb49d3d4cf2f49953db534c65e587, type: 3}
       propertyPath: m_text
-      value: 'Negative Text
-
-'
+      value: go to 30's musical films
+      objectReference: {fileID: 0}
+    - target: {fileID: 3326512110214455034, guid: 7e5eb49d3d4cf2f49953db534c65e587, type: 3}
+      propertyPath: m_fontSize
+      value: 0.26
+      objectReference: {fileID: 0}
+    - target: {fileID: 3326512110214455034, guid: 7e5eb49d3d4cf2f49953db534c65e587, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 0.26
       objectReference: {fileID: 0}
     - target: {fileID: 4127494390380919595, guid: 7e5eb49d3d4cf2f49953db534c65e587, type: 3}
       propertyPath: m_text
-      value: Positive Text
+      value: go to hollywood stage show
+      objectReference: {fileID: 0}
+    - target: {fileID: 4127494390380919595, guid: 7e5eb49d3d4cf2f49953db534c65e587, type: 3}
+      propertyPath: m_fontSize
+      value: 0.26
+      objectReference: {fileID: 0}
+    - target: {fileID: 4127494390380919595, guid: 7e5eb49d3d4cf2f49953db534c65e587, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 0.26
       objectReference: {fileID: 0}
     - target: {fileID: 4370269402710514094, guid: 7e5eb49d3d4cf2f49953db534c65e587, type: 3}
       propertyPath: m_Mesh

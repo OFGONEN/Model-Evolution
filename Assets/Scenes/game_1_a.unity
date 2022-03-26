@@ -524,7 +524,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3326512110214455034, guid: 7e5eb49d3d4cf2f49953db534c65e587, type: 3}
       propertyPath: m_text
-      value: go to  punk rock concert
+      value: go to punk rock concert
       objectReference: {fileID: 0}
     - target: {fileID: 3326512110214455034, guid: 7e5eb49d3d4cf2f49953db534c65e587, type: 3}
       propertyPath: m_fontSize
