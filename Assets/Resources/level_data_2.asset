@@ -25,7 +25,7 @@ MonoBehaviour:
   cloth_time_max: 2030
   cloth_evolve_datas:
   - evolve_dress_data: {fileID: 11400000, guid: d91a5d51fafbc2649a01c9a197b29b39, type: 2}
-    evolve_dress_time: 1920
+    evolve_dress_time: 1930
     evolve_dress_color: {r: 1, g: 0.913718, b: 0, a: 1}
   - evolve_dress_data: {fileID: 11400000, guid: 470efa38fd6c93b4ebd040c962164714, type: 2}
     evolve_dress_time: 1940

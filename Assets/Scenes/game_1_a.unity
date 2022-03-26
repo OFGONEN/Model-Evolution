@@ -268,9 +268,73 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 321557548480012131, guid: 56dfcc31cfc40b242ae9f1eb58a492dc, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1358981720074321313, guid: 56dfcc31cfc40b242ae9f1eb58a492dc, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1412677283565127358, guid: 56dfcc31cfc40b242ae9f1eb58a492dc, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1424096702699724612, guid: 56dfcc31cfc40b242ae9f1eb58a492dc, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1699764849873884735, guid: 56dfcc31cfc40b242ae9f1eb58a492dc, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2114579481927385779, guid: 56dfcc31cfc40b242ae9f1eb58a492dc, type: 3}
       propertyPath: m_Name
       value: pattern_left_full_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2196773492719679265, guid: 56dfcc31cfc40b242ae9f1eb58a492dc, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2449331636549063051, guid: 56dfcc31cfc40b242ae9f1eb58a492dc, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3033654720724315285, guid: 56dfcc31cfc40b242ae9f1eb58a492dc, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3502453300523867435, guid: 56dfcc31cfc40b242ae9f1eb58a492dc, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3803082954683576318, guid: 56dfcc31cfc40b242ae9f1eb58a492dc, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4001183428847225145, guid: 56dfcc31cfc40b242ae9f1eb58a492dc, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4564350555752341448, guid: 56dfcc31cfc40b242ae9f1eb58a492dc, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5171698327819610554, guid: 56dfcc31cfc40b242ae9f1eb58a492dc, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5511251642392401485, guid: 56dfcc31cfc40b242ae9f1eb58a492dc, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5808551103652447440, guid: 56dfcc31cfc40b242ae9f1eb58a492dc, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6172824957349669061, guid: 56dfcc31cfc40b242ae9f1eb58a492dc, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6921268463378939317, guid: 56dfcc31cfc40b242ae9f1eb58a492dc, type: 3}
       propertyPath: m_RootOrder
@@ -315,6 +379,22 @@ PrefabInstance:
     - target: {fileID: 6921268463378939317, guid: 56dfcc31cfc40b242ae9f1eb58a492dc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8270672595801477235, guid: 56dfcc31cfc40b242ae9f1eb58a492dc, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8335511803491816406, guid: 56dfcc31cfc40b242ae9f1eb58a492dc, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8564171663727094757, guid: 56dfcc31cfc40b242ae9f1eb58a492dc, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8788713400733127252, guid: 56dfcc31cfc40b242ae9f1eb58a492dc, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 56dfcc31cfc40b242ae9f1eb58a492dc, type: 3}
@@ -444,13 +524,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3326512110214455034, guid: 7e5eb49d3d4cf2f49953db534c65e587, type: 3}
       propertyPath: m_text
-      value: 'Negative Text
-
-'
+      value: go to punk rock concert
+      objectReference: {fileID: 0}
+    - target: {fileID: 3326512110214455034, guid: 7e5eb49d3d4cf2f49953db534c65e587, type: 3}
+      propertyPath: m_fontSize
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3326512110214455034, guid: 7e5eb49d3d4cf2f49953db534c65e587, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 4127494390380919595, guid: 7e5eb49d3d4cf2f49953db534c65e587, type: 3}
       propertyPath: m_text
-      value: Positive Text
+      value: go to 70's disco
+      objectReference: {fileID: 0}
+    - target: {fileID: 4127494390380919595, guid: 7e5eb49d3d4cf2f49953db534c65e587, type: 3}
+      propertyPath: m_fontSize
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 4127494390380919595, guid: 7e5eb49d3d4cf2f49953db534c65e587, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 4370269402710514094, guid: 7e5eb49d3d4cf2f49953db534c65e587, type: 3}
       propertyPath: m_Mesh
