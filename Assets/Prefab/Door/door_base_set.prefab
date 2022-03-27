@@ -27,6 +27,10 @@ PrefabInstance:
       propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 1720272301840629865, guid: b0bea5380d6bcf44fbe80712984347ae, type: 3}
+      propertyPath: m_Size.x
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 3490320431932505720, guid: b0bea5380d6bcf44fbe80712984347ae, type: 3}
       propertyPath: particleDatas.Array.data[0].alias
       value: collectable_positive
