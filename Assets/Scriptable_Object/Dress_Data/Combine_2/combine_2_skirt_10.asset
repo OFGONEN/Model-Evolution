@@ -20,12 +20,9 @@ MonoBehaviour:
   dress_sharedMaterials:
   - {fileID: 2100000, guid: a2829df0bfae7214390d3aa9dcc77c64, type: 2}
   dress_localBounds:
-    m_Center: {x: -0.0020725504, y: -0.13141711, z: -0.01832065}
-    m_Extent: {x: 0.1912019, y: 0.12411825, z: 0.14414786}
-  dress_mesh: {fileID: 4300000, guid: a4472762d1857fc48a391b3b1630ae2b, type: 2}
-  dress_offset_position: {x: 0, y: 0, z: 0}
-  dress_type: 0
+    m_Center: {x: -0.0041624308, y: -0.13250905, z: -0.008112356}
+    m_Extent: {x: 0.18102513, y: 0.12357828, z: 0.1347402}
+  dress_mesh: {fileID: 4300000, guid: 585d36a69c45f1f48a9e38ccf6588d8c, type: 2}
+  dress_offset_position: {x: 0, y: -0.45, z: 0}
+  dress_type: 1
   isAccessory: 0
-  override_top: 0
-  override_bottom: 0
-  override_shoe: 0

@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47aa1f00f8d4a439fb3ced482a29ae75, type: 3}
+  m_Name: combine_1_pant_9
+  m_EditorClassIdentifier: 
+  dress_rootBone: Hips
+  dress_bone_names:
+  - Hips
+  - Left leg
+  - Left knee
+  - Left ankle
+  - Left toe
+  - Right leg
+  - Right knee
+  - Right ankle
+  - Right toe
+  dress_sharedMaterials:
+  - {fileID: 2100000, guid: a2829df0bfae7214390d3aa9dcc77c64, type: 2}
+  dress_localBounds:
+    m_Center: {x: -0.008730799, y: -0.4662819, z: -0.00548701}
+    m_Extent: {x: 0.1780856, y: 0.46551424, z: 0.14991759}
+  dress_mesh: {fileID: 4300000, guid: 883802faf8237d04c9160dda53db02fa, type: 2}
+  dress_offset_position: {x: 0, y: -0.26, z: 0}
+  dress_type: 1
+  isAccessory: 0

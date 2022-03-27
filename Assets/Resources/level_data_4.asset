@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ea3c0b9fd00fd441b6cebc5941ee13b, type: 3}
+  m_Name: level_data_4
+  m_EditorClassIdentifier: 
+  scene_index: 4
+  scene_overrideAsActiveScene: 0
+  cloth_start_clean: 1
+  cloth_pose: pose_2
+  cloth_start_special: 1
+  cloth_start_cloth:
+    evolve_dress_data: {fileID: 11400000, guid: 142df8046a4634b44a0f1882078a8d32, type: 2}
+    evolve_dress_time: 1600
+    evolve_dress_color: {r: 0.6226415, g: 0.6226415, b: 0.6226415, a: 1}
+  cloth_time_min: 1900
+  cloth_time_max: 2020
+  cloth_evolve_datas:
+  - evolve_dress_data: {fileID: 11400000, guid: fb25293a42d7dbe4f9f088d7ca2f0661, type: 2}
+    evolve_dress_time: 1930
+    evolve_dress_color: {r: 1, g: 0.9238702, b: 0, a: 1}
+  - evolve_dress_data: {fileID: 11400000, guid: ac7a4ce425a4b8b45a50d168a51448ac, type: 2}
+    evolve_dress_time: 1940
+    evolve_dress_color: {r: 0.40249336, g: 1, b: 0.23137254, a: 1}
+  - evolve_dress_data: {fileID: 11400000, guid: 0282fbd762e2a2647b050eb0bd5fee36, type: 2}
+    evolve_dress_time: 1960
+    evolve_dress_color: {r: 0.016509444, g: 0.5, b: 0.08488186, a: 1}
+  - evolve_dress_data: {fileID: 11400000, guid: 2a8e1307ad6102e45a4fbfe22643ac66, type: 2}
+    evolve_dress_time: 1970
+    evolve_dress_color: {r: 0, g: 0, b: 1, a: 1}
+  - evolve_dress_data: {fileID: 11400000, guid: 37e6e32e3cfc70c4090330425b0f2be6, type: 2}
+    evolve_dress_time: 1980
+    evolve_dress_color: {r: 0.63765717, g: 0, b: 1, a: 1}
+  - evolve_dress_data: {fileID: 11400000, guid: 8e4f3d138b0bb5948b0297a09b61ed34, type: 2}
+    evolve_dress_time: 2000
+    evolve_dress_color: {r: 1, g: 0, b: 0.6173749, a: 1}
+  - evolve_dress_data: {fileID: 11400000, guid: 71284b4b45615a447b50a0943ba7ef19, type: 2}
+    evolve_dress_time: 2010
+    evolve_dress_color: {r: 1, g: 0, b: 0, a: 1}
