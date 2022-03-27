@@ -80,10 +80,12 @@ public class CameraController : MonoBehaviour
 	{
 		var player_position = transform_target.position;
 		var target_position = transform_target.TransformPoint( followOffset );
+		var position        = transform.position;
 
 		// target_position.x = 0;
-		target_position.x = Mathf.Lerp( transform.position.x, target_position.x, Time.deltaTime * GameSettings.Instance.camera_follow_speed_lateral );
-		target_position.z = Mathf.Lerp( transform.position.z, target_position.z, Time.deltaTime * GameSettings.Instance.camera_follow_speed_depth );
+		target_position.x = Mathf.Lerp( position.x, target_position.x, Time.deltaTime * GameSettings.Instance.camera_follow_speed_lateral );
+		target_position.y = Mathf.Lerp( position.y, target_position.y, Time.deltaTime * GameSettings.Instance.camera_follow_speed_depth );
+		target_position.z = Mathf.Lerp( position.z, target_position.z, Time.deltaTime * GameSettings.Instance.camera_follow_speed_depth );
 		transform.position = target_position;
 
 		transform.LookAtAxis( player_position, lookAtAxis );
