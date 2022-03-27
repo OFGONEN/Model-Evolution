@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4643217639539189074}
   - component: {fileID: 2128018642489295745}
   - component: {fileID: 8999642812267804815}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: trigger_speed_down
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84,7 +84,7 @@ GameObject:
   - component: {fileID: 5149476995208986872}
   - component: {fileID: 979437645008858980}
   - component: {fileID: 4436228588525149359}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: trigger_speed_up
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -239,7 +239,7 @@ GameObject:
   - component: {fileID: 5995563548726436068}
   - component: {fileID: 678615948319552854}
   - component: {fileID: 9072975938368256338}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: trigger_lookAhead
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -291,7 +291,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 11400000, guid: 800f0cfa9923345d19fb8388aea6b702, type: 2}
         m_TargetAssemblyTypeName: FFStudio.GameEvent, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: Raise
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
