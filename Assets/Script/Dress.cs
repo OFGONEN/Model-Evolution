@@ -227,7 +227,7 @@ public class Dress : MonoBehaviour
 	private void SpawnPopUpText( EvolveData data )
 	{
 		var entity = pool_UIPopUpText.GetEntity();
-		entity.Spawn( transform.position + GameSettings.Instance.indicator_popUp_offset, 
+		entity.Spawn( dress_movement.movement_transform, dress_movement.movement_transform.position + GameSettings.Instance.indicator_popUp_offset, 
 			data.evolve_dress_time.ToString(), 
 			GameSettings.Instance.indicator_popUp_size, 
 			data.evolve_dress_color );

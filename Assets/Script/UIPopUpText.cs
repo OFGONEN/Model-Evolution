@@ -42,7 +42,13 @@ public class UIPopUpText : MonoBehaviour
 
 		ui_text.UI_Text.text  = text;
 		ui_text.UI_Text.color = color;
-	} 
+	}
+
+	public void Spawn( Transform parent, Vector3 position, string text, float size, Color color )
+	{
+		Spawn( position, text, size, color );
+		transform.SetParent( parent );
+	}
 #endregion
 
 #region Implementation
