@@ -19,7 +19,6 @@ public class SharedIntNotifier_Aritmetic : SharedIntNotifier
 	{
 		if( canInteract )
 		{
-			FFLogger.Log( "WTF", this );
 			SharedValue += value;
 			CoolDown();
 		}
@@ -30,7 +29,6 @@ public class SharedIntNotifier_Aritmetic : SharedIntNotifier
 	{
 		if( canInteract )
 		{
-			FFLogger.Log( "WTF", this );
 			SharedValue -= value;
 			CoolDown();
 		}
@@ -41,7 +39,6 @@ public class SharedIntNotifier_Aritmetic : SharedIntNotifier
 	{
 		if( canInteract )
 		{
-			FFLogger.Log( "WTF", this );
 			SharedValue *= value;
 			CoolDown();
 		}
@@ -52,7 +49,6 @@ public class SharedIntNotifier_Aritmetic : SharedIntNotifier
 	{
 		if( canInteract )
 		{
-			FFLogger.Log( "WTF", this );
 			SharedValue /= value;
 			CoolDown();
 		}

@@ -1,6 +1,7 @@
 /* Created by and for usage of FF Studios (2021). */
 
 using UnityEngine;
+using DG.Tweening;
 
 namespace FFStudio
 {
@@ -9,10 +10,28 @@ namespace FFStudio
     {
         public int eventValue;
 
-        public void Raise( int value )
+		public float cooldown;
+		private bool canRaise = true;
+
+		public void Raise( int value )
         {
-			eventValue = value;
-			Raise();
+            if( canRaise )
+            {
+			    eventValue = value;
+			    Raise();
+				CoolDown();
+			}
+		}
+
+        public void CoolDown()
+        {
+			canRaise = false;
+			DOVirtual.DelayedCall( cooldown, CoolDown );
+		}
+
+        private void OnCoolDownComplete()
+        {
+			canRaise = true;
 		}
     }
 }
