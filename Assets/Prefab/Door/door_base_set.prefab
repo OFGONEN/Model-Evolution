@@ -32,6 +32,10 @@ PrefabInstance:
       value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 3490320431932505720, guid: b0bea5380d6bcf44fbe80712984347ae, type: 3}
+      propertyPath: particleDatas.Array.data[0].size
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3490320431932505720, guid: b0bea5380d6bcf44fbe80712984347ae, type: 3}
       propertyPath: particleDatas.Array.data[0].alias
       value: collectable_positive
       objectReference: {fileID: 0}

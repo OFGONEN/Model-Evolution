@@ -97,6 +97,10 @@ PrefabInstance:
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6081064103422812471, guid: 5ba95a07fb0462943ad8161919721f0a, type: 3}
+      propertyPath: particleDatas.Array.data[0].size
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6081064103422812471, guid: 5ba95a07fb0462943ad8161919721f0a, type: 3}
       propertyPath: particleDatas.Array.data[0].alias
       value: collectable_negative
       objectReference: {fileID: 0}
