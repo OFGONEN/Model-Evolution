@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: shared_path_2
   m_EditorClassIdentifier: 
   points:
-  - {x: 0, y: 0, z: 50}
   - {x: -0.00000013690442, y: 0, z: 50}
   - {x: -0.00000017136335, y: 0, z: 50.957645}
   - {x: -0.000000173226, y: 0, z: 51.91529}

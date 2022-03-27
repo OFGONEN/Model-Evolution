@@ -67,7 +67,7 @@ public class Movement : MonoBehaviour
 
     public void StartPath()
     {
-		movement_tween = transform.DOPath( movement_path.points, GameSettings.Instance.movement_speed_forward, PathType.CatmullRom )
+		movement_tween = transform.DOPath( movement_path.points, GameSettings.Instance.movement_speed_forward, PathType.Linear )
 			.SetEase( GameSettings.Instance.movement_path_ease )
             .SetLookAt( 0 , false )
             .OnComplete( StopPath )

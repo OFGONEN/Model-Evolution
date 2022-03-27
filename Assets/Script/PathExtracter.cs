@@ -57,8 +57,16 @@ public class PathExtracter : MonoBehaviour
     public void ExtractSharedPath()
     {
 		EditorUtility.SetDirty( sharedPath );
+		path.wps.Clear();
+		path.wps.AddRange( path_points );
 		sharedPath.points = path.wps.ToArray();
 		AssetDatabase.SaveAssets();
+	}
+
+    [ Button() ]
+    public void ImportPath()
+    {
+		path_points = path.wps.ToArray();
 	}
 #endregion
 
