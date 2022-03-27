@@ -16,6 +16,7 @@ public class CameraController : MonoBehaviour
 	private Vector3 followOffset;
 
 	private UnityMessage updateMethod;
+	private Vector3 lookAtAxis;
 #endregion
 
 #region Properties
@@ -31,6 +32,8 @@ public class CameraController : MonoBehaviour
 	private void Awake()
 	{
 		updateMethod = ExtensionMethods.EmptyMethod;
+
+		lookAtAxis = Vector3.zero;
 	}
 
 	private void Update()
@@ -63,6 +66,16 @@ public class CameraController : MonoBehaviour
 		transform_target = reference_transform_target.SharedValue as Transform;
 	}
 
+	public void PlayerSpeed_Up()
+	{
+		lookAtAxis = Vector3.up;
+	}
+
+	public void PlayerSpeed_Down()
+	{
+		lookAtAxis = Vector3.zero;
+	}
+
 	private void FollowPlayer()
 	{
 		var player_position = transform_target.position;
@@ -73,7 +86,7 @@ public class CameraController : MonoBehaviour
 		target_position.z = Mathf.Lerp( transform.position.z, target_position.z, Time.deltaTime * GameSettings.Instance.camera_follow_speed_depth );
 		transform.position = target_position;
 
-		// transform.LookAtAxis( player_position, Vector3.up );
+		transform.LookAtAxis( player_position, lookAtAxis );
 	}
 
 	private void FollowPlayerWithOut_Y()
