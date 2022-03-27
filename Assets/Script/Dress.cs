@@ -102,11 +102,6 @@ public class Dress : MonoBehaviour
 		onNotifyTime();
 	}
 
-	public void OnLookAHead()
-	{
-		transform.forward = Vector3.forward;
-	}
-
 	public void OnFinishLine()
 	{
 		onNotifyTime = ExtensionMethods.EmptyMethod;

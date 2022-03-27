@@ -39,6 +39,7 @@ namespace FFStudio
 		[ BoxGroup( "Movement" ) ] public float movement_speed_forward_increase;
 		[ BoxGroup( "Movement" ) ] public float movement_finishLine_duration;
 		[ BoxGroup( "Movement" ) ] public Ease  movement_finishLine_ease;
+		[ BoxGroup( "Movement" ) ] public float  movement_lookAhead_duration = 0.75f;
 
 		[ BoxGroup( "Indicator" ) ] public float indicator_update_duration;
 		[ BoxGroup( "Indicator" ) ] public float indicator_popUp_size;

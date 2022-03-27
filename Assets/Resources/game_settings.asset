@@ -30,6 +30,7 @@ MonoBehaviour:
   movement_speed_forward_increase: 5
   movement_finishLine_duration: 0.7
   movement_finishLine_ease: 6
+  movement_lookAhead_duration: 0.75
   indicator_update_duration: 0.25
   indicator_popUp_size: 0
   indicator_popUp_offset: {x: 0, y: 0.15, z: 0}

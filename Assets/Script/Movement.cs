@@ -59,6 +59,12 @@ public class Movement : MonoBehaviour
 #endregion
 
 #region API
+	public void OnLookAHead()
+	{
+		FFLogger.Log( "Look Ahead", this );
+		transform.DORotate( Vector3.zero, GameSettings.Instance.movement_lookAhead_duration );
+	}
+
     public void StartPath()
     {
 		movement_tween = transform.DOPath( movement_path.points, GameSettings.Instance.movement_speed_forward, PathType.CatmullRom )
@@ -74,11 +80,13 @@ public class Movement : MonoBehaviour
 
     public void IncreaseSpeed()
     {
+		FFLogger.Log( "Speed Up: " + GameSettings.Instance.IncreaseSpeedCofactor , this );
 		movement_tween.timeScale = GameSettings.Instance.IncreaseSpeedCofactor;
 	}
 
     public void DefaultSpeed()
     {
+		FFLogger.Log( "Speed Down", this );
 		movement_tween.timeScale = 1f;
 	}
 

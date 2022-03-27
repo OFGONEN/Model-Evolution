@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43edc59a6c31d1142b8fd78e72e3de25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movement_points: []
+  movement_path: {fileID: 0}
   movement_input_lateral: {fileID: 11400000, guid: a13758f5f4b50f44cbbacd8d3fff2476, type: 2}
   movement_transform: {fileID: 5237732566003934628}
   animation_transform: {fileID: 5220861811305579851}
@@ -103,7 +103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eventPairs:
   - eventListener:
-      gameEvent: {fileID: 11400000, guid: 655565f775fba4f54a50b6f66253c392, type: 2}
+      gameEvent: {fileID: 11400000, guid: acbedd0326501497b88f47a706303639, type: 2}
     unityEvent:
       m_PersistentCalls:
         m_Calls:
@@ -250,8 +250,8 @@ MonoBehaviour:
     unityEvent:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 9006063527558546177}
-          m_TargetAssemblyTypeName: Dress, Assembly-CSharp
+        - m_Target: {fileID: 8935389186476333484}
+          m_TargetAssemblyTypeName: Movement, Assembly-CSharp
           m_MethodName: OnLookAHead
           m_Mode: 1
           m_Arguments:
