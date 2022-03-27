@@ -250,10 +250,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5377200983978413202}
     m_Modifications:
-    - target: {fileID: 167685569815317228, guid: 41ebe6c6027de4a1bba5cca22b77d1e2, type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 1418453679690426196, guid: 41ebe6c6027de4a1bba5cca22b77d1e2, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -301,14 +297,6 @@ PrefabInstance:
     - target: {fileID: 3672962640472374559, guid: 41ebe6c6027de4a1bba5cca22b77d1e2, type: 3}
       propertyPath: m_Name
       value: model
-      objectReference: {fileID: 0}
-    - target: {fileID: 7458993672900220293, guid: 41ebe6c6027de4a1bba5cca22b77d1e2, type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7786123683336036578, guid: 41ebe6c6027de4a1bba5cca22b77d1e2, type: 3}
-      propertyPath: m_Mesh
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41ebe6c6027de4a1bba5cca22b77d1e2, type: 3}
