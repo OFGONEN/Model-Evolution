@@ -12,7 +12,7 @@ public class SharedIntNotifier_Aritmetic : SharedIntNotifier
 {
 	public float cooldown;
 
-	private bool canInteract = true;
+	[ SerializeField, ReadOnly ] private bool canInteract = true;
 
 	[ Button() ]
 	public void Add( int value )

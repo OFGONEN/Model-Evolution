@@ -2,6 +2,7 @@
 
 using UnityEngine;
 using DG.Tweening;
+using Sirenix.OdinInspector;
 
 namespace FFStudio
 {
@@ -11,7 +12,7 @@ namespace FFStudio
         public int eventValue;
 
 		public float cooldown;
-		private bool canRaise = true;
+		[ ShowInInspector, ReadOnly ] private bool canRaise = true;
 
 		public void Raise( int value )
         {
@@ -26,7 +27,7 @@ namespace FFStudio
         public void CoolDown()
         {
 			canRaise = false;
-			DOVirtual.DelayedCall( cooldown, CoolDown );
+			DOVirtual.DelayedCall( cooldown, OnCoolDownComplete );
 		}
 
         private void OnCoolDownComplete()
