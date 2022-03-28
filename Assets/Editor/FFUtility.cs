@@ -344,7 +344,7 @@ namespace FFEditor
 		public static void BakeBuildString()
 		{
 			StringBuilder stringBuilder = new StringBuilder( 32 );
-			var buildStringAsset = AssetDatabase.LoadAssetAtPath( "Assets/Scriptable_Object/Shared/build_string.asset", typeof( SharedStringNotifier ) );
+			var buildStringAsset = AssetDatabase.LoadAssetAtPath( "Assets/Scriptable_Object/Shared/notif_string_build.asset", typeof( SharedStringNotifier ) );
 
 			stringBuilder.Append( "IOS_" );
 			string buildNumber = PlayerSettings.iOS.buildNumber;
