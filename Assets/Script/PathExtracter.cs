@@ -19,13 +19,8 @@ public class PathExtracter : MonoBehaviour
 
 #endregion
 
-#region Properties
-#endregion
-
-#region Unity API
-#endregion
-
-#region API
+#region Editor Only
+#if UNITY_EDITOR
     [ Button() ]
     public void ExtractPath()
     {
@@ -68,13 +63,6 @@ public class PathExtracter : MonoBehaviour
     {
 		path_points = path.wps.ToArray();
 	}
-#endregion
-
-#region Implementation
-#endregion
-
-#region Editor Only
-#if UNITY_EDITOR
 #endif
 #endregion
 }

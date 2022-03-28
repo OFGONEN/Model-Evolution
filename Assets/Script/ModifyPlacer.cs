@@ -21,13 +21,8 @@ public class ModifyPlacer : MonoBehaviour
 	private List< Transform > lastAdd = new List< Transform >( 32 );
 #endregion
 
-#region Properties
-#endregion
-
-#region Unity API
-#endregion
-
-#region API
+#region Editor Only
+#if UNITY_EDITOR
     [ Button() ]
     public void Place()
     {
@@ -60,13 +55,7 @@ public class ModifyPlacer : MonoBehaviour
 			DestroyImmediate( lastAdd[ i ].gameObject );
 		}
 	}
-#endregion
 
-#region Implementation
-#endregion
-
-#region Editor Only
-#if UNITY_EDITOR
 	private void OnDrawGizmos()
 	{
         for( var i = 0; i < placement_count; i++ )

@@ -15,13 +15,8 @@ public class Test_DressOffset : MonoBehaviour
     private MeshFilter meshFilter;
 #endregion
 
-#region Properties
-#endregion
-
-#region Unity API
-#endregion
-
-#region API
+#region Editor Only
+#if UNITY_EDITOR
     [ Button() ]
     public void SpawnDress()
     {
@@ -44,13 +39,6 @@ public class Test_DressOffset : MonoBehaviour
 
 		AssetDatabase.SaveAssets();
 	}
-#endregion
-
-#region Implementation
-#endregion
-
-#region Editor Only
-#if UNITY_EDITOR
 #endif
 #endregion
 }

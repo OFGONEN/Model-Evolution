@@ -9,6 +9,7 @@ using Sirenix.OdinInspector;
 
 public class SpecialDressExtract : MonoBehaviour
 {
+#if UNITY_EDITOR
 	public DressData dressData;
 
     [ Button() ]
@@ -23,4 +24,5 @@ public class SpecialDressExtract : MonoBehaviour
 
 		AssetDatabase.SaveAssets();
 	}
+#endif
 }
