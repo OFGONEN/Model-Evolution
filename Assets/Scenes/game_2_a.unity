@@ -1147,14 +1147,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: parkour_2
       objectReference: {fileID: 0}
-    - target: {fileID: 6616331495730357729, guid: d20a8f21f3e1e1f418496fb8fb1419d6, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-    - target: {fileID: 6616331495730357729, guid: d20a8f21f3e1e1f418496fb8fb1419d6, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d20a8f21f3e1e1f418496fb8fb1419d6, type: 3}
 --- !u!1 &915058330
