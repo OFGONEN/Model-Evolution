@@ -988,14 +988,6 @@ PrefabInstance:
 
         days'
       objectReference: {fileID: 0}
-    - target: {fileID: 4380831613729426878, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: a2a0eac20462392448130bfd1e995e86, type: 2}
-    - target: {fileID: 4380831613729426878, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: -279046927834550113, guid: a2a0eac20462392448130bfd1e995e86, type: 2}
     - target: {fileID: 4957353247955912156, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
       propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
       value: 0
@@ -1124,14 +1116,6 @@ PrefabInstance:
 
         days'
       objectReference: {fileID: 0}
-    - target: {fileID: 4380831613729426878, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: a2a0eac20462392448130bfd1e995e86, type: 2}
-    - target: {fileID: 4380831613729426878, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: -279046927834550113, guid: a2a0eac20462392448130bfd1e995e86, type: 2}
     - target: {fileID: 4957353247955912156, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
       propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
       value: 10
@@ -1798,14 +1782,6 @@ PrefabInstance:
 
         years'
       objectReference: {fileID: 0}
-    - target: {fileID: 4380831613729426878, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: a2a0eac20462392448130bfd1e995e86, type: 2}
-    - target: {fileID: 4380831613729426878, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: -279046927834550113, guid: a2a0eac20462392448130bfd1e995e86, type: 2}
     - target: {fileID: 4957353247955912156, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
       propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
       value: 12
@@ -1997,14 +1973,6 @@ PrefabInstance:
       propertyPath: m_text
       value: +5 months
       objectReference: {fileID: 0}
-    - target: {fileID: 4380831613729426878, guid: 336baf8c017f8ec479e87ac6020bb83b, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: a2a0eac20462392448130bfd1e995e86, type: 2}
-    - target: {fileID: 4380831613729426878, guid: 336baf8c017f8ec479e87ac6020bb83b, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: -279046927834550113, guid: a2a0eac20462392448130bfd1e995e86, type: 2}
     - target: {fileID: 4957353247955912156, guid: 336baf8c017f8ec479e87ac6020bb83b, type: 3}
       propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
       value: 0
@@ -2216,14 +2184,6 @@ PrefabInstance:
 
         months'
       objectReference: {fileID: 0}
-    - target: {fileID: 4380831613729426878, guid: 336baf8c017f8ec479e87ac6020bb83b, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: a2a0eac20462392448130bfd1e995e86, type: 2}
-    - target: {fileID: 4380831613729426878, guid: 336baf8c017f8ec479e87ac6020bb83b, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: -279046927834550113, guid: a2a0eac20462392448130bfd1e995e86, type: 2}
     - target: {fileID: 4957353247955912156, guid: 336baf8c017f8ec479e87ac6020bb83b, type: 3}
       propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
       value: 1
@@ -2484,14 +2444,6 @@ PrefabInstance:
 
         months'
       objectReference: {fileID: 0}
-    - target: {fileID: 4380831613729426878, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: a2a0eac20462392448130bfd1e995e86, type: 2}
-    - target: {fileID: 4380831613729426878, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: -279046927834550113, guid: a2a0eac20462392448130bfd1e995e86, type: 2}
     - target: {fileID: 4957353247955912156, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
       propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
       value: 1
@@ -3621,14 +3573,6 @@ PrefabInstance:
 
         years'
       objectReference: {fileID: 0}
-    - target: {fileID: 4380831613729426878, guid: 336baf8c017f8ec479e87ac6020bb83b, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: a2a0eac20462392448130bfd1e995e86, type: 2}
-    - target: {fileID: 4380831613729426878, guid: 336baf8c017f8ec479e87ac6020bb83b, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: -279046927834550113, guid: a2a0eac20462392448130bfd1e995e86, type: 2}
     - target: {fileID: 4957353247955912156, guid: 336baf8c017f8ec479e87ac6020bb83b, type: 3}
       propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
       value: 15
@@ -3949,14 +3893,6 @@ PrefabInstance:
 
         weeks'
       objectReference: {fileID: 0}
-    - target: {fileID: 4380831613729426878, guid: 336baf8c017f8ec479e87ac6020bb83b, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: a2a0eac20462392448130bfd1e995e86, type: 2}
-    - target: {fileID: 4380831613729426878, guid: 336baf8c017f8ec479e87ac6020bb83b, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: -279046927834550113, guid: a2a0eac20462392448130bfd1e995e86, type: 2}
     - target: {fileID: 4957353247955912156, guid: 336baf8c017f8ec479e87ac6020bb83b, type: 3}
       propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
       value: 0
@@ -4186,14 +4122,6 @@ PrefabInstance:
 
         days'
       objectReference: {fileID: 0}
-    - target: {fileID: 4380831613729426878, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: a2a0eac20462392448130bfd1e995e86, type: 2}
-    - target: {fileID: 4380831613729426878, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: -279046927834550113, guid: a2a0eac20462392448130bfd1e995e86, type: 2}
     - target: {fileID: 4957353247955912156, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
       propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
       value: 0
@@ -4261,14 +4189,6 @@ PrefabInstance:
 
         years'
       objectReference: {fileID: 0}
-    - target: {fileID: 4380831613729426878, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: a2a0eac20462392448130bfd1e995e86, type: 2}
-    - target: {fileID: 4380831613729426878, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: -279046927834550113, guid: a2a0eac20462392448130bfd1e995e86, type: 2}
     - target: {fileID: 4957353247955912156, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
       propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
       value: 20
@@ -4458,14 +4378,6 @@ PrefabInstance:
 
         weeks'
       objectReference: {fileID: 0}
-    - target: {fileID: 4380831613729426878, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: a2a0eac20462392448130bfd1e995e86, type: 2}
-    - target: {fileID: 4380831613729426878, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: -279046927834550113, guid: a2a0eac20462392448130bfd1e995e86, type: 2}
     - target: {fileID: 4957353247955912156, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
       propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
       value: 2
