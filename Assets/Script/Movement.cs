@@ -22,8 +22,7 @@ public class Movement : MonoBehaviour
     [ FoldoutGroup( "Animation - Moving" ) ] public float anim_moving_position_up;
     [ FoldoutGroup( "Animation - Moving" ) ] public float anim_moving_position_down;
     [ FoldoutGroup( "Animation - Moving" ) ] public float anim_moving_position_offset;
-    [ FoldoutGroup( "Animation - Moving" ) ] public float anim_moving_duration_up;
-    [ FoldoutGroup( "Animation - Moving" ) ] public float anim_moving_duration_down;
+    [ FoldoutGroup( "Animation - Moving" ) ] public float anim_moving_speed;
     [ FoldoutGroup( "Animation - Moving" ) ] public Ease[] anim_moving_ease;
 
     [ FoldoutGroup( "Animation - Evolve" ) ] public float anim_evolve_position_up;
@@ -104,12 +103,13 @@ public class Movement : MonoBehaviour
 
 		sequence.Append( animation_transform.DOLocalMoveY(
 			anim_moving_position_up.ReturnRandomOffset( anim_moving_position_offset ),
-			anim_moving_duration_up ) );
+			anim_moving_speed )
+			.SetSpeedBased()
+			.SetEase( anim_moving_ease.ReturnRandom() )
+		 );
 		sequence.Append( animation_transform.DOLocalMoveY(
 			anim_moving_position_down.ReturnRandomOffset( anim_moving_position_offset ),
-			anim_moving_duration_down ) );
-
-		sequence.SetEase( anim_moving_ease.ReturnRandom< Ease >() );
+			anim_moving_speed ).SetSpeedBased() );
 		sequence.OnComplete( MovingAnimation );
 	}
 
@@ -129,9 +129,10 @@ public class Movement : MonoBehaviour
 		).SetEase( anim_evolve_ease_up ) );
 
 		sequence.Join( animation_transform.DOLocalRotate( Vector3.up * 360,
-			durationUp )
+			durationUp, RotateMode.FastBeyond360 )
 			.SetEase( anim_evolve_ease_rotation )
-			.SetRelative() );
+			// .SetRelative() 
+		);
 
 		sequence.Append( animation_transform.DOLocalMoveY( 0, anim_evolve_duration_down ).SetEase( anim_evolve_ease_down ) );
 		sequence.AppendInterval( anim_evolve_duration_down_wait );

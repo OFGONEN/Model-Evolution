@@ -57,8 +57,7 @@ MonoBehaviour:
   anim_moving_position_up: 1
   anim_moving_position_down: 0.2
   anim_moving_position_offset: 0.1
-  anim_moving_duration_up: 0.6
-  anim_moving_duration_down: 0.5
+  anim_moving_speed: 3
   anim_moving_ease: 010000000300000002000000
   anim_evolve_position_up: 1.2
   anim_evolve_position_offset: 0.1
