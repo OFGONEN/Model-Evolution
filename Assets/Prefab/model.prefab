@@ -321,6 +321,9 @@ MonoBehaviour:
   renderer_top: {fileID: 167685569815317228}
   renderer_bottom: {fileID: 7786123683336036578}
   renderer_shoe: {fileID: 7458993672900220293}
+  dressData_default_top: {fileID: 11400000, guid: c2b82c524c6f840d7b01552ab40a87b6, type: 2}
+  dressData_default_bottom: {fileID: 11400000, guid: 2fa743689034946ba957b62f2f70f14a, type: 2}
+  dressData_default_shoe: {fileID: 11400000, guid: 1db26403c82a347c7bf8a73c00f5cd20, type: 2}
 --- !u!114 &-706068336177039013
 MonoBehaviour:
   m_ObjectHideFlags: 0
