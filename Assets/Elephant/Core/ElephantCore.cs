@@ -329,8 +329,7 @@ namespace ElephantSDK
             var versionCheckUtils = VersionCheckUtils.GetInstance();
             var versionData = new VersionData(Application.version, ElephantVersion.SDK_VERSION,
                 SystemInfo.operatingSystem, versionCheckUtils.AdSdkVersion,
-                versionCheckUtils.MopubVersion, versionCheckUtils.UnityVersion,
-                versionCheckUtils.NetworkVersions);
+                versionCheckUtils.MediationVersion, versionCheckUtils.UnityVersion, versionCheckUtils.Mediation);
 
             var parameters = Params.New()
                 .CustomString(JsonUtility.ToJson(versionData));

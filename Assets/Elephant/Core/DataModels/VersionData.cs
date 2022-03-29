@@ -10,21 +10,20 @@ namespace ElephantSDK
         public string sdkVersion = "";
         public string osVersion = "";
         public string adsSdkVersion = "";
-        public string mopubVersion = "";
+        public string mediationVersion = "";
         public string unityVersion = "";
-        public List<MopubNetworkData> mopubNetworkData;
-        
+        public string mediationName = "";
+
         public VersionData(string appVersion, string sdkVersion, string osVersion,
-            string adsSdkVersion, string mopubVersion, string unityVersion,
-            List<MopubNetworkData> mopubNetworkData)
+            string adsSdkVersion, string mediationVersion, string unityVersion, string mediationName)
         {
             this.appVersion = appVersion;
             this.sdkVersion = sdkVersion;
             this.osVersion = osVersion;
             this.adsSdkVersion = adsSdkVersion;
-            this.mopubVersion = mopubVersion;
+            this.mediationVersion = mediationVersion;
             this.unityVersion = unityVersion;
-            this.mopubNetworkData = mopubNetworkData;
+            this.mediationName = mediationName;
         }
         
         [Serializable]

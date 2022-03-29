@@ -2,6 +2,6 @@
 {
     public class ElephantVersion
     {
-        internal static string SDK_VERSION = "v1.11.0";
+        internal static string SDK_VERSION = "v1.12.1";
     }
 }
