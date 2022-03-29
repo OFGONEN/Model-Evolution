@@ -16,6 +16,7 @@ public class CameraController : MonoBehaviour
 	private Vector3 followOffset;
 
 	private UnityMessage updateMethod;
+	private Vector3 lookAtAxis;
 #endregion
 
 #region Properties
@@ -31,6 +32,8 @@ public class CameraController : MonoBehaviour
 	private void Awake()
 	{
 		updateMethod = ExtensionMethods.EmptyMethod;
+
+		lookAtAxis = Vector3.zero;
 	}
 
 	private void Update()
@@ -63,17 +66,29 @@ public class CameraController : MonoBehaviour
 		transform_target = reference_transform_target.SharedValue as Transform;
 	}
 
+	public void PlayerSpeed_Up()
+	{
+		lookAtAxis = Vector3.up;
+	}
+
+	public void PlayerSpeed_Down()
+	{
+		lookAtAxis = Vector3.zero;
+	}
+
 	private void FollowPlayer()
 	{
 		var player_position = transform_target.position;
 		var target_position = transform_target.TransformPoint( followOffset );
+		var position        = transform.position;
 
 		// target_position.x = 0;
-		target_position.x = Mathf.Lerp( transform.position.x, target_position.x, Time.deltaTime * GameSettings.Instance.camera_follow_speed_lateral );
-		target_position.z = Mathf.Lerp( transform.position.z, target_position.z, Time.deltaTime * GameSettings.Instance.camera_follow_speed_depth );
+		target_position.x = Mathf.Lerp( position.x, target_position.x, Time.deltaTime * GameSettings.Instance.camera_follow_speed_lateral );
+		target_position.y = Mathf.Lerp( position.y, target_position.y, Time.deltaTime * GameSettings.Instance.camera_follow_speed_depth );
+		target_position.z = Mathf.Lerp( position.z, target_position.z, Time.deltaTime * GameSettings.Instance.camera_follow_speed_depth );
 		transform.position = target_position;
 
-		// transform.LookAtAxis( player_position, Vector3.up );
+		transform.LookAtAxis( player_position, lookAtAxis );
 	}
 
 	private void FollowPlayerWithOut_Y()

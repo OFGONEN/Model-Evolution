@@ -14,6 +14,9 @@ public class Model : MonoBehaviour
     [ BoxGroup( "Setup" ) ] public SkinnedMeshRenderer renderer_top;
     [ BoxGroup( "Setup" ) ] public SkinnedMeshRenderer renderer_bottom;
     [ BoxGroup( "Setup" ) ] public SkinnedMeshRenderer renderer_shoe;
+    [ BoxGroup( "Setup" ) ] public DressData dressData_default_top;
+    [ BoxGroup( "Setup" ) ] public DressData dressData_default_bottom;
+    [ BoxGroup( "Setup" ) ] public DressData dressData_default_shoe;
 #endregion
 
 #region Properties
@@ -22,7 +25,11 @@ public class Model : MonoBehaviour
 #region Unity API
     private void Awake()
     {
-        for( var i = 0; i < list_dressData.itemList.Count; i++ )
+		DressUp( dressData_default_top );
+		DressUp( dressData_default_bottom );
+		DressUp( dressData_default_shoe );
+
+		for( var i = 0; i < list_dressData.itemList.Count; i++ )
 			DressUp( list_dressData.itemList[ i ] );
 	}
 #endregion

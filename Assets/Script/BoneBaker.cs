@@ -9,6 +9,8 @@ using UnityEditor;
 
 public class BoneBaker : MonoBehaviour
 {
+
+#if UNITY_EDITOR
 	public Transform baseObject;
 	public Transform targetObject;
 
@@ -129,4 +131,5 @@ public class BoneBaker : MonoBehaviour
 		newMesh.RecalculateNormals();
 		return newMesh;
 	}
+#endif
 }

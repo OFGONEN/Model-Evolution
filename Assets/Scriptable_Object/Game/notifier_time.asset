@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: notifier_time
   m_EditorClassIdentifier: 
   sharedValue: 0
+  cooldown: 0.05

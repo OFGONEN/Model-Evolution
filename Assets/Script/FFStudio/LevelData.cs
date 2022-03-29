@@ -21,6 +21,7 @@ namespace FFStudio
 
         [ BoxGroup( "Cloth" ) ] public int cloth_time_min;
         [ BoxGroup( "Cloth" ) ] public int cloth_time_max;
+		[ BoxGroup( "Cloth" ) ] public float cloth_rotate_clamp = 40f;
         [ BoxGroup( "Cloth" ) ] public EvolveData[] cloth_evolve_datas;
 
 

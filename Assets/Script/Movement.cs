@@ -11,9 +11,10 @@ using UnityEditor;
 public class Movement : MonoBehaviour
 {
 #region Fields
-    [ BoxGroup( "Setup" ), ReadOnly ] public Vector3[] movement_points;
+    [ BoxGroup( "Setup" ) ] public SharedPath movement_path;
     [ BoxGroup( "Setup" ) ] public SharedFloat movement_input_lateral;
     [ BoxGroup( "Setup" ) ] public Transform movement_transform;
+    [ BoxGroup( "Setup" ) ] public Transform rotate_transform;
     [ BoxGroup( "Setup" ) ] public Transform animation_transform;
 
     [ BoxGroup( "Shared" ) ] public SharedReferenceNotifier notifier_modelTransform;
@@ -22,8 +23,7 @@ public class Movement : MonoBehaviour
     [ FoldoutGroup( "Animation - Moving" ) ] public float anim_moving_position_up;
     [ FoldoutGroup( "Animation - Moving" ) ] public float anim_moving_position_down;
     [ FoldoutGroup( "Animation - Moving" ) ] public float anim_moving_position_offset;
-    [ FoldoutGroup( "Animation - Moving" ) ] public float anim_moving_duration_up;
-    [ FoldoutGroup( "Animation - Moving" ) ] public float anim_moving_duration_down;
+    [ FoldoutGroup( "Animation - Moving" ) ] public float anim_moving_speed;
     [ FoldoutGroup( "Animation - Moving" ) ] public Ease[] anim_moving_ease;
 
     [ FoldoutGroup( "Animation - Evolve" ) ] public float anim_evolve_position_up;
@@ -38,8 +38,9 @@ public class Movement : MonoBehaviour
 	// Private \\
 	private Tween movement_tween;
     private UnityMessage movement_delegate_lateral;
+	private float movement_rotate;
 
-    // Recycled
+	// Recycled
 	private RecycledSequence animation_sequence = new RecycledSequence();
 #endregion
 
@@ -59,9 +60,15 @@ public class Movement : MonoBehaviour
 #endregion
 
 #region API
+	public void OnLookAHead()
+	{
+		FFLogger.Log( "Look Ahead", this );
+		transform.DORotate( Vector3.zero, GameSettings.Instance.movement_lookAhead_duration );
+	}
+
     public void StartPath()
     {
-		movement_tween = transform.DOPath( movement_points, GameSettings.Instance.movement_speed_forward, PathType.CatmullRom )
+		movement_tween = transform.DOPath( movement_path.points, GameSettings.Instance.movement_speed_forward, PathType.Linear )
 			.SetEase( GameSettings.Instance.movement_path_ease )
             .SetLookAt( 0 , false )
             .OnComplete( StopPath )
@@ -74,11 +81,13 @@ public class Movement : MonoBehaviour
 
     public void IncreaseSpeed()
     {
+		FFLogger.Log( "Speed Up: " + GameSettings.Instance.IncreaseSpeedCofactor , this );
 		movement_tween.timeScale = GameSettings.Instance.IncreaseSpeedCofactor;
 	}
 
     public void DefaultSpeed()
     {
+		FFLogger.Log( "Speed Down", this );
 		movement_tween.timeScale = 1f;
 	}
 
@@ -90,18 +99,17 @@ public class Movement : MonoBehaviour
     [ Button() ]
 	public void MovingAnimation()
 	{
-		animation_sequence.Kill();
-
 		var sequence = animation_sequence.Recycle();
 
 		sequence.Append( animation_transform.DOLocalMoveY(
 			anim_moving_position_up.ReturnRandomOffset( anim_moving_position_offset ),
-			anim_moving_duration_up ) );
+			anim_moving_speed )
+			.SetSpeedBased()
+			.SetEase( anim_moving_ease.ReturnRandom() )
+		 );
 		sequence.Append( animation_transform.DOLocalMoveY(
 			anim_moving_position_down.ReturnRandomOffset( anim_moving_position_offset ),
-			anim_moving_duration_down ) );
-
-		sequence.SetEase( anim_moving_ease.ReturnRandom< Ease >() );
+			anim_moving_speed ).SetSpeedBased() );
 		sequence.OnComplete( MovingAnimation );
 	}
 
@@ -113,7 +121,7 @@ public class Movement : MonoBehaviour
 		var sequence = animation_sequence.Recycle();
 
 		var positionUp = anim_evolve_position_up.ReturnRandomOffset( anim_evolve_position_offset );
-		var durationUp = ( positionUp - transform.localPosition.y ) * anim_evolve_duration_up / positionUp;
+		var durationUp = Mathf.Abs( positionUp - animation_transform.localPosition.y ) * anim_evolve_duration_up / positionUp;
 
 		sequence.Append( animation_transform.DOLocalMoveY(
 			positionUp,
@@ -121,9 +129,10 @@ public class Movement : MonoBehaviour
 		).SetEase( anim_evolve_ease_up ) );
 
 		sequence.Join( animation_transform.DOLocalRotate( Vector3.up * 360,
-			durationUp )
+			durationUp, RotateMode.FastBeyond360 )
 			.SetEase( anim_evolve_ease_rotation )
-			.SetRelative() );
+			// .SetRelative() 
+		);
 
 		sequence.Append( animation_transform.DOLocalMoveY( 0, anim_evolve_duration_down ).SetEase( anim_evolve_ease_down ) );
 		sequence.AppendInterval( anim_evolve_duration_down_wait );
@@ -153,31 +162,40 @@ public class Movement : MonoBehaviour
 		var localPosition = movement_transform.localPosition;
 
 		localPosition.x = Mathf.Clamp( localPosition.x + GameSettings.Instance.movement_speed_lateral * Time.deltaTime * movement_input_lateral.sharedValue,
-			-GameSettings.Instance.movement_clampDistance,
-			GameSettings.Instance.movement_clampDistance );
+			-GameSettings.Instance.movement_clamp_distance,
+			GameSettings.Instance.movement_clamp_distance );
 
 		movement_transform.localPosition = localPosition;
+
+		Rotate();
+	}
+
+	private void Rotate()
+	{
+		float input = movement_input_lateral.sharedValue;
+		float sign = 0;
+
+		if( Mathf.Approximately( 0 , input ) )
+			sign = 0;
+		else
+			sign = Mathf.Sign( input );
+
+		var drag = Time.deltaTime * GameSettings.Instance.movement_rotate_drag;
+
+		if( drag >= Mathf.Abs( movement_rotate ) )
+			drag = movement_rotate;
+
+		var step  = Time.deltaTime * GameSettings.Instance.movement_rotate_speed * sign;
+		    drag  = drag * Mathf.Sign( movement_rotate ) * -1f;
+		var clamp = CurrentLevelData.Instance.levelData.cloth_rotate_clamp;
+
+		movement_rotate                     = Mathf.Clamp( movement_rotate + step + drag, -clamp, clamp );
+		rotate_transform.localEulerAngles = Vector3.up * movement_rotate;
 	}
 #endregion
 
 #region Editor Only
 #if UNITY_EDITOR
-	[ ShowInInspector, BoxGroup( "EditorOnly" ) ] private DOTweenPath path;
-
-    [ Button() ]
-    private void ExportPath()
-    {
-		path.wps.Clear();
-		path.wps.InsertRange( 0, movement_points );
-		path.pathType = PathType.CatmullRom;
-	}
-
-    [ Button() ]
-    private void ImportPath()
-    {
-        movement_points = path.wps.ToArray();
-    }
-
 	[ ShowInInspector, BoxGroup( "EditorOnly" ) ] private bool Gizmos_anim_moving;
 	[ ShowInInspector, BoxGroup( "EditorOnly" ) ] private bool Gizmos_anim_evolve;
 

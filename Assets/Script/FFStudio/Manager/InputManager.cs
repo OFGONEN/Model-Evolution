@@ -64,6 +64,11 @@ namespace FFStudio
 		{
 			shared_input_lateral.sharedValue = delta.x;
 		}
+
+		public void OnFingerUp( LeanFinger finger )
+		{
+			shared_input_lateral.sharedValue = 0;
+		}
 #endregion
 
 #region Implementation

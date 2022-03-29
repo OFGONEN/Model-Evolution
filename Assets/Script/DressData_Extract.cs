@@ -12,14 +12,9 @@ public class DressData_Extract : MonoBehaviour
     [ LabelText( "Dress Renderer" ) ] public SkinnedMeshRenderer skinnedMeshRenderer_Dress;
     public DressData dressData;
 #endregion
+#region Editor Only
+#if UNITY_EDITOR
 
-#region Properties
-#endregion
-
-#region Unity API
-#endregion
-
-#region API
     [ Button() ]
     public void ExtractDressData()
     {
@@ -43,13 +38,6 @@ public class DressData_Extract : MonoBehaviour
     {
 		gameObject.UpdateSkinnedMeshRenderer( skinnedMeshRenderer_Dress, dressData );
     }
-#endregion
-
-#region Implementation
-#endregion
-
-#region Editor Only
-#if UNITY_EDITOR
 #endif
 #endregion
 }
