@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ea3c0b9fd00fd441b6cebc5941ee13b, type: 3}
   m_Name: level_data_1
   m_EditorClassIdentifier: 
-  scene_index: 1
+  scene_index: 2
   scene_overrideAsActiveScene: 0
   cloth_start_clean: 1
   cloth_pose: pose_3
@@ -23,6 +23,7 @@ MonoBehaviour:
     evolve_dress_color: {r: 0.5377358, g: 0.5377358, b: 0.5377358, a: 1}
   cloth_time_min: 1960
   cloth_time_max: 2020
+  cloth_rotate_clamp: 40
   cloth_evolve_datas:
   - evolve_dress_data: {fileID: 11400000, guid: f2b0b4e6f8c36493399350f9aee05a43, type: 2}
     evolve_dress_time: 1970
