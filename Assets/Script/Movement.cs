@@ -14,6 +14,7 @@ public class Movement : MonoBehaviour
     [ BoxGroup( "Setup" ) ] public SharedPath movement_path;
     [ BoxGroup( "Setup" ) ] public SharedFloat movement_input_lateral;
     [ BoxGroup( "Setup" ) ] public Transform movement_transform;
+    [ BoxGroup( "Setup" ) ] public Transform rotate_transform;
     [ BoxGroup( "Setup" ) ] public Transform animation_transform;
 
     [ BoxGroup( "Shared" ) ] public SharedReferenceNotifier notifier_modelTransform;
@@ -37,8 +38,9 @@ public class Movement : MonoBehaviour
 	// Private \\
 	private Tween movement_tween;
     private UnityMessage movement_delegate_lateral;
+	private float movement_rotate;
 
-    // Recycled
+	// Recycled
 	private RecycledSequence animation_sequence = new RecycledSequence();
 #endregion
 
@@ -162,10 +164,35 @@ public class Movement : MonoBehaviour
 		var localPosition = movement_transform.localPosition;
 
 		localPosition.x = Mathf.Clamp( localPosition.x + GameSettings.Instance.movement_speed_lateral * Time.deltaTime * movement_input_lateral.sharedValue,
-			-GameSettings.Instance.movement_clampDistance,
-			GameSettings.Instance.movement_clampDistance );
+			-GameSettings.Instance.movement_clamp_distance,
+			GameSettings.Instance.movement_clamp_distance );
 
 		movement_transform.localPosition = localPosition;
+
+		Rotate();
+	}
+
+	private void Rotate()
+	{
+		float input = movement_input_lateral.sharedValue;
+		float sign = 0;
+
+		if( Mathf.Approximately( 0 , input ) )
+			sign = 0;
+		else
+			sign = Mathf.Sign( input );
+
+		var drag = Time.deltaTime * GameSettings.Instance.movement_rotate_drag;
+
+		if( drag >= Mathf.Abs( movement_rotate ) )
+			drag = movement_rotate;
+
+		var step  = Time.deltaTime * GameSettings.Instance.movement_rotate_speed * sign;
+		    drag  = drag * Mathf.Sign( movement_rotate ) * -1f;
+		var clamp = GameSettings.Instance.movement_rotate_clamp;
+
+		movement_rotate                     = Mathf.Clamp( movement_rotate + step + drag, -clamp, clamp );
+		rotate_transform.localEulerAngles = Vector3.up * movement_rotate;
 	}
 #endregion
 
