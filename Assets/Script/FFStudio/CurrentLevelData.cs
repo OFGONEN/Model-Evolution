@@ -1,15 +1,18 @@
 ﻿/* Created by and for usage of FF Studios (2021). */
 
 using UnityEngine;
+using Sirenix.OdinInspector;
 
 namespace FFStudio
 {
     public class CurrentLevelData : ScriptableObject
     {
 #region Fields
-		public int currentLevel_Real;
-		public int currentLevel_Shown;
-		public LevelData levelData;
+		[ BoxGroup( "Shared" ) ] public DressDataList list_dressData;
+
+		[ ReadOnly ] public int currentLevel_Real;
+		[ ReadOnly ] public int currentLevel_Shown;
+		[ ReadOnly ] public LevelData levelData;
 
         private static CurrentLevelData instance;
 
@@ -31,7 +34,10 @@ namespace FFStudio
 			if( currentLevel_Real > GameSettings.Instance.maxLevelCount )
 				currentLevel_Real = Random.Range( 1, GameSettings.Instance.maxLevelCount );
 
-			levelData = Resources.Load<LevelData>( "level_data_" + currentLevel_Real );
+			levelData = Resources.Load< LevelData >( "level_data_" + currentLevel_Real );
+
+            if( levelData.cloth_start_clean )
+				list_dressData.ClearSet();
 		}
 #endregion
 
@@ -39,7 +45,7 @@ namespace FFStudio
         static CurrentLevelData LoadInstance()
 		{
 			if( instance == null )
-				instance = Resources.Load<CurrentLevelData>( "level_current" );
+				instance = Resources.Load< CurrentLevelData >( "level_current" );
 
 			returnInstance = ReturnInstance;
 

@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47aa1f00f8d4a439fb3ced482a29ae75, type: 3}
+  m_Name: dress_data_default_underwear
+  m_EditorClassIdentifier: 
+  dress_rootBone: Hips
+  dress_bone_names:
+  - Hips
+  - Spine
+  - Left leg
+  - Right leg
+  dress_sharedMaterials:
+  - {fileID: 2100000, guid: a2829df0bfae7214390d3aa9dcc77c64, type: 2}
+  dress_localBounds:
+    m_Center: {x: 0.000003837049, y: -0.09344615, z: -0.017256849}
+    m_Extent: {x: 0.118274406, y: 0.104440585, z: 0.110935576}
+  dress_mesh: {fileID: 4300000, guid: 709bc19538cbe447ba57e2329a70d608, type: 2}
+  dress_offset_position: {x: 0, y: -0.75, z: 0}
+  dress_type: 1
+  isAccessory: 0
+  override_top: 0
+  override_bottom: 0
+  override_shoe: 0

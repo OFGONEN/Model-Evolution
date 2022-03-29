@@ -10,8 +10,9 @@ namespace FFStudio
         where SharedDataNotifierType : SharedDataNotifier< SharedDataType >
     {
 #region Fields
-        [ BoxGroup( "Setup" ), SerializeField ]
-        protected SharedDataNotifierType sharedDataNotifier;
+        [ BoxGroup( "Setup" ), SerializeField ] protected SharedDataNotifierType sharedDataNotifier;
+        [ BoxGroup( "Setup" ), SerializeField ] protected string text_prefix;
+        [ BoxGroup( "Setup" ), SerializeField ] protected string text_suffix;
 
         protected TextMeshProUGUI ui_Text; 
 #endregion
@@ -36,7 +37,7 @@ namespace FFStudio
 #region Base Class API
         protected virtual void OnSharedDataChange()
         {
-			ui_Text.text = sharedDataNotifier.SharedValue.ToString();
+			ui_Text.text = text_prefix + sharedDataNotifier.SharedValue.ToString() + text_suffix;
         }
 #endregion
     }

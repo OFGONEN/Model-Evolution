@@ -297,6 +297,29 @@ namespace FFStudio
             currentRender.bones = targetModelBones.ToArray();
         }
 
+		public static void UpdateSkinnedMeshRenderer( this GameObject gameObject, SkinnedMeshRenderer currentRenderer, DressData data )
+		{
+			currentRenderer.sharedMesh      = data.dress_mesh;
+			currentRenderer.sharedMaterials = data.dress_sharedMaterials;
+			currentRenderer.localBounds     = data.dress_localBounds;
+
+			baseModelBones.Clear();
+			targetModelBones.Clear();
+
+			gameObject.GetComponentsInChildren< Transform >( true, baseModelBones );
+
+			for( int boneOrder = 0; boneOrder < data.dress_bone_names.Length; boneOrder++ )
+			{
+				var bone = baseModelBones.Find( c => c.name == data.dress_bone_names[ boneOrder ] );
+				targetModelBones.Add( bone );
+
+				if( data.dress_bone_names[ boneOrder ].Equals( data.dress_rootBone ) )
+					currentRenderer.rootBone = bone;
+			}
+
+			currentRenderer.bones    = targetModelBones.ToArray();
+		}
+
 		public static void SetFieldValue( this object source, string fieldName, string value )
 		{
 				var fieldInfo = source.GetType().GetField( fieldName );
@@ -373,6 +396,17 @@ namespace FFStudio
 		public static T ReturnRandom< T >( this T[] array )
 		{
 			return array[ Random.Range( 0, array.Length ) ];
+		}
+		
+		public static float ReturnRandomOffset( this float value, float offset )
+		{
+			return Random.Range( value - offset, value + offset );
+		}
+
+		public static Vector3 AddY( this Vector3 vector, float value )
+		{
+			vector.y += value;
+			return vector;
 		}
 	}
 }

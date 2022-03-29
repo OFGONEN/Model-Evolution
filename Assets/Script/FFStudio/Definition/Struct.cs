@@ -39,6 +39,16 @@ namespace FFStudio
 	}
 
 	[Serializable]
+	public struct PopUpTextData
+	{
+		public string text;
+		public Color color;
+		public bool parent;
+		public Vector3 offset;
+		public float size;
+	}
+
+	[Serializable]
 	public struct RandomParticlePool
 	{
 		public string alias;
@@ -64,16 +74,23 @@ namespace FFStudio
 	public struct CameraTweenData
 	{
 		public Transform target_transform;
-		public string target_tag;
 
 		public float tween_duration;
 		public bool change_position;
 		public bool change_rotation;
 
-		[ ShowIf( "tween_does_position" ) ] public Ease ease_position;
-		[ ShowIf( "tween_does_rotation" ) ] public Ease ease_rotation;
+		[ ShowIf( "change_position" ) ] public Ease ease_position;
+		[ ShowIf( "change_rotation" ) ] public Ease ease_rotation;
 
 		public UnityEvent event_complete;
 		public bool event_complete_alwaysInvoke;
+	}
+
+	[ Serializable ]
+	public struct EvolveData
+	{
+		public DressData evolve_dress_data;
+		public int evolve_dress_time;
+		public Color evolve_dress_color;
 	}
 }

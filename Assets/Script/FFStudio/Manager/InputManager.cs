@@ -16,6 +16,7 @@ namespace FFStudio
 
 	[ Title( "Shared Variables" ) ]
 		public SharedReferenceNotifier notifier_reference_camera_main;
+		public SharedFloat shared_input_lateral;
 #endregion
 
 #region Fields (Private)
@@ -57,6 +58,16 @@ namespace FFStudio
 			event_input_tap.eventValue = count;
 
 			event_input_tap.Raise();
+		}
+
+		public void OnFingerDelta( Vector2 delta )
+		{
+			shared_input_lateral.sharedValue = delta.x;
+		}
+
+		public void OnFingerUp( LeanFinger finger )
+		{
+			shared_input_lateral.sharedValue = 0;
 		}
 #endregion
 

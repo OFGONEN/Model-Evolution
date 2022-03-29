@@ -12,7 +12,7 @@ namespace FFEditor
 	public class FFBuildUtility : IPreprocessBuildWithReport
 	{
 		public int callbackOrder { get { return 0; } }
-		public static readonly string assetPath = "Assets/Scriptable_Object/Shared/build_string.asset";
+		public static readonly string assetPath = "Assets/Scriptable_Object/Shared/notif_string_build.asset";
 
 		/* Creates a STRING for build text. */
 		public void OnPreprocessBuild( BuildReport report )

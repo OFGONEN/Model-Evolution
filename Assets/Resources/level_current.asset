@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da9b52652f56b2b45bb4827f90e4ac04, type: 3}
   m_Name: level_current
   m_EditorClassIdentifier: 
-  currentLevel: 0
-  currentConsecutiveLevel: 0
+  list_dressData: {fileID: 11400000, guid: b7fd05d1606c146bdbcfdb6158088360, type: 2}
+  currentLevel_Real: 0
+  currentLevel_Shown: 0
   levelData: {fileID: 11400000, guid: 582207d256746cd4ca60f5e0f9343754, type: 2}

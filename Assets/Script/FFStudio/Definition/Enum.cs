@@ -22,4 +22,11 @@ namespace FFStudio
 		Int,
 		Float
 	}
+
+    public enum DressType
+    {
+        Top,
+        Bottom,
+        Shoe
+    }
 }

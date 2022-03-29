@@ -32,13 +32,13 @@ namespace FFEditor
 			/* Rig Tab. */
 			if( modelPrefix == "prop" || modelPrefix == "envr" )
 				modelImporter.animationType = ModelImporterAnimationType.None;
-            else if( modelPrefix == "char" )
+            else if( modelPrefix == "char" || modelPrefix == "anim" )
 				modelImporter.animationType = ModelImporterAnimationType.Human;
             else if( modelPrefix == "gnrc" )
 				modelImporter.animationType = ModelImporterAnimationType.Generic;
 
 			/* Animation Tab. */
-            modelImporter.importAnimation = modelPrefix == "char";
+            modelImporter.importAnimation = modelPrefix == "char" || modelPrefix == "anim";
 
 			AssetDatabase.ImportAsset( assetPath );
 		}

@@ -36,6 +36,8 @@ namespace FFStudio
 		{
 			loadNewLevelListener.response = LoadNewLevel;
 			resetLevelListener.response   = ResetLevel;
+
+			CurrentLevelData.Instance.list_dressData.ClearSet();
 		}
 
 		private void Start()
