@@ -16,6 +16,7 @@ public class DressData : ScriptableObject
 	[ ReadOnly ] public Mesh dress_mesh;
 
 	[ BoxGroup( "Setup" ) ] public Vector3 dress_offset_position;
+	[ BoxGroup( "Setup" ) ] public Vector3 dress_size = Vector3.one;
 	[ BoxGroup( "Setup" ) ] public DressType dress_type;
 	[ BoxGroup( "Setup" ) ] public bool isAccessory;
 }

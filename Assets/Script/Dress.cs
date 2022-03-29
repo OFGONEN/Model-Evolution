@@ -123,6 +123,7 @@ public class Dress : MonoBehaviour
 		dress_mesh_renderer.sharedMaterials       = dress_data.dress_sharedMaterials;
 		dress_mesh_filter.mesh                    = dress_data.dress_mesh;
 		dress_mesh_filter.transform.localPosition = dress_data.dress_offset_position;
+		dress_mesh_filter.transform.localScale    = dress_data.dress_size;
 	}
 
 	private void OnNotifyTime_PreEvolve()
