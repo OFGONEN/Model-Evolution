@@ -60,10 +60,10 @@ MonoBehaviour:
   anim_moving_position_offset: 0.1
   anim_moving_speed: 0.8
   anim_moving_ease: 010000000300000002000000
-  anim_evolve_position_up: 1.2
+  anim_evolve_position_up: 0.6
   anim_evolve_position_offset: 0.1
   anim_evolve_duration_up: 0.6
-  anim_evolve_duration_down: 0.7
+  anim_evolve_duration_down: 0.5
   anim_evolve_duration_down_wait: 0.2
   anim_evolve_ease_up: 1
   anim_evolve_ease_down: 1
