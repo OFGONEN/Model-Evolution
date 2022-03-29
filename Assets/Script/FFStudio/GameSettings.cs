@@ -34,7 +34,6 @@ namespace FFStudio
 
 		[ BoxGroup( "Movement" ) ] public Ease 	movement_path_ease;
 		[ BoxGroup( "Movement" ) ] public float movement_clamp_distance = 1.3f;
-		[ BoxGroup( "Movement" ) ] public float movement_rotate_clamp = 25f;
 		[ BoxGroup( "Movement" ) ] public float movement_speed_forward;
 		[ BoxGroup( "Movement" ) ] public float movement_speed_lateral;
 		[ BoxGroup( "Movement" ) ] public float movement_speed_forward_increase;

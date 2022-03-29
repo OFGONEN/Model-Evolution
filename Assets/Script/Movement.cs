@@ -187,7 +187,7 @@ public class Movement : MonoBehaviour
 
 		var step  = Time.deltaTime * GameSettings.Instance.movement_rotate_speed * sign;
 		    drag  = drag * Mathf.Sign( movement_rotate ) * -1f;
-		var clamp = GameSettings.Instance.movement_rotate_clamp;
+		var clamp = CurrentLevelData.Instance.levelData.cloth_rotate_clamp;
 
 		movement_rotate                     = Mathf.Clamp( movement_rotate + step + drag, -clamp, clamp );
 		rotate_transform.localEulerAngles = Vector3.up * movement_rotate;
