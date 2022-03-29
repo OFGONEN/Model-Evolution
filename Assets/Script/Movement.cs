@@ -99,8 +99,6 @@ public class Movement : MonoBehaviour
     [ Button() ]
 	public void MovingAnimation()
 	{
-		animation_sequence.Kill();
-
 		var sequence = animation_sequence.Recycle();
 
 		sequence.Append( animation_transform.DOLocalMoveY(
@@ -123,7 +121,7 @@ public class Movement : MonoBehaviour
 		var sequence = animation_sequence.Recycle();
 
 		var positionUp = anim_evolve_position_up.ReturnRandomOffset( anim_evolve_position_offset );
-		var durationUp = ( positionUp - transform.localPosition.y ) * anim_evolve_duration_up / positionUp;
+		var durationUp = Mathf.Abs( positionUp - animation_transform.localPosition.y ) * anim_evolve_duration_up / positionUp;
 
 		sequence.Append( animation_transform.DOLocalMoveY(
 			positionUp,
