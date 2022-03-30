@@ -116,7 +116,6 @@ public class Movement : MonoBehaviour
 	{
 		if( !canDoMovementAnimation ) return;
 
-		doingEvolveAnimation = false;
 		var sequence = animation_sequence.Recycle();
 
 		sequence.Append( animation_transform.DOLocalMoveY(
@@ -157,7 +156,10 @@ public class Movement : MonoBehaviour
 		sequence.AppendInterval( anim_evolve_duration_down_wait );
 
 		if( canDoMovementAnimation )
-			sequence.OnComplete( MovingAnimation );
+			sequence.OnComplete( () => {
+				doingEvolveAnimation = false;
+				MovingAnimation();
+			} );
 		else
 			sequence.OnComplete( () => doingEvolveAnimation = false );
 	}
