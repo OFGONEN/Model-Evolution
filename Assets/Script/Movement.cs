@@ -39,6 +39,8 @@ public class Movement : MonoBehaviour
 	private Tween movement_tween;
     private UnityMessage movement_delegate_lateral;
 	private float movement_rotate;
+	private bool canDoMovementAnimation = true;
+	private bool doingEvolveAnimation = false;
 
 	// Recycled
 	private RecycledSequence animation_sequence = new RecycledSequence();
@@ -83,12 +85,25 @@ public class Movement : MonoBehaviour
     {
 		FFLogger.Log( "Speed Up: " + GameSettings.Instance.IncreaseSpeedCofactor , this );
 		movement_tween.timeScale = GameSettings.Instance.IncreaseSpeedCofactor;
+
+		canDoMovementAnimation = false;
+		if( !doingEvolveAnimation ) 
+		{
+			animation_sequence.Kill();
+
+			animation_transform.DOLocalMoveY(
+				anim_moving_position_down.ReturnRandomOffset( anim_moving_position_offset ),
+				anim_moving_speed ).SetSpeedBased();
+		}
 	}
 
     public void DefaultSpeed()
     {
 		FFLogger.Log( "Speed Down", this );
 		movement_tween.timeScale = 1f;
+		canDoMovementAnimation = true;
+
+		if( !doingEvolveAnimation ) MovingAnimation();
 	}
 
     public void StopPath()
@@ -99,6 +114,8 @@ public class Movement : MonoBehaviour
     [ Button() ]
 	public void MovingAnimation()
 	{
+		if( !canDoMovementAnimation ) return;
+
 		var sequence = animation_sequence.Recycle();
 
 		sequence.Append( animation_transform.DOLocalMoveY(
@@ -117,6 +134,7 @@ public class Movement : MonoBehaviour
 	public void EvolveAnimation()
 	{
 		animation_sequence.Kill();
+		doingEvolveAnimation = true;
 
 		var sequence = animation_sequence.Recycle();
 
@@ -137,7 +155,13 @@ public class Movement : MonoBehaviour
 		sequence.Append( animation_transform.DOLocalMoveY( 0, anim_evolve_duration_down ).SetEase( anim_evolve_ease_down ) );
 		sequence.AppendInterval( anim_evolve_duration_down_wait );
 
-		sequence.OnComplete( MovingAnimation );
+		if( canDoMovementAnimation )
+			sequence.OnComplete( () => {
+				doingEvolveAnimation = false;
+				MovingAnimation();
+			} );
+		else
+			sequence.OnComplete( () => doingEvolveAnimation = false );
 	}
 
 	public Tween OnFinishLine()

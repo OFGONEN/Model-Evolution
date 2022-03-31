@@ -55,15 +55,15 @@ MonoBehaviour:
   animation_transform: {fileID: 5220861811305579851}
   notifier_modelTransform: {fileID: 11400000, guid: e901475c439de4e6482148304636428d, type: 2}
   notifier_clothTransform: {fileID: 11400000, guid: 1bcf974a8739942a78d7debe752d9962, type: 2}
-  anim_moving_position_up: 0.7
+  anim_moving_position_up: 0.4
   anim_moving_position_down: 0.1
   anim_moving_position_offset: 0.1
   anim_moving_speed: 0.8
   anim_moving_ease: 010000000300000002000000
-  anim_evolve_position_up: 1.2
+  anim_evolve_position_up: 0.6
   anim_evolve_position_offset: 0.1
   anim_evolve_duration_up: 0.6
-  anim_evolve_duration_down: 0.7
+  anim_evolve_duration_down: 0.5
   anim_evolve_duration_down_wait: 0.2
   anim_evolve_ease_up: 1
   anim_evolve_ease_down: 1
