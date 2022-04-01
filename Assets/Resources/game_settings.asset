@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useRemoteConfig_GameSettings: 0
   useRemoteConfig_Components: 0
-  maxLevelCount: 6
+  maxLevelCount: 18
   ui_Entity_Move_TweenDuration: 0.5
   ui_Entity_Fade_TweenDuration: 0.5
   ui_Entity_Scale_TweenDuration: 0.5

@@ -22,21 +22,15 @@ MonoBehaviour:
     evolve_dress_time: 1700
     evolve_dress_color: {r: 0.5377358, g: 0.5377358, b: 0.5377358, a: 1}
   cloth_time_min: 1910
-  cloth_time_max: 2030
+  cloth_time_max: 1960
   cloth_rotate_clamp: 40
   cloth_evolve_datas:
   - evolve_dress_data: {fileID: 11400000, guid: d91a5d51fafbc2649a01c9a197b29b39, type: 2}
-    evolve_dress_time: 1930
+    evolve_dress_time: 1920
     evolve_dress_color: {r: 1, g: 0.913718, b: 0, a: 1}
   - evolve_dress_data: {fileID: 11400000, guid: 470efa38fd6c93b4ebd040c962164714, type: 2}
     evolve_dress_time: 1940
     evolve_dress_color: {r: 0.6263746, g: 1, b: 0.23137254, a: 1}
   - evolve_dress_data: {fileID: 11400000, guid: 7cbecda0faf87c44fa50e09b00fe78e6, type: 2}
-    evolve_dress_time: 1960
+    evolve_dress_time: 1950
     evolve_dress_color: {r: 0.10792893, g: 0.5943396, b: 0.036445368, a: 1}
-  - evolve_dress_data: {fileID: 11400000, guid: b76066f0bd8d4944586a3e2b9124d676, type: 2}
-    evolve_dress_time: 1980
-    evolve_dress_color: {r: 0.3726415, g: 0.3726415, b: 1, a: 1}
-  - evolve_dress_data: {fileID: 11400000, guid: b767f50465b3e374687723c957ce4ce8, type: 2}
-    evolve_dress_time: 2020
-    evolve_dress_color: {r: 0.11701012, g: 0, b: 1, a: 1}

@@ -251,13 +251,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4380831613729426878, guid: 336baf8c017f8ec479e87ac6020bb83b, type: 3}
       propertyPath: m_text
-      value: '+5
+      value: '+1
 
         years'
       objectReference: {fileID: 0}
     - target: {fileID: 4957353247955912156, guid: 336baf8c017f8ec479e87ac6020bb83b, type: 3}
       propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 336baf8c017f8ec479e87ac6020bb83b, type: 3}
@@ -387,11 +387,11 @@ PrefabInstance:
       propertyPath: m_text
       value: '+15
 
-        years'
+        weeks'
       objectReference: {fileID: 0}
     - target: {fileID: 4957353247955912156, guid: 336baf8c017f8ec479e87ac6020bb83b, type: 3}
       propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
-      value: 15
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 336baf8c017f8ec479e87ac6020bb83b, type: 3}
@@ -739,13 +739,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4380831613729426878, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
       propertyPath: m_text
-      value: '-10
+      value: '-1000
 
         days'
       objectReference: {fileID: 0}
     - target: {fileID: 4957353247955912156, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
       propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
@@ -1307,13 +1307,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4380831613729426878, guid: 336baf8c017f8ec479e87ac6020bb83b, type: 3}
       propertyPath: m_text
-      value: '+22
+      value: '+2
 
         years'
       objectReference: {fileID: 0}
     - target: {fileID: 4957353247955912156, guid: 336baf8c017f8ec479e87ac6020bb83b, type: 3}
       propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
-      value: 22
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 336baf8c017f8ec479e87ac6020bb83b, type: 3}
@@ -1512,13 +1512,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4380831613729426878, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
       propertyPath: m_text
-      value: '-52
+      value: '-520
 
         weeks'
       objectReference: {fileID: 0}
     - target: {fileID: 4957353247955912156, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
       propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
-      value: 1
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
@@ -2091,6 +2091,73 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1751748635
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3921494341221399706, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
+      propertyPath: m_Name
+      value: door_base_subtract_15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3922598539208934776, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
+      propertyPath: m_RootOrder
+      value: 41
+      objectReference: {fileID: 0}
+    - target: {fileID: 3922598539208934776, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.77
+      objectReference: {fileID: 0}
+    - target: {fileID: 3922598539208934776, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3922598539208934776, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3922598539208934776, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3922598539208934776, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3922598539208934776, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3922598539208934776, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3922598539208934776, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3922598539208934776, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3922598539208934776, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4380831613729426878, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
+      propertyPath: m_text
+      value: '-520
+
+        weeks'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4957353247955912156, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 10
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2a3613d3d5a3748d5bf3b57afa16548d, type: 3}
 --- !u!1 &1778858409
 GameObject:
   m_ObjectHideFlags: 0
@@ -2314,11 +2381,11 @@ PrefabInstance:
       propertyPath: m_text
       value: '+13
 
-        years'
+        days'
       objectReference: {fileID: 0}
     - target: {fileID: 4957353247955912156, guid: 336baf8c017f8ec479e87ac6020bb83b, type: 3}
       propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
-      value: 13
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 336baf8c017f8ec479e87ac6020bb83b, type: 3}

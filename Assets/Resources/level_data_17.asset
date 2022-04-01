@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ea3c0b9fd00fd441b6cebc5941ee13b, type: 3}
+  m_Name: level_data_17
+  m_EditorClassIdentifier: 
+  scene_index: 18
+  scene_overrideAsActiveScene: 0
+  cloth_start_clean: 0
+  cloth_pose: pose_7
+  cloth_start_special: 1
+  cloth_start_cloth:
+    evolve_dress_data: {fileID: 11400000, guid: 12e06a0d43b024fa8a75b4cc53038a13, type: 2}
+    evolve_dress_time: 1300
+    evolve_dress_color: {r: 0.5496618, g: 0.5496618, b: 0.6037736, a: 1}
+  cloth_time_min: 1920
+  cloth_time_max: 2000
+  cloth_rotate_clamp: 75
+  cloth_evolve_datas:
+  - evolve_dress_data: {fileID: 11400000, guid: 285a1bddb00f9f146b6f846120b2e3e5, type: 2}
+    evolve_dress_time: 1940
+    evolve_dress_color: {r: 0, g: 1, b: 0.054581404, a: 1}
+  - evolve_dress_data: {fileID: 11400000, guid: 2ae0669fd809b4b4aac19c902819181b, type: 2}
+    evolve_dress_time: 1960
+    evolve_dress_color: {r: 0.03938234, g: 0.5566038, b: 0.1047833, a: 1}
+  - evolve_dress_data: {fileID: 11400000, guid: b64fd17f0f43e20498d9b297508c2f21, type: 2}
+    evolve_dress_time: 1970
+    evolve_dress_color: {r: 0, g: 0.6976142, b: 1, a: 1}
+  - evolve_dress_data: {fileID: 11400000, guid: 0fc683fa30f75ec49b47cc3339b3722e, type: 2}
+    evolve_dress_time: 1980
+    evolve_dress_color: {r: 0, g: 0, b: 1, a: 1}
+  - evolve_dress_data: {fileID: 11400000, guid: 213c877aaed277e41829e2dafdf174e4, type: 2}
+    evolve_dress_time: 2000
+    evolve_dress_color: {r: 1, g: 0, b: 0.9258976, a: 1}
